@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const config = require('../config')
 
-const MONGO_HOST = process.env.MONGO_URL || 'mongodb://127.0.0.1/pineapples'
+const MONGO_HOST = process.env.MONGO_URL || config.get('db').uri
 
 mongoose.connect(MONGO_HOST, {
   server: { poolSize: 5 },
