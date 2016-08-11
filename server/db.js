@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const config = require('../config')
+const config = require('./shared/config')
 
 const MONGO_HOST = process.env.MONGO_URL || config.get('db').uri
 

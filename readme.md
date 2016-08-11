@@ -6,8 +6,14 @@
 
 ### Setup
 
+#### Local dependencies
 ```
 npm i
+```
+
+#### Redis
+```
+docker run -p 6379:6379 --name local-redis -d redis
 ```
 
 ### Develop

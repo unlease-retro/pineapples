@@ -2,10 +2,21 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const favicon = require('serve-favicon')
+const passwordless = require('./shared/util/passwordless')
+const expressSession = require('express-session');
+const RedisStore = require('connect-redis')(expressSession)
+
+const config = require('./shared/config')
 const routes = require('./routes')
 
 // database
 const database = require('./db')
+
+// setup redis
+const redisStore = new RedisStore({
+  host: config.get('redis').host,
+  port: config.get('redis').port
+})
 
 // setup express
 const app = express()
@@ -26,6 +37,10 @@ app.engine('jsx', require('express-react-views').createEngine())
 // parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// passwordless
+app.use(expressSession({ secret: '42', saveUninitialized: false, resave: false, store: redisStore }))
+passwordless(app)
 
 // routes
 app.use('/', routes)
