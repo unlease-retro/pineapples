@@ -6,7 +6,7 @@ const View = (props) => {
   return (
     <Layout title={'Pineapples'}>
 
-      <div id='root'>Pineapples!</div>
+      <div id='root'></div>
 
     </Layout>
   )
