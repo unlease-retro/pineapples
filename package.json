@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/unlease-development/pineapples#readme",
   "dependencies": {
+    "aphrodite": "^0.5.0",
     "body-parser": "^1.15.2",
     "configstore": "^2.0.0",
     "express": "^4.14.0",
