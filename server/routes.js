@@ -1,9 +1,10 @@
 const express = require('express')
-
-// TODO - API routes `api/`
-
 const router = express.Router()
 
+// domains
+const Pineapple = require('./pineapple')
+
+// app
 router.get('/', (req, res, next) => {
 
   res.render('')
@@ -11,5 +12,8 @@ router.get('/', (req, res, next) => {
   next()
 
 })
+
+// API
+router.use(`api/${Pineapple.name}`, Pineapple.routes)
 
 module.exports = router
