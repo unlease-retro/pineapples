@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import * as actions from './actions'
-import * as Components from './components'
+// import * as Components from './components'
 import * as selectors from './selectors'
 
 export class Dashboard extends Component {
 
   componentWillMount() {
 
-    console.log('Dashboard :: componentWillMount')
+    // console.log('Dashboard :: componentWillMount')
 
   }
 

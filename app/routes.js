@@ -7,8 +7,8 @@ import NotFound from './shared/containers/NotFound'
 import * as Dashboard from './dashboard'
 
 module.exports = (
-  <Route path="/" component={App}>
+  <Route path='/' component={App}>
     <IndexRoute component={Dashboard.Container} />
-    <Route path="*" component={NotFound} />
+    <Route path='*' component={NotFound} />
   </Route>
 )

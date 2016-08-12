@@ -27,7 +27,7 @@ const finalCreateStore = compose(
 const persistState = Storage.getItem(STATE_KEY) || {}
 const initialState = Immutable.fromJS(persistState)
 
-export default function configureStore(state = initialState) {
+export default function configureStore() {
 
   const store = finalCreateStore(rootReducer, initialState)
 
