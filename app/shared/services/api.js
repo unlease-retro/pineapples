@@ -1,3 +1,7 @@
+/**
+  * @desc API service - provides an interface to common API methods
+*/
+
 import 'whatwg-fetch'
 import { API } from '../constants'
 
