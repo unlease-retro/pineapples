@@ -1,7 +1,5 @@
 const routes = require('./routes')
-const constants = require('./constants')
-
-const name = constants.name
+const { name } = require('./constants')
 
 module.exports = {
   routes,
