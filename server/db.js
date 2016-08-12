@@ -5,7 +5,8 @@ const MONGO_HOST = process.env.MONGO_URL || config.get('db').uri
 
 mongoose.connect(MONGO_HOST, {
   server: { poolSize: 5 },
-  db: { native_parser: true }
+  db: { native_parser: true },
+  config: { autoIndex: false }
 })
 
 // use native promises
