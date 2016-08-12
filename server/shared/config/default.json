@@ -7,11 +7,16 @@
     "password": "phacdatbiach1",
     "smtp": "smtp.gmail.com"
   },
+  "origins": [
+    "https://www.unlease.io"
+  ],
+  "payment": {
+    "stripe": {
+      "pubKey": "pk_test_mwzb2rLRvI8ONGhjTXEJRsKC"
+    }
+  },
   "redis": {
     "port": 6379,
     "host": "192.168.99.100"
-  },
-  "origins": [
-    "https://www.unlease.io"
-  ]
+  }
 }
