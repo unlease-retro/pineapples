@@ -6,9 +6,9 @@ exports.read = (req, res, next) => {
   const id = req.params.id
 
   return Settings.read(id)
-    .then( depot => {
+    .then( settings => {
 
-      res.json({ depot })
+      res.json({ settings })
 
       return next()
 
@@ -21,9 +21,9 @@ exports.update = (req, res, next) => {
   const id = req.params.id
 
   return Settings.update(id, req.body)
-    .then( depot => {
+    .then( settings => {
 
-      res.json({ depot })
+      res.json({ settings })
 
       return next()
 
