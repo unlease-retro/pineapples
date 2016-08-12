@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const favicon = require('serve-favicon')
 const passwordless = require('./shared/util/passwordless')
 const expressSession = require('express-session');
@@ -41,6 +42,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // passwordless
 app.use(expressSession({ secret: '42', saveUninitialized: false, resave: false, store: redisStore }))
 passwordless(app)
+
+// cors
+app.use(cors({ origin: config.get('origins') }))
 
 // routes
 app.use('/', routes)

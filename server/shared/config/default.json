@@ -10,5 +10,8 @@
   "redis": {
     "port": 6379,
     "host": "192.168.99.100"
-  }
+  },
+  "origins": [
+    "https://www.unlease.io"
+  ]
 }
