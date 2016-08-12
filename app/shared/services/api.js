@@ -32,3 +32,16 @@ export function put(route, data) {
   })
 
 }
+
+export function remove(route, data) {
+
+  return fetch(`${API}/${route}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+}
