@@ -27,7 +27,7 @@ const PORT = process.env.PORT || 8000
 app.use(express.static(path.join(__dirname, '../public')))
 
 // favicon
-app.use(favicon(path.join(__dirname, '../public/favicon.png')))
+app.use(favicon(path.join(__dirname, '../public/favicon.ico')))
 
 // views
 app.set('views', path.join(__dirname, 'shared/views'))
