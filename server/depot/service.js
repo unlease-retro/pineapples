@@ -24,7 +24,7 @@ exports.nearestTo = ({ centroid: [lat, lng] }) => {
     location: {
       $near: {
         $geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: [lng, lat]
         },
       }

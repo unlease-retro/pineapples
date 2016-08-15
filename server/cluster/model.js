@@ -21,8 +21,7 @@ const Cluster = new Schema({
       deliveredTs: Date
     }
   ]
-},
-{
+}, {
   timestamps: true
 })
 

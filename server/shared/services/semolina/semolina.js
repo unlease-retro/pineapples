@@ -54,7 +54,9 @@ function eatSemolina(items, clusterLimit) {
 }
 
 function makeNewClusterWithItem(startingItem) {
+
   return new Cluster(startingItem)
+
 }
 
 const clusterize = eatSemolina

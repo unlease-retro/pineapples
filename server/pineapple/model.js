@@ -26,8 +26,7 @@ const Pineapple = new Schema({
   deliveredAt: Date,
   deliveredTs: Date,
   createdAt: { type: Date, index: true }
-},
-{
+}, {
   timestamps: true
 })
 Pineapple.index({location:'2dsphere'})

@@ -4,12 +4,14 @@
 const centroid = require('turf-centroid')
 
 const deg2rad = (deg) => {
+
   return deg * (Math.PI/180)
+
 }
 
 const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2)=> {
 
-  const R = 6371; // Radius of the earth in km
+  const R = 6371 // Radius of the earth in km
   const dLat = deg2rad(lat2-lat1)  // deg2rad below
   const dLon = deg2rad(lon2-lon1)
   const a =
@@ -21,14 +23,19 @@ const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2)=> {
   const d = R * c // Distance in km
 
   return d
+
 }
 
 const extractGeoLocPoint = (item) => {
+
   return [item.location.coordinates[1], item.location.coordinates[0]]
+
 }
 
 const mapItemToPoint = (item) => {
+
   return extractGeoLocPoint(item)
+
 }
 
 module.exports = {
@@ -38,15 +45,15 @@ module.exports = {
   getCentroid :  (arr) => {
 
     var poly = {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [arr]
+      'type': 'Feature',
+      'properties': {},
+      'geometry': {
+        'type': 'Polygon',
+        'coordinates': [arr]
       }
     }
 
-    if(arr.length === 1)
+    if (arr.length === 1)
       return arr[0]
 
     return centroid(poly).geometry.coordinates

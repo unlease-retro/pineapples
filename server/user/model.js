@@ -10,8 +10,7 @@ const User = new Schema({
   role: String,
   email: { type: String, required: true, unique: true, index: true },
   phone: String
-},
-{
+}, {
   timestamps: true
 })
 

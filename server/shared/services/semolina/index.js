@@ -34,7 +34,9 @@ const semolina = () => {
 
       // auto allocate to nearest depot based on cluster center
       clusters.forEach((cluster, i)=> {
+
         cluster.depot = depots[i].name
+
       })
 
       return true
