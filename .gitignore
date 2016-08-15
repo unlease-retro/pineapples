@@ -21,3 +21,7 @@ node_modules/
 ######################
 public/**/*.js
 public/**/*.map
+
+# Editors #
+######################
+.idea
