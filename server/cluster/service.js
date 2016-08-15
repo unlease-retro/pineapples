@@ -23,3 +23,9 @@ exports.remove = (id) => {
   return Cluster.remove({ id })
 
 }
+
+exports.removeAll = () => {
+
+  return Cluster.remove({})
+
+}
