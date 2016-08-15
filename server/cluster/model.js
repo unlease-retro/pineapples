@@ -11,7 +11,7 @@ const Cluster = new Schema({
   writer: String,
   centroid: [Number],
   currentLocation: [Number],
-  deliverable: { type: Boolean, index: true },
+  deliverable: { type: Boolean, default: false, index: true },
   startedAt: Date,
   items: [
     {

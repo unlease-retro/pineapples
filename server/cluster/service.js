@@ -1,8 +1,8 @@
 const Cluster = require('./model')
 
-exports.create = (id, props) => {
+exports.create = (props) => {
 
-  return Cluster.create(Object.assign({}, id, props))
+  return Cluster.create(Object.assign({}, props))
 
 }
 

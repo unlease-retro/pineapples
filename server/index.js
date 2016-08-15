@@ -50,7 +50,7 @@ app.use(cors({ origin: config.get('origins') }))
 app.use('/', routes)
 
 // error handling
-app.use( (err, req, res) => {
+app.use( (err, req, res, next) => {
 
   console.error(err.stack)
   res.status(500).send(err.message)
