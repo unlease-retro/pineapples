@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const { collection } = require('./constants')
+
 const Schema = mongoose.Schema
 
 const Pineapple = new Schema({
@@ -29,4 +31,4 @@ const Pineapple = new Schema({
   timestamps: true
 })
 
-module.exports = Pineapple
+module.exports = mongoose.model(collection, Pineapple)

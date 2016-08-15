@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const { collection } = require('./constants')
+
 const Schema = mongoose.Schema
 
 const Settings = new Schema({
@@ -12,4 +14,4 @@ const Settings = new Schema({
   timestamps: true
 })
 
-module.exports = Settings
+module.exports = mongoose.model(collection, Settings)

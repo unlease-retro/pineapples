@@ -1,9 +1,4 @@
-const mongoose = require('mongoose')
-
-const schema = require('./model')
-const { collection } = require('./constants')
-
-const Cluster = mongoose.model(collection, schema)
+const Cluster = require('./model')
 
 exports.create = (id, props) => {
 

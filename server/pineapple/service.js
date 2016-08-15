@@ -1,9 +1,4 @@
-const mongoose = require('mongoose')
-
-const schema = require('./model')
-const { collection } = require('./constants')
-
-const Pineapple = mongoose.model(collection, schema)
+const Pineapple = require('./model')
 
 exports.create = (id, props) => {
 

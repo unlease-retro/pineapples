@@ -1,9 +1,4 @@
-const mongoose = require('mongoose')
-
-const schema = require('./model')
-const { collection } = require('./constants')
-
-const Settings = mongoose.model(collection, schema)
+const Settings = require('./model')
 
 exports.read = (id) => {
 

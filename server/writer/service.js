@@ -1,9 +1,4 @@
-const mongoose = require('mongoose')
-
-const schema = require('./model')
-const { collection } = require('./constants')
-
-const Writer = mongoose.model(collection, schema)
+const Writer = require('./model')
 
 exports.create = (id, props) => {
 

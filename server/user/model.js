@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const { collection } = require('./constants')
+
 const Schema = mongoose.Schema
 
 const User = new Schema({
@@ -13,4 +15,4 @@ const User = new Schema({
   timestamps: true
 })
 
-module.exports = User
+module.exports = mongoose.model(collection, User)
