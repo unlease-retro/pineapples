@@ -6,6 +6,7 @@ const ClusterService = require('../../../cluster/service')
 const PineappleService = require('../../../pineapple/service')
 const clusterize = require('./semolina')
 const SettingsService = require('../../../settings/service')
+const DepotService = require('../../../depot/service')
 
 const semolina = () => {
 
@@ -19,11 +20,28 @@ const semolina = () => {
 
     const clusters = clusterize(pineapples, clusterLimit)
 
-    return true
+    const promises = []
+
+    clusters.map(cluster => {
+
+      promises.push(
+        DepotService.nearestTo(cluster)
+      )
+
+    })
+
+    return Promise.all(promises).then(depots => {
+
+      // auto allocate to nearest depot based on cluster center
+      clusters.forEach((cluster, i)=> {
+        cluster.depot = depots[i].name
+      })
+
+      return true
+
+    })
 
   })
-
-  // auto allocate to nearest depot based on cluster center
 
   // insert cluster into separate collection/document (with unique and user friendly id)
 
