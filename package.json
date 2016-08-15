@@ -74,6 +74,7 @@
     "redux-logger": "^2.6.1",
     "reselect": "^2.5.3",
     "serve-favicon": "^2.3.0",
+    "turf-centroid": "^3.0.12",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

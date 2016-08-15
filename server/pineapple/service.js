@@ -18,9 +18,7 @@ exports.update = (id, props) => {
 
 }
 
-exports.list = (filter) => {
-
-  // TODO
+exports.list = (filter = {}) => {
 
   return Pineapple.find(filter)
 
