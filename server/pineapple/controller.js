@@ -50,8 +50,7 @@ exports.update = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  // TODO
-  const filter = {}
+  const { filter } = req.body
 
   return Pineapple.list(filter)
     .then( pineapples => {
