@@ -10,6 +10,7 @@ class Cluster {
     const startingPoint = Helper.extractGeoLocPoint(startingItem)
     this.centroid = startingPoint
     this.items = [startingItem]
+    this.priority = startingItem.createdAt.getTime()
 
   }
 
@@ -23,6 +24,8 @@ class Cluster {
       this.items.push(nearestItem)
 
       this.centroid = Helper.getCentroid(Helper.mapItemsToPoints(this.items))
+
+      this.priority += nearestItem.createdAt.getTime()
 
     }
 
