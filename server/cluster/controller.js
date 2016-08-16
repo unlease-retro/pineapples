@@ -1,5 +1,6 @@
 const Cluster = require('./service')
 const Semolina = require('../shared/services/semolina')
+const SettingsService = require('../settings/service')
 
 exports.create = (req, res, next) => {
 
@@ -63,7 +64,14 @@ exports.remove = (req, res, next) => {
 
 exports.generate = (req, res, next) => {
 
-  return Semolina()
+  return SettingsService.list()
+    .then( ( [{dailyLimit}] ) => {
+
+      const limit = req.params.limit || dailyLimit
+
+      return Semolina(limit)
+
+    })
     .then( clusters => {
 
       res.json({clusters})

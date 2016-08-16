@@ -10,13 +10,16 @@ const DepotService = require('../../../depot/service')
 
 const clusterize = require('./semolina')
 
-const semolina = () => {
+const semolina = (dailyLimit) => {
 
   // clear existing clusters data before insert
   return ClusterService.removeAll().then(() => {
 
     // run auto clustering
-    return Promise.all([SettingsService.list(), PineappleService.list({delivered: false})])
+    return Promise.all([
+      SettingsService.list(),
+      PineappleService.list({delivered: false}, dailyLimit)
+    ])
 
   }).then(([ [{clusterLimit}], pineapples ]) => {
 

@@ -18,8 +18,8 @@ exports.update = (id, props) => {
 
 }
 
-exports.list = (filter = {}) => {
+exports.list = (filter = {}, limit = 0) => {
 
-  return Pineapple.find(filter)
+  return Pineapple.find(filter).limit(limit).sort({createdAt: 'asc'})
 
 }
