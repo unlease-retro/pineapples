@@ -6,7 +6,7 @@ exports.create = (id, props) => {
 
 }
 
-exports.read = (id) => {
+exports.read = id => {
 
   return Pineapple.findOne({ id })
 
@@ -21,5 +21,11 @@ exports.update = (id, props) => {
 exports.list = (filter = {}, limit = 0) => {
 
   return Pineapple.find(filter).limit(limit).sort({createdAt: 'asc'})
+
+}
+
+exports.track = trackingId => {
+
+  return Pineapple.findOne({ trackingId })
 
 }

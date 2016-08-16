@@ -50,13 +50,27 @@ exports.update = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  // TODO
-  const filter = {}
+  const { filter } = req.body
 
   return Pineapple.list(filter)
     .then( pineapples => {
 
       res.json({ pineapples })
+
+      return next()
+
+    }, e => next(e) )
+
+}
+
+exports.track = (req, res, next) => {
+
+  const id = req.params.id
+
+  return Pineapple.track(id)
+    .then( pineapple => {
+
+      res.json({ pineapple })
 
       return next()
 
