@@ -32,6 +32,6 @@ exports.removeAll = () => {
 
 exports.list = (filter = {}) => {
 
-  return Cluster.find({ filter })
+  return Cluster.find(filter)
 
 }

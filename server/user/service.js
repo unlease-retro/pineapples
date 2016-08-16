@@ -23,3 +23,9 @@ exports.remove = (id) => {
   return User.remove({ id })
 
 }
+
+exports.list = (filter = {}) => {
+
+  return User.find(filter)
+
+}

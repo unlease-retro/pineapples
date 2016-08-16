@@ -62,3 +62,18 @@ exports.remove = (req, res, next) => {
     }, e => next(e) )
 
 }
+
+exports.list = (req, res, next) => {
+
+  const { filter } = req.body
+
+  return User.list(filter)
+    .then( users => {
+
+      res.json({ users })
+
+      return next()
+
+    }, e => next(e) )
+
+}
