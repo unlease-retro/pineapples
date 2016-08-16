@@ -63,3 +63,18 @@ exports.list = (req, res, next) => {
     }, e => next(e) )
 
 }
+
+exports.track = (req, res, next) => {
+
+  const id = req.params.id
+
+  return Pineapple.track(id)
+    .then( pineapple => {
+
+      res.json({ pineapple })
+
+      return next()
+
+    }, e => next(e) )
+
+}
