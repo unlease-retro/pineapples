@@ -30,7 +30,7 @@
     }
   },
   "scripts": {
-    "lint": "eslint --config config/.eslintrc.js app/",
+    "lint": "eslint --config config/.eslintrc.js app/ server/",
     "start": "per-env",
     "start:development": "webpack --watch --config config/webpack.config.dev.js & NODE_ENV=development nodemon server -w server -w public",
     "start:production": "node server",

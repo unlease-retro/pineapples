@@ -49,6 +49,7 @@ app.use(cors({ origin: config.get('origins') }))
 // routes
 app.use('/', routes)
 
+/* eslint-disable no-unused-vars */
 // error handling
 app.use( (err, req, res, next) => {
 
@@ -56,6 +57,7 @@ app.use( (err, req, res, next) => {
   res.status(500).send(err.message)
 
 })
+/* eslint-enable no-unused-vars */
 
 // server
 const server = app.listen(PORT, HOST, () => {

@@ -86,6 +86,6 @@ exports.rider = (req, res, next) => {
 
   // TODO - get cluster by riderId (req.params.id)
 
-  return true
+  return next()
 
 }
