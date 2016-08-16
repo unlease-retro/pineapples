@@ -29,3 +29,9 @@ exports.removeAll = () => {
   return Cluster.remove({})
 
 }
+
+exports.list = (filter = {}) => {
+
+  return Cluster.find({ filter })
+
+}
