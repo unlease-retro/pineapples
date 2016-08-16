@@ -1,13 +1,13 @@
 const Settings = require('./model')
 
-exports.list = () => {
+exports.read = () => {
 
   return Settings.find({})
 
 }
 
-exports.update = (id, props) => {
+exports.update = props => {
 
-  return Settings.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return Settings.findOneAndUpdate({}, Object.assign({}, props), { new: true })
 
 }

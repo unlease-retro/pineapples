@@ -2,10 +2,8 @@ const Settings = require('./service')
 
 exports.read = (req, res, next) => {
 
-  const id = req.params.id
-
-  return Settings.read(id)
-    .then( settings => {
+  return Settings.read()
+    .then( ([ settings ]) => {
 
       res.json({ settings })
 
@@ -17,9 +15,7 @@ exports.read = (req, res, next) => {
 
 exports.update = (req, res, next) => {
 
-  const id = req.params.id
-
-  return Settings.update(id, req.body)
+  return Settings.update(req.body)
     .then( settings => {
 
       res.json({ settings })
