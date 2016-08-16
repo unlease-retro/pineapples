@@ -1,4 +1,3 @@
-const uuid = require('node-uuid')
 const Settings = require('./service')
 
 exports.read = (req, res, next) => {

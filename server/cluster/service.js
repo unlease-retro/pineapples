@@ -1,8 +1,8 @@
 const Cluster = require('./model')
 
-exports.create = (id, props) => {
+exports.create = (props) => {
 
-  return Cluster.create(Object.assign({}, id, props))
+  return Cluster.create(Object.assign({}, props))
 
 }
 
@@ -21,5 +21,11 @@ exports.update = (id, props) => {
 exports.remove = (id) => {
 
   return Cluster.remove({ id })
+
+}
+
+exports.removeAll = () => {
+
+  return Cluster.remove({})
 
 }

@@ -26,9 +26,9 @@ module.exports = (app) => {
         from: config.get('mailer').user,
         to: recipient,
         subject: `Token for ${host}`
-      }, (err, message) => {
+      }, (err) => {
 
-        if(err) console.error(err)
+        if (err) console.error(err)
 
         callback(err)
 

@@ -15,10 +15,10 @@ const Pineapple = new Schema({
   message: String,
   senderEmail: { type: String, index: true },
   stripeChargeId: String,
-  trackingId: { type: String, unique: true, index: true },
+  trackingId: { type: String, unique: true, sparse: true },
   location: {
     type: { type: String, default: 'Point' },
-    coordinates: { type: [Number], required: true, index: '2dsphere' }
+    coordinates: { type: [Number], required: true }
   },
   geohash: String,
   dispatched: { type: Boolean, index: true },
@@ -26,9 +26,8 @@ const Pineapple = new Schema({
   deliveredAt: Date,
   deliveredTs: Date,
   createdAt: { type: Date, index: true }
-},
-{
+}, {
   timestamps: true
 })
-
+Pineapple.index({location:'2dsphere'})
 module.exports = mongoose.model(collection, Pineapple)

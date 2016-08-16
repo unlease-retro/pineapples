@@ -1,12 +1,10 @@
-const uuid = require('node-uuid')
 const Cluster = require('./service')
 const Semolina = require('../shared/services/semolina')
+const SettingsService = require('../settings/service')
 
 exports.create = (req, res, next) => {
 
-  const id = uuid.v4()
-
-  return Cluster.create(id, req.body)
+  return Cluster.create(req.body)
     .then( cluster => {
 
       res.json({ cluster })
@@ -66,12 +64,17 @@ exports.remove = (req, res, next) => {
 
 exports.generate = (req, res, next) => {
 
-  return Semolina()
+  return SettingsService.list()
+    .then( ( [{dailyLimit}] ) => {
+
+      const limit = req.params.limit || dailyLimit
+
+      return Semolina(limit)
+
+    })
     .then( clusters => {
 
-      // TODO - clusters.map( Cluster.create(id, props) )
-
-      res.sendStatus(200)
+      res.json({clusters})
 
       return next()
 

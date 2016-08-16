@@ -4,14 +4,14 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const favicon = require('serve-favicon')
 const passwordless = require('./shared/util/passwordless')
-const expressSession = require('express-session');
+const expressSession = require('express-session')
 const RedisStore = require('connect-redis')(expressSession)
 
 const config = require('./shared/config')
 const routes = require('./routes')
 
 // database
-const database = require('./db')
+require('./db')
 
 // setup redis
 const redisStore = new RedisStore({
@@ -51,16 +51,18 @@ app.use('/', routes)
 
 // error handling
 app.use( (err, req, res, next) => {
+
   console.error(err.stack)
   res.status(500).send(err.message)
+
 })
 
 // server
 const server = app.listen(PORT, HOST, () => {
 
-    const host = server.address().address
-    const port = server.address().port
+  const host = server.address().address
+  const port = server.address().port
 
-    console.log(`🍍  Server running at http://${host}:${port}`)
+  console.log(`🍍  Server running at http://${host}:${port}`)
 
 })

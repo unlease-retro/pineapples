@@ -11,7 +11,8 @@ const Cluster = new Schema({
   writer: String,
   centroid: [Number],
   currentLocation: [Number],
-  deliverable: { type: Boolean, index: true },
+  deliverable: { type: Boolean, default: false, index: true },
+  priority: { type: Number, index: true },
   startedAt: Date,
   items: [
     {
@@ -21,8 +22,7 @@ const Cluster = new Schema({
       deliveredTs: Date
     }
   ]
-},
-{
+}, {
   timestamps: true
 })
 

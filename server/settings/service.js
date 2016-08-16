@@ -1,8 +1,8 @@
 const Settings = require('./model')
 
-exports.read = (id) => {
+exports.list = () => {
 
-  return Settings.findOne({ id })
+  return Settings.find({})
 
 }
 
