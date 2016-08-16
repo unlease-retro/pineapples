@@ -23,3 +23,9 @@ exports.remove = (id) => {
   return Writer.remove({ id })
 
 }
+
+exports.list = () => {
+
+  return Writer.find()
+
+}
