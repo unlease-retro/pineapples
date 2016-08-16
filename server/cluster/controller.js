@@ -97,7 +97,7 @@ exports.generate = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  const { filter } = req.params
+  const { filter } = req.body
 
   return Cluster.list(filter)
     .then( clusters => {
