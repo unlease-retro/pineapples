@@ -62,6 +62,19 @@ exports.remove = (req, res, next) => {
 
 }
 
+exports.removeAll = (req, res, next) => {
+
+  return Cluster.removeAll()
+    .then( () => {
+
+      res.sendStatus(200)
+
+      return next()
+
+    }, e => next(e) )
+
+}
+
 exports.generate = (req, res, next) => {
 
   return SettingsService.list()
