@@ -12,9 +12,9 @@ exports.read = (id) => {
 
 }
 
-exports.update = (id, props) => {
+exports.update = (_id, props) => {
 
-  return Cluster.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
 
 }
 
@@ -33,5 +33,23 @@ exports.removeAll = () => {
 exports.list = (filter = {}) => {
 
   return Cluster.find(filter).populate('items')
+
+}
+
+exports.complete = pineapple => {
+
+  Cluster.findOne({ items: pineapple._id }).populate('items').then( cluster => {
+
+    // have all pineapples in cluster been delivered?
+    const { delivered: isFinished } = cluster.items.reduce( (previousItem, currentItem) => {
+
+      return { delivered: (previousItem.delivered && currentItem.delivered) }
+
+    } )
+
+    // complete cluster if all pineapples delivered
+    isFinished && Cluster.findOneAndUpdate({ _id: cluster._id }, { finishedAt: new Date() }).exec()
+
+  })
 
 }

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const { collection } = require('./constants')
+const ClusterService = require('../cluster/service')
 
 const Schema = mongoose.Schema
 
@@ -29,5 +30,10 @@ const Pineapple = new Schema({
 }, {
   timestamps: true
 })
+
 Pineapple.index({location:'2dsphere'})
+
+// update cluster status if all pineapples now delivered
+Pineapple.post('findOneAndUpdate', pineapple => ClusterService.complete(pineapple))
+
 module.exports = mongoose.model(collection, Pineapple)
