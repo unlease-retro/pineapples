@@ -53,3 +53,28 @@ exports.complete = pineapple => {
   })
 
 }
+
+exports.populateRiderWithUnfinishedClusters = users => {
+
+  const ridersPromises = []
+
+  users.map( user => {
+
+    if (user.role === 'RIDER') {
+
+      // count rider's unfinished clusters
+      ridersPromises.push(Cluster.count({ rider: user._id }).where('finishedAt').exists(false).then( count => {
+
+        user.clusters = count
+
+        return Promise.resolve()
+
+      }))
+
+    }
+
+  })
+
+  return Promise.all(ridersPromises).then( () => Promise.resolve(users) )
+
+}

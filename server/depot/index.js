@@ -1,7 +1,8 @@
 const routes = require('./routes')
-const { name } = require('./constants')
+const { collection, name } = require('./constants')
 
 module.exports = {
   routes,
   name,
+  collection,
 }

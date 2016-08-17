@@ -1,5 +1,6 @@
 const uuid = require('node-uuid')
 const User = require('./service')
+const ClusterService = require('../cluster/service')
 
 exports.create = (req, res, next) => {
 
@@ -23,6 +24,7 @@ exports.read = (req, res, next) => {
   const { role, id } = req.params
 
   return User.read(role, id)
+    .then( users => ClusterService.populateRiderWithUnfinishedClusters(users) )
     .then( users => {
 
       res.json({ users })

@@ -13,7 +13,8 @@ exports.read = (role, _id) => {
   if (role !== 'any') filter.role = role.toUpperCase()
   if (_id) filter._id = _id
 
-  return User.find(filter)
+  // .lean() => convert query result (MongooseDocument) to POJO
+  return User.find(filter).lean()
 
 }
 
