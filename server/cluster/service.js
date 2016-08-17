@@ -1,4 +1,5 @@
 const Cluster = require('./model')
+const WriterService = require('../writer/service')
 
 exports.create = (props) => {
 
@@ -32,7 +33,15 @@ exports.removeAll = () => {
 
 exports.list = (filter = {}) => {
 
-  return Cluster.find(filter).populate('items')
+  return Cluster.find(filter).populate('items depot')
+
+}
+
+exports.writer = (_id, writerId) => {
+
+  return Cluster.findOneAndUpdate({ _id }, { writer: writerId }, { new: true })
+    .populate('items writer')
+    .then( WriterService.sendEmail )
 
 }
 

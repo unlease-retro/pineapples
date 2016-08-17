@@ -109,3 +109,18 @@ exports.list = (req, res, next) => {
     }, e => next(e) )
 
 }
+
+exports.writer = (req, res, next) => {
+
+  const { id, writerId } = req.params
+
+  return Cluster.writer(id, writerId)
+    .then( email => {
+
+      res.json({ email })
+
+      return next()
+
+    }, e => next(e) )
+
+}
