@@ -6,9 +6,14 @@ exports.create = (_id, props) => {
 
 }
 
-exports.read = _id => {
+exports.read = (role, _id) => {
 
-  return User.findOne({ _id })
+  const filter = {}
+
+  if (role !== 'any') filter.role = role.toUpperCase()
+  if (_id) filter._id = _id
+
+  return User.find(filter)
 
 }
 
@@ -21,11 +26,5 @@ exports.update = (_id, props) => {
 exports.remove = _id => {
 
   return User.remove({ _id })
-
-}
-
-exports.list = (filter = {}) => {
-
-  return User.find(filter)
 
 }
