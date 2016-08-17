@@ -1,15 +1,18 @@
 const mongoose = require('mongoose')
 
 const { collection } = require('./constants')
+const Depot = require('../depot')
 const Pineapple = require('../pineapple')
+const User = require('../user')
+const Writer = require('../writer')
 
 const Schema = mongoose.Schema
 
 const Cluster = new Schema({
   name: { type: String, required: true, unique: true, index: true },
-  depot: { type: String, sparse: true },
-  rider: { type: String, sparse: true },
-  writer: String,
+  depot: { type: Schema.Types.ObjectId, sparse: true, ref: Depot.collection },
+  rider: { type: Schema.Types.ObjectId, sparse: true, ref: User.collection },
+  writer: { type: Schema.Types.ObjectId, sparse: true, ref: Writer.collection },
   centroid: [Number],
   currentLocation: [Number],
   deliverable: { type: Boolean, default: false, index: true },
