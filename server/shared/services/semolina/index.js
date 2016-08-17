@@ -53,7 +53,7 @@ const semolina = (dailyLimit) => {
         names.push(name)
 
         cluster.name = name
-        cluster.depot = depots[i].name
+        cluster.depot = depots[i]._id
 
         // insert cluster into separate collection/document (with unique and user friendly id)
         ClusterService.create(cluster)

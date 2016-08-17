@@ -1,4 +1,5 @@
 const Writer = require('./model')
+const EmailService = require('../shared/services/email')
 
 exports.create = (_id, props) => {
 
@@ -27,5 +28,11 @@ exports.remove = _id => {
 exports.list = () => {
 
   return Writer.find()
+
+}
+
+exports.sendEmail = cluster => {
+
+  return EmailService.sendClusterToWriter(cluster.writer.email, cluster)
 
 }
