@@ -1,26 +1,26 @@
 const User = require('./model')
 
-exports.create = (id, props) => {
+exports.create = (_id, props) => {
 
-  return User.create(Object.assign({}, id, props))
-
-}
-
-exports.read = (id) => {
-
-  return User.findOne({ id })
+  return User.create(Object.assign({}, _id, props))
 
 }
 
-exports.update = (id, props) => {
+exports.read = _id => {
 
-  return User.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return User.findOne({ _id })
 
 }
 
-exports.remove = (id) => {
+exports.update = (_id, props) => {
 
-  return User.remove({ id })
+  return User.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
+
+}
+
+exports.remove = _id => {
+
+  return User.remove({ _id })
 
 }
 

@@ -1,20 +1,20 @@
 const Pineapple = require('./model')
 
-exports.create = (id, props) => {
+exports.create = (_id, props) => {
 
-  return Pineapple.create(Object.assign({}, id, props))
-
-}
-
-exports.read = id => {
-
-  return Pineapple.findOne({ id })
+  return Pineapple.create(Object.assign({}, _id, props))
 
 }
 
-exports.update = (id, props) => {
+exports.read = _id => {
 
-  return Pineapple.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return Pineapple.findOne({ _id })
+
+}
+
+exports.update = (_id, props) => {
+
+  return Pineapple.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
 
 }
 

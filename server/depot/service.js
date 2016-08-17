@@ -1,20 +1,20 @@
 const Depot = require('./model')
 
-exports.create = (id, props) => {
+exports.create = (_id, props) => {
 
-  return Depot.create(Object.assign({}, id, props))
-
-}
-
-exports.read = (id) => {
-
-  return Depot.findOne({ id })
+  return Depot.create(Object.assign({}, _id, props))
 
 }
 
-exports.update = (id, props) => {
+exports.read = _id => {
 
-  return Depot.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return Depot.findOne({ _id })
+
+}
+
+exports.update = (_id, props) => {
+
+  return Depot.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
 
 }
 

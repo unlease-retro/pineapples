@@ -1,26 +1,26 @@
 const Writer = require('./model')
 
-exports.create = (id, props) => {
+exports.create = (_id, props) => {
 
-  return Writer.create(Object.assign({}, id, props))
-
-}
-
-exports.read = (id) => {
-
-  return Writer.findOne({ id })
+  return Writer.create(Object.assign({}, _id, props))
 
 }
 
-exports.update = (id, props) => {
+exports.read = _id => {
 
-  return Writer.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return Writer.findOne({ _id })
 
 }
 
-exports.remove = (id) => {
+exports.update = (_id, props) => {
 
-  return Writer.remove({ id })
+  return Writer.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
+
+}
+
+exports.remove = _id => {
+
+  return Writer.remove({ _id })
 
 }
 

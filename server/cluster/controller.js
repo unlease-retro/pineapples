@@ -77,7 +77,7 @@ exports.removeAll = (req, res, next) => {
 
 exports.generate = (req, res, next) => {
 
-  return SettingsService.list()
+  return SettingsService.read()
     .then( ( [{dailyLimit}] ) => {
 
       const limit = req.params.limit || dailyLimit
