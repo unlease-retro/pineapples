@@ -6,9 +6,9 @@ exports.create = (props) => {
 
 }
 
-exports.read = (id) => {
+exports.read = _id => {
 
-  return Cluster.findOne({ id })
+  return Cluster.findOne({ _id })
 
 }
 
@@ -18,9 +18,9 @@ exports.update = (_id, props) => {
 
 }
 
-exports.remove = (id) => {
+exports.remove = _id => {
 
-  return Cluster.remove({ id })
+  return Cluster.remove({ _id })
 
 }
 
