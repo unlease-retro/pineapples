@@ -71,14 +71,18 @@ exports.populateRiderWithUnfinishedClusters = users => {
 
     if (user.role === 'RIDER') {
 
-      // count rider's unfinished clusters
-      ridersPromises.push(Cluster.count({ rider: user._id }).where('finishedAt').exists(false).then( count => {
+      // find rider's unfinished clusters
+      ridersPromises.push(Cluster.find({ rider: user._id })
+        .where('finishedAt')
+        .exists(false)
+        .populate('items')
+        .then( clusters => {
 
-        user.clusters = count
+          user.clusters = clusters
 
-        return Promise.resolve()
+          return Promise.resolve()
 
-      }))
+        }))
 
     }
 
