@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "eslint --config config/.eslintrc.js app/ server/",
     "start": "per-env",
-    "start:development": "webpack --watch --config config/webpack.config.dev.js & NODE_ENV=development nodemon server -w server -w public",
+    "start:development": "webpack --watch --config config/webpack.config.dev.js & NODE_ENV=development nodemon -w server -w public  --exec 'npm run lint && node server'",
     "start:production": "node server",
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors"
   },
@@ -90,7 +90,6 @@
     "clean-webpack-plugin": "^0.1.10",
     "eslint": "^3.2.2",
     "eslint-config-unlease": "^3.0.1",
-    "eslint-loader": "^1.5.0",
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-react": "^6.0.0",
     "nodemon": "^1.10.0",

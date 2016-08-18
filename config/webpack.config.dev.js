@@ -33,13 +33,9 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: [ 'babel?cacheDirectory', 'eslint' ]
+        loaders: [ 'babel?cacheDirectory' ]
       }
     ]
-  },
-
-  eslint: {
-    configFile: './config/.eslintrc.js'
   }
 
 }
