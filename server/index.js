@@ -2,7 +2,6 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const favicon = require('serve-favicon')
 const passwordless = require('./shared/util/passwordless')
 const expressSession = require('express-session')
 const RedisStore = require('connect-redis')(expressSession)
@@ -24,16 +23,14 @@ const app = express()
 const HOST = process.env.HOST || 'localhost'
 const PORT = process.env.PORT || 8000
 
+// env
+const isDevelopment = process.env.NODE_ENV === 'development'
+
+// construct static assets path
+const staticPath = isDevelopment ? path.join(__dirname, '../public') : './'
+
 // serve static assets
-app.use(express.static(path.join(__dirname, '../public')))
-
-// favicon
-app.use(favicon(path.join(__dirname, '../public/favicon.ico')))
-
-// views
-app.set('views', path.join(__dirname, 'shared/views'))
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
+app.use(express.static(staticPath))
 
 // parser
 app.use(bodyParser.json())
