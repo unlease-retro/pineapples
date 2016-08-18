@@ -4,7 +4,7 @@ const webpack = require('webpack')
 
 const PATHS = {
   server: path.resolve(__dirname, '../server'),
-  dist: path.resolve(__dirname, '../public'),
+  dist: path.resolve(__dirname, '../build'),
   modules: path.resolve(__dirname, '../node_modules')
 }
 

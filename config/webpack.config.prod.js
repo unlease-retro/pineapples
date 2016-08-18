@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../app'),
-  dist: path.join(__dirname, '../public')
+  dist: path.join(__dirname, '../build')
 }
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
   entry: { bundle: PATHS.src },
 
   output: {
-    path: PATHS.dist,
+    path: path.join(PATHS.dist, '/public'),
     filename: '[name]-[hash].js',
     publicPath: '/'
   },
