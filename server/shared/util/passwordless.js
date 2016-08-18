@@ -2,8 +2,7 @@ const passwordless = require('passwordless')
 const email = require('emailjs')
 const RedisStore = require('passwordless-redisstore')
 const config = require('../config')
-
-const host = config.get('host')
+const { HOST, PORT } = require('../../shared/constants')
 
 const smtpServer = email.server.connect({
   user: config.get('mailer').user,
@@ -19,6 +18,8 @@ module.exports = (app) => {
 
   passwordless.addDelivery(
     (tokenToSend, uidToSend, recipient, callback) => {
+
+      const host = `${HOST}:${PORT}`
 
       // send token
       smtpServer.send({
