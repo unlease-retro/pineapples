@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
@@ -62,6 +63,7 @@ const server = app.listen(PORT, HOST, () => {
   const host = server.address().address
   const port = server.address().port
 
-  console.log(`🍍  Server running at http://${host}:${port}`)
+  console.log('🍍  running at:\n')
+  console.log('  ' + chalk.cyan(`http://${host}:${port}\n`))
 
 })

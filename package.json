@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "eslint --config config/.eslintrc.js app/ server/",
     "start": "per-env",
-    "start:development": "webpack --watch --config config/webpack.config.dev.js & NODE_ENV=development nodemon -w server -w public  --exec 'npm run lint && node server'",
+    "start:development": "node scripts/start & NODE_ENV=development nodemon -w server -w public  --exec 'npm run lint && node server'",
     "start:production": "node index.js",
     "build": "npm run build:client && npm run build:server",
     "build:client": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors",
@@ -87,6 +87,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-2": "^6.13.0",
+    "chalk": "^1.1.3",
     "clean-webpack-plugin": "^0.1.10",
     "copy-webpack-plugin": "^3.0.1",
     "eslint": "^3.2.2",
