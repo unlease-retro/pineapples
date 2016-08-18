@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const mongoose = require('mongoose')
 const config = require('./shared/config')
 
@@ -17,6 +18,6 @@ const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
 
-  console.log('db connected')
+  console.log(chalk.green('[mongodb] connected\n'))
 
 })

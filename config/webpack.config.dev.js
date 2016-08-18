@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const CleanPlugin = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../app'),
@@ -25,7 +27,9 @@ module.exports = {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
-    new CleanPlugin(['bundle.js', 'bundle.js.map'], PATHS.dist)
+    new CleanPlugin([ PATHS.dist ], { root: process.cwd() }),
+    new CopyPlugin([ { from: './static', to: './' } ]),
+    new HtmlWebpackPlugin({ template: 'app/index.html' })
   ],
 
   module: {

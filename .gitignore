@@ -19,8 +19,7 @@ node_modules/
 
 # Release #
 ######################
-public/**/*.js
-public/**/*.map
+public/
 
 # Editors #
 ######################

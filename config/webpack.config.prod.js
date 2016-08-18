@@ -1,5 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
+const CleanPlugin = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../app'),
@@ -10,11 +13,11 @@ module.exports = {
 
   devtool: 'source-map',
 
-  entry:  PATHS.src,
+  entry: { bundle: PATHS.src },
 
   output: {
     path: PATHS.dist,
-    filename: 'bundle.js',
+    filename: '[name]-[hash].js',
     publicPath: '/'
   },
 
@@ -29,7 +32,10 @@ module.exports = {
       compressor: {
         warnings: false
       }
-    })
+    }),
+    new CleanPlugin([ PATHS.dist ], { root: process.cwd() }),
+    new CopyPlugin([ { from: './static', to: './' } ], { ignore: [ '.*' ] }),
+    new HtmlWebpackPlugin({ template: 'app/index.html' })
   ],
 
   module: {

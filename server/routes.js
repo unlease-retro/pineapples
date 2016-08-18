@@ -9,15 +9,6 @@ const Settings = require('./settings')
 const User = require('./user')
 const Writer = require('./writer')
 
-// app
-router.get('/', (req, res, next) => {
-
-  res.render('')
-
-  next()
-
-})
-
 // API
 router.use(`/api/${Cluster.name}`, Cluster.routes)
 router.use(`/api/${Depot.name}`, Depot.routes)
