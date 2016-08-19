@@ -9,6 +9,7 @@ const RedisStore = require('connect-redis')(expressSession)
 
 const config = require('./shared/config')
 const routes = require('./routes')
+const { HOST, PORT } = require('./shared/constants')
 
 // database
 require('./db')
@@ -21,8 +22,6 @@ const redisStore = new RedisStore({
 
 // setup express
 const app = express()
-const HOST = process.env.HOST || 'localhost'
-const PORT = process.env.PORT || 8000
 
 // env
 const isDevelopment = process.env.NODE_ENV === 'development'
