@@ -23,7 +23,7 @@ module.exports = (app) => {
 
       // send token
       smtpServer.send({
-        text: `Hello!\nYou can now access your account here: ${host}?token=${token}&uid=${encodeURIComponent(user._id)}`,
+        text: `Hello!\nYou can now access your account here: ${host}?token=${token}&uid=${encodeURIComponent(user)}`,
         from: config.get('mailer').user,
         to: recipient,
         subject: `Token for ${host}`
