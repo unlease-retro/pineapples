@@ -34,8 +34,8 @@ export default function configureStore() {
   // store state on change
   store.subscribe( () => {
 
-    // remove routing from state before storing
-    let stateTrimmed = store.getState().delete('routing')
+    // remove `routing`, `user` from state before storing
+    let stateTrimmed = store.getState().delete('routing').delete('user')
 
     Storage.setItem(STATE_KEY, stateTrimmed.toJS())
 
