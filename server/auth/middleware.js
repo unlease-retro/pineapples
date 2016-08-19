@@ -6,7 +6,7 @@ exports.allowOnlyFor = (...roles) => {
   return (req, res, next) => {
 
     const user = JSON.parse(req.user)
-    console.log(user)
+
     if (roles.indexOf(user.role.toUpperCase()) >= 0) {
 
       return next()
@@ -27,8 +27,6 @@ exports.restrictFor = (...roles) => {
   return (req, res, next) => {
 
     const user = JSON.parse(req.user)
-
-    console.log(user)
 
     if (roles.indexOf(user.role.toUpperCase()) >= 0) {
 
