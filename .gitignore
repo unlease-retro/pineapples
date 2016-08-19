@@ -25,3 +25,7 @@ public/
 # Editors #
 ######################
 .idea
+
+# Redis Dump #
+######################
+dump.rdb
