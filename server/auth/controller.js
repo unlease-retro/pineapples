@@ -8,7 +8,8 @@ exports.create = (userMail, delivery, callback) => {
 
       if (user.email === userMail) {
 
-        return callback(null, user._id)
+
+        return callback(null, { _id: user._id, role: user.role})
 
       }
 

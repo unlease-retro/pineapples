@@ -4,10 +4,13 @@ const passwordless = require('passwordless')
 
 const controller = require('./controller')
 
-router.post( '/', passwordless.restricted(), controller.create, (req, res, next) => next() )
-router.get( '/:id', passwordless.restricted(), controller.read, (req, res, next) => next() )
-router.get( '/', passwordless.restricted(), controller.list, (req, res, next) => next() )
-router.put( '/:id', passwordless.restricted(), controller.update, (req, res, next) => next() )
-router.delete( '/:id', passwordless.restricted(), controller.remove, (req, res, next) => next() )
+const { RIDER } = require('../shared/constants').ROLES
+const { restrictFor } = require('../auth/middleware')
+
+router.post( '/', passwordless.restricted(), restrictFor(RIDER), controller.create, (req, res, next) => next() )
+router.get( '/:id', passwordless.restricted(), restrictFor(RIDER), controller.read, (req, res, next) => next() )
+router.get( '/', passwordless.restricted(), restrictFor(RIDER), controller.list, (req, res, next) => next() )
+router.put( '/:id', passwordless.restricted(), restrictFor(RIDER), controller.update, (req, res, next) => next() )
+router.delete( '/:id', passwordless.restricted(), restrictFor(RIDER), controller.remove, (req, res, next) => next() )
 
 module.exports = router
