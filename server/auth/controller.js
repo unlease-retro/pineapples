@@ -21,3 +21,12 @@ exports.create = (userMail, delivery, callback) => {
 
 }
 
+exports.read = (req, res, next) => {
+
+  const { user } = req
+
+  res.json({ user })
+
+  return next()
+
+}
