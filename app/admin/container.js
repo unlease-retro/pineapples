@@ -4,22 +4,26 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import * as actions from './actions'
-// import * as Components from './components'
+import * as Components from './components'
 import * as selectors from './selectors'
 
 export class Admin extends Component {
 
   componentWillMount() {
 
-    // console.log('Admin :: componentWillMount')
+    const { actions: { fetchClusters } } = this.props
+
+    fetchClusters()
 
   }
 
   render() {
 
+    const { clusters } = this.props
+
     return (
-      <div>
-        <h1>Admin</h1>
+      <div className='admin'>
+        <Components.map clusters={clusters} />
       </div>
     )
 
@@ -29,7 +33,7 @@ export class Admin extends Component {
 
 export default connect(
   createStructuredSelector({
-    admin: selectors.getAll,
+    clusters: selectors.getClusters,
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import * as User from '../../user'
-import * as Components from '../components'
 
 export class App extends Component {
 
@@ -20,9 +19,7 @@ export class App extends Component {
   render() {
 
     return (
-      <div>
-
-        <Components.header />
+      <div id='app'>
 
         {this.props.children}
 

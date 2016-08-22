@@ -1,5 +1,5 @@
-// import something from './something'
+import map from './map'
 
 export {
-  // something,
+  map,
 }

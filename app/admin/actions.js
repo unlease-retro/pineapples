@@ -1,8 +1,8 @@
 import * as actions from './actionTypes'
+import * as service from './service'
 
-export const someAction = props => ({
-  type: actions.SOME_ACTION,
-  payload: {
-    ...props
-  }
+export const fetchClusters = () => ({
+  types: [ actions.FETCH_CLUSTERS_REQUEST, actions.FETCH_CLUSTERS_SUCCESS, actions.FETCH_CLUSTERS_FAILURE ],
+  payload: {  },
+  promise: () => new Promise( (resolve, reject) => service.fetchClusters(resolve, reject) )
 })
