@@ -1,2 +1,2 @@
 export const name = 'cluster'
-export const roles = [ 'SUPERUSER', 'ADMIN' ]
+export const roles = [ 'SUPERUSER', 'MANAGER' ]
