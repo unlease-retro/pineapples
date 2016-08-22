@@ -3,13 +3,14 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const fallback = require('express-history-api-fallback')
 const passwordless = require('./shared/util/passwordless')
 const expressSession = require('express-session')
 const RedisStore = require('connect-redis')(expressSession)
-
 const config = require('./shared/config')
 const routes = require('./routes')
 const { HOST, PORT } = require('./shared/constants')
+
 
 // database
 require('./db')
@@ -29,9 +30,6 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 // construct static assets path
 const staticPath = isDevelopment ? path.join(__dirname, '../public') : './public'
 
-// serve static assets
-app.use(express.static(staticPath))
-
 // parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -43,8 +41,12 @@ passwordless(app)
 // cors
 app.use(cors({ origin: config.get('origins') }))
 
-// routes
-app.use('/', routes)
+// serve static assets
+app.use(express.static(staticPath))
+
+// API routes
+app.use('/api', routes)
+app.use(/^(?!\/login|\/sendtoken).*$/, require('passwordless').restricted({ failureRedirect: 'login.html' }), fallback('app.html', { root: staticPath }))
 
 /* eslint-disable no-unused-vars */
 // error handling

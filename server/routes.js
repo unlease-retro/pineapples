@@ -11,13 +11,13 @@ const Writer = require('./writer')
 const Auth = require('./auth')
 
 // API
-router.use(`/api/${Cluster.name}`, Cluster.routes)
-router.use(`/api/${Depot.name}`, Depot.routes)
-router.use(`/api/${Pineapple.name}`, Pineapple.routes)
-router.use(`/api/${Settings.name}`, Settings.routes)
-router.use(`/api/${User.name}`, User.routes)
-router.use(`/api/${Writer.name}`, Writer.routes)
-router.use(`/api/${Auth.name}`, Auth.routes)
+router.use(`/${Cluster.name}`, Cluster.routes)
+router.use(`/${Depot.name}`, Depot.routes)
+router.use(`/${Pineapple.name}`, Pineapple.routes)
+router.use(`/${Settings.name}`, Settings.routes)
+router.use(`/${User.name}`, User.routes)
+router.use(`/${Writer.name}`, Writer.routes)
+router.use(`/${Auth.name}`, Auth.routes)
 
 
 module.exports = router
