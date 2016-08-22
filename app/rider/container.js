@@ -7,11 +7,11 @@ import * as actions from './actions'
 // import * as Components from './components'
 import * as selectors from './selectors'
 
-export class Dashboard extends Component {
+export class Rider extends Component {
 
   componentWillMount() {
 
-    // console.log('Dashboard :: componentWillMount')
+    // console.log('Rider :: componentWillMount')
 
   }
 
@@ -19,7 +19,7 @@ export class Dashboard extends Component {
 
     return (
       <div>
-        <h1>Dashboard</h1>
+        <h1>Rider</h1>
       </div>
     )
 
@@ -29,9 +29,9 @@ export class Dashboard extends Component {
 
 export default connect(
   createStructuredSelector({
-    dashboard: selectors.getAll,
+    rider: selectors.getAll,
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
   })
-)(Dashboard)
+)(Rider)

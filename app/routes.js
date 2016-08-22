@@ -5,11 +5,11 @@ import { Route, IndexRoute } from 'react-router'
 import App from './shared/containers/App'
 import { Auth } from './shared/containers/Auth'
 import NotFound from './shared/containers/NotFound'
-import * as Dashboard from './dashboard'
+import * as Home from './Home'
 
 module.exports = (
   <Route path='/' component={App}>
-    <IndexRoute component={Auth(Dashboard.Container, Dashboard.roles)} />
+    <IndexRoute component={Auth(Home.Container, Home.roles)} />
     <Route path='*' component={NotFound} />
   </Route>
 )
