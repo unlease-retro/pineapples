@@ -57,7 +57,7 @@ app.use(express.static(staticPath))
 
 // API routes
 app.use('/api', routes)
-app.use(/^(?!\/login|\/sendtoken).*$/, require('passwordless').restricted({ failureRedirect: 'login.html' }), fallback('app.html', { root: staticPath }))
+app.use(/^(?!\/login|\/sendtoken|\/api).*$/, require('passwordless').restricted({ failureRedirect: 'login.html' }), fallback('app.html', { root: staticPath }))
 
 /* eslint-disable no-unused-vars */
 // error handling
