@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+
+import * as User from '../../user'
 import * as Components from '../components'
 
-export default class App extends Component {
+export class App extends Component {
 
   componentWillMount() {
 
-    // fetch user
-    // TODO user action
+    const { role, actions: { fetchUser } } = this.props
+
+    // fetch user if required
+    if (!role) fetchUser()
 
   }
 
@@ -25,3 +32,12 @@ export default class App extends Component {
   }
 
 }
+
+export default connect(
+  createStructuredSelector({
+    role: User.selectors.getRole,
+  }),
+  dispatch => ({
+    actions: bindActionCreators(User.actions, dispatch)
+  })
+)(App)

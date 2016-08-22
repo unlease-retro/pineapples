@@ -1,8 +1,8 @@
 import * as actions from './actionTypes'
+import * as service from './service'
 
-export const someAction = props => ({
-  type: actions.SOME_ACTION,
-  payload: {
-    ...props
-  }
+export const fetchUser = () => ({
+  types: [ actions.FETCH_REQUEST, actions.FETCH_SUCCESS, actions.FETCH_FAILURE ],
+  payload: { requesting: true, error: null },
+  promise: () => new Promise( (resolve, reject) => service.fetchUser(resolve, reject) )
 })
