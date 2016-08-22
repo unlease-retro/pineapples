@@ -17,13 +17,13 @@ module.exports = (app) => {
   passwordless.init( new RedisStore(config.get('redis').port, config.get('redis').host), { allowTokenReuse: true })
 
   passwordless.addDelivery(
-    (tokenToSend, uidToSend, recipient, callback) => {
+    (token, user, recipient, callback) => {
 
       const host = `${HOST}:${PORT}`
 
       // send token
       smtpServer.send({
-        text: `Hello!\nYou can now access your account here: ${host}?token=${tokenToSend}&uid=${encodeURIComponent(uidToSend)}`,
+        text: `Hello!\nYou can now access your account here: ${host}?token=${token}&uid=${encodeURIComponent(user)}`,
         from: config.get('mailer').user,
         to: recipient,
         subject: `Token for ${host}`
