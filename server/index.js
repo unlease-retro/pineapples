@@ -1,8 +1,10 @@
 const chalk = require('chalk')
+const fs = require('fs')
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const morgan = require('morgan')
 const passwordless = require('./shared/util/passwordless')
 const expressSession = require('express-session')
 const RedisStore = require('connect-redis')(expressSession)
@@ -25,6 +27,15 @@ const app = express()
 
 // env
 const isDevelopment = process.env.NODE_ENV === 'development'
+
+// logger
+if (isDevelopment) {
+
+  const serverLogStream = fs.createWriteStream(path.join(__dirname, '../server.log'), {flags: 'a'})
+
+  app.use(morgan('tiny', { stream: serverLogStream }))
+
+}
 
 // construct static assets path
 const staticPath = isDevelopment ? path.join(__dirname, '../public') : './public'
