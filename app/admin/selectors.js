@@ -7,4 +7,4 @@ export const getClusters = state => state.getIn([ name, 'clusters' ]).toJS()
 export const getSelectedCluster = state => state.getIn([ name, 'selectedCluster' ]).toJS()
 
 // computed
-export const getIsPanelOpen = createSelector( [ getSelectedCluster ], selectedCluster => selectedCluster && selectedCluster.name )
+export const getIsPanelOpen = createSelector( [ getSelectedCluster ], selectedCluster => selectedCluster && Boolean(selectedCluster.name) )
