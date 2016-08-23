@@ -36,7 +36,11 @@ const styles = StyleSheet.create({
 })
 
 Panel.propTypes = {
-  cluster: PropTypes.object.isRequired
+  clusterName: PropTypes.string.isRequired,
+  clusterDepotName: PropTypes.string.isRequired,
+  clusterDepotPosition: PropTypes.object.isRequired,
+  clusterTotalPineapples: PropTypes.number.isRequired,
+  setMapCenter: PropTypes.func.isRequired,
 }
 
 export default Panel

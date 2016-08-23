@@ -18,11 +18,11 @@ export class Map extends Component {
     // init InfoWindow
     this.InfoWindow = new google.maps.InfoWindow({})
 
-    // plot those clusters!
-    this.plotClusters(clusters)
-
     // plot those depots!
     this.plotDepots(depots)
+
+    // plot those clusters!
+    this.plotClusters(clusters)
 
   }
 
@@ -31,11 +31,11 @@ export class Map extends Component {
     const { clusters, depots } = this.props
     const { clusters: nextClusters, depots: nextDepots } = nextProps
 
-    // re-plot clusters if updated
-    if (!deepEqual(clusters, nextClusters)) this.plotClusters(nextClusters)
-
     // re-plot depots if updated
     if (!deepEqual(depots, nextDepots)) this.plotDepots(nextDepots)
+
+    // re-plot clusters if updated
+    if (!deepEqual(clusters, nextClusters)) this.plotClusters(nextClusters)
 
   }
 
