@@ -7,6 +7,8 @@ export const initialState = Immutable.fromJS({})
 
 export default createReducer(initialState, {
 
-  [actions.SOME_ACTION]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_CLUSTERS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_CLUSTERS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_CLUSTERS_FAILURE]: (state, action) => state.merge({ ...action.payload })
 
 })

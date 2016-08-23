@@ -13,13 +13,15 @@ export class Rider extends Component {
 
     // console.log('Rider :: componentWillMount')
 
+    this.props.actions.fetchClusters()
+
   }
 
   render() {
 
     return (
       <div>
-        <h1>Rider</h1>
+        Hello Rider!
       </div>
     )
 

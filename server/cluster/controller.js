@@ -1,6 +1,7 @@
 const Cluster = require('./service')
 const Semolina = require('../shared/services/semolina')
 const SettingsService = require('../settings/service')
+const { RIDER } = require('../shared/constants').ROLES
 
 exports.create = (req, res, next) => {
 
@@ -97,7 +98,16 @@ exports.generate = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  const { filter } = req.body
+  let { user, body: filter } = req
+
+  const { _id, role } = JSON.parse(user)
+
+  // if Rider is looking up his clusters, show only his clusters
+  if (role === RIDER) {
+
+    filter = Object.assign({}, filter, { rider: _id })
+
+  }
 
   return Cluster.list(filter)
     .then( clusters => {
