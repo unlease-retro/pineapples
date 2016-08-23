@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import { StyleSheet, css } from 'aphrodite/no-important'
 
 import * as actions from './actions'
 import * as Components from './components'
@@ -30,9 +31,9 @@ export class Admin extends Component {
     ) : null
 
     return (
-      <div className='admin'>
+      <div className={ css(styles.base) }>
 
-        <Components.map clusters={clusters} selectCluster={selectCluster} />
+        <Components.map clusters={clusters} isPanelOpen={isPanelOpen} selectCluster={selectCluster} />
 
         { renderPanel }
 
@@ -42,6 +43,13 @@ export class Admin extends Component {
   }
 
 }
+
+const styles = StyleSheet.create({
+  base: {
+    height: '100%',
+    margin: 0,
+  }
+})
 
 export default connect(
   createStructuredSelector({

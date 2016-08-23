@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   base: {
     position: 'fixed',
     top: 0,
-    width: '50%',
+    width: '35%',
     height: '100%',
     background: 'white'
   }

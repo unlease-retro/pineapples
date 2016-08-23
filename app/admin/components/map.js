@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
 import { getColour, getCentroid } from '../../shared/util'
 
 // import * as Components from './'
 import { MAP_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
 
-export default class Map extends Component {
+export class Map extends Component {
 
   componentDidMount() {
 
@@ -80,8 +81,11 @@ export default class Map extends Component {
 
   render() {
 
+    const { isPanelOpen } = this.props
+    const className = css(styles.base, isPanelOpen && styles.shrink)
+
     return (
-      <div className='map' ref={ r => this._map = r }>
+      <div className={className} ref={ r => this._map = r }>
         {/* render other components here like search and filter */}
       </div>
     )
@@ -89,3 +93,16 @@ export default class Map extends Component {
   }
 
 }
+
+const styles = StyleSheet.create({
+  base: {
+    height: '100%',
+    margin: 0,
+  },
+  shrink: {
+    width: '65%',
+    transform: 'translateX(65%)'
+  }
+})
+
+export default Map
