@@ -98,11 +98,13 @@ exports.generate = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  let { user, body: filter } = req
+  let { user, query: deliverable } = req
 
   const { _id, role } = JSON.parse(user)
 
-  // if Rider is looking up his clusters, show only his clusters
+  let filter = deliverable
+
+  // if Rider is looking up clusters, show only his clusters
   if (role === RIDER) {
 
     filter = Object.assign({}, filter, { rider: _id })
