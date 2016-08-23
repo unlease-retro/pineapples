@@ -25,18 +25,16 @@ export class Admin extends Component {
     const { clusters, depots, mapCenter, isPanelOpen, selectedCluster, actions: { selectCluster, setMapCenter } } = this.props
 
     // show `panel` when cluster selected
-    const renderPanel = isPanelOpen ? (
-      <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
-        <Components.panel {...selectedCluster} setMapCenter={setMapCenter} />
-      </ReactCSSTransitionGroup>
-    ) : null
+    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} selectCluster={selectCluster} setMapCenter={setMapCenter} /> : null
 
     return (
       <div className={ css(styles.base) }>
 
         <Components.map clusters={clusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
 
-        { renderPanel }
+        <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
+          { renderPanel }
+        </ReactCSSTransitionGroup>
 
       </div>
     )

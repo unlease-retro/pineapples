@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-const Panel = ({ clusterName, clusterDepotName, clusterDepotPosition, clusterTotalPineapples, setMapCenter }) => {
-
-  // TODO - close button selectCluster()
+const Panel = ({ clusterName, clusterDepotName, clusterDepotPosition, clusterTotalPineapples, selectCluster, setMapCenter }) => {
 
   return (
     <div className={ css(styles.base) }>
+
+      <div onClick={ () => selectCluster() }>
+        Close
+      </div>
 
       <div>
         { clusterName }
