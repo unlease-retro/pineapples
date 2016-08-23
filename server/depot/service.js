@@ -12,6 +12,12 @@ exports.read = _id => {
 
 }
 
+exports.list = () => {
+
+  return Depot.find()
+
+}
+
 exports.update = (_id, props) => {
 
   return Depot.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })

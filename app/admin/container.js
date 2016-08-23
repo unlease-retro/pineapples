@@ -13,15 +13,16 @@ export class Admin extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchClusters } } = this.props
+    const { actions: { fetchClusters, fetchDepots } } = this.props
 
     fetchClusters()
+    fetchDepots()
 
   }
 
   render() {
 
-    const { clusters, selectedCluster, mapCenter, isPanelOpen, actions: { selectCluster, setMapCenter } } = this.props
+    const { clusters, depots, selectedCluster, mapCenter, isPanelOpen, actions: { selectCluster, setMapCenter } } = this.props
 
     // show `panel` when cluster selected
     const renderPanel = isPanelOpen ? (
@@ -33,7 +34,7 @@ export class Admin extends Component {
     return (
       <div className={ css(styles.base) }>
 
-        <Components.map clusters={clusters} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} />
+        <Components.map clusters={clusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
 
         { renderPanel }
 
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
 export default connect(
   createStructuredSelector({
     clusters: selectors.getClusters,
+    depots: selectors.getDepots,
     selectedCluster: selectors.getSelectedCluster,
     mapCenter: selectors.getMapCenter,
     isPanelOpen: selectors.getIsPanelOpen,

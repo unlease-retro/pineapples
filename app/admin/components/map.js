@@ -4,13 +4,13 @@ import deepEqual from 'deep-equal'
 import { getColour, getCentroid } from '../../shared/util'
 
 // import * as Components from './'
-import { MAP_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
+import { MAP_OPTIONS, CIRCLE_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
 
 export class Map extends Component {
 
   componentDidMount() {
 
-    const { clusters } = this.props
+    const { clusters, depots } = this.props
 
     // init map
     this.map = new google.maps.Map(this._map, MAP_OPTIONS)
@@ -18,18 +18,24 @@ export class Map extends Component {
     // init InfoWindow
     this.InfoWindow = new google.maps.InfoWindow({})
 
-    // generate those polygons!
-    this.generatePolygons(clusters)
+    // plot those clusters!
+    this.plotClusters(clusters)
+
+    // plot those depots!
+    this.plotDepots(depots)
 
   }
 
   componentWillReceiveProps(nextProps) {
 
-    const { clusters } = this.props
-    const { clusters: nextClusters } = nextProps
+    const { clusters, depots } = this.props
+    const { clusters: nextClusters, depots: nextDepots } = nextProps
 
-    // re-generate polygons if clusters updated
-    if (!deepEqual(clusters, nextClusters)) return this.generatePolygons(nextClusters)
+    // re-plot clusters if updated
+    if (!deepEqual(clusters, nextClusters)) this.plotClusters(nextClusters)
+
+    // re-plot depots if updated
+    if (!deepEqual(depots, nextDepots)) this.plotDepots(nextDepots)
 
   }
 
@@ -38,18 +44,16 @@ export class Map extends Component {
     const { mapCenter } = this.props
     const { mapCenter: prevMapCenter } = prevProps
 
-    console.log(mapCenter)
-
     if (mapCenter.lat && mapCenter.lng && !deepEqual(mapCenter, prevMapCenter)) return this.map.panTo(mapCenter)
 
   }
 
-  generatePolygons(clusters) {
+  plotClusters(clusters) {
 
     const { selectCluster } = this.props
     const map = this.map
 
-    clusters && clusters.map( (cluster) => {
+    clusters && clusters.map( cluster => {
 
       const { items: pineapples, centroid, name } = cluster
 
@@ -72,6 +76,34 @@ export class Map extends Component {
 
       // set selected cluster and map center as cluster centroid
       polygon.addListener( 'click', () => selectCluster(cluster, position) )
+
+    })
+
+  }
+
+  plotDepots(depots) {
+
+    const { setMapCenter } = this.props
+    const map = this.map
+
+    depots && depots.map( depot => {
+
+      const { active, location: { coordinates: [ lng, lat ] }, name } = depot
+
+      // depot isn't active!? abort!
+      if (!active) return
+
+      // extract coordinates
+      const center = { lat, lng }
+
+      // create depot circle
+      const circle = new google.maps.Circle({ map, center, ...CIRCLE_OPTIONS })
+
+      // open info window on hover
+      circle.addListener( 'mouseover', () => this.openInfoWindow(center, name) )
+
+      // set map center as depot center
+      circle.addListener( 'click', () => setMapCenter(center) )
 
     })
 

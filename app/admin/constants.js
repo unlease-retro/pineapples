@@ -9,5 +9,14 @@ export const MAP_OPTIONS = {
 }
 /* eslint-enable */
 
+export const CIRCLE_OPTIONS = {
+  strokeColor: '#F4311A',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#F4311A',
+  fillOpacity: 0.35,
+  radius: 1000
+}
+
 export const getMarkerOptions = (colour, path) => ({ icon: { path, fillColor: colour, fillOpacity: 0.8, scale: 4, strokeWeight: 0 } })
 export const getPolygonOptions = colour => ({ strokeColor: colour, fillColor: colour, strokeOpacity: 0.8, strokeWeight: 2, fillOpacity: 0.35 })
