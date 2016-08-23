@@ -12,7 +12,7 @@ export default class Delivery extends React.Component {
     const { selectedCluster } = this.props
 
     return (
-      <div>
+      <div className={ css(styles.greenBackground) }>
         <div className={ css(styles.header) }>
           <h1 className={ css(styles.h1) }>{selectedCluster.name} delivery</h1>
           <a className={ css(styles.printButton) }>Print</a>
@@ -26,6 +26,9 @@ export default class Delivery extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  greenBackground: {
+    backgroundColor: '#6FC9BC'
+  },
   header: {
     backgroundColor: '#6FC9BC',
     textAlign: 'center',
