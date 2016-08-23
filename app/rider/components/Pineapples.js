@@ -4,6 +4,7 @@
 import React from 'react'
 
 export default class Pineapples extends React.Component {
+
   render() {
 
     const { selectedCluster: { items } } = this.props
@@ -11,6 +12,7 @@ export default class Pineapples extends React.Component {
     return (
       <div>
         {items.map(item => {
+
           return (
             <div key={item._id}>
               <p>Address: </p>
@@ -22,8 +24,11 @@ export default class Pineapples extends React.Component {
               <p>Message: {item.message}</p>
             </div>
           )
+
         })}
       </div>
-    );
+    )
+
   }
+
 }
