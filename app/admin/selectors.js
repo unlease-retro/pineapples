@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { name } from './constants'
+import { getPosition } from '../shared/util'
 
 // static
 export const getAll = state => state.get(name)
@@ -16,5 +17,5 @@ export const getClusterPineapples = state => state.getIn([ name, 'selectedCluste
 
 // computed
 export const getIsPanelOpen = createSelector( [ getClusterName ], clusterName => Boolean(clusterName) )
-export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], ([ lng, lat ]) => ({ lat, lng }) )
-export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples.size )
+export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], depotCoordinates => depotCoordinates && getPosition(depotCoordinates) )
+export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.size )
