@@ -15,20 +15,22 @@ export default class Pineapples extends React.Component {
         {items.map(item => {
 
           return (
-            <div key={item._id}>
-              <div className={ css(styles.address) }>
-                <h2 className={ css(styles.orderTitle) }>Address: </h2>
-                <p className={ css(styles.orderItem) }>{`${item.flatNumber} ${item.streetAddress}`}</p>
-                <p className={ css(styles.orderItem) }>{item.postcode}</p>
-              </div>
-
-              <div className={ css(styles.orderInfo) }>
+            <div key={item._id} className={ css(styles.layout, styles.orderInfo) }>
+              <div className={ css(styles.flexyItem) }>
                 <h2 className={ css(styles.orderTitle) }>From: </h2>
                 <p className={ css(styles.orderItem) }>{item.from ? item.from : <i>Not specified</i>}</p>
 
                 <h2 className={ css(styles.orderTitle) }>To: </h2>
                 <p className={ css(styles.orderItem) }>{item.to}</p>
+              </div>
 
+              <div className={ css(styles.flexyItem) }>
+                <h2 className={ css(styles.orderTitle) }>Address: </h2>
+                <p className={ css(styles.orderItem) }>{`${item.flatNumber} ${item.streetAddress}`}</p>
+                <p className={ css(styles.orderItem) }>{item.postcode}</p>
+              </div>
+
+              <div className={ css(styles.flexyItem) }>
                 <h2 className={ css(styles.orderTitle) }>Message: </h2>
                 <p className={ css(styles.orderItem) }>{item.message}</p>
               </div>
@@ -44,6 +46,17 @@ export default class Pineapples extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  layout: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+  },
+  flexyItem: {
+    flexGrow: '1',
+    flexShrink: '0',
+    flexBasis: '250px'
+  },
   orderInfo: {
     border: '5px solid black',
     borderRadius: '10px',
@@ -59,7 +72,4 @@ const styles = StyleSheet.create({
     fontSize: '16px',
     marginLeft: '30px'
   },
-  address: {
-    margin: '50px 10px'
-  }
 })
