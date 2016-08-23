@@ -19,7 +19,7 @@ export class Map extends Component {
     this.InfoWindow = new google.maps.InfoWindow({})
 
     // generate those polygons!
-    this.generatePolygons(this.map, clusters)
+    this.generatePolygons(clusters)
 
   }
 
@@ -29,15 +29,13 @@ export class Map extends Component {
     const { clusters: nextClusters } = nextProps
 
     // re-generate polygons if clusters updated
-    if (!deepEqual(clusters, nextClusters)) return this.generatePolygons(this.map, nextClusters)
+    if (!deepEqual(clusters, nextClusters)) return this.generatePolygons(nextClusters)
 
   }
 
-  generatePolygons(map, clusters) {
+  generatePolygons(clusters) {
 
-    console.log('generatePolygons', clusters.length)
-
-    const { selectCluster } = this.props
+    const map = this.map
 
     clusters && clusters.map( (cluster) => {
 
@@ -58,16 +56,16 @@ export class Map extends Component {
       const polygon = new google.maps.Polygon({ paths, map, ...POLYGON_OPTIONS })
 
       // open info window on hover
-      polygon.addListener( 'mouseover', () => this.openInfoWindow(map, position, name) )
+      polygon.addListener( 'mouseover', () => this.openInfoWindow(position, name) )
 
-      // open info window on hover
-      polygon.addListener( 'click', () => selectCluster(cluster) )
+      // open info window on hover and pan to centroid
+      polygon.addListener( 'click', () => this.onSelectCluster(cluster, position) )
 
     })
 
   }
 
-  openInfoWindow(map, position, content) {
+  openInfoWindow(position, content) {
 
     const infowindow = this.InfoWindow
 
@@ -75,14 +73,27 @@ export class Map extends Component {
     infowindow.setOptions({ content, position })
 
     // open it up!
-    infowindow.open(map)
+    infowindow.open(this.map)
+
+  }
+
+  onSelectCluster(cluster, position) {
+
+    const { selectCluster } = this.props
+
+    // set selected cluster
+    selectCluster(cluster)
+
+    // pan to centroid
+    this.map.panTo(position)
 
   }
 
   render() {
 
-    const { isPanelOpen } = this.props
-    const className = css(styles.base, isPanelOpen && styles.shrink)
+    // const { isPanelOpen } = this.props
+    // const className = css(styles.base, isPanelOpen && styles.shrink)
+    const className = css(styles.base)
 
     return (
       <div className={className} ref={ r => this._map = r }>
