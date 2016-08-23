@@ -30,10 +30,18 @@ export default class Pineapples extends React.Component {
                 <p className={ css(styles.orderItem) }>{item.postcode}</p>
               </div>
 
-              <div className={ css(styles.flexyItem) }>
+              <div className={ css(styles.flexyItemFull) }>
                 <h2 className={ css(styles.orderTitle) }>Message: </h2>
                 <p className={ css(styles.orderItem) }>{item.message}</p>
               </div>
+
+              <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
+                {this._renderStatus(item)}
+                {this._renderMapButton()}
+              </div>
+
+
+
             </div>
           )
 
@@ -41,6 +49,35 @@ export default class Pineapples extends React.Component {
       </div>
     )
 
+  }
+
+  _renderStatus(item) {
+
+    console.log(item)
+
+    //const status = this._getStatus(item)
+
+    return (
+      <select className={ css(styles.statusAndMapItem) }>
+        <option value='DELIVERED'>DELIVERED</option>
+        <option value='UNDELIVERED'>UNDELIVERED</option>
+      </select>
+    )
+
+  }
+
+  _getStatus(item) {
+
+    return item.delivered ? 'DELIVERED' : 'UNDELIVERED'
+
+  }
+
+  _renderMapButton() {
+
+    return (
+      <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
+    )
+    
   }
 
 }
@@ -51,17 +88,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
+    justifyContent: 'space-around'
   },
   flexyItem: {
     flexGrow: '1',
     flexShrink: '0',
     flexBasis: '250px'
   },
+  flexyItemFull: {
+    flexGrow: '1',
+    flexShrink: '0',
+    flexBasis: '500px'
+  },
   orderInfo: {
     border: '5px solid black',
     borderRadius: '10px',
-    margin: '0 10px',
-    backgroundColor: '#FEDC81'
+    margin: '10px',
+    backgroundColor: '#FEDC81',
   },
   orderTitle: {
     fontSize: '26px',
@@ -72,4 +115,18 @@ const styles = StyleSheet.create({
     fontSize: '16px',
     marginLeft: '30px'
   },
+  mapButton: {
+    backgroundColor: '#6FC9BC',
+    borderRadius: '5px',
+    padding: '10px',
+    fontSize: '16px',
+    textAlign: 'center',
+  },
+  statusAndMap: {
+    textAlign: 'center',
+  },
+  statusAndMapItem: {
+    margin: '15px'
+  }
+
 })
