@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { getColour } from '../../shared/util'
+import { getColour, getCentroid } from '../../shared/util'
 
 // import * as Components from './'
-import { MAP_STYLES } from '../constants'
+import { MAP_STYLES, getMarkerOptions, getPolygonOptions } from '../constants'
 
 export default class Map extends Component {
 
@@ -17,6 +17,10 @@ export default class Map extends Component {
       styles: MAP_STYLES
     })
 
+    // init InfoWindow
+    this.InfoWindow = new google.maps.InfoWindow({})
+
+    // generate those polygons!
     this.generatePolygons(map, clusters)
 
   }
@@ -25,46 +29,38 @@ export default class Map extends Component {
 
     clusters && clusters.map( (cluster) => {
 
-      const { items: pineapples } = cluster
+      const { items: pineapples, centroid, name } = cluster
 
       const colour = getColour()
+      const position = getCentroid(centroid)
+      const MARKER_OPTIONS = getMarkerOptions(colour, google.maps.SymbolPath.CIRCLE)
+      const POLYGON_OPTIONS = getPolygonOptions(colour)
 
       // extract coordinates
       const paths = pineapples.map( ({ location: { coordinates: [ lng, lat ] } }) => ({ lat, lng }))
 
-      // markers
-      paths.map( (pineapple) => {
+      // create marker for each pineapple
+      paths.map( position => new google.maps.Marker({ position, map, ...MARKER_OPTIONS }) )
 
-        /* eslint-disable no-unused-vars */
-        const marker = new google.maps.Marker({
-          position: pineapple,
-          map: map,
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            fillColor: colour,
-            fillOpacity: 0.8,
-            scale: 4,
-            strokeWeight: 0
-          }
-        })
-        /* eslint-enable no-unused-vars */
+      // create cluster polygon
+      const polygon = new google.maps.Polygon({ paths, map, ...POLYGON_OPTIONS })
 
-      })
-
-      // polygon
-      /* eslint-disable no-unused-vars */
-      const polygon = new google.maps.Polygon({
-        paths: paths,
-        map: map,
-        strokeColor: colour,
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: colour,
-        fillOpacity: 0.35
-      })
-      /* eslint-enable no-unused-vars */
+      // open info window on hover
+      polygon.addListener( 'mouseover', () => this.openInfoWindow(map, position, name) )
 
     })
+
+  }
+
+  openInfoWindow(map, position, content) {
+
+    const infowindow = this.InfoWindow
+
+    // set content and position
+    infowindow.setOptions({ content, position })
+
+    // open it up!
+    infowindow.open(map)
 
   }
 
