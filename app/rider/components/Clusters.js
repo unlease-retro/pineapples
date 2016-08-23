@@ -23,9 +23,9 @@ export class Clusters extends React.Component {
 
   _renderCluster(cluster) {
 
-    const { chooseCluster } = this.props
+    const { actions: { selectCluster } } = this.props
 
-    return <li key={cluster.name} className={ css(styles.li) } onClick={() => chooseCluster(cluster)}>
+    return <li key={cluster.name} className={ css(styles.li) } onClick={() => selectCluster(cluster)}>
       <a>{cluster.name}</a>
     </li>
 

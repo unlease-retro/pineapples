@@ -21,15 +21,9 @@ export class Rider extends Component {
 
     return (
       <div>
-        <Components.Clusters clusters={this.props.clusters} chooseCluster={this._chooseCluster} />
+        <Components.Clusters clusters={this.props.clusters} actions={{ selectCluster: this.props.actions.selectCluster }}/>
       </div>
     )
-
-  }
-
-  _chooseCluster(cluster) {
-
-    console.log('choosing ' + cluster)
 
   }
 

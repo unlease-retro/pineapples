@@ -6,3 +6,8 @@ export const fetchClusters = () => ({
   payload: { error: null },
   promise: () => new Promise( (resolve, reject) => service.fetchClusters(resolve, reject) )
 })
+
+export const selectCluster = (cluster) => ({
+  type: actions.SELECT_CLUSTER,
+  payload: { selectedCluster: cluster }
+})
