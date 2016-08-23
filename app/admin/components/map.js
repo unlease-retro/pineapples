@@ -2,30 +2,26 @@ import React, { Component } from 'react'
 import { getColour, getCentroid } from '../../shared/util'
 
 // import * as Components from './'
-import { MAP_STYLES, getMarkerOptions, getPolygonOptions } from '../constants'
+import { MAP_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
 
 export default class Map extends Component {
 
   componentDidMount() {
 
-    const { clusters } = this.props
-
     // init map
-    const map = new google.maps.Map(this._map, {
-      center: {lat: 51.507351, lng: -0.127758},
-      zoom: 12,
-      styles: MAP_STYLES
-    })
+    const map = new google.maps.Map(this._map, MAP_OPTIONS)
 
     // init InfoWindow
     this.InfoWindow = new google.maps.InfoWindow({})
 
     // generate those polygons!
-    this.generatePolygons(map, clusters)
+    this.generatePolygons(map)
 
   }
 
-  generatePolygons(map, clusters) {
+  generatePolygons(map) {
+
+    const { clusters } = this.props
 
     clusters && clusters.map( (cluster) => {
 
