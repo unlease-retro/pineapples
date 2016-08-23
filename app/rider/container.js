@@ -22,6 +22,7 @@ export class Rider extends Component {
     return (
       <div>
         <Components.Clusters clusters={this.props.clusters} actions={{ selectCluster: this.props.actions.selectCluster }}/>
+        <Components.Delivery selectedCluster={this.props.selectedCluster} />
       </div>
     )
 
@@ -32,7 +33,8 @@ export class Rider extends Component {
 export default connect(
   createStructuredSelector({
     rider: selectors.getAll,
-    clusters: selectors.getClusters
+    clusters: selectors.getClusters,
+    selectedCluster: selectors.selectedCluster
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
