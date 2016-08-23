@@ -3,8 +3,8 @@
     "uri": "mongodb://127.0.0.1:27017/local-pineapples"
   },
   "mailer": {
-    "user": "phacdatbiach@gmail.com",
-    "password": "phacdatbiach1",
+    "user": "unleaseservice@gmail.com",
+    "password": "unleaseservice1",
     "smtp": "smtp.gmail.com"
   },
   "origins": [
@@ -12,11 +12,14 @@
   ],
   "payment": {
     "stripe": {
-      "pubKey": "pk_test_mwzb2rLRvI8ONGhjTXEJRsKC"
+      "pubKey": "pk_test_mwzb2rLRvI8ONGhjTXEJRsKC",
+      "secretKey" : "sk_test_2xdHc7HD1Gk0OMq8HERINyjM"
     }
   },
   "redis": {
     "port": 6379,
     "host": "192.168.99.100"
-  }
+  },
+  "host" : "http://localhost:8000"
+
 }
