@@ -22,12 +22,12 @@ export class Admin extends Component {
 
   render() {
 
-    const { clusters, depots, selectedCluster, mapCenter, isPanelOpen, actions: { selectCluster, setMapCenter } } = this.props
+    const { clusters, depots, mapCenter, isPanelOpen, selectedCluster, actions: { selectCluster, setMapCenter } } = this.props
 
     // show `panel` when cluster selected
     const renderPanel = isPanelOpen ? (
       <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
-        <Components.panel cluster={selectedCluster} setMapCenter={setMapCenter} />
+        <Components.panel {...selectedCluster} setMapCenter={setMapCenter} />
       </ReactCSSTransitionGroup>
     ) : null
 
@@ -56,9 +56,14 @@ export default connect(
   createStructuredSelector({
     clusters: selectors.getClusters,
     depots: selectors.getDepots,
-    selectedCluster: selectors.getSelectedCluster,
     mapCenter: selectors.getMapCenter,
     isPanelOpen: selectors.getIsPanelOpen,
+    selectedCluster: createStructuredSelector({
+      clusterName: selectors.getClusterName,
+      clusterDepotName: selectors.getClusterDepotName,
+      clusterDepotPosition: selectors.getClusterDepotPosition,
+      clusterTotalPineapples: selectors.getClusterTotalPineapples,
+    }),
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
