@@ -33,8 +33,20 @@ export class Map extends Component {
 
   }
 
+  componentDidUpdate(prevProps) {
+
+    const { mapCenter } = this.props
+    const { mapCenter: prevMapCenter } = prevProps
+
+    console.log(mapCenter)
+
+    if (mapCenter.lat && mapCenter.lng && !deepEqual(mapCenter, prevMapCenter)) return this.map.panTo(mapCenter)
+
+  }
+
   generatePolygons(clusters) {
 
+    const { selectCluster } = this.props
     const map = this.map
 
     clusters && clusters.map( (cluster) => {
@@ -58,8 +70,8 @@ export class Map extends Component {
       // open info window on hover
       polygon.addListener( 'mouseover', () => this.openInfoWindow(position, name) )
 
-      // open info window on hover and pan to centroid
-      polygon.addListener( 'click', () => this.onSelectCluster(cluster, position) )
+      // set selected cluster and map center as cluster centroid
+      polygon.addListener( 'click', () => selectCluster(cluster, position) )
 
     })
 
@@ -77,26 +89,10 @@ export class Map extends Component {
 
   }
 
-  onSelectCluster(cluster, position) {
-
-    const { selectCluster } = this.props
-
-    // set selected cluster
-    selectCluster(cluster)
-
-    // pan to centroid
-    this.map.panTo(position)
-
-  }
-
   render() {
 
-    // const { isPanelOpen } = this.props
-    // const className = css(styles.base, isPanelOpen && styles.shrink)
-    const className = css(styles.base)
-
     return (
-      <div className={className} ref={ r => this._map = r }>
+      <div className={css(styles.base)} ref={ r => this._map = r }>
         {/* render other components here like search and filter */}
       </div>
     )
@@ -109,10 +105,6 @@ const styles = StyleSheet.create({
   base: {
     height: '100%',
     margin: 0,
-  },
-  shrink: {
-    width: '65%',
-    transform: 'translateX(65%)'
   }
 })
 

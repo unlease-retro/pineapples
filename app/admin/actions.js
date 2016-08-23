@@ -7,9 +7,17 @@ export const fetchClusters = () => ({
   promise: () => new Promise( (resolve, reject) => service.fetchClusters(resolve, reject) )
 })
 
-export const selectCluster = (selectedCluster={}) => ({
+export const selectCluster = (selectedCluster={}, mapCenter={}) => ({
   type: actions.SET_SELECTED_CLUSTER,
   payload: {
-    selectedCluster
+    selectedCluster,
+    mapCenter
+  }
+})
+
+export const setMapCenter = (mapCenter={}) => ({
+  type: actions.SET_MAP_CENTER,
+  payload: {
+    mapCenter
   }
 })

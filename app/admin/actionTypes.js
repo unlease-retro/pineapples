@@ -1,5 +1,6 @@
 import { name } from './constants'
 
+export const SET_MAP_CENTER = `${name}/SET_MAP_CENTER`
 export const SET_SELECTED_CLUSTER = `${name}/SET_SELECTED_CLUSTER`
 
 export const FETCH_CLUSTERS_REQUEST = `${name}/FETCH_CLUSTERS_REQUEST`
