@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import * as actions from './actions'
 import * as Components from './components'
@@ -19,11 +20,22 @@ export class Admin extends Component {
 
   render() {
 
-    const { clusters } = this.props
+    const { clusters, selectedCluster, isPanelOpen, actions: { selectCluster } } = this.props
+
+    // show `panel` when cluster selected
+    const renderPanel = isPanelOpen ? (
+      <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
+        <Components.panel selectedCluster={selectedCluster} />
+      </ReactCSSTransitionGroup>
+    ) : null
 
     return (
       <div className='admin'>
-        <Components.map clusters={clusters} />
+
+        <Components.map clusters={clusters} selectCluster={selectCluster} />
+
+        { renderPanel }
+
       </div>
     )
 
@@ -34,6 +46,8 @@ export class Admin extends Component {
 export default connect(
   createStructuredSelector({
     clusters: selectors.getClusters,
+    selectedCluster: selectors.getSelectedCluster,
+    isPanelOpen: selectors.getIsPanelOpen,
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

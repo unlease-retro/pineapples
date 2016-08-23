@@ -6,3 +6,10 @@ export const fetchClusters = () => ({
   payload: {  },
   promise: () => new Promise( (resolve, reject) => service.fetchClusters(resolve, reject) )
 })
+
+export const selectCluster = (selectedCluster={}) => ({
+  type: actions.SET_SELECTED_CLUSTER,
+  payload: {
+    selectedCluster
+  }
+})

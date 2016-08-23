@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import deepEqual from 'deep-equal'
 import { getColour, getCentroid } from '../../shared/util'
 
 // import * as Components from './'
@@ -8,20 +9,34 @@ export default class Map extends Component {
 
   componentDidMount() {
 
+    const { clusters } = this.props
+
     // init map
-    const map = new google.maps.Map(this._map, MAP_OPTIONS)
+    this.map = new google.maps.Map(this._map, MAP_OPTIONS)
 
     // init InfoWindow
     this.InfoWindow = new google.maps.InfoWindow({})
 
     // generate those polygons!
-    this.generatePolygons(map)
+    this.generatePolygons(this.map, clusters)
 
   }
 
-  generatePolygons(map) {
+  componentWillReceiveProps(nextProps) {
 
     const { clusters } = this.props
+    const { clusters: nextClusters } = nextProps
+
+    // re-generate polygons if clusters updated
+    if (!deepEqual(clusters, nextClusters)) return this.generatePolygons(this.map, nextClusters)
+
+  }
+
+  generatePolygons(map, clusters) {
+
+    console.log('generatePolygons', clusters.length)
+
+    const { selectCluster } = this.props
 
     clusters && clusters.map( (cluster) => {
 
@@ -43,6 +58,9 @@ export default class Map extends Component {
 
       // open info window on hover
       polygon.addListener( 'mouseover', () => this.openInfoWindow(map, position, name) )
+
+      // open info window on hover
+      polygon.addListener( 'click', () => selectCluster(cluster) )
 
     })
 
