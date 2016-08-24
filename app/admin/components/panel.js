@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-const Panel = ({ clusterName, clusterDepotName, clusterDepotPosition, clusterTotalPineapples, selectCluster, setMapCenter }) => {
+import * as Components from './'
+
+const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition, clusterRider, clusterTotalPineapples, riders, selectCluster, updateCluster, setMapCenter }) => {
+
+  // TODO - componentize the stats, buttons etc
 
   return (
     <div className={ css(styles.base) }>
@@ -21,6 +25,8 @@ const Panel = ({ clusterName, clusterDepotName, clusterDepotPosition, clusterTot
       <div onClick={ () => setMapCenter(clusterDepotPosition) }>
         Depot: { clusterDepotName }
       </div>
+
+      <Components.riders riders={riders} selectedRider={clusterRider} selectRider={ rider => updateCluster(clusterId, { rider }) } />
 
     </div>
   )

@@ -13,3 +13,15 @@ export const fetchDepots = (resolve, reject) =>
   API.get('depot')
     .then( res => resolve(res.json()) )
     .catch( e => reject(e) )
+
+export const fetchRiders = (resolve, reject) =>
+  API.get('user/rider')
+    .then( res => res.json() )
+    .then( json => resolve({ riders: json.users }) )
+    .catch( e => reject(e) )
+
+export const updateCluster = (resolve, reject, id, data) =>
+  API.put(`cluster/${id}`, data)
+    .then( res => res.json() )
+    .then( json => resolve({ selectedCluster: json.cluster }) )
+    .catch( e => reject(e) )

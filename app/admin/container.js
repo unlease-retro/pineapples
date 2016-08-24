@@ -13,19 +13,20 @@ export class Admin extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchClusters, fetchDepots } } = this.props
+    const { actions: { fetchClusters, fetchDepots, fetchRiders } } = this.props
 
     fetchClusters()
     fetchDepots()
+    fetchRiders()
 
   }
 
   render() {
 
-    const { clusters, depots, mapCenter, isPanelOpen, selectedCluster, actions: { selectCluster, setMapCenter } } = this.props
+    const { clusters, depots, ridersOptions, mapCenter, isPanelOpen, selectedCluster, actions: { selectCluster, updateCluster, setMapCenter } } = this.props
 
     // show `panel` when cluster selected
-    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} selectCluster={selectCluster} setMapCenter={setMapCenter} /> : null
+    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     return (
       <div className={ css(styles.base) }>
@@ -54,12 +55,15 @@ export default connect(
   createStructuredSelector({
     clusters: selectors.getClusters,
     depots: selectors.getDepots,
+    ridersOptions: selectors.getRidersOptions,
     mapCenter: selectors.getMapCenter,
     isPanelOpen: selectors.getIsPanelOpen,
     selectedCluster: createStructuredSelector({
+      clusterId: selectors.getClusterId,
       clusterName: selectors.getClusterName,
       clusterDepotName: selectors.getClusterDepotName,
       clusterDepotPosition: selectors.getClusterDepotPosition,
+      clusterRider: selectors.getClusterRider,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
   }),

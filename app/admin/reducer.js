@@ -6,6 +6,7 @@ import * as actions from './actionTypes'
 export const initialState = Immutable.fromJS({
   clusters: [],
   depots: [],
+  riders: [],
   selectedCluster: {},
   mapCenter: {}
 })
@@ -22,5 +23,13 @@ export default createReducer(initialState, {
   [actions.FETCH_DEPOTS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.FETCH_DEPOTS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
   [actions.FETCH_DEPOTS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
+
+  [actions.FETCH_RIDERS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_RIDERS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_RIDERS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
+
+  [actions.SET_RIDER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.SET_RIDER_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.SET_RIDER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
 })
