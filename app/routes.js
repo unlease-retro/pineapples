@@ -5,9 +5,9 @@ import { Route, IndexRoute } from 'react-router'
 import App from './shared/containers/App'
 import { Auth } from './shared/containers/Auth'
 import NotFound from './shared/containers/NotFound'
-import * as Home from './Home'
-import * as Cluster from './Cluster'
-import * as Map from './Map'
+import * as Home from './home'
+import * as Cluster from './cluster'
+import * as Map from './map'
 
 module.exports = (
   <Route path='/' component={App}>
