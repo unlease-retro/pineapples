@@ -8,7 +8,10 @@
     "smtp": "smtp.gmail.com"
   },
   "origins": [
-    "https://www.unlease.io"
+    "https://unlease.io",
+    "http://unlease.io",
+    "http://local.unlease.io:8000",
+    "http://local.unlease.io:8001"
   ],
   "payment": {
     "stripe": {
@@ -20,6 +23,6 @@
     "port": 6379,
     "host": "192.168.99.100"
   },
-  "host" : "http://localhost:8000"
+  "host" : "http://localhost:8001"
 
 }
