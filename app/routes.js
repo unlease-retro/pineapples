@@ -6,12 +6,10 @@ import App from './shared/containers/App'
 import { Auth } from './shared/containers/Auth'
 import NotFound from './shared/containers/NotFound'
 import * as Home from './home'
-import * as Cluster from './cluster'
 
 module.exports = (
   <Route path='/' component={App}>
     <IndexRoute component={Auth(Home.Container, Home.roles)} />
-    <Route path='cluster' component={Auth(Cluster.Container, Cluster.roles)} />
     <Route path='*' component={NotFound} />
   </Route>
 )
