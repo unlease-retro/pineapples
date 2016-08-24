@@ -19,7 +19,7 @@ export default class Delivery extends React.Component {
         <div className={ css(styles.header) }>
           <h1 className={ css(styles.h1) }>Cluster {selectedCluster.name}</h1>
           <a className={ css(styles.headerButton) }>Print</a>
-          <a className={ css(styles.headerButton) } onClick={this.props.actions.unselectCluster}>View Clusters</a>
+          {this.props.clusters.length > 1 ? <a className={ css(styles.headerButton) } onClick={this.props.actions.unselectCluster}>View Clusters</a> : null}
         </div>
         {selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus: this.props.actions.changeStatus}} /> : null}
       </div>
