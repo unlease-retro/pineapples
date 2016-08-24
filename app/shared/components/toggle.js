@@ -7,8 +7,10 @@ const Toggle = ({label, active, callback}) => {
 
   return (
     <div className={className}>
-      <label htmlFor='toggle'>{ label }</label>
-      <input ref={ r => Toggle._input = r } name='toggle' type='checkbox' defaultChecked={active} onChange={ () => callback(Toggle._input.checked) } />
+      <label>
+        <input ref={ r => Toggle._input = r } type='checkbox' hidden defaultChecked={active} onChange={ () => callback(Toggle._input.checked) } />
+        { label }
+      </label>
     </div>
   )
 
@@ -16,10 +18,10 @@ const Toggle = ({label, active, callback}) => {
 
 const styles = StyleSheet.create({
   base: {
-
+    color: 'indianred'
   },
   active: {
-
+    color: '#bada55'
   }
 })
 
