@@ -3,13 +3,15 @@
  */
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { pineappleOptions, DELIVERED, UNDELIVERED } from '../constants'
+import Status from './Status'
 
-export default class Pineapples extends React.Component {
+class Pineapples extends React.Component {
 
   render() {
 
-    const { selectedCluster: { items } } = this.props
+    const { selectedCluster: { items }, actions: { changeStatus } } = this.props
+    const statusActions = { changeStatus }
+    const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
 
     return (
       <div>
@@ -37,8 +39,8 @@ export default class Pineapples extends React.Component {
               </div>
 
               <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
-                {this._renderStatus(item)}
-                {this._renderMapButton()}
+                <Status item={item} actions={statusActions} />
+                {renderMapButton}
               </div>
             </div>
           )
@@ -46,48 +48,6 @@ export default class Pineapples extends React.Component {
         })}
       </div>
     )
-
-  }
-
-  _renderStatus(item) {
-
-    const defaultValue = item.delivered ? DELIVERED : UNDELIVERED
-
-    return (
-      <select className={ css(styles.statusAndMapItem) } onChange={ (e) => this._onStatusChange(item, e.target.value) }>
-
-        {pineappleOptions.map(option => {
-
-          if (defaultValue === option)
-            return <option key={option} defaultValue>{option}</option>
-          else
-            return <option key={option}>{option}</option>
-
-        })}
-
-      </select>
-    )
-
-  }
-
-  _renderMapButton() {
-
-    return (
-      <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
-    )
-    
-  }
-
-  _onStatusChange(item, newStatus) {
-
-    const query = {}
-
-    if (newStatus === DELIVERED)
-      query.delivered = true
-    else
-      query.delivered = false
-
-    this.props.actions.changeStatus(item, query)
 
   }
 
@@ -135,9 +95,7 @@ const styles = StyleSheet.create({
   },
   statusAndMap: {
     textAlign: 'center',
-  },
-  statusAndMapItem: {
-    margin: '15px'
   }
-
 })
+
+export default Pineapples
