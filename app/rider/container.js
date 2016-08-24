@@ -28,7 +28,7 @@ export class Rider extends Component {
             changeStatus: this.props.actions.changeStatus,
             unselectCluster: this.props.actions.unselectCluster
           }}
-          clusters={this.props.clusters}
+          viewAllButton={this.props.clusters.length > 1}
         />
       </div>
     )
