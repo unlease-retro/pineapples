@@ -6,7 +6,7 @@ import * as SharedComponents from '../../shared/components'
 
 const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition, clusterRider, clusterDeliverable, clusterTotalPineapples, riders, selectCluster, updateCluster, setMapCenter }) => {
 
-  // TODO - componentize the stats, buttons etc
+  // TODO - componentize the stats, buttons etc, render as children
 
   return (
     <div className={ css(styles.base) }>
