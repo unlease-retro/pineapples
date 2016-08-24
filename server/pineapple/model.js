@@ -16,14 +16,13 @@ const Pineapple = new Schema({
   message: String,
   senderEmail: { type: String, index: true },
   stripeChargeId: String,
-  trackingId: { type: String, unique: true, sparse: true },
   location: {
     type: { type: String, default: 'Point' },
     coordinates: { type: [Number], required: true }
   },
   geohash: String,
-  dispatched: { type: Boolean, index: true },
-  delivered: { type: Boolean, index: true },
+  dispatched: { type: Boolean, index: true, default: false},
+  delivered: { type: Boolean, index: true, default: false },
   deliveredAt: Date,
   deliveredTs: Date,
   createdAt: { type: Date, index: true }

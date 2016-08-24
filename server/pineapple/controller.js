@@ -1,11 +1,8 @@
-const uuid = require('node-uuid')
 const Pineapple = require('./service')
 
 exports.create = (req, res, next) => {
-
-  const id = uuid.v4()
-
-  return Pineapple.create(id, req.body)
+  
+  return Pineapple.create(req.body)
     .then( pineapple => {
 
       res.json({ pineapple })
@@ -74,6 +71,6 @@ exports.track = (req, res, next) => {
 
       return next()
 
-    }, e => next(e) )
+    }, () => next(new Error('tracking id not found')) )
 
 }

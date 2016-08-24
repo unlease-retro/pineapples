@@ -65,6 +65,7 @@
     "mongoose": "^4.5.8",
     "moniker": "^0.1.2",
     "morgan": "^1.7.0",
+    "ngeohash": "^0.6.0",
     "passwordless": "^1.1.1",
     "passwordless-redisstore": "^1.0.2",
     "per-env": "^1.0.2",

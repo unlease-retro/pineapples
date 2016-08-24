@@ -1,8 +1,30 @@
 const Pineapple = require('./model')
+const geohash = require('ngeohash')
 
-exports.create = (_id, props) => {
+exports.create = ( props) => {
 
-  return Pineapple.create(Object.assign({}, _id, props))
+  let pineapple = {
+
+    streetAddress : props.data.streetAddress,
+    city : props.data.city,
+    country : props.data.country,
+    postcode : props.data.postcode,
+    from : props.data.senderName,
+    to : props.data.friendName,
+    senderEmail : props.data.senderEmail,
+    geohash: geohash.encode(props.data.geocode.lat, props.data.geocode.lng),
+    location: {
+      
+      type: 'Point',
+      coordinates: [props.data.geocode.lng, props.data.geocode.lat]
+      
+    }
+
+  }
+
+  return Pineapple.create(Object.assign({}, pineapple))
+  
+  
 
 }
 
@@ -26,6 +48,6 @@ exports.list = (filter = {}, limit = 0) => {
 
 exports.track = trackingId => {
 
-  return Pineapple.findOne({ trackingId })
+  return Pineapple.findOne({ _id: trackingId })
 
 }
