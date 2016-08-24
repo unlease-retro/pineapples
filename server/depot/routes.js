@@ -4,11 +4,12 @@ const passwordless = require('passwordless')
 
 const controller = require('./controller')
 
-const { SUPERUSER } = require('../shared/constants').ROLES
-const { allowOnlyFor } = require('../auth/middleware')
+const { SUPERUSER, RIDER } = require('../shared/constants').ROLES
+const { allowOnlyFor, restrictFor } = require('../auth/middleware')
 
 router.post( '/', passwordless.restricted(), allowOnlyFor(SUPERUSER), controller.create, (req, res, next) => next() )
 //router.get( '/:id', passwordless.restricted(), controller.read, (req, res, next) => next() )
+router.get( '/', passwordless.restricted(), restrictFor(RIDER), controller.list, (req, res, next) => next() )
 router.put( '/:id', passwordless.restricted(), allowOnlyFor(SUPERUSER), controller.update, (req, res, next) => next() )
 
 module.exports = router

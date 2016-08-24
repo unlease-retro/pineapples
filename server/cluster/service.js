@@ -15,7 +15,7 @@ exports.read = _id => {
 
 exports.update = (_id, props) => {
 
-  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
+  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true }).populate('items depot')
 
 }
 

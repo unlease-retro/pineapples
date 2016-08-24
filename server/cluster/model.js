@@ -15,7 +15,7 @@ const Cluster = new Schema({
   writer: { type: Schema.Types.ObjectId, sparse: true, ref: Writer.collection },
   centroid: [Number],
   currentLocation: [Number],
-  deliverable: { type: Boolean, default: false, index: true },
+  deliverable: { type: Boolean, default: true, index: true },
   priority: { type: Number, index: true },
   startedAt: Date,
   finishedAt: Date,

@@ -78,4 +78,7 @@ const server = app.listen(PORT, HOST, () => {
   console.log('🍍  running at:\n')
   console.log('  ' + chalk.cyan(`http://${host}:${port}\n`))
 
+  // notifier in development
+  if (isDevelopment) require('node-notifier').notify({ 'title': 'Pineapples 🍍', 'message': 'Server up!', icon: path.join(__dirname, '../static/android-chrome-192x192.png'), sound: 'Submarine' })
+
 })
