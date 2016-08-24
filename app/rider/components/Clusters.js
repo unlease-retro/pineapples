@@ -3,18 +3,21 @@
  */
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import Cluster from './Cluster'
 
 export class Clusters extends React.Component {
 
   render() {
 
     const { clusters } = this.props
+    const { selectCluster } = this.props.actions
+    const clusterActions = { selectCluster }
 
     return (
       <div>
         <h1 className={ css(styles.h1) }>Your clusters</h1>
         <ol className={ css(styles.ol) }>
-          {clusters.map(cluster => this._renderCluster(cluster))}
+          {clusters.map(cluster => <Cluster key={cluster.name} cluster={cluster} actions={clusterActions} />)}
         </ol>
       </div>
     )
