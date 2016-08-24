@@ -1,17 +1,38 @@
 const Pineapple = require('./service')
-
+const Payment = require('../shared/services/payment/payment')
 exports.create = (req, res, next) => {
   
-  return Pineapple.create(req.body)
-    .then( pineapple => {
+  let pineapple = Pineapple.getPineappleFromReq(req.body)
 
-      res.json({ pineapple })
+  return Pineapple.validate(pineapple)
+    .then(
+      ()=>{
 
-      res.sendStatus(200)
+        Payment.createCharge(req.body)
+          .then(charge => {
 
-      return next()
+            pineapple.stripeChargeId = charge.id
+            Pineapple.create(pineapple)
+              .then( pineapple => {
 
-    }, e => next(e) )
+                res.json({ pineapple })
+
+                res.sendStatus(200)
+
+                return next()
+
+              }, () => {
+
+                Payment.refundCharges(charge.id)
+                next(new Error('Unable to process your order'))
+
+              })
+
+          }, () => next(new Error('Unable to process your payment')) )
+
+      }, () => next(new Error('Unable to process your order'))
+
+    )
 
 }
 

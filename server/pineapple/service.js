@@ -1,9 +1,17 @@
 const Pineapple = require('./model')
 const geohash = require('ngeohash')
 
-exports.create = ( props) => {
+exports.validate = ( pineapple ) => {
+  
+  let doc = Pineapple( pineapple )
 
-  let pineapple = {
+  return doc.validate()
+
+}
+
+exports.getPineappleFromReq = ( props ) => {
+  
+  return {
 
     streetAddress : props.data.streetAddress,
     city : props.data.city,
@@ -12,15 +20,19 @@ exports.create = ( props) => {
     from : props.data.senderName,
     to : props.data.friendName,
     senderEmail : props.data.senderEmail,
-    geohash: geohash.encode(props.data.geocode.lat, props.data.geocode.lng),
+    geohash : geohash.encode(props.data.geocode.lat, props.data.geocode.lng),
     location: {
-      
+
       type: 'Point',
       coordinates: [props.data.geocode.lng, props.data.geocode.lat]
-      
-    }
 
+    }
+    
   }
+  
+}
+
+exports.create = ( pineapple) => {
 
   return Pineapple.create(Object.assign({}, pineapple))
   
