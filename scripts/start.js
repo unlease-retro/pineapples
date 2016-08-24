@@ -8,7 +8,7 @@ const compiler = webpack(config)
 
 compiler.watch({ aggregateTimeout: 300, poll: true }, (err, stats) => {
 
-  clearConsole()
+  //clearConsole()
 
   const hasErrors = stats.hasErrors()
   const hasWarnings = stats.hasWarnings()
@@ -33,7 +33,7 @@ compiler.watch({ aggregateTimeout: 300, poll: true }, (err, stats) => {
 
 compiler.plugin('invalid', () => {
 
-  clearConsole()
+  //clearConsole()
 
   console.log(chalk.yellow('[webpack] compiling...'))
 

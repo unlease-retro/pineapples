@@ -17,7 +17,7 @@ const { restrictFor } = require('../auth/middleware')
 //router.post( '/', passwordless.restricted(), controller.create, (req, res, next) => next() )
 router.post( '/generate/:limit?', passwordless.restricted(), restrictFor(RIDER), controller.generate, (req, res, next) => next() )
 router.get( '/:id', passwordless.restricted(), controller.read, (req, res, next) => next() )
-router.get( '/', passwordless.restricted(), restrictFor(RIDER), controller.list, (req, res, next) => next() )
+router.get( '/', passwordless.restricted(), controller.list, (req, res, next) => next() )
 //router.delete( '/:id', passwordless.restricted(), controller.remove, (req, res, next) => next() )
 //router.delete( '/', passwordless.restricted(), controller.removeAll, (req, res, next) => next() )
 

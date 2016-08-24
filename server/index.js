@@ -50,7 +50,7 @@ app.use(expressSession({ secret: '42', saveUninitialized: false, resave: false, 
 passwordless(app)
 
 // cors
-app.use(cors({ origin: config.get('origins') }))
+app.use(cors())
 
 // serve static assets
 app.use(express.static(staticPath))
