@@ -23,8 +23,8 @@ export class Admin extends Component {
 
   render() {
 
-    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filteredClusters, isPanelOpen, selectedCluster } = this.props
-    const { selectCluster, updateCluster, setMapCenter, setSearchCluster } = this.props.actions
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, selectedCluster } = this.props
+    const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster } = this.props.actions
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
@@ -37,6 +37,7 @@ export class Admin extends Component {
 
         <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
         <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
+        <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 
         <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
           { renderPanel }
@@ -64,6 +65,8 @@ export default connect(
     ridersOptions: selectors.getRidersOptions,
     mapCenter: selectors.getMapCenter,
     searchCluster: selectors.getSearchCluster,
+    filterCluster: selectors.getFilterCluster,
+    clusterFilterOptions: selectors.getClusterFilterOptions,
     filteredClusters: selectors.getFilteredClusters,
     isPanelOpen: selectors.getIsPanelOpen,
     selectedCluster: createStructuredSelector({

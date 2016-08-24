@@ -3,6 +3,7 @@ import { name } from './constants'
 export const SET_MAP_CENTER = `${name}/SET_MAP_CENTER`
 export const SET_SELECTED_CLUSTER = `${name}/SET_SELECTED_CLUSTER`
 export const SET_SEARCH_CLUSTER = `${name}/SET_SEARCH_CLUSTER`
+export const SET_FILTER_CLUSTER = `${name}/SET_FILTER_CLUSTER`
 
 export const FETCH_CLUSTERS_REQUEST = `${name}/FETCH_CLUSTERS_REQUEST`
 export const FETCH_CLUSTERS_SUCCESS = `${name}/FETCH_CLUSTERS_SUCCESS`

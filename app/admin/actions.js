@@ -46,3 +46,10 @@ export const setSearchCluster = searchCluster => ({
     searchCluster
   }
 })
+
+export const setFilterCluster = filterCluster => ({
+  type: actions.SET_FILTER_CLUSTER,
+  payload: {
+    filterCluster
+  }
+})

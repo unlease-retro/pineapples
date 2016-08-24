@@ -1,14 +1,22 @@
-// import React, { PropTypes } from 'react'
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-// import Select from 'react-select'
+import Select from 'react-select'
 
-const Filter = () => {
+const Filter = ({ options, filterCluster, setFilterCluster }) => {
 
   return (
     <div className={ css(styles.base) }>
 
-      Filter
+      <Select
+        name='filter'
+        placeholder='Filter clusters'
+        value={filterCluster}
+        options={options}
+        autoBlur={true}
+        clearable={true}
+        searchable={true}
+        onChange={ option => setFilterCluster(option && option.value || option) }
+      />
 
     </div>
   )
@@ -17,12 +25,11 @@ const Filter = () => {
 
 const styles = StyleSheet.create({
   base: {
-
+    position: 'absolute',
+    top: 0,
+    right: '220px',
+    width: '200px'
   }
 })
-
-// Filter.propTypes = {
-//   riders: PropTypes.array.isRequired
-// }
 
 export default Filter
