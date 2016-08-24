@@ -19,17 +19,22 @@ export class Rider extends Component {
 
   render() {
 
+    const deliveryActions = {
+      changeStatus: this.props.actions.changeStatus,
+      unselectCluster: this.props.actions.unselectCluster
+    }
+
+    const clustersActions = { selectCluster: this.props.actions.selectCluster }
+
     return (
       <div>
-        <Components.Clusters clusters={this.props.clusters} actions={{ selectCluster: this.props.actions.selectCluster }}/>
+        <Components.Clusters
+          clusters={this.props.clusters}
+          actions={clustersActions} />
         <Components.Delivery
           selectedCluster={this.props.selectedCluster}
-          actions={{
-            changeStatus: this.props.actions.changeStatus,
-            unselectCluster: this.props.actions.unselectCluster
-          }}
-          viewAllButton={this.props.clusters.length > 1}
-        />
+          actions={deliveryActions}
+          viewAllButton={this.props.clusters.length > 1} />
       </div>
     )
 
