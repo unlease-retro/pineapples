@@ -13,7 +13,9 @@ export class Map extends Component {
     this.InfoWindow = new google.maps.InfoWindow({})
 
     // init cluster, depot and pineapple temp arrays
-    this.clusters = this.depots = this.pineapples = []
+    this.clusters = []
+    this.depots = []
+    this.pineapples = []
 
   }
 
