@@ -17,3 +17,10 @@ export const changeStatus = (pineapple, newStatus) => ({
   payload: { error: null },
   promise: () => new Promise( (resolve, reject) => service.changeStatus(pineapple._id, newStatus, resolve, reject) )
 })
+
+export const unselectCluster = () => ({
+  type: actions.UNSELECT_CLUSTER,
+  payload: { selectedCluster: null }
+})
+
+

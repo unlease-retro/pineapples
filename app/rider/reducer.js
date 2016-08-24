@@ -23,6 +23,7 @@ export default createReducer(initialState, {
   [actions.FETCH_CLUSTERS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.SELECT_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
+  [actions.UNSELECT_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.CHANGE_STATUS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.CHANGE_STATUS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
