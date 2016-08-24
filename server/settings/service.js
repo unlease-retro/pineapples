@@ -2,7 +2,7 @@ const Settings = require('./model')
 
 exports.read = () => {
 
-  return Settings.find({})
+  return Settings.find({}).lean()
 
 }
 
