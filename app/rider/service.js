@@ -8,3 +8,9 @@ export const fetchClusters = (resolve, reject) =>
     .then( res => res.json() )
     .then( json => resolve(json) )
     .catch( e => reject(e) )
+
+export const changeStatus = (id, status, resolve, reject) =>
+  API.put(`pineapple/${id}`, status)
+    .then( res => res.json() )
+    .then( json => resolve(json) )
+    .catch( e => reject(e) )

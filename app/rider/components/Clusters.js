@@ -14,7 +14,7 @@ export class Clusters extends React.Component {
       <div>
         <h1 className={ css(styles.h1) }>Your clusters</h1>
         <ol className={ css(styles.ol) }>
-          {clusters && clusters.map(cluster => this._renderCluster(cluster))}
+          {clusters.map(cluster => this._renderCluster(cluster))}
         </ol>
       </div>
     )

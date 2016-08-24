@@ -22,7 +22,7 @@ export class Rider extends Component {
     return (
       <div>
         <Components.Clusters clusters={this.props.clusters} actions={{ selectCluster: this.props.actions.selectCluster }}/>
-        <Components.Delivery selectedCluster={this.props.selectedCluster} />
+        <Components.Delivery selectedCluster={this.props.selectedCluster} actions={{ changeStatus: this.props.actions.changeStatus }}/>
       </div>
     )
 

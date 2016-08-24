@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import { pineappleOptions, DELIVERED, UNDELIVERED } from '../constants'
 
 export default class Pineapples extends React.Component {
 
@@ -53,22 +54,22 @@ export default class Pineapples extends React.Component {
 
   _renderStatus(item) {
 
-    console.log(item)
-
-    //const status = this._getStatus(item)
+    const defaultValue = item.delivered ? DELIVERED : UNDELIVERED
 
     return (
-      <select className={ css(styles.statusAndMapItem) }>
-        <option value='DELIVERED'>DELIVERED</option>
-        <option value='UNDELIVERED'>UNDELIVERED</option>
+      <select className={ css(styles.statusAndMapItem) } onChange={ (e) => this._onStatusChange(item, e.target.value) }>
+
+        {pineappleOptions.map(option => {
+
+          if (defaultValue === option)
+            return <option key={option} defaultValue>{option}</option>
+          else
+            return <option key={option}>{option}</option>
+
+        })}
+
       </select>
     )
-
-  }
-
-  _getStatus(item) {
-
-    return item.delivered ? 'DELIVERED' : 'UNDELIVERED'
 
   }
 
@@ -78,6 +79,19 @@ export default class Pineapples extends React.Component {
       <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
     )
     
+  }
+
+  _onStatusChange(item, newStatus) {
+
+    const query = {}
+
+    if (newStatus === DELIVERED)
+      query.delivered = true
+    else
+      query.delivered = false
+
+    this.props.actions.changeStatus(item, query)
+
   }
 
 }
