@@ -17,11 +17,9 @@ export default class Delivery extends React.Component {
     return (
       <div className={ css(styles.greenBackground) }>
         <div className={ css(styles.header) }>
-          <span>
-            <a className={ css(styles.printButton) } onClick={this.props.actions.unselectCluster}>View Clusters</a>
-            <h1 className={ css(styles.h1) }>{selectedCluster.name} delivery</h1>
-            <a className={ css(styles.printButton) }>Print</a>
-          </span>
+          <h1 className={ css(styles.h1) }>Cluster {selectedCluster.name}</h1>
+          <a className={ css(styles.headerButton) }>Print</a>
+          <a className={ css(styles.headerButton) } onClick={this.props.actions.unselectCluster}>View Clusters</a>
         </div>
         {selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus: this.props.actions.changeStatus}} /> : null}
       </div>
@@ -32,6 +30,9 @@ export default class Delivery extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  inline: {
+    display: 'inline'
+  },
   greenBackground: {
     backgroundColor: '#6FC9BC'
   },
@@ -39,13 +40,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#6FC9BC',
     textAlign: 'center',
     paddingBottom: '5px',
-    lineHeight: '45px'
+    lineHeight: '45px',
+    display: 'inline'
   },
-  printButton: {
+  headerButton: {
     backgroundColor: '#FEC581',
     borderRadius: '5px',
     padding: '10px',
-    fontSize: '16px'
+    fontSize: '16px',
+    margin: '10px',
   },
   li: {
     fontSize: '30px',
@@ -59,6 +62,8 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: '40px',
-    margin: 0
+    margin: '0 10px',
+    display: 'inline',
+    textAlign: 'center'
   }
 })

@@ -40,9 +40,6 @@ export default class Pineapples extends React.Component {
                 {this._renderStatus(item)}
                 {this._renderMapButton()}
               </div>
-
-
-
             </div>
           )
 
