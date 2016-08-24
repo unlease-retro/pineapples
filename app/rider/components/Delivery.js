@@ -9,19 +9,22 @@ export default class Delivery extends React.Component {
 
   render() {
 
-    const { selectedCluster } = this.props
+    const { selectedCluster, viewAllButton, actions: { unselectCluster, changeStatus } } = this.props
 
     if (!selectedCluster)
       return <div>No Cluster selected</div>
+
+    const renderViewAllButton = viewAllButton ? <a className={ css(styles.headerButton) } onClick={unselectCluster}>View Clusters</a> : null
+    const renderSelectedCluster = selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus }} /> : null
 
     return (
       <div className={ css(styles.greenBackground) }>
         <div className={ css(styles.header) }>
           <h1 className={ css(styles.h1) }>Cluster {selectedCluster.name}</h1>
           <a className={ css(styles.headerButton) }>Print</a>
-          {this.props.viewAllButton ? <a className={ css(styles.headerButton) } onClick={this.props.actions.unselectCluster}>View Clusters</a> : null}
+          {renderViewAllButton}
         </div>
-        {selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus: this.props.actions.changeStatus}} /> : null}
+        {renderSelectedCluster}
       </div>
     )
 
@@ -30,9 +33,6 @@ export default class Delivery extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  inline: {
-    display: 'inline'
-  },
   greenBackground: {
     backgroundColor: '#6FC9BC'
   },
@@ -50,16 +50,6 @@ const styles = StyleSheet.create({
     fontSize: '16px',
     margin: '10px',
     cursor: 'pointer'
-  },
-  li: {
-    fontSize: '30px',
-    border: '1px solid #ccc',
-    backgroundColor: '#FEDC81'
-  },
-  ol: {
-    margin: 0,
-    padding: 0,
-    textAlign: 'center'
   },
   h1: {
     fontSize: '40px',
