@@ -17,6 +17,7 @@ export const getClusterDepotName = state => state.getIn([ name, 'selectedCluster
 export const getClusterDepotCoordinates = state => state.getIn([ name, 'selectedCluster', 'depot', 'location', 'coordinates' ])
 export const getClusterPineapples = state => state.getIn([ name, 'selectedCluster', 'items' ])
 export const getClusterRider = state => state.getIn([ name, 'selectedCluster', 'rider' ])
+export const getClusterDeliverable = state => state.getIn([ name, 'selectedCluster', 'deliverable' ])
 
 // computed
 export const getIsPanelOpen = createSelector( [ getClusterName ], clusterName => Boolean(clusterName) )

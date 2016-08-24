@@ -20,7 +20,7 @@ export const fetchRiders = () => ({
 })
 
 export const updateCluster = (id, data) => ({
-  types: [ actions.SET_RIDER_REQUEST, actions.SET_RIDER_SUCCESS, actions.SET_RIDER_FAILURE ],
+  types: [ actions.UPDATE_CLUSTER_REQUEST, actions.UPDATE_CLUSTER_SUCCESS, actions.UPDATE_CLUSTER_FAILURE ],
   payload: {},
   promise: () => new Promise( (resolve, reject) => service.updateCluster(resolve, reject, id, data) )
 })

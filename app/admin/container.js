@@ -64,6 +64,7 @@ export default connect(
       clusterDepotName: selectors.getClusterDepotName,
       clusterDepotPosition: selectors.getClusterDepotPosition,
       clusterRider: selectors.getClusterRider,
+      clusterDeliverable: selectors.getClusterDeliverable,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
   }),

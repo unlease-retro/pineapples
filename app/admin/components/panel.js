@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
 import * as Components from './'
+import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition, clusterRider, clusterTotalPineapples, riders, selectCluster, updateCluster, setMapCenter }) => {
+const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition, clusterRider, clusterDeliverable, clusterTotalPineapples, riders, selectCluster, updateCluster, setMapCenter }) => {
 
   // TODO - componentize the stats, buttons etc
 
@@ -27,6 +28,8 @@ const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition,
       </div>
 
       <Components.riders riders={riders} selectedRider={clusterRider} selectRider={ rider => updateCluster(clusterId, { rider }) } />
+
+      <SharedComponents.toggle label={'Deliverable?'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }) } />
 
     </div>
   )
