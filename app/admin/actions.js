@@ -39,3 +39,10 @@ export const setMapCenter = (mapCenter={}) => ({
     mapCenter
   }
 })
+
+export const setSearchCluster = searchCluster => ({
+  type: actions.SET_SEARCH_CLUSTER,
+  payload: {
+    searchCluster
+  }
+})

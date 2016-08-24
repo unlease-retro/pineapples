@@ -3,10 +3,19 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
 import { getColour, getCentroid } from '../../shared/util'
 
-// import * as Components from './'
 import { MAP_OPTIONS, CIRCLE_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
 
 export class Map extends Component {
+
+  componentWillMount() {
+
+    // init InfoWindow
+    this.InfoWindow = new google.maps.InfoWindow({})
+
+    // init cluster, depot and pineapple temp arrays
+    this.clusters = this.depots = this.pineapples = []
+
+  }
 
   componentDidMount() {
 
@@ -14,9 +23,6 @@ export class Map extends Component {
 
     // init map
     this.map = new google.maps.Map(this._map, MAP_OPTIONS)
-
-    // init InfoWindow
-    this.InfoWindow = new google.maps.InfoWindow({})
 
     // plot those depots!
     this.plotDepots(depots)
@@ -53,20 +59,22 @@ export class Map extends Component {
     const { selectCluster } = this.props
     const map = this.map
 
+    // clear clusters
+    while (this.clusters[0]) this.clusters.pop().setMap(null)
+
+    // clear pineapples
+    while (this.pineapples[0]) this.pineapples.pop().setMap(null)
+
     clusters && clusters.map( cluster => {
 
       const { items: pineapples, centroid, name } = cluster
 
       const colour = getColour()
       const position = getCentroid(centroid)
-      const MARKER_OPTIONS = getMarkerOptions(colour, google.maps.SymbolPath.CIRCLE)
       const POLYGON_OPTIONS = getPolygonOptions(colour)
 
-      // extract coordinates
-      const paths = pineapples.map( ({ location: { coordinates: [ lng, lat ] } }) => ({ lat, lng }))
-
-      // create marker for each pineapple
-      paths.map( position => new google.maps.Marker({ position, map, ...MARKER_OPTIONS }) )
+      // plot those pineapples!
+      const paths = this.plotPineapples(pineapples, colour)
 
       // create cluster polygon
       const polygon = new google.maps.Polygon({ paths, map, ...POLYGON_OPTIONS })
@@ -77,6 +85,9 @@ export class Map extends Component {
       // set selected cluster and map center as cluster centroid
       polygon.addListener( 'click', () => selectCluster(cluster, position) )
 
+      // store ref to cluster polygon
+      this.clusters.push(polygon)
+
     })
 
   }
@@ -85,6 +96,9 @@ export class Map extends Component {
 
     const { setMapCenter } = this.props
     const map = this.map
+
+    // clear depots
+    while (this.depots[0]) this.depots.pop().setMap(null)
 
     depots && depots.map( depot => {
 
@@ -105,7 +119,31 @@ export class Map extends Component {
       // set map center as depot center
       circle.addListener( 'click', () => setMapCenter(center) )
 
+      // store ref to depot circle
+      this.depots.push(circle)
+
     })
+
+  }
+
+  plotPineapples(pineapples, colour) {
+
+    const MARKER_OPTIONS = getMarkerOptions(colour, google.maps.SymbolPath.CIRCLE)
+
+    // extract coordinates
+    const paths = pineapples.map( ({ location: { coordinates: [ lng, lat ] } }) => ({ lat, lng }))
+
+    // create marker for each pineapple
+    paths.map( position => {
+
+      const marker = new google.maps.Marker({ position, map: this.map, ...MARKER_OPTIONS })
+
+      // store ref to pineapple marker
+      this.pineapples.push(marker)
+
+    })
+
+    return paths
 
   }
 
@@ -124,9 +162,7 @@ export class Map extends Component {
   render() {
 
     return (
-      <div className={css(styles.base)} ref={ r => this._map = r }>
-        {/* render other components here like search and filter */}
-      </div>
+      <div className={css(styles.base)} ref={ r => this._map = r }></div>
     )
 
   }

@@ -23,15 +23,20 @@ export class Admin extends Component {
 
   render() {
 
-    const { clusters, depots, ridersOptions, mapCenter, isPanelOpen, selectedCluster, actions: { selectCluster, updateCluster, setMapCenter } } = this.props
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filteredClusters, isPanelOpen, selectedCluster } = this.props
+    const { selectCluster, updateCluster, setMapCenter, setSearchCluster } = this.props.actions
 
-    // show `panel` when cluster selected
+    // show all clusters unless filtered by search
+    const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
+
+    // render `panel` when cluster selected
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     return (
       <div className={ css(styles.base) }>
 
-        <Components.map clusters={clusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
+        <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
+        <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
 
         <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
           { renderPanel }
@@ -54,9 +59,12 @@ const styles = StyleSheet.create({
 export default connect(
   createStructuredSelector({
     clusters: selectors.getClusters,
+    clustersOptions: selectors.getClustersOptions,
     depots: selectors.getDepots,
     ridersOptions: selectors.getRidersOptions,
     mapCenter: selectors.getMapCenter,
+    searchCluster: selectors.getSearchCluster,
+    filteredClusters: selectors.getFilteredClusters,
     isPanelOpen: selectors.getIsPanelOpen,
     selectedCluster: createStructuredSelector({
       clusterId: selectors.getClusterId,

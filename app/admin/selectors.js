@@ -8,6 +8,7 @@ export const getClusters = state => state.getIn([ name, 'clusters' ]).toJS()
 export const getDepots = state => state.getIn([ name, 'depots' ]).toJS()
 export const getRiders = state => state.getIn([ name, 'riders' ]).toJS()
 export const getMapCenter = state => state.getIn([ name, 'mapCenter' ]).toObject()
+export const getSearchCluster = state => state.getIn([ name, 'searchCluster' ])
 
 export const getSelectedCluster = state => state.getIn([ name, 'selectedCluster' ])
 export const getClusterId = state => state.getIn([ name, 'selectedCluster', '_id' ])
@@ -23,4 +24,10 @@ export const getClusterDeliverable = state => state.getIn([ name, 'selectedClust
 export const getIsPanelOpen = createSelector( [ getClusterName ], clusterName => Boolean(clusterName) )
 export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], depotCoordinates => depotCoordinates && getPosition(depotCoordinates) )
 export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.size )
+export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ) )
 export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( ({ _id, firstname, lastname, clusters }) => ({ value: _id, label: `${firstname} ${lastname} (${clusters.length})` }) ) )
+export const getFilteredClusters = createSelector( [ getClusters, getSearchCluster ], (clusters, searchCluster) => clusters && clusters.filter( cluster => {
+
+  if (searchCluster && cluster._id === searchCluster) return true
+
+} ) )
