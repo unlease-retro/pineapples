@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     padding: '10px',
     fontSize: '16px',
     margin: '10px',
+    cursor: 'pointer'
   },
   li: {
     fontSize: '30px',
