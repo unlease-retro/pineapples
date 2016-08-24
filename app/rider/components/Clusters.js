@@ -27,11 +27,6 @@ export class Clusters extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  li: {
-    fontSize: '30px',
-    border: '1px solid #ccc',
-    backgroundColor: '#FEDC81'
-  },
   ol: {
     margin: 0,
     padding: 0,
