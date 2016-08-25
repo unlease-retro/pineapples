@@ -23,14 +23,14 @@ export class Admin extends Component {
 
   render() {
 
-    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, selectedCluster } = this.props
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, totalClusters, selectedCluster } = this.props
     const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster } = this.props.actions
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
 
     // render `panel` when cluster selected
-    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
+    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     return (
       <div className={ css(styles.base) }>
@@ -69,9 +69,12 @@ export default connect(
     clusterFilterOptions: selectors.getClusterFilterOptions,
     filteredClusters: selectors.getFilteredClusters,
     isPanelOpen: selectors.getIsPanelOpen,
+    totalClusters: selectors.getTotalClusters,
     selectedCluster: createStructuredSelector({
+      clusterIndex: selectors.getSelectedClusterIndex,
       clusterId: selectors.getClusterId,
       clusterName: selectors.getClusterName,
+      clusterPosition: selectors.getClusterPosition,
       clusterDepotName: selectors.getClusterDepotName,
       clusterDepotPosition: selectors.getClusterDepotPosition,
       clusterRider: selectors.getClusterRider,
