@@ -24,6 +24,7 @@ export const getClusterDepotName = createSelector( [ getClusterDepot ], depot =>
 export const getClusterDepotCoordinates = createSelector( [ getClusterDepot ], depot => depot && depot.location.coordinates )
 export const getClusterPineapples = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.items )
 export const getClusterRider = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.rider )
+export const getClusterRiderId = createSelector( [ getClusterRider ], rider => rider && rider._id )
 export const getClusterDeliverable = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.deliverable )
 export const getIsPanelOpen = createSelector( [ getClusterName ], clusterName => Boolean(clusterName) )
 export const getClusterCentroid = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.centroid )
