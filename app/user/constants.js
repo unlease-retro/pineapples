@@ -1,2 +1,2 @@
 export const name = 'user'
-export const roles = [ 'SUPERUSER', 'MANAGER' ]
+export const roles = ['SUPERUSER', 'MANAGER', 'RIDER', 'WRITER']

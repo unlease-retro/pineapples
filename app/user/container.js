@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import * as actions from './actions'
-// import * as Components from './components'
+import * as Components from './components'
 import * as selectors from './selectors'
+
 
 export class User extends Component {
 
@@ -13,17 +14,22 @@ export class User extends Component {
 
     console.log('User :: componentWillMount')
 
+    this.props.actions.fetchUsers()
+
   }
 
   render() {
 
-    // const { role } = this.props
-    // const { someAction } = this.props.actions
+    const { role, users, actions: { fetchUsers, deleteUser, createUser } } = this.props
 
     return (
       <div>
 
-        Users
+        <Components.users role={role} users={users} deleteUser={deleteUser} onChange={fetchUsers} />
+
+        <hr />
+
+        <Components.create role={role} onSubmit={createUser} />
 
       </div>
     )
@@ -34,7 +40,9 @@ export class User extends Component {
 
 export default connect(
   createStructuredSelector({
-    role: selectors.getRole,
+    all: selectors.getAll,
+    users: selectors.getUsers,
+    role: selectors.getRole
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
