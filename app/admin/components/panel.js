@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import { media } from 'styles/settings'
 
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
@@ -55,9 +56,12 @@ const styles = StyleSheet.create({
   base: {
     position: 'fixed',
     top: 0,
-    width: '35%',
+    width: '100%',
     height: '100%',
-    background: 'white'
+    background: 'white',
+    [media.aboveSmall]: {
+      width: '35%',
+    }
   }
 })
 
