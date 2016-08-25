@@ -67,9 +67,9 @@ export class Map extends Component {
     // clear pineapples
     while (this.pineapples[0]) this.pineapples.pop().setMap(null)
 
-    clusters && clusters.map( cluster => {
+    clusters && clusters.map( (cluster, i) => {
 
-      const { items: pineapples, centroid, name } = cluster
+      const { items: pineapples, centroid, name, index } = cluster
 
       const colour = getColour()
       const position = getCentroid(centroid)
@@ -85,7 +85,7 @@ export class Map extends Component {
       polygon.addListener( 'mouseover', () => this.openInfoWindow(position, name) )
 
       // set selected cluster and map center as cluster centroid
-      polygon.addListener( 'click', () => selectCluster(cluster, position) )
+      polygon.addListener( 'click', () => selectCluster(index || i, position) )
 
       // store ref to cluster polygon
       this.clusters.push(polygon)

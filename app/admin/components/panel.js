@@ -4,9 +4,17 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition, clusterRider, clusterDeliverable, clusterTotalPineapples, riders, selectCluster, updateCluster, setMapCenter }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRider, clusterDeliverable, clusterTotalPineapples, riders, totalClusters, selectCluster, updateCluster, setMapCenter }) => {
 
   // TODO - componentize the stats, buttons etc, render as children
+
+  const onNextClick = () => {
+
+    const nextIndex = clusterIndex >= totalClusters - 1 ? 0 : clusterIndex + 1
+
+    selectCluster(nextIndex)
+
+  }
 
   return (
     <div className={ css(styles.base) }>
@@ -15,7 +23,7 @@ const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition,
         Close
       </div>
 
-      <div>
+      <div onClick={ () => setMapCenter(clusterPosition) }>
         { clusterName }
       </div>
 
@@ -30,6 +38,10 @@ const Panel = ({ clusterId, clusterName, clusterDepotName, clusterDepotPosition,
       <Components.riders riders={riders} selectedRider={clusterRider} selectRider={ rider => updateCluster(clusterId, { rider }) } />
 
       <SharedComponents.toggle label={'Deliverable?'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }) } />
+
+      <div onClick={onNextClick}>
+        Next
+      </div>
 
     </div>
   )
