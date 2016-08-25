@@ -2,6 +2,7 @@ const Pineapple = require('./service')
 const Payment = require('../shared/services/payment/payment')
 const ClusterService = require('../cluster/service')
 const SettingsService = require('../settings/service')
+const {ERROR} = require('../shared/constants')
 exports.create = (req, res, next) => {
   
   let pineapple = Pineapple.getPineappleFromReq(req.body)
@@ -17,7 +18,7 @@ exports.create = (req, res, next) => {
         console.log('reject validate for : ')
         console.log(pineapple)
         console.log(e)
-        next(new Error('Unable to process your order'))
+        next(new Error(ERROR.GENERAL_ORDER_FAILED))
 
       }
     )
@@ -36,7 +37,7 @@ exports.create = (req, res, next) => {
         console.log('reject payment for : ')
         console.log(pineapple)
         console.log(e)
-        next(new Error('Unable to process your payment'))
+        next(new Error(ERROR.PAYMENT_FAILED))
 
       }
 
@@ -59,7 +60,7 @@ exports.create = (req, res, next) => {
         console.log(pineapple)
         console.log(e)
         Payment.refundCharges(pineapple.stripeChargeId)
-        next(new Error('Unable to process your order'))
+        next(new Error(ERROR.GENERAL_ORDER_FAILED))
 
       }
     )
@@ -122,7 +123,7 @@ exports.track = (req, res, next) => {
 
       return next()
 
-    }, () => next(new Error('tracking id not found')) )
+    }, () => next(new Error(ERROR.TRACKING_ID_NOT_FOUND)) )
 
 }
 
@@ -134,7 +135,7 @@ exports.checkDailyLimit = (req, res, next) => {
 
       if (isLimitReached) {
 
-        next(new Error('We have reached daily limit'))
+        next(new Error(ERROR.DAILY_LIMIT_REACHED))
 
       } else
         return next()
@@ -145,7 +146,7 @@ exports.checkDailyLimit = (req, res, next) => {
 
       console.log('reject check limit : ')
       console.log(e)
-      next(new Error('Unable to your process order'))
+      next(new Error(ERROR.GENERAL_ORDER_FAILED))
 
     }
 
