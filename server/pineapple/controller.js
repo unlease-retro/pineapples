@@ -173,9 +173,24 @@ exports.ordersNotInClustersAndNotDelivered = (req, res, next) => {
 
     }).then(pineapplesToBeDeliveredTodayCount => {
 
-      res.json({ stats: { todaysOrders, pineapplesToBeDeliveredToday: pineapplesToBeDeliveredTodayCount }})
+      res.json({stats: {todaysOrders, pineapplesToBeDeliveredToday: pineapplesToBeDeliveredTodayCount}})
       return next()
 
     })
+
+}
+
+exports.getDailyLimitStatus = (req, res, next) => {
+
+  return ClusterService.findAllPineapplesInClusters().then(Pineapple.getTotalNumPineappleNotInDelivery).then(SettingsService.isDailyLimitReached).then(
+
+    (isLimitReached) => {
+
+      res.json({ isLimitReached })
+      res.sendStatus(200)
+      return next()
+
+    }, e => next(e)
+  )
 
 }
