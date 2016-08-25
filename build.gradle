@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:1.12.2'
+    }
+}
+
+plugins {
+    id "nebula.ospackage" version "3.2.0"
+}
+
+
+apply plugin: 'nebula.deb'
+
+project.ext.set('env', System.getenv())
+
+task cleanDir(type: Delete) {
+  delete 'build', 'node_modules'
+}
+task installNpm(type: Exec ) {
+    dependsOn << cleanDir
+    commandLine = ["npm", "install"]
+    inputs.file "package.json"
+    outputs.dir "node_modules"
+}
+task npmBuild(type: Exec ) {
+    dependsOn << installNpm
+    commandLine = ["npm", "run", "build"]
+}
+
+task makeDeb(type: Deb) {
+    dependsOn << npmBuild
+    user = 'deploy'
+    version = '0.' + (env.containsKey("GIT_COMMIT") ? env.GIT_COMMIT : '0.0')
+    packageName = 'unlease-pineapple'
+    postInstall file('buildScripts/deb-postInstall.sh')
+
+    into '/opt/unlease/pineapple/'
+    from('build/') {
+
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
