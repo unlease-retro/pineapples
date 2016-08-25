@@ -59,3 +59,9 @@ export const cutOff = () => ({
   payload: {},
   promise: () => new Promise( (resolve, reject) => service.cutOff(resolve, reject) )
 })
+
+export const fetchStats = () => ({
+  types: [ actions.FETCH_STATS_REQUEST, actions.FETCH_STATS_SUCCESS, actions.FETCH_STATS_FAILURE ],
+  payload: {},
+  promise: () => new Promise( (resolve, reject) => service.fetchStats(resolve, reject) )
+})

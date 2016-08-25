@@ -68,7 +68,7 @@ exports.track = trackingId => {
 }
 
 exports.getTotalNumPineappleNotInDelivery = (pineapplesInCluster) => {
-  
+
   return Pineapple.count( {
 
     _id : {

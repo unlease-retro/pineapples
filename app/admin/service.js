@@ -30,3 +30,8 @@ export const cutOff = (resolve, reject) =>
   API.post('cluster/generate')
     .then( res => resolve(res.json()) )
     .catch( e => reject(e) )
+
+export const fetchStats = (resolve, reject) =>
+  API.get('pineapple/list/stats')
+    .then( res => resolve(res.json()) )
+    .catch( e => reject(e) )

@@ -154,3 +154,28 @@ exports.checkDailyLimit = (req, res, next) => {
   )
 
 }
+
+exports.ordersNotInClustersAndNotDelivered = (req, res, next) => {
+
+  let todaysOrders = 0
+  let clusteredPineapples = null
+
+  return ClusterService.findAllPineapplesInClusters()
+    .then((pineapplesInClusters) => {
+
+      clusteredPineapples = pineapplesInClusters
+      return Pineapple.getTotalNumPineappleNotInDelivery(pineapplesInClusters)
+
+    }).then(todaysOrdersCount => {
+
+      todaysOrders = todaysOrdersCount
+      return Pineapple.getTotalNumPineappleInDeliveryButNotDelivered(clusteredPineapples)
+
+    }).then(pineapplesToBeDeliveredTodayCount => {
+
+      res.json({ stats: { todaysOrders, pineapplesToBeDeliveredToday: pineapplesToBeDeliveredTodayCount }})
+      return next()
+
+    })
+
+}

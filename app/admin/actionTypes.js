@@ -25,3 +25,7 @@ export const CUT_OFF_REQUEST = `${name}/CUT_OFF_REQUEST`
 export const CUT_OFF_SUCCESS = `${name}/CUT_OFF_SUCCESS`
 export const CUT_OFF_FAILURE = `${name}/CUT_OFF_FAILURE`
 
+export const FETCH_STATS_REQUEST = `${name}/FETCH_STATS_REQUEST`
+export const FETCH_STATS_SUCCESS = `${name}/FETCH_STATS_SUCCESS`
+export const FETCH_STATS_FAILURE = `${name}/FETCH_STATS_FAILURE`
+

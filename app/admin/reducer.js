@@ -40,4 +40,8 @@ export default createReducer(initialState, {
   [actions.CUT_OFF_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
   [actions.CUT_OFF_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
+  [actions.FETCH_STATS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_STATS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_STATS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
+
 })

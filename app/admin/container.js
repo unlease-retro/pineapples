@@ -13,11 +13,12 @@ export class Admin extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchClusters, fetchDepots, fetchRiders } } = this.props
+    const { actions: { fetchClusters, fetchDepots, fetchRiders, fetchStats } } = this.props
 
     fetchClusters()
     fetchDepots()
     fetchRiders()
+    fetchStats()
 
   }
 
@@ -84,7 +85,9 @@ export default connect(
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
     stats: createStructuredSelector({
-      ridersWithUndeliveredPineapples: selectors.getRidersOptions
+      ridersWithUndeliveredPineapples: selectors.getRidersOptions,
+      todaysOrders: selectors.getTodaysOrders,
+      pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday
     })
   }),
   dispatch => ({
