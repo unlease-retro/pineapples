@@ -7,6 +7,7 @@ const ClusterService = require('../../../cluster/service')
 const PineappleService = require('../../../pineapple/service')
 const SettingsService = require('../../../settings/service')
 const DepotService = require('../../../depot/service')
+const WriterService = require('../../../writer/service')
 
 const clusterize = require('./semolina')
 
@@ -18,10 +19,11 @@ const semolina = (dailyLimit) => {
     // run auto clustering
     return Promise.all([
       SettingsService.read(),
-      PineappleService.list({delivered: false}, dailyLimit)
+      PineappleService.list({delivered: false}, dailyLimit),
+      WriterService.list()
     ])
 
-  }).then(([ [{clusterLimit}], pineapples ]) => {
+  }).then(([ [{clusterLimit}], pineapples, writers ]) => {
 
     const clusters = clusterize(pineapples, clusterLimit)
 
@@ -54,12 +56,13 @@ const semolina = (dailyLimit) => {
 
         cluster.name = name
         cluster.depot = depots[i]._id
+        cluster.writer = writers[i % writers.length]
 
         // insert cluster into separate collection/document (with unique and user friendly id)
         ClusterService.create(cluster)
 
       })
-
+      
       return clusters
 
     })
