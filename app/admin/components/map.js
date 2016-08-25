@@ -22,9 +22,14 @@ export class Map extends Component {
   componentDidMount() {
 
     const { clusters, depots } = this.props
+    const closeInfoWindow = this.closeInfoWindow.bind(this)
 
     // init map
     this.map = new google.maps.Map(this._map, MAP_OPTIONS)
+
+    // add some listeners to the map
+    this.map.addListener('click', closeInfoWindow)
+    this.map.addListener('idle', closeInfoWindow)
 
     // plot those depots!
     this.plotDepots(depots)
@@ -146,6 +151,13 @@ export class Map extends Component {
     })
 
     return paths
+
+  }
+
+  closeInfoWindow() {
+
+    // close the damn thing
+    this.InfoWindow.close()
 
   }
 
