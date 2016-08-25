@@ -8,7 +8,9 @@ const Settings = new Schema({
   dailyLimit: { type: Number, required: true },
   clusterLimit: { type: Number, required: true },
   active: { type: Boolean, required: true, default: true },
-  postcodes: [String]
+  postcodes: [String],
+  unitPriceInPence : { type: Number, required: true },
+  currency : { type: String, required: true },
 }, {
   timestamps: true
 })

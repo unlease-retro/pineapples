@@ -7,7 +7,7 @@ export const initialState = Immutable.fromJS({
   clusters: [],
   depots: [],
   riders: [],
-  selectedCluster: {},
+  selectedClusterIndex: null,
   mapCenter: {},
   filterCluster: null,
   searchCluster: null
