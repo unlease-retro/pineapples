@@ -4,17 +4,13 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-class Cluster extends React.Component {
+const Cluster = ({ cluster, actions: { selectCluster } }) => {
 
-  render() {
-
-    const { cluster, actions: { selectCluster } } = this.props
-
-    return <li className={ css(styles.li) } onClick={() => selectCluster(cluster)}>
+  return (
+    <li className={ css(styles.li) } onClick={() => selectCluster(cluster)}>
       <a>{cluster.name}</a>
     </li>
-
-  }
+  )
 
 }
 
@@ -25,6 +21,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FEDC81'
   },
 })
-
 
 export default Cluster
