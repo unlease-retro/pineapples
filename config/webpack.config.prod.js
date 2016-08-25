@@ -42,7 +42,7 @@ module.exports = {
     }),
     new CleanPlugin([ PATHS.dist ], { root: process.cwd() }),
     new CopyPlugin([ { from: './static', to: './' } ], { ignore: [ '.*' ] }),
-    new HtmlWebpackPlugin({ template: 'app/index.html' })
+    new HtmlWebpackPlugin({ template: 'app/index.html', filename: 'app.html' })
   ],
 
   module: {

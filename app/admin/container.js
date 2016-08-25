@@ -13,18 +13,19 @@ export class Admin extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchClusters, fetchDepots, fetchRiders } } = this.props
+    const { actions: { fetchClusters, fetchDepots, fetchRiders, fetchStats } } = this.props
 
     fetchClusters()
     fetchDepots()
     fetchRiders()
+    fetchStats()
 
   }
 
   render() {
 
-    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, totalClusters, selectedCluster } = this.props
-    const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster } = this.props.actions
+    const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, cutOff } = this.props.actions
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
@@ -33,17 +34,19 @@ export class Admin extends Component {
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     return (
-      <div className={ css(styles.base) }>
+        <div className={ css(styles.base) }>
 
-        <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
-        <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
-        <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
+          <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
+          <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
+          <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 
-        <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
-          { renderPanel }
-        </ReactCSSTransitionGroup>
+          <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
+            { renderPanel }
+          </ReactCSSTransitionGroup>
 
-      </div>
+          <Components.statsAndCutOff stats={stats} cutOff={cutOff}/>
+
+        </div>
     )
 
   }
@@ -81,6 +84,11 @@ export default connect(
       clusterDeliverable: selectors.getClusterDeliverable,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
+    stats: createStructuredSelector({
+      ridersWithUndeliveredPineapples: selectors.getRidersOptions,
+      todaysOrders: selectors.getTodaysOrders,
+      pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday
+    })
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

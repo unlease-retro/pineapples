@@ -25,3 +25,13 @@ export const updateCluster = (resolve, reject, id, data) =>
     .then( res => res.json() )
     .then( json => resolve({ selectedCluster: json.cluster }) )
     .catch( e => reject(e) )
+
+export const cutOff = (resolve, reject) =>
+  API.post('cluster/generate')
+    .then( res => resolve(res.json()) )
+    .catch( e => reject(e) )
+
+export const fetchStats = (resolve, reject) =>
+  API.get('pineapple/list/stats')
+    .then( res => resolve(res.json()) )
+    .catch( e => reject(e) )

@@ -11,6 +11,8 @@ export const getMapCenter = state => state.getIn([ name, 'mapCenter' ]).toObject
 export const getSearchCluster = state => state.getIn([ name, 'searchCluster' ])
 export const getFilterCluster = state => state.getIn([ name, 'filterCluster' ])
 export const getSelectedClusterIndex = state => state.getIn([ name, 'selectedClusterIndex' ])
+export const getTodaysOrders = state => state.getIn([ name, 'stats', 'todaysOrders' ])
+export const getPineapplesToBeDeliveredToday = state => state.getIn([ name, 'stats', 'pineapplesToBeDeliveredToday' ])
 
 // computed
 export const getTotalClusters = createSelector( [ getClusters ], clusters => clusters.length )
@@ -30,7 +32,6 @@ export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordina
 export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.length )
 export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ) )
 export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( ({ _id, firstname, lastname, clusters }) => ({ value: _id, label: `${firstname} ${lastname} (${clusters.length})` }) ) )
-
 export const getClusterFilterOptions = createSelector( [ getRidersOptions ], riders => {
 
   riders.push({ value: 'unassigned', label: 'Unassigned' })
