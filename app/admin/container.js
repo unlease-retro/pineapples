@@ -24,7 +24,7 @@ export class Admin extends Component {
   render() {
 
     const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, selectedCluster } = this.props
-    const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster } = this.props.actions
+    const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, cutOff } = this.props.actions
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
@@ -43,7 +43,7 @@ export class Admin extends Component {
             { renderPanel }
           </ReactCSSTransitionGroup>
 
-          <Components.stats />
+          <Components.stats cutOff={cutOff}/>
 
         </div>
     )

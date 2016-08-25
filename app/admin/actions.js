@@ -53,3 +53,9 @@ export const setFilterCluster = filterCluster => ({
     filterCluster
   }
 })
+
+export const cutOff = () => ({
+  types: [ actions.CUT_OFF_REQUEST, actions.CUT_OFF_SUCCESS, actions.CUT_OFF_FAILURE ],
+  payload: {},
+  promise: () => new Promise( (resolve, reject) => service.cutOff(resolve, reject) )
+})

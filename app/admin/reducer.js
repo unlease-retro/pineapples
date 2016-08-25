@@ -36,4 +36,8 @@ export default createReducer(initialState, {
   [actions.UPDATE_CLUSTER_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
   [actions.UPDATE_CLUSTER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
+  [actions.CUT_OFF_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.CUT_OFF_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.CUT_OFF_FAILURE]: (state, action) => state.merge({ ...action.payload }),
+
 })
