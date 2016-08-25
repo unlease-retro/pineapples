@@ -131,15 +131,23 @@ exports.checkDailyLimit = (req, res, next) => {
   return ClusterService.findAllPineapplesInClusters().then(Pineapple.getTotalNumPineappleNotInDelivery).then(SettingsService.isDailyLimitReached).then(
 
     (isLimitReached) => {
-      
+
       if (isLimitReached) {
 
         next(new Error('We have reached daily limit'))
 
       } else
         return next()
-      
-    }, () => next(new Error('Unable to your process order'))
+
+    },
+
+    (e) => {
+
+      console.log('reject check limit : ')
+      console.log(e)
+      next(new Error('Unable to your process order'))
+
+    }
 
   )
 
