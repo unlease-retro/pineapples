@@ -1,20 +1,70 @@
-const uuid = require('node-uuid')
 const Pineapple = require('./service')
-
+const Payment = require('../shared/services/payment/payment')
+const ClusterService = require('../cluster/service')
+const SettingsService = require('../settings/service')
+const {ERROR} = require('../shared/constants')
 exports.create = (req, res, next) => {
+  
+  let pineapple = Pineapple.getPineappleFromReq(req.body)
 
-  const id = uuid.v4()
+  return Pineapple.validate(pineapple)
+    .then(
+      ()=>{
 
-  return Pineapple.create(id, req.body)
-    .then( pineapple => {
+        return Payment.createCharge(req.body)
 
-      res.json({ pineapple })
+      }, (e) => {
 
-      res.sendStatus(200)
+        console.log('reject validate for : ')
+        console.log(pineapple)
+        console.log(e)
+        next(new Error(ERROR.GENERAL_ORDER_FAILED))
 
-      return next()
+      }
+    )
+    .then(
+      charge => {
 
-    }, e => next(e) )
+        if (charge) {
+
+          pineapple.stripeChargeId = charge.id
+          return Pineapple.create(pineapple)
+
+        }
+
+      }, (e) => {
+
+        console.log('reject payment for : ')
+        console.log(pineapple)
+        console.log(e)
+        next(new Error(ERROR.PAYMENT_FAILED))
+
+      }
+
+    )
+    .then(
+      pineapple => {
+
+        if (pineapple) {
+
+          Pineapple.sendTrackingEmail(pineapple)
+          res.json({ pineapple })
+          res.sendStatus(200)
+          return next()
+
+        }
+
+
+      }, (e) => {
+
+        console.log('reject create for : ')
+        console.log(pineapple)
+        console.log(e)
+        Payment.refundCharges(pineapple.stripeChargeId)
+        next(new Error(ERROR.GENERAL_ORDER_FAILED))
+
+      }
+    )
 
 }
 
@@ -74,6 +124,33 @@ exports.track = (req, res, next) => {
 
       return next()
 
-    }, e => next(e) )
+    }, () => next(new Error(ERROR.TRACKING_ID_NOT_FOUND)) )
+
+}
+
+exports.checkDailyLimit = (req, res, next) => {
+
+  return ClusterService.findAllPineapplesInClusters().then(Pineapple.getTotalNumPineappleNotInDelivery).then(SettingsService.isDailyLimitReached).then(
+
+    (isLimitReached) => {
+
+      if (isLimitReached) {
+
+        next(new Error(ERROR.DAILY_LIMIT_REACHED))
+
+      } else
+        return next()
+
+    },
+
+    (e) => {
+
+      console.log('reject check limit : ')
+      console.log(e)
+      next(new Error(ERROR.GENERAL_ORDER_FAILED))
+
+    }
+
+  )
 
 }

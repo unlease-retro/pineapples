@@ -1,11 +1,12 @@
 const Settings = require('./service')
-
+const config = require('../shared/config')
 exports.read = (req, res, next) => {
 
   return Settings.read()
     .then( ([ settings ]) => {
-
-      res.json({ settings })
+      
+      settings.stripePubKey = config.get('payment').stripe.pubKey
+      res.json( { settings } )
 
       return next()
 
