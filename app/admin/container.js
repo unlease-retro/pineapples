@@ -33,17 +33,19 @@ export class Admin extends Component {
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     return (
-      <div className={ css(styles.base) }>
+        <div className={ css(styles.base) }>
 
-        <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
-        <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
-        <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
+          <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
+          <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
+          <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 
-        <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
-          { renderPanel }
-        </ReactCSSTransitionGroup>
+          <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
+            { renderPanel }
+          </ReactCSSTransitionGroup>
 
-      </div>
+          <Components.stats />
+
+        </div>
     )
 
   }
