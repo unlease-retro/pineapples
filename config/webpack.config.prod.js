@@ -6,7 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../app'),
-  dist: path.join(__dirname, '../build')
+  dist: path.join(__dirname, '../build'),
+  styles: path.join(__dirname, '../app/shared/styles')
 }
 
 module.exports = {
@@ -19,6 +20,12 @@ module.exports = {
     path: path.join(PATHS.dist, '/public'),
     filename: '[name]-[hash].js',
     publicPath: '/'
+  },
+
+  resolve: {
+    alias: {
+      styles: PATHS.styles,
+    }
   },
 
   plugins: [
@@ -44,6 +51,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
       }
     ]
   }

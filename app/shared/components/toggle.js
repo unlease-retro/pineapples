@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import { colors } from 'styles/settings'
 
 const Toggle = ({label, active, callback}) => {
 
+  const { styles } = Toggle
   const className = css(styles.base, active && styles.active)
 
   return (
@@ -16,12 +18,12 @@ const Toggle = ({label, active, callback}) => {
 
 }
 
-const styles = StyleSheet.create({
+Toggle.styles = StyleSheet.create({
   base: {
-    color: 'indianred'
+    color: colors.error
   },
   active: {
-    color: '#bada55'
+    color: colors.accent
   }
 })
 
