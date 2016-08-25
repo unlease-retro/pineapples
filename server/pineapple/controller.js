@@ -1,5 +1,7 @@
 const Pineapple = require('./service')
 const Payment = require('../shared/services/payment/payment')
+const ClusterService = require('../cluster/service')
+const SettingsService = require('../settings/service')
 exports.create = (req, res, next) => {
   
   let pineapple = Pineapple.getPineappleFromReq(req.body)
@@ -119,5 +121,24 @@ exports.track = (req, res, next) => {
       return next()
 
     }, () => next(new Error('tracking id not found')) )
+
+}
+
+exports.checkDailyLimit = (req, res, next) => {
+
+  return ClusterService.findAllPineapplesInClusters().then(Pineapple.getTotalNumPineappleNotInDelivery).then(SettingsService.isDailyLimitReached).then(
+
+    (isLimitReached) => {
+      
+      if (isLimitReached) {
+
+        next(new Error('We have reached daily limit'))
+
+      } else
+        return next()
+      
+    }, () => next(new Error('Unable to your process order'))
+
+  )
 
 }

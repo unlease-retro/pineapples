@@ -91,3 +91,24 @@ exports.populateRiderWithUnfinishedClusters = users => {
   return Promise.all(ridersPromises).then( () => Promise.resolve(users) )
 
 }
+
+
+exports.findAllPineapplesInClusters = () => {
+
+  return Cluster.find()
+    .then(
+      (clusters) => {
+
+        let pineapplesInCluster = []
+        clusters.map(cluster => {
+
+          pineapplesInCluster.push(cluster.items)
+
+        })
+        pineapplesInCluster = [].concat.apply([], pineapplesInCluster)
+        return Promise.resolve(pineapplesInCluster)
+        
+      }
+    )
+
+}

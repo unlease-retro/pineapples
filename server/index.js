@@ -64,7 +64,7 @@ app.use(/^(?!\/api).*$/, require('passwordless').restricted({ failureRedirect: '
 app.use( (err, req, res, next) => {
 
   console.error(err.stack)
-  res.status(500).send(err.message)
+  res.status(500).json({errMsg: err.message})
 
 })
 /* eslint-enable no-unused-vars */
