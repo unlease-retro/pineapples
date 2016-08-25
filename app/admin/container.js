@@ -23,7 +23,7 @@ export class Admin extends Component {
 
   render() {
 
-    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, selectedCluster } = this.props
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, selectedCluster, stats } = this.props
     const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, cutOff } = this.props.actions
 
     // show all clusters unless filtered by search
@@ -43,7 +43,7 @@ export class Admin extends Component {
             { renderPanel }
           </ReactCSSTransitionGroup>
 
-          <Components.stats cutOff={cutOff}/>
+          <Components.statsAndCutOff stats={stats} cutOff={cutOff}/>
 
         </div>
     )
@@ -80,6 +80,9 @@ export default connect(
       clusterDeliverable: selectors.getClusterDeliverable,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
+    stats: createStructuredSelector({
+      ridersWithUndeliveredPineapples: selectors.getRidersOptions
+    })
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

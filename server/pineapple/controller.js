@@ -50,9 +50,9 @@ exports.update = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  const { filter } = req.body
+  console.log(req.query)
 
-  return Pineapple.list(filter)
+  return Pineapple.list()
     .then( pineapples => {
 
       res.json({ pineapples })

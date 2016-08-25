@@ -3,7 +3,7 @@ import filter from './filter'
 import panel from './panel'
 import riders from './riders'
 import search from './search'
-import stats from './stats'
+import statsAndCutOff from './statsAndCutOff'
 
 export {
   map,
@@ -11,5 +11,5 @@ export {
   panel,
   riders,
   search,
-  stats
+  statsAndCutOff
 }

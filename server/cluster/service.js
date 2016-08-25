@@ -33,7 +33,7 @@ exports.removeAll = () => {
 
 exports.list = (filter = {}) => {
 
-  return Cluster.find(filter).populate('items depot')
+  return Cluster.find(filter).populate('items depot rider')
 
 }
 

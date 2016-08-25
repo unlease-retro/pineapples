@@ -1,27 +1,23 @@
+/**
+ * Created by BigaMasta on 8/25/16.
+ */
 import React from 'react'
-import Button from '../../shared/components/button'
 
 class Stats extends React.Component {
 
   render() {
 
+    const { stats } = this.props
+
     return (
       <div>
-        <Button label='Cut off' onClick={() => this._safeCutOff()}/>
+        <div>Riders with undelivered pineapples</div>
+        {stats.ridersWithUndeliveredPineapples.map(rider => <div key={rider.value}>{rider.label}</div>)}
       </div>
     )
-    
-  }
-
-  _safeCutOff() {
-
-    const { cutOff } = this.props
-
-    if (confirm('Are you sure you want to generate new clusters?'))
-      cutOff()
 
   }
-  
+
 }
 
 export default Stats

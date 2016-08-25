@@ -27,7 +27,6 @@ export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordina
 export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.size )
 export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ) )
 export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( ({ _id, firstname, lastname, clusters }) => ({ value: _id, label: `${firstname} ${lastname} (${clusters.length})` }) ) )
-
 export const getClusterFilterOptions = createSelector( [ getRidersOptions ], riders => {
 
   riders.push({ value: 'unassigned', label: 'Unassigned' })
