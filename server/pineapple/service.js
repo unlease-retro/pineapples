@@ -21,6 +21,8 @@ exports.getPineappleFromReq = ( props ) => {
     to : props.data.friendName,
     senderEmail : props.data.senderEmail,
     geohash : geohash.encode(props.data.geocode.lat, props.data.geocode.lng),
+    companyName : props.data.companyName,
+    message : props.data.message,
     location: {
 
       type: 'Point',

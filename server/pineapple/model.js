@@ -6,15 +6,16 @@ const ClusterService = require('../cluster/service')
 const Schema = mongoose.Schema
 
 const Pineapple = new Schema({
-  streetAddress: String,
+  streetAddress: { type: String, required: true },
   flatNumber: String,
   city: String,
   country: String,
-  postcode: String,
+  postcode:  { type: String, required: true },
   from: String,
-  to: String,
-  message: String,
-  senderEmail: { type: String, index: true },
+  to: { type: String, required: true },
+  message: { type: String, required: true },
+  senderEmail: { type: String, index: true, required: true},
+  companyName : { type: String, required: true },
   stripeChargeId: String,
   location: {
     type: { type: String, default: 'Point' },
