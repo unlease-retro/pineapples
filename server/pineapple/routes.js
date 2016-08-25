@@ -8,6 +8,7 @@ const { RIDER } = require('../shared/constants').ROLES
 
 const { restrictFor } = require('../auth/middleware')
 
+router.get( '/getDailyLimitStatus', controller.getDailyLimitStatus, (req, res, next) => next() )
 router.post( '/', controller.checkDailyLimit, controller.create, (req, res, next) => next() )
 router.get( '/:id', controller.read, (req, res, next) => next() )
 router.get( '/', passwordless.restricted(), restrictFor(RIDER), controller.list, (req, res, next) => next() )
