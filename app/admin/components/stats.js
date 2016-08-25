@@ -5,14 +5,21 @@ class Stats extends React.Component {
 
   render() {
 
-    const { cutOff } = this.props
-
     return (
       <div>
-        <Button label='Cut off' onClick={cutOff}/>
+        <Button label='Cut off' onClick={() => this._safeCutOff()}/>
       </div>
     )
     
+  }
+
+  _safeCutOff() {
+
+    const { cutOff } = this.props
+
+    if (confirm('Are you sure you want to generate new clusters?'))
+      cutOff()
+
   }
   
 }
