@@ -8,30 +8,56 @@ exports.create = (req, res, next) => {
     .then(
       ()=>{
 
-        Payment.createCharge(req.body)
-          .then(charge => {
+        console.log('resolve validate')
+        return Payment.createCharge(req.body)
 
-            pineapple.stripeChargeId = charge.id
-            Pineapple.create(pineapple)
-              .then( pineapple => {
+      }, () => {
 
-                res.json({ pineapple })
+        console.log('reject validate')
+        next(new Error('Unable to process your order'))
 
-                res.sendStatus(200)
+      }
+    )
+    .then(
+      charge => {
 
-                return next()
+        if (charge) {
 
-              }, () => {
+          console.log('resolve payment')
+          pineapple.stripeChargeId = charge.id
+          return Pineapple.create(pineapple)
 
-                Payment.refundCharges(charge.id)
-                next(new Error('Unable to process your order'))
+        }
 
-              })
+      }, () => {
 
-          }, () => next(new Error('Unable to process your payment')) )
+        console.log('reject payment')
+        next(new Error('Unable to process your payment'))
 
-      }, () => next(new Error('Unable to process your order'))
+      }
 
+    )
+    .then(
+      pineapple => {
+
+        if (pineapple) {
+
+          console.log('resolve create')
+
+          res.json({ pineapple })
+          res.sendStatus(200)
+          return next()
+
+        }
+
+
+      }, () => {
+
+        console.log('reject create')
+        Payment.refundCharges(pineapple.stripeChargeId)
+        next(new Error('Unable to process your order'))
+
+      }
     )
 
 }
