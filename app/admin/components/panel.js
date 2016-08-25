@@ -6,8 +6,6 @@ import * as SharedComponents from '../../shared/components'
 
 const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRider, clusterDeliverable, clusterTotalPineapples, riders, totalClusters, selectCluster, updateCluster, setMapCenter }) => {
 
-  // TODO - componentize the stats, buttons etc, render as children
-
   const onNextClick = () => {
 
     const nextIndex = clusterIndex >= totalClusters - 1 ? 0 : clusterIndex + 1
@@ -19,18 +17,22 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
   return (
     <div className={ css(styles.base) }>
 
+      {/* TODO - convert to shared button component */}
       <div onClick={ () => selectCluster() }>
         Close
       </div>
 
+      {/* TODO - create component */}
       <div onClick={ () => setMapCenter(clusterPosition) }>
         { clusterName }
       </div>
 
+      {/* TODO - create component */}
       <div>
         { clusterTotalPineapples } Pineapples
       </div>
 
+      {/* TODO - create component */}
       <div onClick={ () => setMapCenter(clusterDepotPosition) }>
         Depot: { clusterDepotName }
       </div>
@@ -39,6 +41,7 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
       <SharedComponents.toggle label={'Deliverable?'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }) } />
 
+      {/* TODO - convert to shared button component */}
       <div onClick={onNextClick}>
         Next
       </div>
