@@ -46,7 +46,8 @@ exports.create = (req, res, next) => {
       pineapple => {
 
         if (pineapple) {
-          
+
+          Pineapple.sendTrackingEmail(pineapple)
           res.json({ pineapple })
           res.sendStatus(200)
           return next()

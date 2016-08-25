@@ -1,6 +1,7 @@
 const Pineapple = require('./model')
 const geohash = require('ngeohash')
-
+const EmailService = require('../shared/services/email')
+const config = require('../shared/config/index')
 exports.validate = ( pineapple ) => {
   
   let doc = Pineapple( pineapple )
@@ -79,4 +80,26 @@ exports.getTotalNumPineappleNotInDelivery = (pineapplesInCluster) => {
 
   } )
   
+}
+
+exports.getTotalNumPineappleInDeliveryButNotDelivered = (pineapplesInCluster) => {
+
+  return Pineapple.count( {
+
+    _id : {
+
+      '$in' : pineapplesInCluster
+
+    },
+    delivered : false
+
+  } )
+
+}
+
+exports.sendTrackingEmail = pineapple => {
+
+  let actionUrl = `${config.get('pineapplePageUrl')}?trackingId=${pineapple._id.toString()}`
+  return EmailService.sendToCustomerAfterOrder(pineapple.senderEmail, { actionUrl })
+
 }

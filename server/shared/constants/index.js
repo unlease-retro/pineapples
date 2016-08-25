@@ -6,6 +6,7 @@ exports.ROLES = {
   MANAGER: 'MANAGER',
   RIDER: 'RIDER'
 }
+exports.EMAIL_FROM = 'noreply@unlease.io'
 
 exports.ERROR = {
 

@@ -1,6 +1,6 @@
 {
   "db": {
-    "uri": "mongodb://192.168.99.100:27017/local-pineapples"
+    "uri": "mongodb://127.0.0.1:27017/local-pineapples"
   },
   "mailer": {
     "user": "unleaseservice@gmail.com",
@@ -23,6 +23,7 @@
     "port": 6379,
     "host": "192.168.99.100"
   },
-  "host" : "http://localhost:8001"
+  "host" : "http://localhost:8001",
+  "pineapplePageUrl" : "http://local.unlease.io:8000"
 
 }
