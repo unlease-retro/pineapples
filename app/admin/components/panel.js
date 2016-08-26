@@ -5,7 +5,7 @@ import { media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRider, clusterDeliverable, clusterTotalPineapples, riders, totalClusters, selectCluster, updateCluster, setMapCenter }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterTotalPineapples, riders, totalClusters, selectCluster, updateCluster, setMapCenter }) => {
 
   const onNextClick = () => {
 
@@ -38,9 +38,9 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
         Depot: { clusterDepotName }
       </div>
 
-      <Components.riders riders={riders} selectedRider={clusterRider} selectRider={ rider => updateCluster(clusterId, { rider }) } />
+      <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex) } />
 
-      <SharedComponents.toggle label={'Deliverable?'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }) } />
+      <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
 
       {/* TODO - convert to shared button component */}
       <div onClick={onNextClick}>

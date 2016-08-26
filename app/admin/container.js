@@ -80,7 +80,7 @@ export default connect(
       clusterPosition: selectors.getClusterPosition,
       clusterDepotName: selectors.getClusterDepotName,
       clusterDepotPosition: selectors.getClusterDepotPosition,
-      clusterRider: selectors.getClusterRider,
+      clusterRiderId: selectors.getClusterRiderId,
       clusterDeliverable: selectors.getClusterDeliverable,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
