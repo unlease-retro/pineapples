@@ -40,7 +40,7 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
       <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex) } />
 
-      <SharedComponents.toggle label={'Deliverable?'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
+      <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
 
       {/* TODO - convert to shared button component */}
       <div onClick={onNextClick}>

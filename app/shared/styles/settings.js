@@ -21,6 +21,8 @@ export const colors = {
   secondary: '#9ca9d8',
   dark: '#000',
   light: '#fff',
+  dkgrey: '#bdbdbd',
+  ltgrey: '#f5f5f5',
   accent: '#1bd4ae',
   pineapple: '#fdd56f',
   error: '#f4311a',
