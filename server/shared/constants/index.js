@@ -7,6 +7,10 @@ exports.ROLES = {
   RIDER: 'RIDER'
 }
 exports.EMAIL_FROM = 'noreply@unlease.io'
+exports.EMAIL_TEMPLATES = {
+  writerTagsTemplate: 858128,
+  customerAfterOrderTemplate: 855381
+}
 
 exports.ERROR = {
 
