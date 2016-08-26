@@ -43,7 +43,7 @@ export const fetchWriters = (resolve, reject) =>
 export const createWriter = (data, resolve, reject) =>
   API.post('writer', data)
     .then( res => res.json() )
-    .then( json => resolve(json) )
+    .then( json => resolve(json.writer) )
     .catch( e => reject(e) )
 
 export const updateWriter = (id, data, resolve, reject) =>

@@ -49,6 +49,10 @@ export default createReducer(initialState, {
   [actions.FETCH_WRITERS_SUCCESS]: (state, action) => state.merge({ ...action.payload, users: [], requesting: false }),
   [actions.FETCH_WRITERS_FAILURE]: (state, action) => state.merge({ ...action.payload, requesting: false }),
 
+  [actions.CREATE_WRITER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.CREATE_WRITER_SUCCESS]: (state, action) => state.merge({ writers: state.get('writers').concat(action.payload) }),
+  [actions.CREATE_WRITER_FAILURE]: (state, action) => state.merge({ ...action.payload, requesting: false }),
+
   [actions.DELETE_WRITER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.DELETE_WRITER_SUCCESS]: (state, action) => state.merge({ 'writers': state.get('writers').filter(writer => writer.get('_id') !== action.payload), requesting: false }),
   [actions.DELETE_WRITER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
