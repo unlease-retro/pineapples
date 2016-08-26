@@ -18,7 +18,7 @@ export class User extends Component {
 
   render() {
 
-    const { role, users, writers, actions } = this.props
+    const { role, selectedRole, users, writers, actions } = this.props
 
 
     return (
@@ -30,7 +30,7 @@ export class User extends Component {
 
         <hr />
 
-        <Components.create role={role} createUser={actions.createUser} createWriter={actions.createWriter} />
+        <Components.create role={role} selectedRole={selectedRole} changeRole={actions.changeRole} createUser={actions.createUser} createWriter={actions.createWriter} />
 
       </div>
     )
@@ -44,7 +44,8 @@ export default connect(
     all: selectors.getAll,
     users: selectors.getUsers,
     writers: selectors.getWriters,
-    role: selectors.getRole
+    role: selectors.getRole,
+    selectedRole: selectors.getSelectedRole
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

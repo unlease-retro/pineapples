@@ -1,22 +1,9 @@
 import React from 'react'
-import { StyleSheet, css } from 'aphrodite'
-
 import Role from './Role'
 
 
 
-const Component = ({ role, createWriter, createUser }) => {
-
-  let styles = StyleSheet.create({
-    hidden: {
-      display: 'none'
-    },
-  })
-
-
-  let className = css(
-    Component.role === 'WRITER' ? styles.hidden : null
-  )
+const Component = ({ role, createWriter, createUser, changeRole, selectedRole }) => {
 
 
   const handleSubmit = e => {
@@ -26,32 +13,40 @@ const Component = ({ role, createWriter, createUser }) => {
     if (Component.role === 'WRITER')
       createWriter({ email: Component.email })
     else
-      createUser({ firstname: Component.firstname, lastname: Component.lastname, email: Component.email, phone: Component.phone, role: Component.role })
+      createUser({ firstname: Component.firstname, lastname: Component.lastname, email: Component.email, phone: Component.phone, role: selectedRole })
 
   }
+
+
+  const renderFirstname = selectedRole !== 'WRITER' ?
+    <p>
+      <label htmlFor='firstname'>First name</label>
+      <input type='text' onChange={ e => Component.firstname = e.target.value } name='firstname' placeholder='John' required/>
+    </p> : null
+
+  const renderLastname = selectedRole !== 'WRITER' ?
+    <p>
+      <label htmlFor='lastname'>Last name</label>
+      <input type='text' onChange={ e => Component.lastname = e.target.value } name='lastname' placeholder='Doe' required/>
+    </p> : null
+
+  const renderPhone = selectedRole !== 'WRITER' ?
+    <p>
+      <label htmlFor='phone'>Phone</label>
+      <input type='tel' onChange={ e => Component.phone = e.target.value } name='phone' placeholder='(555) 555-5555' required/>
+    </p> : null
 
 
   return (
     <form onSubmit={handleSubmit}>
       <p>
         <label htmlFor='role'>Role</label>
-        <Role role={role} onChange={ r => Component.role = r } />
+        <Role role={role} onChange={ role => changeRole(role) } />
       </p>
 
-      <p className={className}>
-        <label htmlFor='firstname'>First name</label>
-        <input type='text' onChange={ e => Component.firstname = e.target.value } name='firstname' placeholder='John' required/>
-      </p>
-
-      <p className={className}>
-        <label htmlFor='lastname'>Last name</label>
-        <input type='text' onChange={ e => Component.lastname = e.target.value } name='lastname' placeholder='Doe' required/>
-      </p>
-
-      <p className={className}>
-        <label htmlFor='phone'>Phone</label>
-        <input type='tel' onChange={ e => Component.phone = e.target.value } name='phone' placeholder='(555) 555-5555' required/>
-      </p>
+      {renderFirstname}
+      {renderLastname}
+      {renderPhone}
 
       <p>
         <label htmlFor='email'>E-mail</label>

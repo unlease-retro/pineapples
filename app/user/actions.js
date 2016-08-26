@@ -54,3 +54,8 @@ export const deleteWriter = (id) => ({
   payload: { requesting: true, error: null },
   promise: () => new Promise( (resolve, reject) => service.deleteWriter(id, resolve, reject) )
 })
+
+export const changeRole = (selectedRole) => ({
+  type: actions.CHANGE_SELECTED_ROLE,
+  payload: { selectedRole }
+})
