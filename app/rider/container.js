@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import * as actions from './actions'
 import * as Components from './components'
@@ -19,6 +20,8 @@ export class Rider extends Component {
 
   render() {
 
+    const { selectedCluster } = this.props
+
     const deliveryActions = {
       changeStatus: this.props.actions.changeStatus,
       unselectCluster: this.props.actions.unselectCluster
@@ -26,15 +29,22 @@ export class Rider extends Component {
 
     const clustersActions = { selectCluster: this.props.actions.selectCluster }
 
+    const renderDelivery = selectedCluster ? (
+      <Components.Delivery
+        selectedCluster={this.props.selectedCluster}
+        actions={deliveryActions}
+        viewAllButton={this.props.clusters.length > 1} />
+    ) : null
+
     return (
       <div>
+
         <Components.Clusters
           clusters={this.props.clusters}
           actions={clustersActions} />
-        <Components.Delivery
-          selectedCluster={this.props.selectedCluster}
-          actions={deliveryActions}
-          viewAllButton={this.props.clusters.length > 1} />
+        <ReactCSSTransitionGroup transitionName='slide-in-left' transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+          {renderDelivery}
+        </ReactCSSTransitionGroup>
       </div>
     )
 

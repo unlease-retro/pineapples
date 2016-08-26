@@ -1,0 +1,21 @@
+/* --------
+ * Transition - Slide Right
+-------- */
+
+.slide-in-left-enter, .slide-right-appear {
+    transform: translateX(100%);
+}
+
+.slide-in-left-enter.slide-in-left-enter-active, .slide-in-left-appear.slide-in-left-appear-active {
+    transform: translateX(0);
+    transition: transform 300ms ease-in;
+}
+
+.slide-in-left-leave {
+    transform: translateX(0);
+}
+
+.slide-in-left-leave.slide-in-left-leave-active {
+    transform: translateX(100%);
+    transition: all 300ms ease-in;
+}
