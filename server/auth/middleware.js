@@ -42,3 +42,32 @@ exports.restrictFor = (...roles) => {
   }
 
 }
+
+// Middleware for: Manager => can CRUD riders, SUPERUSER => can CRUD riders, managers, admins
+exports.inhibit = (permittedRole) => ({
+  toDealOnlyWith: (targetRole) =>
+    (req, res, next) => {
+
+      const { role: roleOfTheUserToBeCreated } = req.body
+      const { role: roleOfTheCreatingUser } = JSON.parse(req.user)
+
+      if (roleOfTheUserToBeCreated !== targetRole && roleOfTheCreatingUser === permittedRole) {
+
+        // STOP
+        res.sendStatus(401)
+
+      }
+      else {
+
+        return next()
+
+      }
+
+    }
+})
+
+
+
+
+
+
