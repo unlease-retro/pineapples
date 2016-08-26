@@ -33,6 +33,7 @@
     "lint": "eslint --config config/.eslintrc.js app/ server/",
     "start": "per-env",
     "start:development": "node scripts/start & NODE_ENV=development nodemon -w server -w public  --exec 'npm run lint && node server'",
+    "start:staging": "node index.js",
     "start:production": "node index.js",
     "build": "npm run build:client && npm run build:server",
     "build:client": "NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --profile --colors",
