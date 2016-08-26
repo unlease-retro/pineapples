@@ -34,10 +34,10 @@ task makeDeb(type: Deb) {
     dependsOn << npmBuild
     user = 'deploy'
     version = '0.' + (env.containsKey("GIT_COMMIT") ? env.GIT_COMMIT : '0.0')
-    packageName = 'unlease-pineapple'
+    packageName = 'unlease-app'
     postInstall file('buildScripts/deb-postInstall.sh')
 
-    into '/opt/unlease/pineapple/'
+    into '/opt/unlease/app/'
     from('build/') {
 
     }
