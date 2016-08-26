@@ -10,10 +10,10 @@ const DepotService = require('../../../depot/service')
 const WriterService = require('../../../writer/service')
 const UserService = require('../../../user/service')
 
-const { MANAGER } = require('../../../shared/constants').ROLES
-
 const clusterize = require('./semolina')
+const prioritize = require('../prioritize')
 
+const { MANAGER } = require('../../../shared/constants').ROLES
 
 const semolina = (dailyLimit) => {
 
@@ -62,6 +62,12 @@ const semolina = (dailyLimit) => {
         cluster.name = name
         cluster.depot = depots[i]._id
         cluster.writer = writers[i % writers.length]
+
+        // calculate average priority
+        cluster.priority /= cluster.items.length
+
+        // calculate cluster colour based on priority
+        cluster.colour = prioritize.getClusterColour(cluster.priority)
 
         // send email to writer and managers
         WriterService.sendEmail(cluster, managers)
