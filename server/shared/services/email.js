@@ -3,7 +3,7 @@ const { POSTMARK_KEY, EMAIL_FROM } = require('../constants')
 
 const client = new postmark.Client(POSTMARK_KEY)
 
-const send = ({ TemplateId, TemplateModel, From, To }) => {
+const send = ({ TemplateId, TemplateModel, From, To, Cc }) => {
 
   return new Promise( (resolve, reject) => {
 
@@ -11,12 +11,13 @@ const send = ({ TemplateId, TemplateModel, From, To }) => {
       TemplateId,
       TemplateModel,
       From,
-      To
+      To,
+      Cc
     }, (err, success) => err ? reject(err) : resolve(success) )
 
   })
 
 }
 
-exports.sendClusterToWriter = (To, TemplateModel) => send({ TemplateId: 858128, TemplateModel, From: EMAIL_FROM, To })
+exports.sendCluster = (To, Cc, TemplateModel) => send({ TemplateId: 858128, TemplateModel, From: EMAIL_FROM, To, Cc })
 exports.sendToCustomerAfterOrder = (To, TemplateModel) => send({ TemplateId: 855381, TemplateModel, From: EMAIL_FROM, To })
