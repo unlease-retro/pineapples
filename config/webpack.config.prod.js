@@ -41,7 +41,7 @@ module.exports = {
       }
     }),
     new CleanPlugin([ PATHS.dist ], { root: process.cwd() }),
-    new CopyPlugin([ { from: './static', to: './' },{ from: './buildScripts', to: '../buildScripts' } ], { ignore: [ '.*' ] }),
+    new CopyPlugin([ { from: './static', to: './' },{ from: './node_modules', to: '../node_modules' },{ from: './package.json', to: '../package.json' } ], { ignore: [ '.*' ] }),
     new HtmlWebpackPlugin({ template: 'app/index.html', filename: 'app.html' })
   ],
 
