@@ -17,14 +17,42 @@ export const fetchUsers = (role, resolve, reject) =>
     .then( json => resolve(json) )
     .catch( e => reject(e) )
 
-export const createUser = (user, resolve, reject) =>
-  API.post('user', user)
+export const createUser = (data, resolve, reject) =>
+  API.post('user', data)
     .then( res => res.json() )
     .then( json => resolve(json.user) )
     .catch( e => reject(e) )
 
-export const deleteUser = (id, resolve, reject) =>
-  API.remove(`user/${id}`)
+export const updateUser = (id, data, resolve, reject) =>
+  API.put(`user/${id}`, data)
     .then( res => res.json() )
     .then( json => resolve(json) )
+    .catch( e => reject(e) )
+
+export const deleteUser = (id, resolve, reject) =>
+  API.remove(`user/${id}`)
+    .then( res => resolve(id, res) )
+    .catch( e => reject(e) )
+
+export const fetchWriters = (resolve, reject) =>
+  API.get('writer')
+  .then( res => res.json() )
+  .then( json => resolve(json) )
+  .catch( e => reject(e) )
+
+export const createWriter = (data, resolve, reject) =>
+  API.post('writer', data)
+    .then( res => res.json() )
+    .then( json => resolve(json) )
+    .catch( e => reject(e) )
+
+export const updateWriter = (id, data, resolve, reject) =>
+  API.put(`writer/${id}`, data)
+    .then( res => res.json() )
+    .then( json => resolve(json) )
+    .catch( e => reject(e) )
+
+export const deleteWriter = (id, resolve, reject) =>
+  API.remove(`writer/${id}`)
+    .then( res => resolve(id, res) )
     .catch( e => reject(e) )

@@ -14,22 +14,23 @@ export class User extends Component {
 
     console.log('User :: componentWillMount')
 
-    this.props.actions.fetchUsers()
-
   }
 
   render() {
 
-    const { role, users, actions: { fetchUsers, deleteUser, createUser } } = this.props
+    const { role, users, writers, actions } = this.props
+
 
     return (
       <div>
 
-        <Components.users role={role} users={users} deleteUser={deleteUser} onChange={fetchUsers} />
+        <Components.filter role={role} fetchWriters={actions.fetchWriters} fetchUsers={actions.fetchUsers} />
+        <Components.list data={users} update={actions.updateUser} remove={actions.deleteUser} />
+        <Components.list data={writers} update={actions.updateWriter} remove={actions.deleteWriter} />
 
         <hr />
 
-        <Components.create role={role} onSubmit={createUser} />
+        <Components.create role={role} createUser={actions.createUser} createWriter={actions.createWriter} />
 
       </div>
     )
@@ -42,6 +43,7 @@ export default connect(
   createStructuredSelector({
     all: selectors.getAll,
     users: selectors.getUsers,
+    writers: selectors.getWriters,
     role: selectors.getRole
   }),
   dispatch => ({

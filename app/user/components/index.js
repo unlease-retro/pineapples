@@ -1,8 +1,10 @@
 // import something from './something'
-import users from './Users'
+import list from './List'
 import create from './Create'
+import filter from './Filter'
 
 export {
-  users,
+  list,
+  filter,
   create
 }
