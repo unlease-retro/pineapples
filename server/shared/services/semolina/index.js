@@ -63,6 +63,9 @@ const semolina = (dailyLimit) => {
         cluster.depot = depots[i]._id
         cluster.writer = writers[i % writers.length]
 
+        // calculate average priority
+        cluster.priority /= cluster.items.length
+
         // send email to writer and managers
         WriterService.sendEmail(cluster, managers)
 
