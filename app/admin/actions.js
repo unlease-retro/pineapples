@@ -19,10 +19,10 @@ export const fetchRiders = () => ({
   promise: () => new Promise( (resolve, reject) => service.fetchRiders(resolve, reject) )
 })
 
-export const updateCluster = (id, data) => ({
+export const updateCluster = (id, data, index) => ({
   types: [ actions.UPDATE_CLUSTER_REQUEST, actions.UPDATE_CLUSTER_SUCCESS, actions.UPDATE_CLUSTER_FAILURE ],
   payload: {},
-  promise: () => new Promise( (resolve, reject) => service.updateCluster(resolve, reject, id, data) )
+  promise: () => new Promise( (resolve, reject) => service.updateCluster(resolve, reject, id, data, index) )
 })
 
 export const selectCluster = (selectedClusterIndex=null, mapCenter={}) => ({

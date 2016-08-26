@@ -15,7 +15,7 @@ exports.read = _id => {
 
 exports.update = (_id, props) => {
 
-  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true }).populate('items depot')
+  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true }).populate('items depot rider')
 
 }
 
@@ -107,7 +107,7 @@ exports.findAllPineapplesInClusters = () => {
         })
         pineapplesInCluster = [].concat.apply([], pineapplesInCluster)
         return Promise.resolve(pineapplesInCluster)
-        
+
       }
     )
 

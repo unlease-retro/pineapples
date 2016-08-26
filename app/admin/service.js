@@ -20,10 +20,10 @@ export const fetchRiders = (resolve, reject) =>
     .then( json => resolve({ riders: json.users }) )
     .catch( e => reject(e) )
 
-export const updateCluster = (resolve, reject, id, data) =>
+export const updateCluster = (resolve, reject, id, data, index) =>
   API.put(`cluster/${id}`, data)
     .then( res => res.json() )
-    .then( json => resolve({ selectedCluster: json.cluster }) )
+    .then( ({ cluster }) => resolve({ index, cluster }) )
     .catch( e => reject(e) )
 
 export const cutOff = (resolve, reject) =>

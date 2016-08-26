@@ -33,7 +33,7 @@ export default createReducer(initialState, {
   [actions.FETCH_RIDERS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.UPDATE_CLUSTER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
-  [actions.UPDATE_CLUSTER_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.UPDATE_CLUSTER_SUCCESS]: (state, action) => state.mergeIn([ 'clusters', action.payload.index ], { ...action.payload.cluster }),
   [actions.UPDATE_CLUSTER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.CUT_OFF_REQUEST]: (state, action) => state.merge({ ...action.payload }),
