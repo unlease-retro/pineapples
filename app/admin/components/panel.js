@@ -5,7 +5,10 @@ import { media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterTotalPineapples, riders, totalClusters, selectCluster, updateCluster, setMapCenter }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, riders, totalClusters, selectCluster, updateCluster, setMapCenter }) => {
+
+  // TODO - do something with clusterColour
+  console.log(clusterColour)
 
   const onNextClick = () => {
 

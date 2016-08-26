@@ -17,6 +17,7 @@ const Cluster = new Schema({
   currentLocation: [Number],
   deliverable: { type: Boolean, default: true, index: true },
   priority: { type: Number, index: true },
+  colour: String,
   startedAt: Date,
   finishedAt: Date,
   items: [ { type: Schema.Types.ObjectId, index: true, ref: Pineapple.collection } ]

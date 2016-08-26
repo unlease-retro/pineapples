@@ -82,6 +82,7 @@ export default connect(
       clusterDepotPosition: selectors.getClusterDepotPosition,
       clusterRiderId: selectors.getClusterRiderId,
       clusterDeliverable: selectors.getClusterDeliverable,
+      clusterColour: selectors.getClusterColour,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
     }),
     stats: createStructuredSelector({

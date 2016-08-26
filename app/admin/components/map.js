@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
-import { getColour, getCentroid } from '../../shared/util'
+import { getCentroid } from '../../shared/util'
 
 import { MAP_OPTIONS, CIRCLE_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
 
@@ -74,9 +74,8 @@ export class Map extends Component {
 
     clusters && clusters.map( (cluster, i) => {
 
-      const { items: pineapples, centroid, name, index } = cluster
+      const { items: pineapples, centroid, colour, name, index } = cluster
 
-      const colour = getColour()
       const position = getCentroid(centroid)
       const POLYGON_OPTIONS = getPolygonOptions(colour)
 
