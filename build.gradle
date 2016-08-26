@@ -29,9 +29,14 @@ task npmBuild(type: Exec ) {
     dependsOn << installNpm
     commandLine = ["npm", "run", "build"]
 }
+task copyDocs(type: Copy) {
+    dependsOn << npmBuild
+    from 'node_modules'
+    into 'build/node_modules'
+}
 
 task makeDeb(type: Deb) {
-    dependsOn << npmBuild
+    dependsOn << copyDocs
     user = 'deploy'
     version = '0.' + (env.containsKey("GIT_COMMIT") ? env.GIT_COMMIT : '0.0')
     packageName = 'unlease-app'
