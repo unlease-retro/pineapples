@@ -31,8 +31,10 @@ exports.list = () => {
 
 }
 
-exports.sendEmail = cluster => {
+exports.sendEmail = (cluster, managers) => {
 
-  return EmailService.sendClusterToWriter(cluster.writer.email, cluster)
+  const Cc = managers.map(manager => manager.email ).join(', ')
+
+  return EmailService.sendCluster(cluster.writer.email, Cc, cluster)
 
 }
