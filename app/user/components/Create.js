@@ -10,7 +10,7 @@ const Component = ({ role, createWriter, createUser, changeRole, selectedRole })
 
     e.preventDefault()
 
-    if (Component.role === 'WRITER')
+    if (selectedRole === 'WRITER')
       createWriter({ email: Component.email })
     else
       createUser({ firstname: Component.firstname, lastname: Component.lastname, email: Component.email, phone: Component.phone, role: selectedRole })
