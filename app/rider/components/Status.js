@@ -8,7 +8,7 @@ import { pineappleOptions, DELIVERED, UNDELIVERED } from '../constants'
 
 const Status = ({ item, actions: { changeStatus } }) => {
 
-  const defaultValue = item.delivered ? DELIVERED : UNDELIVERED
+  const selected = item.delivered ? DELIVERED : UNDELIVERED
 
   Status._onStatusChange = (item, newStatus) => {
 
@@ -19,17 +19,8 @@ const Status = ({ item, actions: { changeStatus } }) => {
   }
 
   return (
-    <select className={ css(styles.statusAndMapItem) } onChange={ (e) => Status._onStatusChange(item, e.target.value) }>
-
-      {pineappleOptions.map(option => {
-
-        if (defaultValue === option)
-          return <option key={option} defaultValue>{option}</option>
-        else
-          return <option key={option}>{option}</option>
-
-      })}
-
+    <select value={selected} className={ css(styles.statusAndMapItem) } onChange={ (e) => Status._onStatusChange(item, e.target.value) }>
+      {pineappleOptions.map(option => <option key={option}>{option}</option>)}
     </select>
   )
 
