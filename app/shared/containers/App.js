@@ -25,13 +25,16 @@ export class App extends Component {
     // render splash screen if user role not fetched
     const renderApp = splash ? <Splash /> : children
 
+    // render progress if requesting from API
+    const renderProgress = requesting ? <Progress /> : null
+
     // render error if something went wrong...
     const renderError = error ? <Error message={error.message} /> : null
 
     return (
       <div id='app'>
 
-        <Progress requesting={requesting} />
+        { renderProgress }
 
         { renderError }
 
