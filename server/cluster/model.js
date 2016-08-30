@@ -5,6 +5,7 @@ const Depot = require('../depot')
 const Pineapple = require('../pineapple')
 const User = require('../user')
 const Writer = require('../writer')
+const ArchiveService = require('../archive/service')
 
 const Schema = mongoose.Schema
 
@@ -23,6 +24,17 @@ const Cluster = new Schema({
   items: [ { type: Schema.Types.ObjectId, index: true, ref: Pineapple.collection } ]
 }, {
   timestamps: true
+})
+
+// post save hook
+Cluster.post('save', (doc, next) => {
+
+  const { name, depot, writer, centroid, items } = doc
+
+  // archive cluster
+  ArchiveService.create({ name, depot, writer, centroid, items })
+    .then( () => next() )
+
 })
 
 module.exports = mongoose.model(collection, Cluster)
