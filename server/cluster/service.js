@@ -9,7 +9,7 @@ exports.create = (props) => {
 
 exports.read = _id => {
 
-  return Cluster.findOne({ _id })
+  return Cluster.findOne({ _id }).populate('rider')
 
 }
 

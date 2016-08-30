@@ -9,7 +9,9 @@ exports.ROLES = {
 exports.EMAIL_FROM = 'noreply@unlease.io'
 exports.EMAIL_TEMPLATES = {
   writerTagsTemplate: 858128,
-  customerAfterOrderTemplate: 855381
+  customerAfterOrderTemplate: 855381,
+  assignmentToRider: 858128, // TODO change the number
+  unassignmentToRider: 858128 // TODO change the number
 }
 
 exports.ERROR = {
