@@ -1,16 +1,18 @@
 import React from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
+import { StyleSheet, css } from 'aphrodite'
+import { cAlign } from 'styles/mixins'
 
 const Splash = () => (
-  <div className={ css(styles.lime) }>
-    Unlease :: Pineapples
-  </div>
+  <div className={ css(styles.base) }></div>
 )
 
 const styles = StyleSheet.create({
-  lime: {
-    color: 'lime'
-  }
+  base: Object.assign({}, cAlign, {
+    width: '192px',
+    height: '192px',
+    zIndex: 2,
+    background: 'url(./android-chrome-192x192.png)',
+  })
 })
 
 export default Splash
