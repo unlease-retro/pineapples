@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     padding: '20px',
     zIndex: 1,
     position: 'fixed',
-    top: '2px',
+    top: 0,
     color: colors.light,
     background: colors.error,
     opacity: 0.9,
