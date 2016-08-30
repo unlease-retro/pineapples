@@ -23,15 +23,15 @@ export const createUser = (data, resolve, reject) =>
     .then( json => resolve(json.user) )
     .catch( e => reject(e) )
 
-export const updateUser = (id, data, resolve, reject) =>
+export const updateUser = (id, data, index, resolve, reject) =>
   API.put(`user/${id}`, data)
     .then( res => res.json() )
-    .then( json => resolve(json) )
+    .then( json => resolve({ index, user: json.user }) )
     .catch( e => reject(e) )
 
-export const deleteUser = (id, resolve, reject) =>
+export const deleteUser = (id, index, resolve, reject) =>
   API.remove(`user/${id}`)
-    .then( res => resolve(id, res) )
+    .then( res => resolve({ index, res }) )
     .catch( e => reject(e) )
 
 export const fetchWriters = (resolve, reject) =>
@@ -46,13 +46,13 @@ export const createWriter = (data, resolve, reject) =>
     .then( json => resolve(json.writer) )
     .catch( e => reject(e) )
 
-export const updateWriter = (id, data, resolve, reject) =>
+export const updateWriter = (id, data, index, resolve, reject) =>
   API.put(`writer/${id}`, data)
     .then( res => res.json() )
-    .then( json => resolve(json) )
+    .then( json => resolve({ index, writer: json.writer }) )
     .catch( e => reject(e) )
 
-export const deleteWriter = (id, resolve, reject) =>
+export const deleteWriter = (id, index, resolve, reject) =>
   API.remove(`writer/${id}`)
-    .then( res => resolve(id, res) )
+    .then( res => resolve({ index, res }) )
     .catch( e => reject(e) )

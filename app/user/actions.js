@@ -19,16 +19,16 @@ export const createUser = (data) => ({
   promise: () => new Promise( (resolve, reject) => service.createUser(data, resolve, reject) )
 })
 
-export const updateUser = (id, data) => ({
+export const updateUser = (id, data, index) => ({
   types: [ actions.UPDATE_USER_REQUEST, actions.UPDATE_USER_SUCCESS, actions.UPDATE_USER_FAILURE ],
   payload: { requesting: true, error: null },
-  promise: () => new Promise( (resolve, reject) => service.updateUser(id, data, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.updateUser(id, data, index, resolve, reject) )
 })
 
-export const deleteUser = (id) => ({
+export const deleteUser = (id, index) => ({
   types: [ actions.DELETE_USER_REQUEST, actions.DELETE_USER_SUCCESS, actions.DELETE_USER_FAILURE ],
   payload: { requesting: true, error: null },
-  promise: () => new Promise( (resolve, reject) => service.deleteUser(id, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.deleteUser(id, index, resolve, reject) )
 })
 
 export const fetchWriters = () => ({
@@ -43,16 +43,16 @@ export const createWriter = (data) => ({
   promise: () => new Promise( (resolve, reject) => service.createWriter(data, resolve, reject) )
 })
 
-export const updateWriter = (id, data) => ({
+export const updateWriter = (id, data, index) => ({
   types: [ actions.UPDATE_WRITER_REQUEST, actions.UPDATE_WRITER_SUCCESS, actions.UPDATE_WRITER_FAILURE ],
   payload: { requesting: true, error: null },
-  promise: () => new Promise( (resolve, reject) => service.updateWriter(id, data, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.updateWriter(id, data, index, resolve, reject) )
 })
 
-export const deleteWriter = (id) => ({
+export const deleteWriter = (id, index) => ({
   types: [ actions.DELETE_WRITER_REQUEST, actions.DELETE_WRITER_SUCCESS, actions.DELETE_WRITER_FAILURE ],
   payload: { requesting: true, error: null },
-  promise: () => new Promise( (resolve, reject) => service.deleteWriter(id, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.deleteWriter(id, index, resolve, reject) )
 })
 
 export const changeRole = (selectedRole) => ({

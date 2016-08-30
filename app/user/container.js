@@ -18,8 +18,9 @@ export class User extends Component {
 
   render() {
 
-    const { role, selectedRole, users, writers, actions } = this.props
+    const { all, role, selectedRole, users, writers, actions } = this.props
 
+    console.log(all.toJS())
 
     return (
       <div>

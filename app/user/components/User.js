@@ -1,11 +1,11 @@
 import React from 'react'
 
 
-const Component = ({ user, remove, update }) => {
+const Component = ({ user, index, remove, update }) => {
 
 
-  const handleRemove = () => remove(user._id)
-  const handleUpdate = () => update(user._id, { firstname: Component.firstname, lastname: Component.lastname, email: Component.email })
+  const handleRemove = () => remove(user._id, index)
+  const handleUpdate = () => update(user._id, { firstname: Component.firstname, lastname: Component.lastname, email: Component.email }, index)
 
   const renderFirstname = user.firstname ? <li>
     <label>First name:</label>
