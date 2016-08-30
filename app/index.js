@@ -8,7 +8,7 @@ import 'normalize.css'
 import 'react-select/dist/react-select.css'
 import 'styles/app.css'
 
-// register service worker - disabled due to cookies issue https://github.com/slightlyoff/ServiceWorker/issues/707
+// register service worker - disabled due to cookies issue https://github.com/w3c/ServiceWorker/issues/707
 // if (process.env.NODE_ENV !== 'development' && 'serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
 
 const rootEl = document.getElementById('root')
