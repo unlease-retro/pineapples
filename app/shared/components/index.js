@@ -1,13 +1,17 @@
 import button from './button'
-import header from './header'
-import loader from './loader'
+import error from './error'
+// import header from './header'
+// import loader from './loader'
+import progress from './progress'
 import splash from './splash'
 import toggle from './toggle'
 
 export {
   button,
-  header,
-  loader,
+  error,
+  // header,
+  // loader,
+  progress,
   splash,
   toggle,
 }

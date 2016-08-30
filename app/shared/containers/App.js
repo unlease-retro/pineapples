@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect'
 
 import * as User from '../../user'
 import { selectors as UISelectors} from '../../ui'
-import { splash as Splash } from '../components'
+import { error as Error, progress as Progress, splash as Splash } from '../components'
 
 export class App extends Component {
 
@@ -20,13 +20,20 @@ export class App extends Component {
 
   render() {
 
-    const { children, splash } = this.props
+    const { children, error, requesting, splash } = this.props
 
     // render splash screen if user role not fetched
     const renderApp = splash ? <Splash /> : children
 
+    // render error if something went wrong...
+    const renderError = error ? <Error message={error.message} /> : null
+
     return (
       <div id='app'>
+
+        <Progress requesting={requesting} />
+
+        { renderError }
 
         { renderApp }
 
@@ -39,6 +46,8 @@ export class App extends Component {
 
 export default connect(
   createStructuredSelector({
+    error: UISelectors.getError,
+    requesting: UISelectors.getRequesting,
     role: User.selectors.getRole,
     splash: UISelectors.getSplash,
   }),
