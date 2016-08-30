@@ -9,6 +9,12 @@ exports.ROLES = {
 
 exports.POSTMARK_KEY = '4304dbb3-74a7-49e9-b417-6ca38b4bdefc'
 exports.EMAIL_FROM = 'noreply@unlease.io'
+exports.EMAIL_TEMPLATES = {
+  writerTagsTemplate: 858128,
+  customerAfterOrderTemplate: 855381,
+  assignmentToRider: 858128, // TODO change the number
+  unassignmentToRider: 858128 // TODO change the number
+}
 
 exports.ERROR = {
   PAYMENT_FAILED : 'We are unable to process you payment',
