@@ -24,14 +24,14 @@ export class Admin extends Component {
 
   render() {
 
-    const { selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, cutOff } = this.props.actions
+    const { fetchRiders, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, cutOff } = this.props.actions
     const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
 
     // render `panel` when cluster selected
-    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
+    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     return (
         <div className={ css(styles.base) }>
