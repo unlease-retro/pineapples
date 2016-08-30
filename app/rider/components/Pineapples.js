@@ -14,8 +14,15 @@ const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) =
     <div>
       {items.map(item => {
 
+        const overallStyles = [styles.layout, styles.orderInfo]
+
+        if (item.delivered)
+          overallStyles.push(styles.orderInfoDelivered)
+        else
+          overallStyles.push(styles.orderInfoUndelivered)
+
         return (
-          <div key={item._id} className={ css(styles.layout, styles.orderInfo) }>
+          <div key={item._id} className={ css(...overallStyles) }>
             <div className={ css(styles.flexyItem) }>
               <h2 className={ css(styles.orderTitle) }>From: </h2>
               <p className={ css(styles.orderItem) }>{item.from ? item.from : <i>Not specified</i>}</p>
@@ -70,7 +77,13 @@ const styles = StyleSheet.create({
     border: '5px solid black',
     borderRadius: '10px',
     margin: '10px',
-    backgroundColor: '#FEDC81',
+  },
+  orderInfoDelivered: {
+    backgroundColor: '#d3d3d3',
+    color: '#939393'
+  },
+  orderInfoUndelivered: {
+    backgroundColor: '#FEDC81'
   },
   orderTitle: {
     fontSize: '26px',
