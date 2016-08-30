@@ -25,10 +25,10 @@ const Search = ({ clusters, searchCluster, setSearchCluster }) => {
 
 const styles = StyleSheet.create({
   base: {
+    width: '200px',
     position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '200px'
+    top: '10px',
+    right: '10px',
   }
 })
 

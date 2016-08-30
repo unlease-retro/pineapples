@@ -23,3 +23,7 @@ html {
 *, *:after, *:before {
   box-sizing: inherit;
 }
+
+.Select-control:not(.is-open) {
+  cursor: pointer;
+}

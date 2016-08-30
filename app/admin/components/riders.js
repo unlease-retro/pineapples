@@ -5,12 +5,13 @@ import Select from 'react-select'
 const Riders = ({ riders, selectedRider, selectRider }) => {
 
   return (
-    <div className={ css(styles.base) }>
+    <div>
 
-      <label htmlFor='riders'>Assign to a rider:</label>
+      <label htmlFor='riders' className={ css(styles.label) }>Assign to a rider:</label>
 
       <Select
         name='riders'
+        placeholder='Select rider'
         value={selectedRider}
         options={riders}
         autoBlur={true}
@@ -25,8 +26,9 @@ const Riders = ({ riders, selectedRider, selectRider }) => {
 }
 
 const styles = StyleSheet.create({
-  base: {
-
+  label: {
+    marginBottom: '10px',
+    display: 'block',
   }
 })
 

@@ -25,10 +25,10 @@ const Filter = ({ options, filterCluster, setFilterCluster }) => {
 
 const styles = StyleSheet.create({
   base: {
+    width: '200px',
     position: 'absolute',
-    top: 0,
-    right: '220px',
-    width: '200px'
+    top: '10px',
+    right: '230px',
   }
 })
 

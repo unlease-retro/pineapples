@@ -3,12 +3,10 @@
  */
 import React from 'react'
 
-const Button = ({ label, onClick }) => {
-
-  return (
-    <a onClick={onClick}>{label}</a>
-  )
-
-}
+const Button = ({ label, onClick, className }) => (
+  <a className={className} onClick={onClick}>
+    {label}
+  </a>
+)
 
 export default Button
