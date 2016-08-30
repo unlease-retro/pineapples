@@ -40,7 +40,7 @@ export class Admin extends Component {
           <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
           <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 
-          <ReactCSSTransitionGroup transitionName='slide-right' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300} >
+          <ReactCSSTransitionGroup transitionName='slide-right' transitionEnterTimeout={500} transitionLeaveTimeout={300} >
             { renderPanel }
           </ReactCSSTransitionGroup>
 
