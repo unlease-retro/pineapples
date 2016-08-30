@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import * as User from '../../user'
+import { selectors as UISelectors} from '../../ui'
+import { splash as Splash } from '../components'
 
 export class App extends Component {
 
@@ -18,10 +20,15 @@ export class App extends Component {
 
   render() {
 
+    const { children, splash } = this.props
+
+    // render splash screen if user role not fetched
+    const renderApp = splash ? <Splash /> : children
+
     return (
       <div id='app'>
 
-        {this.props.children}
+        { renderApp }
 
       </div>
     )
@@ -33,6 +40,7 @@ export class App extends Component {
 export default connect(
   createStructuredSelector({
     role: User.selectors.getRole,
+    splash: UISelectors.getSplash,
   }),
   dispatch => ({
     actions: bindActionCreators(User.actions, dispatch)
