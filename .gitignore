@@ -19,5 +19,13 @@ node_modules/
 
 # Release #
 ######################
-public/**/*.js
-public/**/*.map
+build/
+public/
+
+# Editors #
+######################
+.idea
+
+# Redis Dump #
+######################
+dump.rdb

@@ -1,17 +1,21 @@
+const chalk = require('chalk')
+const fs = require('fs')
 const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const favicon = require('serve-favicon')
+const morgan = require('morgan')
+const fallback = require('express-history-api-fallback')
 const passwordless = require('./shared/util/passwordless')
-const expressSession = require('express-session');
+const expressSession = require('express-session')
 const RedisStore = require('connect-redis')(expressSession)
 
 const config = require('./shared/config')
 const routes = require('./routes')
+const { HOST, PORT } = require('./shared/constants')
 
 // database
-const database = require('./db')
+require('./db')
 
 // setup redis
 const redisStore = new RedisStore({
@@ -21,19 +25,21 @@ const redisStore = new RedisStore({
 
 // setup express
 const app = express()
-const HOST = process.env.HOST || 'localhost'
-const PORT = process.env.PORT || 8000
 
-// serve static assets
-app.use(express.static(path.join(__dirname, '../public')))
+// env
+const isDevelopment = process.env.NODE_ENV === 'development'
 
-// favicon
-app.use(favicon(path.join(__dirname, '../public/favicon.ico')))
+// logger
+if (isDevelopment) {
 
-// views
-app.set('views', path.join(__dirname, 'shared/views'))
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
+  const serverLogStream = fs.createWriteStream(path.join(__dirname, '../server.log'), {flags: 'a'})
+
+  app.use(morgan('tiny', { stream: serverLogStream }))
+
+}
+
+// construct static assets path
+const staticPath = isDevelopment ? path.join(__dirname, '../public') : './public'
 
 // parser
 app.use(bodyParser.json())
@@ -44,23 +50,35 @@ app.use(expressSession({ secret: '42', saveUninitialized: false, resave: false, 
 passwordless(app)
 
 // cors
-app.use(cors({ origin: config.get('origins') }))
+app.use(cors())
 
-// routes
-app.use('/', routes)
+// serve static assets
+app.use(express.static(staticPath))
 
+// API routes
+app.use('/api', routes)
+app.use(/^(?!\/api).*$/, require('passwordless').restricted({ failureRedirect: 'login.html' }), fallback('app.html', { root: staticPath }))
+
+/* eslint-disable no-unused-vars */
 // error handling
 app.use( (err, req, res, next) => {
+
   console.error(err.stack)
-  res.status(500).send(err.message)
+  res.status(500).json({errMsg: err.message})
+
 })
+/* eslint-enable no-unused-vars */
 
 // server
 const server = app.listen(PORT, HOST, () => {
 
-    const host = server.address().address
-    const port = server.address().port
+  const host = server.address().address
+  const port = server.address().port
 
-    console.log(`🍍  Server running at http://${host}:${port}`)
+  console.log('🍍  running at:\n')
+  console.log('  ' + chalk.cyan(`http://${host}:${port}\n`))
+
+  // notifier in development
+  if (isDevelopment) require('node-notifier').notify({ 'title': 'Pineapples 🍍', 'message': 'Server up!', icon: path.join(__dirname, '../static/android-chrome-192x192.png'), sound: 'Submarine' })
 
 })

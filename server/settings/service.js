@@ -1,18 +1,26 @@
-const mongoose = require('mongoose')
+const Settings = require('./model')
 
-const schema = require('./model')
-const { collection } = require('./constants')
+exports.read = () => {
 
-const Settings = mongoose.model(collection, schema)
-
-exports.read = (id) => {
-
-  return Settings.findOne({ id })
+  return Settings.find({}).lean()
 
 }
 
-exports.update = (id, props) => {
+exports.update = props => {
 
-  return Settings.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return Settings.findOneAndUpdate({}, Object.assign({}, props), { new: true })
+
+}
+
+exports.isDailyLimitReached = (count) => {
+
+  return Settings.findOne({}).then((setting) => {
+    
+    let isLimitReached = false
+    if (setting.dailyLimit <= count)
+      isLimitReached = true
+    return Promise.resolve(isLimitReached)
+
+  })
 
 }

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const { collection } = require('./constants')
+
 const Schema = mongoose.Schema
 
 const Depot = new Schema({
@@ -7,11 +9,12 @@ const Depot = new Schema({
   active: { type: Boolean, required: true, default: true },
   location: {
     type: { type: String, default: 'Point' },
-    coordinates: { type: [Number], required: true, index: '2dsphere' }
+    coordinates: { type: [Number], required: true }
   }
-},
-{
+}, {
   timestamps: true
 })
 
-module.exports = Depot
+Depot.index({location:'2dsphere'})
+
+module.exports = mongoose.model(collection, Depot)

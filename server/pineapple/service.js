@@ -1,32 +1,105 @@
-const mongoose = require('mongoose')
+const Pineapple = require('./model')
+const geohash = require('ngeohash')
+const EmailService = require('../shared/services/email')
+const config = require('../shared/config/index')
+exports.validate = ( pineapple ) => {
+  
+  let doc = Pineapple( pineapple )
 
-const schema = require('./model')
-const { collection } = require('./constants')
-
-const Pineapple = mongoose.model(collection, schema)
-
-exports.create = (id, props) => {
-
-  return Pineapple.create(Object.assign({}, id, props))
-
-}
-
-exports.read = (id) => {
-
-  return Pineapple.findOne({ id })
+  return doc.validate()
 
 }
 
-exports.update = (id, props) => {
+exports.getPineappleFromReq = ( props ) => {
+  
+  return {
 
-  return Pineapple.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+    streetAddress : props.data.streetAddress,
+    city : props.data.city,
+    country : props.data.country,
+    postcode : props.data.postcode,
+    from : props.data.senderName,
+    to : props.data.friendName,
+    senderEmail : props.data.senderEmail,
+    geohash : geohash.encode(props.data.geocode.lat, props.data.geocode.lng),
+    companyName : props.data.companyName,
+    message : props.data.message,
+    location: {
+
+      type: 'Point',
+      coordinates: [props.data.geocode.lng, props.data.geocode.lat]
+
+    }
+    
+  }
+  
+}
+
+exports.create = ( pineapple) => {
+
+  return Pineapple.create(Object.assign({}, pineapple))
+  
+  
 
 }
 
-exports.list = (filter) => {
+exports.read = _id => {
 
-  // TODO
+  return Pineapple.findOne({ _id })
 
-  return Pineapple.find(filter)
+}
+
+exports.update = (_id, props) => {
+
+  return Pineapple.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
+
+}
+
+exports.list = (filter = {}, limit = 0) => {
+
+  return Pineapple.find(filter).limit(limit).sort({createdAt: 'asc'})
+
+}
+
+exports.track = trackingId => {
+
+  return Pineapple.findOne({ _id: trackingId })
+
+}
+
+exports.getTotalNumPineappleNotInDelivery = (pineapplesInCluster) => {
+
+  return Pineapple.count( {
+
+    _id : {
+
+      '$nin' : pineapplesInCluster
+
+    },
+    delivered : false
+
+  } )
+  
+}
+
+exports.getTotalNumPineappleInDeliveryButNotDelivered = (pineapplesInCluster) => {
+
+  return Pineapple.count( {
+
+    _id : {
+
+      '$in' : pineapplesInCluster
+
+    },
+    delivered : false
+
+  } )
+
+}
+
+exports.sendTrackingEmail = pineapple => {
+
+  let actionUrl = `${config.get('pineapplePageUrl')}?trackingId=${pineapple._id.toString()}`
+  return EmailService.sendToCustomerAfterOrder(pineapple.senderEmail, { actionUrl })
 
 }

@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
 import createLogger from 'redux-logger'
+import promise from '../middleware/promise'
 import rootReducer from '../reducers'
 import * as Storage from '../services/storage'
 import { STATE_KEY } from '../constants'
@@ -13,7 +14,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 // middleware
 const router = routerMiddleware(browserHistory)
 
-let middleware = [ router ]
+let middleware = [ router, promise ]
 
 // logger middleware in development
 if (isDevelopment) middleware.push( createLogger({ collapsed: true }) )
@@ -34,8 +35,8 @@ export default function configureStore() {
   // store state on change
   store.subscribe( () => {
 
-    // remove routing from state before storing
-    let stateTrimmed = store.getState().delete('routing')
+    // remove `routing`, `user` from state before storing
+    let stateTrimmed = store.getState().delete('routing').delete('user')
 
     Storage.setItem(STATE_KEY, stateTrimmed.toJS())
 

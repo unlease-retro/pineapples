@@ -1,30 +1,31 @@
-const mongoose = require('mongoose')
+const User = require('./model')
 
-const schema = require('./model')
-const { collection } = require('./constants')
+exports.create = (_id, props) => {
 
-const User = mongoose.model(collection, schema)
-
-exports.create = (id, props) => {
-
-  return User.create(Object.assign({}, id, props))
+  return User.create(Object.assign({}, _id, props))
 
 }
 
-exports.read = (id) => {
+exports.read = (role, _id) => {
 
-  return User.findOne({ id })
+  const filter = {}
+
+  if (role !== 'any') filter.role = role.toUpperCase()
+  if (_id) filter._id = _id
+
+  // .lean() => convert query result (MongooseDocument) to POJO
+  return User.find(filter).lean()
 
 }
 
-exports.update = (id, props) => {
+exports.update = (_id, props) => {
 
-  return User.findOneAndUpdate({ id }, Object.assign({}, props), { new: true })
+  return User.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true })
 
 }
 
-exports.remove = (id) => {
+exports.remove = _id => {
 
-  return User.remove({ id })
+  return User.remove({ _id })
 
 }

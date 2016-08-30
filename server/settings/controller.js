@@ -1,14 +1,12 @@
-const uuid = require('node-uuid')
 const Settings = require('./service')
-
+const config = require('../shared/config')
 exports.read = (req, res, next) => {
 
-  const id = req.params.id
-
-  return Settings.read(id)
-    .then( settings => {
-
-      res.json({ settings })
+  return Settings.read()
+    .then( ([ settings ]) => {
+      
+      settings.stripePubKey = config.get('payment').stripe.pubKey
+      res.json( { settings } )
 
       return next()
 
@@ -18,9 +16,7 @@ exports.read = (req, res, next) => {
 
 exports.update = (req, res, next) => {
 
-  const id = req.params.id
-
-  return Settings.update(id, req.body)
+  return Settings.update(req.body)
     .then( settings => {
 
       res.json({ settings })

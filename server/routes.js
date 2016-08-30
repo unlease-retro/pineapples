@@ -8,22 +8,17 @@ const Pineapple = require('./pineapple')
 const Settings = require('./settings')
 const User = require('./user')
 const Writer = require('./writer')
-
-// app
-router.get('/', (req, res, next) => {
-
-  res.render('')
-
-  next()
-
-})
+const Auth = require('./auth')
+const Archive = require('./archive')
 
 // API
-router.use(`/api/${Cluster.name}`, Cluster.routes)
-router.use(`/api/${Depot.name}`, Depot.routes)
-router.use(`/api/${Pineapple.name}`, Pineapple.routes)
-router.use(`/api/${Settings.name}`, Settings.routes)
-router.use(`/api/${User.name}`, User.routes)
-router.use(`/api/${Writer.name}`, Writer.routes)
+router.use(`/${Cluster.name}`, Cluster.routes)
+router.use(`/${Depot.name}`, Depot.routes)
+router.use(`/${Pineapple.name}`, Pineapple.routes)
+router.use(`/${Settings.name}`, Settings.routes)
+router.use(`/${User.name}`, User.routes)
+router.use(`/${Writer.name}`, Writer.routes)
+router.use(`/${Auth.name}`, Auth.routes)
+router.use(`/${Archive.name}`, Archive.routes)
 
 module.exports = router

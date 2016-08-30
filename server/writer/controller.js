@@ -62,3 +62,16 @@ exports.remove = (req, res, next) => {
     }, e => next(e) )
 
 }
+
+exports.list = (req, res, next) => {
+
+  return Writer.list()
+    .then( writers => {
+
+      res.json({ writers })
+
+      return next()
+
+    }, e => next(e) )
+
+}

@@ -7,7 +7,10 @@ import { API } from '../constants'
 
 export function get(route) {
 
-  return fetch(`${API}/${route}`)
+  return fetch(`${API}/${route}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
 
 }
 
@@ -19,6 +22,7 @@ export function post(route, data) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   })
 
@@ -32,6 +36,7 @@ export function put(route, data) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   })
 
@@ -45,6 +50,7 @@ export function remove(route, data) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify(data)
   })
 

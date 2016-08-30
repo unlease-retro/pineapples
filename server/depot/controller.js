@@ -33,6 +33,19 @@ exports.read = (req, res, next) => {
 
 }
 
+exports.list = (req, res, next) => {
+
+  return Depot.list()
+    .then( depots => {
+
+      res.json({ depots })
+
+      return next()
+
+    }, e => next(e) )
+
+}
+
 exports.update = (req, res, next) => {
 
   const id = req.params.id

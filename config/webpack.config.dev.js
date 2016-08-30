@@ -1,10 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
 const CleanPlugin = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../app'),
-  dist: path.join(__dirname, '../public')
+  dist: path.join(__dirname, '../public'),
+  styles: path.join(__dirname, '../app/shared/styles')
 }
 
 module.exports = {
@@ -19,13 +22,21 @@ module.exports = {
     publicPath: '/'
   },
 
+  resolve: {
+    alias: {
+      styles: PATHS.styles,
+    }
+  },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
-    new CleanPlugin(['bundle.js', 'bundle.js.map'], PATHS.dist)
+    new CleanPlugin([ PATHS.dist ], { root: process.cwd() }),
+    new CopyPlugin([ { from: './static', to: './' } ]),
+    new HtmlWebpackPlugin({ template: 'app/index.html', filename: 'app.html' })
   ],
 
   module: {
@@ -33,13 +44,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: [ 'babel?cacheDirectory', 'eslint' ]
+        loaders: [ 'babel?cacheDirectory' ]
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
       }
     ]
-  },
-
-  eslint: {
-    configFile: './config/.eslintrc.js'
   }
 
 }
