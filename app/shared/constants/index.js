@@ -5,3 +5,6 @@ export const API = '/api'
 export const REQUEST = 'REQUEST'
 export const SUCCESS = 'SUCCESS'
 export const FAILURE = 'FAILURE'
+export const UI_ACTION = 'ui/'
+
+export const SNACKBAR_DURATION = 5000

@@ -8,6 +8,7 @@ import icon from './icon'
 import position from './position'
 import progress from './progress'
 import row from './row'
+import snackbar from './snackbar'
 import splash from './splash'
 import toggle from './toggle'
 
@@ -22,6 +23,7 @@ export {
   position,
   progress,
   row,
+  snackbar,
   splash,
   toggle,
 }

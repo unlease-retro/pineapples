@@ -23,7 +23,7 @@ export const fetchRiders = (resolve, reject) =>
 export const updateCluster = (resolve, reject, id, data, index) =>
   API.put(`cluster/${id}`, data)
     .then( res => res.json() )
-    .then( ({ cluster }) => resolve({ index, cluster }) )
+    .then( ({ cluster }) => resolve({ index, cluster, snackbar: 'Cluster updated, no problemo 😁' }) )
     .catch( e => reject(e) )
 
 export const cutOff = (resolve, reject) =>

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import { colors } from 'styles/settings'
+import { colors, media } from 'styles/settings'
 
-const Error = ({ message }) => (
+const Snackbar = ({ message }) => (
   <div className={ css(styles.base) }>{ message }</div>
 )
 
@@ -13,19 +13,25 @@ const styles = StyleSheet.create({
     padding: '20px',
     zIndex: 1,
     position: 'fixed',
-    top: 0,
+    left: '50%',
+    bottom: 0,
+    transform: 'translateX(-50%)',
+    fontSize: '14px',
     color: colors.light,
-    background: colors.error,
-    opacity: 0.9,
+    background: colors.dark,
+    opacity: 0.8,
+    [media.aboveSmall]: {
+      width: '400px',
+    }
   },
 })
 
-Error.propTypes = {
+Snackbar.propTypes = {
   message: PropTypes.string.isRequired
 }
 
-Error.defaultProps = {
+Snackbar.defaultProps = {
   message: ''
 }
 
-export default Error
+export default Snackbar
