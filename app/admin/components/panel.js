@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { link } from 'styles/mixins'
 import { colors, media } from 'styles/settings'
 
 import * as Components from './'
@@ -23,7 +22,9 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
   return (
     <div className={ css(styles.base) }>
 
-      <SharedComponents.button onClick={ () => selectCluster() } className={ css(styles.close) } label='&times;' />
+      <SharedComponents.position right='20px'>
+        <SharedComponents.button onClick={ () => selectCluster() } label='&times;' theme='icon' />
+      </SharedComponents.position>
 
       {/* TODO - create component */}
       <div onClick={ () => setMapCenter(clusterPosition) } className={ css(styles.name) } style={style}>
@@ -38,7 +39,9 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
       <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
 
-      <SharedComponents.button onClick={onNextClick} className={ css(styles.next) } label='Next Cluster &rarr;' />
+      <SharedComponents.position right='20px' bottom='25px'>
+        <SharedComponents.button onClick={onNextClick} label='Next Cluster' />
+      </SharedComponents.position>
 
     </div>
   )
@@ -60,6 +63,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: '30px',
+    marginTop: '40px',
     marginBottom: '20px',
     paddingBottom: '10px',
     borderBottom: '4px solid',
@@ -76,19 +80,6 @@ const styles = StyleSheet.create({
       background: colors.secondary,
     }
   },
-  close: {
-    fontSize: '30px',
-    display: 'block',
-    textAlign: 'right',
-  },
-  next: Object.assign({}, link, {
-    display: 'block',
-    position: 'absolute',
-    right: '20px',
-    bottom: '25px',
-    color: colors.secondary,
-    borderBottomColor: colors.secondary,
-  }),
 })
 
 Panel.propTypes = {
