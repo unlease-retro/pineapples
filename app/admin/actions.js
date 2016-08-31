@@ -54,6 +54,13 @@ export const setFilterCluster = filterCluster => ({
   }
 })
 
+export const setOverview = (overview=false) => ({
+  type: actions.SET_OVERVIEW,
+  payload: {
+    overview
+  }
+})
+
 export const cutOff = () => ({
   types: [ actions.CUT_OFF_REQUEST, actions.CUT_OFF_SUCCESS, actions.CUT_OFF_FAILURE ],
   payload: {},

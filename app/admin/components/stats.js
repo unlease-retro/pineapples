@@ -2,24 +2,40 @@
  * Created by BigaMasta on 8/25/16.
  */
 import React from 'react'
+import { StyleSheet, css } from 'aphrodite/no-important'
+// import { colors } from 'styles/settings'
 
-class Stats extends React.Component {
+import * as SharedComponents from '../../shared/components'
 
-  render() {
+const Stats = ({ stats }) => {
 
-    const { stats } = this.props
+  const { styles } = Stats
 
-    return (
-      <div>
-        <div>Riders with undelivered pineapples</div>
-        {stats.ridersWithUndeliveredPineapples.map(rider => <div key={rider.value}>{rider.label}</div>)}
+  return (
+    <div className={ css(styles.base) }>
+
+      <SharedComponents.row>
         <div>Today's orders: {stats.todaysOrders}</div>
-        <div>Pineapples to be delivered today: {stats.pineapplesToBeDeliveredToday}</div>
-      </div>
-    )
+      </SharedComponents.row>
 
-  }
+      <SharedComponents.row>
+        <div>Pineapples to be delivered today: {stats.pineapplesToBeDeliveredToday}</div>
+      </SharedComponents.row>
+
+      <SharedComponents.row>
+        <div>Riders with unfinished clusters</div>
+        {stats.ridersWithUndeliveredPineapples.map(rider => <div key={rider.value}>{rider.label}</div>)}
+      </SharedComponents.row>
+
+    </div>
+  )
 
 }
+
+Stats.styles = StyleSheet.create({
+  base: {
+    marginTop: '40px',
+  },
+})
 
 export default Stats

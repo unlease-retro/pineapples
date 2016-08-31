@@ -10,7 +10,8 @@ export const initialState = Immutable.fromJS({
   selectedClusterIndex: null,
   mapCenter: {},
   filterCluster: null,
-  searchCluster: null
+  searchCluster: null,
+  overview: false,
 })
 
 export default createReducer(initialState, {
@@ -19,6 +20,7 @@ export default createReducer(initialState, {
   [actions.SET_SELECTED_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
   [actions.SET_SEARCH_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
   [actions.SET_FILTER_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
+  [actions.SET_OVERVIEW]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.FETCH_CLUSTERS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.FETCH_CLUSTERS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
