@@ -28,3 +28,9 @@ export const startClusterDelivery = (cluster) => ({
   payload: { error: null },
   promise: () => new Promise( (resolve, reject) => service.startClusterDelivery(cluster, resolve, reject) )
 })
+
+export const changeReason = (itemId, reason, itemIndex) => ({
+  types: [ actions.CHANGE_UNDELIVERED_REASON_REQUEST, actions.CHANGE_UNDELIVERED_REASON_SUCCESS, actions.CHANGE_UNDELIVERED_REASON_FAILURE ],
+  payload: { error: null },
+  promise: () => new Promise( (resolve, reject) => service.changeReason(itemId, reason, itemIndex, resolve, reject) )
+})

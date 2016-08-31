@@ -4,10 +4,12 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import Status from './Status'
+import Reason from './Reason'
 
-const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) => {
+const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus, changeReason } }) => {
 
   const statusActions = { changeStatus }
+  const reasonActions = { changeReason }
   const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
 
   return (
@@ -44,6 +46,7 @@ const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) =
 
             <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
               <Status item={item} itemIndex={index} actions={statusActions} />
+              <Reason item={item} itemIndex={index} actions={reasonActions} />
               {renderMapButton}
             </div>
           </div>

@@ -15,6 +15,12 @@ export const changeStatus = (id, status, pineappleIndex, resolve, reject) =>
     .then( json => resolve({...json, pineappleIndex}) )
     .catch( e => reject(e) )
 
+export const changeReason = (id, reason, pineappleIndex, resolve, reject) =>
+  API.put(`pineapple/${id}`, { undeliveredReason: reason })
+    .then( res => res.json() )
+    .then( json => resolve({...json, pineappleIndex}) )
+    .catch( e => reject(e) )
+
 export const startClusterDelivery = (cluster, resolve, reject) =>
   API.put(`cluster/${cluster._id}`, {startedAt: new Date()})
     .then( res => res.json() )

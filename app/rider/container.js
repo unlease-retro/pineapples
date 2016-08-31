@@ -24,6 +24,7 @@ export class Rider extends Component {
 
     const deliveryActions = {
       changeStatus: actions.changeStatus,
+      changeReason: actions.changeReason,
       unselectCluster: actions.unselectCluster,
       startClusterDelivery: actions.startClusterDelivery
     }

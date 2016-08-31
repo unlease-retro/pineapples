@@ -5,10 +5,10 @@ import React from 'react'
 import Pineapples from './Pineapples'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-const Delivery = ({ selectedCluster, viewAllButton, actions: { unselectCluster, changeStatus, startClusterDelivery } }) => {
+const Delivery = ({ selectedCluster, viewAllButton, actions: { unselectCluster, changeStatus, changeReason, startClusterDelivery } }) => {
 
   const renderViewAllButton = viewAllButton ? <a className={ css(styles.headerButton) } onClick={unselectCluster}>View Clusters</a> : null
-  const renderSelectedCluster = selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus }} /> : null
+  const renderSelectedCluster = selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus, changeReason }} /> : null
   const renderStartButton = !selectedCluster.startedAt ? <a className={ css(styles.headerButton) } onClick={() => startClusterDelivery(selectedCluster)}>Start</a> : null
 
   return (
