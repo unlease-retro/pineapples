@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from 'styles/settings'
 import { icon as Icon } from './'
+import { adjustColour } from '../util'
 
 const Chip = ({ label, icon, iconTheme, callback }) => {
 
@@ -30,7 +31,7 @@ Chip.styles = StyleSheet.create({
     transition: '0.2s',
     ':hover': {
       color: colors.light,
-      backgroundColor: colors.dkgrey,
+      backgroundColor: adjustColour(colors.dkgrey, 20),
     }
   },
   label: {

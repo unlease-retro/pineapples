@@ -4,6 +4,7 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from 'styles/settings'
+import { adjustColour } from '../util'
 
 const Button = ({ label, onClick, theme, disabled }) => {
 
@@ -51,8 +52,22 @@ Button.styles = StyleSheet.create({
     backgroundColor: colors.primary,
     fontWeight: 800,
     ':hover': {
-      backgroundColor: colors.secondary,
+      backgroundColor: adjustColour(colors.secondary, 10),
     },
+  },
+  accent: {
+    color: colors.light,
+    backgroundColor: colors.accent,
+    ':hover': {
+      backgroundColor: adjustColour(colors.accent, 20),
+    }
+  },
+  alert: {
+    color: colors.light,
+    backgroundColor: colors.error,
+    ':hover': {
+      backgroundColor: adjustColour(colors.error, 30),
+    }
   },
   disabled: {
     color: colors.light,

@@ -45,7 +45,7 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       </SharedComponents.row>
 
       <SharedComponents.position right='20px' bottom='25px'>
-        <SharedComponents.button onClick={onNextClick} label='Next Cluster' />
+        <SharedComponents.button onClick={onNextClick} label='Next Cluster' theme='primary' />
       </SharedComponents.position>
 
     </div>
