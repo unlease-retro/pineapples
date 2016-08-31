@@ -23,3 +23,40 @@ html {
 *, *:after, *:before {
   box-sizing: inherit;
 }
+
+/* react-select overrides */
+.Select-control {
+  border: 0;
+  border-bottom: 1px solid #bdbdbd;
+  border-radius: 0;
+  font-size: 15px;
+}
+
+.Select-control:not(.is-open) {
+  cursor: pointer;
+}
+
+.Select-menu-outer {
+  border: 0;
+  border-radius: 0;
+  padding: 16px 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px, rgba(0, 0, 0, 0.1) 0px 1px 4px;
+}
+
+.Select-option {
+  padding: 0 16px;
+  line-height: 32px;
+}
+
+.Select-option:last-child {
+  border-radius: 0;
+}
+
+.Select-option.is-focused {
+  background-color: #f5f5f5;
+}
+
+.Select-option.is-selected {
+  color: #1bd4ae;
+  background-color: transparent;
+}

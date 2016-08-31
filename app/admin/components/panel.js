@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { media } from 'styles/settings'
+import { colors, media } from 'styles/settings'
 
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
 const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
 
-  // TODO - do something with clusterColour
-  console.log(clusterColour)
+  const style = {
+    borderBottomColor: clusterColour,
+    position: 'relative',
+  }
 
   const onNextClick = () => {
 
@@ -21,34 +23,30 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
   return (
     <div className={ css(styles.base) }>
 
-      {/* TODO - convert to shared button component */}
-      <div onClick={ () => selectCluster() }>
-        Close
-      </div>
+      <SharedComponents.position right='0px'>
+        <SharedComponents.button onClick={ () => selectCluster() } label='&times;' theme='icon' />
+      </SharedComponents.position>
 
-      {/* TODO - create component */}
-      <div onClick={ () => setMapCenter(clusterPosition) }>
+      <div onClick={ () => setMapCenter(clusterPosition) } className={ css(styles.name) } style={style}>
         { clusterName }
+        <SharedComponents.badge label={clusterTotalPineapples} theme='pineapple' />
       </div>
 
-      {/* TODO - create component */}
-      <div>
-        { clusterTotalPineapples } Pineapples
-      </div>
+      <SharedComponents.row>
+        <SharedComponents.chip label={clusterDepotName} icon='store' iconTheme='light' callback={ () => setMapCenter(clusterDepotPosition) } />
+      </SharedComponents.row>
 
-      {/* TODO - create component */}
-      <div onClick={ () => setMapCenter(clusterDepotPosition) }>
-        Depot: { clusterDepotName }
-      </div>
+      <SharedComponents.row>
+        <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+      </SharedComponents.row>
 
-      <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+      <SharedComponents.row>
+        <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
+      </SharedComponents.row>
 
-      <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
-
-      {/* TODO - convert to shared button component */}
-      <div onClick={onNextClick}>
-        Next
-      </div>
+      <SharedComponents.position right='20px' bottom='25px'>
+        <SharedComponents.button onClick={onNextClick} label='Next Cluster' />
+      </SharedComponents.position>
 
     </div>
   )
@@ -57,15 +55,24 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
 const styles = StyleSheet.create({
   base: {
-    position: 'fixed',
-    top: 0,
     width: '100%',
     height: '100%',
-    background: 'white',
+    padding: '20px',
+    position: 'fixed',
+    top: 0,
+    background: colors.light,
+    boxShadow: '4px 0 20px 0 rgba(0, 0, 0, 0.2)',
     [media.aboveSmall]: {
       width: '35%',
-    }
-  }
+    },
+  },
+  name: {
+    fontSize: '30px',
+    marginTop: '40px',
+    marginBottom: '20px',
+    paddingBottom: '10px',
+    borderBottom: '4px solid',
+  },
 })
 
 Panel.propTypes = {

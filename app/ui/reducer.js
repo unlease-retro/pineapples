@@ -4,8 +4,9 @@ import { createReducer } from 'redux-immutablejs'
 import * as actions from './actionTypes'
 
 export const initialState = Immutable.fromJS({
-  requesting: false,
   error: null,
+  requesting: false,
+  snackbar: null,
 })
 
 export default createReducer(initialState, {

@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect'
 
 import * as User from '../../user'
 import { selectors as UISelectors} from '../../ui'
-import { error as Error, progress as Progress, splash as Splash } from '../components'
+import { error as Error, progress as Progress, snackbar as Snackbar, splash as Splash } from '../components'
 
 export class App extends Component {
 
@@ -20,7 +20,7 @@ export class App extends Component {
 
   render() {
 
-    const { children, error, requesting, splash } = this.props
+    const { children, error, requesting, snackbar, splash } = this.props
 
     // render splash screen if user role not fetched
     const renderApp = splash ? <Splash /> : children
@@ -31,6 +31,9 @@ export class App extends Component {
     // render error if something went wrong...
     const renderError = error ? <Error message={error.message} /> : null
 
+    // render error if something went wrong...
+    const renderSnackbar = snackbar ? <Snackbar message={snackbar} /> : null
+
     return (
       <div id='app'>
 
@@ -39,6 +42,8 @@ export class App extends Component {
         { renderError }
 
         { renderApp }
+
+        { renderSnackbar }
 
       </div>
     )
@@ -52,6 +57,7 @@ export default connect(
     error: UISelectors.getError,
     requesting: UISelectors.getRequesting,
     role: User.selectors.getRole,
+    snackbar: UISelectors.getSnackbar,
     splash: UISelectors.getSplash,
   }),
   dispatch => ({

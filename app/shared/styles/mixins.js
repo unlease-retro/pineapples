@@ -38,3 +38,16 @@ export const grid = {
 export const cell = {
   flexShrink: 0,
 }
+
+/* --------
+ * Link
+-------- */
+
+export const link = {
+  borderBottom: '2px solid transparent',
+  paddingBottom: '2px',
+  fontWeight: '800',
+  fontSize: '14px',
+  textTransform: 'uppercase',
+  cursor: 'pointer',
+}
