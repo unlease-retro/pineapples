@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import Select from 'react-select'
+import { media } from 'styles/settings'
 
 const Filter = ({ options, filterCluster, setFilterCluster }) => {
 
@@ -25,10 +26,14 @@ const Filter = ({ options, filterCluster, setFilterCluster }) => {
 
 const styles = StyleSheet.create({
   base: {
-    width: '200px',
+    width: '100%',
     position: 'absolute',
-    top: '10px',
-    right: '230px',
+    top: '60px',
+    [media.aboveSmall]: {
+      width: '200px',
+      top: '10px',
+      right: '230px',
+    },
   }
 })
 

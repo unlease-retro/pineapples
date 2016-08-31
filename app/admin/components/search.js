@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import Select from 'react-select'
+import { media } from 'styles/settings'
 
 const Search = ({ clusters, searchCluster, setSearchCluster }) => {
 
@@ -25,10 +26,13 @@ const Search = ({ clusters, searchCluster, setSearchCluster }) => {
 
 const styles = StyleSheet.create({
   base: {
-    width: '200px',
+    width: '100%',
     position: 'absolute',
     top: '10px',
-    right: '10px',
+    [media.aboveSmall]: {
+      width: '200px',
+      right: '10px',
+    },
   }
 })
 
