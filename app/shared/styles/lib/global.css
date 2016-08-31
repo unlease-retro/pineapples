@@ -1,0 +1,18 @@
+/* --------
+ * Cheeky Global
+-------- */
+
+html, body, #root, #app, #app > div {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Poppins', sans-serif;
+}
+
+.gm-style-iw {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

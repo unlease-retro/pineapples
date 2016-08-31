@@ -8,7 +8,7 @@ const promiseMiddleware = () => (next) => (action) => {
 
   next({ ...rest, type: REQUEST })
 
-  return promise().then( res => next({ payload: res, type: SUCCESS }), err => next({ payload: err, type: FAILURE }) )
+  return promise().then( res => next({ payload: res, type: SUCCESS }), error => next({ payload: error, error: true, type: FAILURE }) )
 
 }
 

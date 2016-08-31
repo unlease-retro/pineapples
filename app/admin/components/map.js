@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
-import { getColour, getCentroid } from '../../shared/util'
+import { getCentroid } from '../../shared/util'
 
 import { MAP_OPTIONS, CIRCLE_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
 
@@ -22,9 +22,14 @@ export class Map extends Component {
   componentDidMount() {
 
     const { clusters, depots } = this.props
+    const closeInfoWindow = this.closeInfoWindow.bind(this)
 
     // init map
     this.map = new google.maps.Map(this._map, MAP_OPTIONS)
+
+    // add some listeners to the map
+    this.map.addListener('click', closeInfoWindow)
+    this.map.addListener('idle', closeInfoWindow)
 
     // plot those depots!
     this.plotDepots(depots)
@@ -67,11 +72,10 @@ export class Map extends Component {
     // clear pineapples
     while (this.pineapples[0]) this.pineapples.pop().setMap(null)
 
-    clusters && clusters.map( cluster => {
+    clusters && clusters.map( (cluster, i) => {
 
-      const { items: pineapples, centroid, name } = cluster
+      const { items: pineapples, centroid, colour, name, index } = cluster
 
-      const colour = getColour()
       const position = getCentroid(centroid)
       const POLYGON_OPTIONS = getPolygonOptions(colour)
 
@@ -85,7 +89,7 @@ export class Map extends Component {
       polygon.addListener( 'mouseover', () => this.openInfoWindow(position, name) )
 
       // set selected cluster and map center as cluster centroid
-      polygon.addListener( 'click', () => selectCluster(cluster, position) )
+      polygon.addListener( 'click', () => selectCluster(index || i, position) )
 
       // store ref to cluster polygon
       this.clusters.push(polygon)
@@ -146,6 +150,13 @@ export class Map extends Component {
     })
 
     return paths
+
+  }
+
+  closeInfoWindow() {
+
+    // close the damn thing
+    this.InfoWindow.close()
 
   }
 

@@ -1,6 +1,7 @@
 const Cluster = require('./service')
 const Semolina = require('../shared/services/semolina')
 const SettingsService = require('../settings/service')
+const EmailService = require('../shared/services/email')
 const { RIDER } = require('../shared/constants').ROLES
 
 exports.create = (req, res, next) => {
@@ -43,6 +44,7 @@ exports.update = (req, res, next) => {
       res.json({ cluster })
 
       return next()
+
 
     }, e => next(e) )
 
@@ -134,5 +136,73 @@ exports.writer = (req, res, next) => {
       return next()
 
     }, e => next(e) )
+
+}
+
+const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
+
+  if (clusterBefore && (typeof clusterBefore) !== 'object')
+    clusterBefore = {_id: clusterBefore}
+  if (clusterAfter && (typeof clusterAfter) !== 'object')
+    clusterAfter = {_id: clusterAfter}
+
+  // Notify rider when assigned to cluster and cluster is deliverable (email template 1)
+  // Notify rider when unassigned from cluster and cluster is deliverable (email template 2)
+  // Notify rider when cluster assigned to is made deliverable (email template 1)
+  // Notify rider when cluster assigned cluster is made undeliverable (email template 2)
+
+  if (clusterBefore.rider._id !== clusterAfter.rider._id && clusterAfter.deliverable) {
+
+    if ((typeof clusterBefore.rider._id === 'undefined') && (typeof clusterAfter.rider._id !== 'undefined')) {
+
+      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, {})
+
+    }
+    else if ((typeof clusterBefore.rider._id !== 'undefined') && (typeof clusterAfter.rider._id !== 'undefined')) {
+
+      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, {})
+      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
+
+    }
+    else if ((typeof clusterBefore.rider._id !== 'undefined') && (typeof clusterAfter.rider._id === 'undefined')) {
+
+      // This brach is never executed, because on the frontend side is not possible to unassign a cluster
+      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
+
+    }
+
+  }
+
+  if (clusterAfter.deliverable !== clusterBefore.deliverable && clusterBefore.rider._id === clusterAfter.rider._id) {
+
+    if (clusterAfter.deliverable)
+      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, {})
+    else
+      EmailService.sendToRiderAfterUnassignment(clusterAfter.rider.email, {})
+
+  }
+
+}
+
+exports.decoratedUpdate = () => {
+
+  return (req, res, next) => {
+
+    const clusterId = req.params.id
+    let clusterBefore = {}
+
+    // find
+    Cluster.read(clusterId)
+      .then(cluster => clusterBefore = cluster)
+      .then(() =>
+        exports.update(req, res, next)
+          .then(() =>
+            // check response
+            Cluster.read(clusterId)
+            .then(cluster => sendNotificationEmailsIfNeeded(clusterBefore, cluster))
+          )
+      )
+
+  }
 
 }

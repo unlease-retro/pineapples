@@ -9,13 +9,13 @@ exports.create = (props) => {
 
 exports.read = _id => {
 
-  return Cluster.findOne({ _id })
+  return Cluster.findOne({ _id }).populate('rider')
 
 }
 
 exports.update = (_id, props) => {
 
-  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true }).populate('items depot')
+  return Cluster.findOneAndUpdate({ _id }, Object.assign({}, props), { new: true }).populate('items depot rider')
 
 }
 
@@ -33,7 +33,7 @@ exports.removeAll = () => {
 
 exports.list = (filter = {}) => {
 
-  return Cluster.find(filter).populate('items depot')
+  return Cluster.find(filter).populate('items depot rider')
 
 }
 
@@ -89,5 +89,26 @@ exports.populateRiderWithUnfinishedClusters = users => {
   })
 
   return Promise.all(ridersPromises).then( () => Promise.resolve(users) )
+
+}
+
+
+exports.findAllPineapplesInClusters = () => {
+
+  return Cluster.find()
+    .then(
+      (clusters) => {
+
+        let pineapplesInCluster = []
+        clusters.map(cluster => {
+
+          pineapplesInCluster.push(cluster.items)
+
+        })
+        pineapplesInCluster = [].concat.apply([], pineapplesInCluster)
+        return Promise.resolve(pineapplesInCluster)
+
+      }
+    )
 
 }

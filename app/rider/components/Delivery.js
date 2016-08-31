@@ -5,30 +5,21 @@ import React from 'react'
 import Pineapples from './Pineapples'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-export default class Delivery extends React.Component {
+const Delivery = ({ selectedCluster, viewAllButton, actions: { unselectCluster, changeStatus } }) => {
 
-  render() {
+  const renderViewAllButton = viewAllButton ? <a className={ css(styles.headerButton) } onClick={unselectCluster}>View Clusters</a> : null
+  const renderSelectedCluster = selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus }} /> : null
 
-    const { selectedCluster, viewAllButton, actions: { unselectCluster, changeStatus } } = this.props
-
-    if (!selectedCluster)
-      return <div>No Cluster selected</div>
-
-    const renderViewAllButton = viewAllButton ? <a className={ css(styles.headerButton) } onClick={unselectCluster}>View Clusters</a> : null
-    const renderSelectedCluster = selectedCluster ? <Pineapples selectedCluster={selectedCluster} actions={{ changeStatus }} /> : null
-
-    return (
-      <div className={ css(styles.greenBackground) }>
-        <div className={ css(styles.header) }>
-          <h1 className={ css(styles.h1) }>Cluster {selectedCluster.name}</h1>
-          <a className={ css(styles.headerButton) }>Print</a>
-          {renderViewAllButton}
-        </div>
-        {renderSelectedCluster}
+  return (
+    <div className={ css(styles.greenBackground, styles.absolutePosition) }>
+      <div className={ css(styles.header) }>
+        <h1 className={ css(styles.h1) }>Cluster {selectedCluster.name}</h1>
+        <a className={ css(styles.headerButton) }>Print</a>
+        {renderViewAllButton}
       </div>
-    )
-
-  }
+      {renderSelectedCluster}
+    </div>
+  )
 
 }
 
@@ -56,5 +47,12 @@ const styles = StyleSheet.create({
     margin: '0 10px',
     display: 'inline',
     textAlign: 'center'
+  },
+  absolutePosition: {
+    position: 'absolute',
+    top: 0,
+    left: 0
   }
 })
+
+export default Delivery

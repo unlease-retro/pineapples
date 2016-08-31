@@ -6,7 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../app'),
-  dist: path.join(__dirname, '../public')
+  dist: path.join(__dirname, '../public'),
+  styles: path.join(__dirname, '../app/shared/styles')
 }
 
 module.exports = {
@@ -19,6 +20,12 @@ module.exports = {
     path: PATHS.dist,
     filename: 'bundle.js',
     publicPath: '/'
+  },
+
+  resolve: {
+    alias: {
+      styles: PATHS.styles,
+    }
   },
 
   plugins: [
@@ -38,6 +45,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: [ 'babel?cacheDirectory' ]
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
       }
     ]
   }

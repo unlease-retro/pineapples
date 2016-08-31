@@ -9,14 +9,14 @@ export const initialState = Immutable.fromJS({
   writers: [],
   selectedRole: null,
   requesting: false,
-  error: null
+  error: null,
 })
 
 export default createReducer(initialState, {
 
   [actions.FETCH_REQUEST]: (state, action) => state.merge({ ...action.payload }),
-  [actions.FETCH_SUCCESS]: (state, action) => state.merge({ ...action.payload, requesting: false }),
-  [actions.FETCH_FAILURE]: (state, action) => state.merge({ ...action.payload, requesting: false }),
+  [actions.FETCH_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.FETCH_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.FETCH_USERS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.FETCH_USERS_SUCCESS]: (state, action) => state.merge({ ...action.payload, writers: [], requesting: false }),

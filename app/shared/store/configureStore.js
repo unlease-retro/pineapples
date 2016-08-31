@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
 import createLogger from 'redux-logger'
 import promise from '../middleware/promise'
+import ui from '../middleware/ui'
 import rootReducer from '../reducers'
 import * as Storage from '../services/storage'
 import { STATE_KEY } from '../constants'
@@ -14,7 +15,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 // middleware
 const router = routerMiddleware(browserHistory)
 
-let middleware = [ router, promise ]
+let middleware = [ router, promise, ui ]
 
 // logger middleware in development
 if (isDevelopment) middleware.push( createLogger({ collapsed: true }) )

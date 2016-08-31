@@ -2,10 +2,6 @@ const uuid = require('node-uuid')
 const User = require('./service')
 const ClusterService = require('../cluster/service')
 
-// TODO check manually in controller methods whether user accessing the method can CRUD user with the role
-// Manager => can CRUD riders, SUPERUSER => can CRUD riders, managers, admins
-// if user being modified is not a RIDER, and user modifying is not an SUPERUSER, exit
-
 exports.create = (req, res, next) => {
 
   const id = uuid.v4()

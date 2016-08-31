@@ -20,8 +20,18 @@ export const fetchRiders = (resolve, reject) =>
     .then( json => resolve({ riders: json.users }) )
     .catch( e => reject(e) )
 
-export const updateCluster = (resolve, reject, id, data) =>
+export const updateCluster = (resolve, reject, id, data, index) =>
   API.put(`cluster/${id}`, data)
     .then( res => res.json() )
-    .then( json => resolve({ selectedCluster: json.cluster }) )
+    .then( ({ cluster }) => resolve({ index, cluster, snackbar: 'Cluster updated, no problemo 😁' }) )
+    .catch( e => reject(e) )
+
+export const cutOff = (resolve, reject) =>
+  API.post('cluster/generate')
+    .then( res => resolve(res.json()) )
+    .catch( e => reject(e) )
+
+export const fetchStats = (resolve, reject) =>
+  API.get('pineapple/list/stats')
+    .then( res => resolve(res.json()) )
     .catch( e => reject(e) )

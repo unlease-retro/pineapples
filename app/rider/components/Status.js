@@ -6,38 +6,32 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 
 import { pineappleOptions, DELIVERED, UNDELIVERED } from '../constants'
 
-class Status extends React.Component {
+const Status = ({ item, actions: { changeStatus } }) => {
 
-  render() {
+  const defaultValue = item.delivered ? DELIVERED : UNDELIVERED
 
-    const { item } = this.props
-    const defaultValue = item.delivered ? DELIVERED : UNDELIVERED
+  Status._onStatusChange = (item, newStatus) => {
 
-    return (
-      <select className={ css(styles.statusAndMapItem) } onChange={ (e) => this._onStatusChange(item, e.target.value) }>
-
-        {pineappleOptions.map(option => {
-
-          if (defaultValue === option)
-            return <option key={option} defaultValue>{option}</option>
-          else
-            return <option key={option}>{option}</option>
-
-        })}
-
-      </select>
-    )
-
-  }
-
-  _onStatusChange(item, newStatus) {
-
-    const { changeStatus } = this.props.actions
     const query = { delivered: newStatus === DELIVERED }
 
     changeStatus(item, query)
 
   }
+
+  return (
+    <select className={ css(styles.statusAndMapItem) } onChange={ (e) => Status._onStatusChange(item, e.target.value) }>
+
+      {pineappleOptions.map(option => {
+
+        if (defaultValue === option)
+          return <option key={option} defaultValue>{option}</option>
+        else
+          return <option key={option}>{option}</option>
+
+      })}
+
+    </select>
+  )
 
 }
 
