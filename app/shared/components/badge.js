@@ -45,7 +45,7 @@ Badge.styles = StyleSheet.create({
 })
 
 Badge.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.number.isRequired,
   theme: PropTypes.string,
 }
 

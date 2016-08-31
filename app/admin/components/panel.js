@@ -32,13 +32,17 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
         <SharedComponents.badge label={clusterTotalPineapples} theme='pineapple' />
       </div>
 
-      <div onClick={ () => setMapCenter(clusterDepotPosition) } className={ css(styles.depot) }>
-        { clusterDepotName } Depot
-      </div>
+      <SharedComponents.row>
+        <SharedComponents.chip label={clusterDepotName} icon='store' iconTheme='light' callback={ () => setMapCenter(clusterDepotPosition) } />
+      </SharedComponents.row>
 
-      <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+      <SharedComponents.row>
+        <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+      </SharedComponents.row>
 
-      <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
+      <SharedComponents.row>
+        <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
+      </SharedComponents.row>
 
       <SharedComponents.position right='20px' bottom='25px'>
         <SharedComponents.button onClick={onNextClick} label='Next Cluster' />
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     padding: '20px',
     position: 'fixed',
     top: 0,
-    background: 'white',
+    background: colors.light,
     boxShadow: '4px 0 20px 0 rgba(0, 0, 0, 0.2)',
     [media.aboveSmall]: {
       width: '35%',
@@ -68,18 +72,6 @@ const styles = StyleSheet.create({
     marginBottom: '20px',
     paddingBottom: '10px',
     borderBottom: '4px solid',
-  },
-  depot: {
-    marginBottom: '20px',
-    padding: '10px',
-    borderRadius: '4px',
-    border: `1px solid ${colors.secondary}`,
-    cursor: 'pointer',
-    transition: '0.2s',
-    ':hover': {
-      color: colors.light,
-      background: colors.secondary,
-    }
   },
 })
 

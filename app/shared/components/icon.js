@@ -23,6 +23,9 @@ Icon.styles = StyleSheet.create({
   accent: {
     color: colors.accent,
   },
+  light: {
+    color: colors.light,
+  },
   primary: {
     color: colors.primary,
   },

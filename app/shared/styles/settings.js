@@ -13,7 +13,7 @@ export const dimensions = {
   contentWidth: '90%',
   contentMaxWidth: '700px',
   gutterSide: '20px',
-  gutterVertical: '20px',
+  gutterVertical: '40px',
 }
 
 export const colors = {
