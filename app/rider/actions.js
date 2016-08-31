@@ -7,20 +7,20 @@ export const fetchClusters = () => ({
   promise: () => new Promise( (resolve, reject) => service.fetchClusters(resolve, reject) )
 })
 
-export const selectCluster = (cluster) => ({
+export const selectCluster = (selectedClusterIndex) => ({
   type: actions.SELECT_CLUSTER,
-  payload: { selectedCluster: cluster }
+  payload: { selectedClusterIndex }
 })
 
-export const changeStatus = (pineapple, newStatus) => ({
+export const changeStatus = (pineapple, newStatus, itemIndex) => ({
   types: [ actions.CHANGE_STATUS_REQUEST, actions.CHANGE_STATUS_SUCCESS, actions.CHANGE_STATUS_FAILURE ],
   payload: { error: null },
-  promise: () => new Promise( (resolve, reject) => service.changeStatus(pineapple._id, newStatus, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.changeStatus(pineapple._id, newStatus, itemIndex, resolve, reject) )
 })
 
 export const unselectCluster = () => ({
   type: actions.UNSELECT_CLUSTER,
-  payload: { selectedCluster: null }
+  payload: { selectedClusterIndex: null }
 })
 
 export const startClusterDelivery = (cluster) => ({

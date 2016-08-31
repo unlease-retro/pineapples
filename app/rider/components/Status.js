@@ -4,24 +4,23 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-import { pineappleOptions, DELIVERED, UNDELIVERED } from '../constants'
+import { DELIVERED, UNDELIVERED } from '../constants'
 
-const Status = ({ item, actions: { changeStatus } }) => {
+const Status = ({ item, itemIndex, actions: { changeStatus } }) => {
 
-  const selected = item.delivered ? DELIVERED : UNDELIVERED
+  const buttonLabel = item.delivered ? DELIVERED : UNDELIVERED
 
-  Status._onStatusChange = (item, newStatus) => {
+  Status._onClick = (item, itemIndex) => {
 
-    const query = { delivered: newStatus === DELIVERED }
-
-    changeStatus(item, query)
+    const query = { delivered: !item.delivered }
+    changeStatus(item, query, itemIndex)
 
   }
 
   return (
-    <select value={selected} className={ css(styles.statusAndMapItem) } onChange={ (e) => Status._onStatusChange(item, e.target.value) }>
-      {pineappleOptions.map(option => <option key={option}>{option}</option>)}
-    </select>
+    <a className={ css(styles.statusAndMapItem, styles.button) } onClick={ () => Status._onClick(item, itemIndex) }>
+      {buttonLabel}
+    </a>
   )
 
 }
@@ -29,7 +28,15 @@ const Status = ({ item, actions: { changeStatus } }) => {
 const styles = StyleSheet.create({
   statusAndMapItem: {
     margin: '15px'
-  }
+  },
+  button: {
+    backgroundColor: '#6FC9BC',
+    borderRadius: '5px',
+    padding: '10px',
+    fontSize: '16px',
+    textAlign: 'center',
+    cursor: 'pointer'
+  },
 })
 
 export default Status

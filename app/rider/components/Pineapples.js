@@ -12,7 +12,7 @@ const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) =
 
   return (
     <div>
-      {items.map(item => {
+      {items.map((item, index) => {
 
         const overallStyles = [styles.layout, styles.orderInfo]
 
@@ -43,7 +43,7 @@ const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) =
             </div>
 
             <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
-              <Status item={item} actions={statusActions} />
+              <Status item={item} itemIndex={index} actions={statusActions} />
               {renderMapButton}
             </div>
           </div>

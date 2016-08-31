@@ -5,7 +5,7 @@ import * as actions from './actionTypes'
 
 export const initialState = Immutable.fromJS({
   clusters: [],
-  selectedCluster: null
+  selectedClusterIndex: null
 })
 
 export default createReducer(initialState, {
@@ -13,9 +13,9 @@ export default createReducer(initialState, {
   [actions.FETCH_CLUSTERS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.FETCH_CLUSTERS_SUCCESS]: (state, action) => {
 
-    // if there is only one cluster, select it
+    // if there is only one cluster, select it automatically
     if (action.payload.clusters.length === 1)
-      return state.merge({ ...action.payload, selectedCluster: Immutable.fromJS(action.payload.clusters[0])})
+      return state.merge({ ...action.payload, selectedClusterIndex: 0})
     else
       return state.merge({ ...action.payload })
 
@@ -26,7 +26,7 @@ export default createReducer(initialState, {
   [actions.UNSELECT_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.CHANGE_STATUS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
-  [actions.CHANGE_STATUS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.CHANGE_STATUS_SUCCESS]: (state, action) => state.mergeIn(['clusters', state.get('selectedClusterIndex'), 'items', action.payload.pineappleIndex], { ...action.payload.pineapple }),
   [actions.CHANGE_STATUS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.START_CLUSTER_DELIVERY_REQUEST]: (state, action) => state.merge({ ...action.payload }),
