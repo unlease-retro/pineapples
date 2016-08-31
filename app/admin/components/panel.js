@@ -8,7 +8,8 @@ import * as SharedComponents from '../../shared/components'
 const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
 
   const style = {
-    borderBottomColor: clusterColour
+    borderBottomColor: clusterColour,
+    position: 'relative',
   }
 
   const onNextClick = () => {
@@ -22,13 +23,13 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
   return (
     <div className={ css(styles.base) }>
 
-      <SharedComponents.position right='20px'>
+      <SharedComponents.position right='0px'>
         <SharedComponents.button onClick={ () => selectCluster() } label='&times;' theme='icon' />
       </SharedComponents.position>
 
-      {/* TODO - create component */}
       <div onClick={ () => setMapCenter(clusterPosition) } className={ css(styles.name) } style={style}>
-        { clusterName } ({ clusterTotalPineapples })
+        { clusterName }
+        <SharedComponents.badge label={clusterTotalPineapples} theme='pineapple' />
       </div>
 
       <div onClick={ () => setMapCenter(clusterDepotPosition) } className={ css(styles.depot) }>

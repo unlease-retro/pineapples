@@ -40,7 +40,7 @@ Button.styles = StyleSheet.create({
     },
   },
   icon: {
-    boxShadow: 0,
+    boxShadow: 'none',
     fontSize: '30px',
     ':hover': {
       backgroundColor: 'transparent',
@@ -70,7 +70,6 @@ Button.styles = StyleSheet.create({
 Button.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  className: PropTypes.string,
   theme: PropTypes.string,
   disabled: PropTypes.bool,
 }
