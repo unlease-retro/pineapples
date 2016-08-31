@@ -20,27 +20,28 @@ export class Rider extends Component {
 
   render() {
 
-    const { selectedCluster } = this.props
+    const { clusters, selectedCluster, actions } = this.props
 
     const deliveryActions = {
-      changeStatus: this.props.actions.changeStatus,
-      unselectCluster: this.props.actions.unselectCluster
+      changeStatus: actions.changeStatus,
+      unselectCluster: actions.unselectCluster,
+      startClusterDelivery: actions.startClusterDelivery
     }
 
-    const clustersActions = { selectCluster: this.props.actions.selectCluster }
+    const clustersActions = { selectCluster: actions.selectCluster }
 
     const renderDelivery = selectedCluster ? (
       <Components.Delivery
-        selectedCluster={this.props.selectedCluster}
+        selectedCluster={selectedCluster}
         actions={deliveryActions}
-        viewAllButton={this.props.clusters.length > 1} />
+        viewAllButton={clusters.length > 1} />
     ) : null
 
     return (
       <div>
 
         <Components.Clusters
-          clusters={this.props.clusters}
+          clusters={clusters}
           actions={clustersActions} />
         <ReactCSSTransitionGroup transitionName='slide-in-left' transitionEnterTimeout={300} transitionLeaveTimeout={300}>
           {renderDelivery}

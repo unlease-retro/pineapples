@@ -23,4 +23,8 @@ export const unselectCluster = () => ({
   payload: { selectedCluster: null }
 })
 
-
+export const startClusterDelivery = (cluster) => ({
+  types: [ actions.START_CLUSTER_DELIVERY_REQUEST, actions.START_CLUSTER_DELIVERY_SUCCESS, actions.START_CLUSTER_DELIVERY_FAILURE ],
+  payload: { error: null },
+  promise: () => new Promise( (resolve, reject) => service.startClusterDelivery(cluster, resolve, reject) )
+})

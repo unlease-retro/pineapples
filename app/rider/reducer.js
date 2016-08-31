@@ -27,6 +27,10 @@ export default createReducer(initialState, {
 
   [actions.CHANGE_STATUS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.CHANGE_STATUS_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
-  [actions.CHANGE_STATUS_FAILURE]: (state, action) => state.merge({ ...action.payload })
+  [actions.CHANGE_STATUS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
+
+  [actions.START_CLUSTER_DELIVERY_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.START_CLUSTER_DELIVERY_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
+  [actions.START_CLUSTER_DELIVERY_FAILURE]: (state, action) => state.merge({ ...action.payload })
 
 })

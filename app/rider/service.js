@@ -14,3 +14,9 @@ export const changeStatus = (id, status, resolve, reject) =>
     .then( res => res.json() )
     .then( json => resolve(json) )
     .catch( e => reject(e) )
+
+export const startClusterDelivery = (cluster, resolve, reject) =>
+  API.put(`cluster/${cluster._id}`, {startedAt: new Date()})
+    .then( res => res.json() )
+    .then( json => resolve(json) )
+    .catch( e => reject(e) )
