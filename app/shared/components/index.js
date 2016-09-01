@@ -10,6 +10,7 @@ import progress from './progress'
 import row from './row'
 import snackbar from './snackbar'
 import splash from './splash'
+import text from './text'
 import toggle from './toggle'
 
 export {
@@ -25,5 +26,6 @@ export {
   row,
   snackbar,
   splash,
+  text,
   toggle,
 }
