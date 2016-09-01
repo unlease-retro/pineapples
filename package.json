@@ -72,6 +72,7 @@
     "normalize.css": "^4.2.0",
     "passwordless": "^1.1.1",
     "passwordless-redisstore": "^1.0.2",
+    "pdfkit": "^0.8.0",
     "per-env": "^1.0.2",
     "postmark": "^1.2.1",
     "react": "^15.3.1",
