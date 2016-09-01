@@ -17,7 +17,7 @@ const Component = ({ role, createWriter, createUser, changeRole, selectedRole })
   return (
     <Grid>
 
-      <Role role={role} onChange={ role => changeRole(role) } />
+      <Role role={role} selectedRole={selectedRole} onChange={ role => changeRole(role) } />
 
       {renderFirstname}
       {renderLastname}

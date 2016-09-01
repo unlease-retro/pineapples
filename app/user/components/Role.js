@@ -1,34 +1,27 @@
 import React from 'react'
+import Select from 'react-select'
 import { roles } from '../constants'
 
+const Component = ({ role, selectedRole, onChange }) => {
 
+  const renderRoles = roles.map( (item, index) => {
 
-const Component = ({ role, onChange }) => {
-
-  const handleChange = e => onChange(e.target.value)
-
-  const renderRoles = roles.map((item, index) => {
-
-    if (role === 'SUPERUSER') {
-
-      return <option key={index} value={item}>{item}</option>
-
-    } else {
-
-      if (index > 1)
-        return <option key={index} value={item}>{item}</option>
-
-    }
+    if ( role === 'SUPERUSER' || index > 1 ) return { value: item, label: item }
 
   })
 
-
-
   return (
-    <select name='role' onChange={handleChange}>
-      <option>Choose a role</option>
-      {renderRoles}
-    </select>
+
+    <Select
+      name='role'
+      placeholder='Select role'
+      value={selectedRole || role}
+      options={renderRoles}
+      autoBlur={true}
+      clearable={false}
+      onChange={ option => onChange(option && option.value || option) }
+    />
+
   )
 
 }

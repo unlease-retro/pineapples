@@ -14,7 +14,7 @@ const Component = ({ role, fetchWriters, fetchUsers }) => {
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: '20px' }}>
       <Role role={role} onChange={handleChange} />
     </div>
   )
