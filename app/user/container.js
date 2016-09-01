@@ -23,8 +23,6 @@ export class User extends Component {
         <Components.list data={users} update={actions.updateUser} remove={actions.deleteUser} />
         <Components.list data={writers} update={actions.updateWriter} remove={actions.deleteWriter} />
 
-        <hr />
-
         <Components.create role={role} selectedRole={selectedRole} changeRole={actions.changeRole} createUser={actions.createUser} createWriter={actions.createWriter} />
 
       </div>

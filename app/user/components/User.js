@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { button as Button, input as Input } from '../../shared/components'
+import { button as Button, grid as Grid, input as Input } from '../../shared/components'
 
 const Component = ({ user, index, remove, update }) => {
 
@@ -11,7 +11,7 @@ const Component = ({ user, index, remove, update }) => {
   const renderLastname = user.lastname ? <Input defaultValue={user.lastname} placeholder='Lastname' onChange={ e => Component.lastname = e.target.value } /> : null
 
   return (
-    <div>
+    <Grid>
 
       { renderFirstname }
       { renderLastname }
@@ -21,7 +21,7 @@ const Component = ({ user, index, remove, update }) => {
       <Button label='Update' onClick={handleUpdate} theme='primary' />
       <Button label='Remove' onClick={handleRemove} theme='alert' />
 
-    </div>
+    </Grid>
   )
 
 }

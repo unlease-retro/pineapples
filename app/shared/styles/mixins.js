@@ -25,29 +25,3 @@ export const hAlign = Object.assign({}, positionAbsolute, {
   left: '50%',
   transform: 'translate3d(-50%, 0, 0)',
 })
-
-/* --------
- * Grid
--------- */
-
-export const grid = {
-  display: 'flex',
-  flexWrap: 'wrap',
-}
-
-export const cell = {
-  flexShrink: 0,
-}
-
-/* --------
- * Link
--------- */
-
-export const link = {
-  borderBottom: '2px solid transparent',
-  paddingBottom: '2px',
-  fontWeight: '800',
-  fontSize: '14px',
-  textTransform: 'uppercase',
-  cursor: 'pointer',
-}
