@@ -1,22 +1,11 @@
 import React from 'react'
 import Role from './Role'
 
-
+import { button as Button } from '../../shared/components'
 
 const Component = ({ role, createWriter, createUser, changeRole, selectedRole }) => {
 
-
-  const handleSubmit = e => {
-
-    e.preventDefault()
-
-    if (selectedRole === 'WRITER')
-      createWriter({ email: Component.email })
-    else
-      createUser({ firstname: Component.firstname, lastname: Component.lastname, email: Component.email, phone: Component.phone, role: selectedRole })
-
-  }
-
+  const handleSubmit = () => selectedRole === 'WRITER' ? createWriter({ email: Component.email }) : createUser({ firstname: Component.firstname, lastname: Component.lastname, email: Component.email, phone: Component.phone, role: selectedRole })
 
   const renderFirstname = selectedRole !== 'WRITER' ?
     <p>
@@ -38,7 +27,7 @@ const Component = ({ role, createWriter, createUser, changeRole, selectedRole })
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <p>
         <label htmlFor='role'>Role</label>
         <Role role={role} onChange={ role => changeRole(role) } />
@@ -53,8 +42,8 @@ const Component = ({ role, createWriter, createUser, changeRole, selectedRole })
         <input type='email' onChange={ e => Component.email = e.target.value } name='email' placeholder='john@doe.com' required/>
       </p>
 
-      <p><button>Submit</button></p>
-    </form>
+      <Button label='Submit' onClick={handleSubmit} theme='accent' />
+    </div>
   )
 
 }

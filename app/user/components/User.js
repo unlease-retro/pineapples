@@ -1,39 +1,27 @@
 import React from 'react'
 
+import { button as Button, input as Input } from '../../shared/components'
 
 const Component = ({ user, index, remove, update }) => {
-
 
   const handleRemove = () => remove(user._id, index)
   const handleUpdate = () => update(user._id, { firstname: Component.firstname, lastname: Component.lastname, email: Component.email }, index)
 
-  const renderFirstname = user.firstname ? <li>
-    <label>First name:</label>
-    <input type='text' onChange={ e => Component.firstname = e.target.value } defaultValue={user.firstname} />
-  </li> : null
-
-  const renderLastname = user.firstname ? <li>
-    <label>Last name:</label>
-    <input type='text' onChange={ e => Component.lastname = e.target.value } defaultValue={user.lastname} />
-  </li> : null
-
-
+  const renderFirstname = user.firstname ? <Input defaultValue={user.firstname} placeholder='Firstname' onChange={ e => Component.firstname = e.target.value } /> : null
+  const renderLastname = user.lastname ? <Input defaultValue={user.lastname} placeholder='Lastname' onChange={ e => Component.lastname = e.target.value } /> : null
 
   return (
-    <ul>
+    <div>
 
-      {renderFirstname}
-      {renderLastname}
+      { renderFirstname }
+      { renderLastname }
 
-      <li>
-        <label>Email:</label>
-        <input type='email' onChange={ e => Component.email = e.target.value } defaultValue={user.email} />
-      </li>
+      <Input defaultValue={user.email} type='email' placeholder='Email' onChange={ e => Component.email = e.target.value } />
 
-      <li><button onClick={handleUpdate}>Update</button></li>
+      <Button label='Update' onClick={handleUpdate} theme='primary' />
+      <Button label='Remove' onClick={handleRemove} theme='alert' />
 
-      <li><button onClick={handleRemove}>Remove</button></li>
-    </ul>
+    </div>
   )
 
 }

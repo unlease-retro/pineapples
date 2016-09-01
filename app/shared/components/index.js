@@ -4,13 +4,13 @@ import chip from './chip'
 import error from './error'
 // import header from './header'
 import icon from './icon'
+import input from './input'
 // import loader from './loader'
 import position from './position'
 import progress from './progress'
 import row from './row'
 import snackbar from './snackbar'
 import splash from './splash'
-import text from './text'
 import toggle from './toggle'
 
 export {
@@ -20,12 +20,12 @@ export {
   error,
   // header,
   icon,
+  input,
   // loader,
   position,
   progress,
   row,
   snackbar,
   splash,
-  text,
   toggle,
 }

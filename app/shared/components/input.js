@@ -2,9 +2,7 @@ import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from 'styles/settings'
 
-const TextInput = ({ placeholder }) => (
-  <input className={ css(styles.input) } type='text' placeholder={placeholder} />
-)
+const Input = props => ( <input className={ css(styles.input) } {...props} /> )
 
 const styles = StyleSheet.create({
   input: {
@@ -23,4 +21,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TextInput
+Input.defaultProps = {
+  type: 'text',
+}
+
+export default Input
