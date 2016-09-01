@@ -19,6 +19,9 @@
       "secretKey" : "sk_test_2xdHc7HD1Gk0OMq8HERINyjM"
     }
   },
+  "google": {
+    "api": "AIzaSyA5agnAMa00t707dntxHx1HPSKtbXXfPCY"
+  },
   "redis": {
     "port": 6379,
     "host": "192.168.99.100"
