@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-// import { colors } from 'styles/settings'
+import { colors } from 'styles/settings'
 
 import * as SharedComponents from '../../shared/components'
 
@@ -15,16 +15,22 @@ const Stats = ({ stats }) => {
     <div className={ css(styles.base) }>
 
       <SharedComponents.row>
-        <div>Today's orders: {stats.todaysOrders}</div>
+        <div className={ css(styles.figure) }>{stats.todaysOrders}</div>
+        <div className={ css(styles.label) }>Pineapples ordered today</div>
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <div>Pineapples to be delivered today: {stats.pineapplesToBeDeliveredToday}</div>
+        <div className={ css(styles.figure) }>{stats.pineapplesToBeDeliveredToday}</div>
+        <div className={ css(styles.label) }>Pineapples left to deliver today</div>
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <div>Riders with unfinished clusters</div>
-        {stats.ridersWithUndeliveredPineapples.map(rider => <div key={rider.value}>{rider.label}</div>)}
+        <div className={ css(styles.figure) }>{stats.ridersWithUndeliveredPineapples.length}</div>
+        <div className={ css(styles.label) }>Riders with unfinished clusters</div>
+      </SharedComponents.row>
+
+      <SharedComponents.row>
+        {stats.ridersWithUndeliveredPineapples.map(rider => <div className={ css(styles.rider) } key={rider.value}>{rider.label}</div>)}
       </SharedComponents.row>
 
     </div>
@@ -35,6 +41,17 @@ const Stats = ({ stats }) => {
 Stats.styles = StyleSheet.create({
   base: {
     marginTop: '40px',
+  },
+  figure: {
+    fontSize: '30px',
+    color: colors.pineapple,
+  },
+  label: {
+    color: colors.dkgrey,
+  },
+  rider: {
+    fontSize: '14px',
+    color: colors.dark,
   },
 })
 
