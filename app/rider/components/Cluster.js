@@ -4,10 +4,10 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
-const Cluster = ({ cluster, actions: { selectCluster } }) => {
+const Cluster = ({ cluster, clusterIndex, actions: { selectCluster } }) => {
 
   return (
-    <li className={ css(styles.li) } onClick={() => selectCluster(cluster)}>
+    <li className={ css(styles.li) } onClick={() => selectCluster(clusterIndex)}>
       <a>{cluster.name}</a>
     </li>
   )

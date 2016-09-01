@@ -20,27 +20,32 @@ export class Rider extends Component {
 
   render() {
 
-    const { selectedCluster } = this.props
+    const { clusters, selectedCluster, actions, undeliveredReasonOptions } = this.props
 
     const deliveryActions = {
-      changeStatus: this.props.actions.changeStatus,
-      unselectCluster: this.props.actions.unselectCluster
+      changeStatus: actions.changeStatus,
+      changeReason: actions.changeReason,
+      submitChangedReason: actions.submitChangedReason,
+      unselectCluster: actions.unselectCluster,
+      startClusterDelivery: actions.startClusterDelivery,
+      changeReasonComment: actions.changeReasonComment
     }
 
-    const clustersActions = { selectCluster: this.props.actions.selectCluster }
+    const clustersActions = { selectCluster: actions.selectCluster }
 
     const renderDelivery = selectedCluster ? (
       <Components.Delivery
-        selectedCluster={this.props.selectedCluster}
+        selectedCluster={selectedCluster}
         actions={deliveryActions}
-        viewAllButton={this.props.clusters.length > 1} />
+        viewAllButton={clusters.length > 1}
+        undeliveredReasonOptions={undeliveredReasonOptions} />
     ) : null
 
     return (
       <div>
 
         <Components.Clusters
-          clusters={this.props.clusters}
+          clusters={clusters}
           actions={clustersActions} />
         <ReactCSSTransitionGroup transitionName='slide-in-left' transitionEnterTimeout={300} transitionLeaveTimeout={300}>
           {renderDelivery}
@@ -56,7 +61,8 @@ export default connect(
   createStructuredSelector({
     rider: selectors.getAll,
     clusters: selectors.getClusters,
-    selectedCluster: selectors.selectedCluster
+    selectedCluster: selectors.selectedCluster,
+    undeliveredReasonOptions: selectors.getUndeliveredReasonOptions
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

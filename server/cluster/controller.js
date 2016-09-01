@@ -160,7 +160,7 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
     }
     else if ((typeof clusterBefore.rider._id !== 'undefined') && (typeof clusterAfter.rider._id !== 'undefined')) {
 
-      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, {})
+      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, clusterAfter)
       EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
 
     }

@@ -9,8 +9,20 @@ export const fetchClusters = (resolve, reject) =>
     .then( json => resolve(json) )
     .catch( e => reject(e) )
 
-export const changeStatus = (id, status, resolve, reject) =>
+export const changeStatus = (id, status, pineappleIndex, resolve, reject) =>
   API.put(`pineapple/${id}`, status)
+    .then( res => res.json() )
+    .then( json => resolve({...json, pineappleIndex}) )
+    .catch( e => reject(e) )
+
+export const changeReason = (id, reason, comment, pineappleIndex, resolve, reject) =>
+  API.put(`pineapple/${id}`, { undeliveredReason: reason, reasonComment: comment })
+    .then( res => res.json() )
+    .then( json => resolve({...json, pineappleIndex}) )
+    .catch( e => reject(e) )
+
+export const startClusterDelivery = (cluster, resolve, reject) =>
+  API.put(`cluster/${cluster._id}`, {startedAt: new Date()})
     .then( res => res.json() )
     .then( json => resolve(json) )
     .catch( e => reject(e) )

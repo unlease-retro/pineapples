@@ -13,7 +13,7 @@ const Clusters = ({ clusters, actions: { selectCluster } }) => {
     <div>
       <h1 className={ css(styles.h1) }>Your clusters</h1>
       <ol className={ css(styles.ol) }>
-        {clusters.map(cluster => <Cluster key={cluster.name} cluster={cluster} actions={clusterActions} />)}
+        {clusters.map((cluster, index) => <Cluster key={cluster.name} cluster={cluster} actions={clusterActions} clusterIndex={index} />)}
       </ol>
     </div>
   )

@@ -8,3 +8,11 @@ export const FAILURE = 'FAILURE'
 export const UI_ACTION = 'ui/'
 
 export const SNACKBAR_DURATION = 5000
+
+// reasons for undelivered pineapple
+export const OTHER = 'Other'
+export const reasons = [
+  'Security did not let me in ',
+  'Person was not in the office',
+  OTHER
+]

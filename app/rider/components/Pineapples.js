@@ -4,18 +4,27 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import Status from './Status'
+import Reason from './Reason'
 
-const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) => {
+const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, actions: { changeStatus, changeReason, submitChangedReason, changeReasonComment } }) => {
 
   const statusActions = { changeStatus }
+  const reasonActions = { changeReason, submitChangedReason, changeReasonComment }
   const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
 
   return (
     <div>
-      {items.map(item => {
+      {items.map((item, index) => {
+
+        const overallStyles = [styles.layout, styles.orderInfo]
+
+        if (item.delivered)
+          overallStyles.push(styles.orderInfoDelivered)
+        else
+          overallStyles.push(styles.orderInfoUndelivered)
 
         return (
-          <div key={item._id} className={ css(styles.layout, styles.orderInfo) }>
+          <div key={item._id} className={ css(...overallStyles) }>
             <div className={ css(styles.flexyItem) }>
               <h2 className={ css(styles.orderTitle) }>From: </h2>
               <p className={ css(styles.orderItem) }>{item.from ? item.from : <i>Not specified</i>}</p>
@@ -36,7 +45,8 @@ const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus } }) =
             </div>
 
             <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
-              <Status item={item} actions={statusActions} />
+              <Status item={item} itemIndex={index} actions={statusActions} />
+              <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
               {renderMapButton}
             </div>
           </div>
@@ -70,7 +80,13 @@ const styles = StyleSheet.create({
     border: '5px solid black',
     borderRadius: '10px',
     margin: '10px',
-    backgroundColor: '#FEDC81',
+  },
+  orderInfoDelivered: {
+    backgroundColor: '#d3d3d3',
+    color: '#939393'
+  },
+  orderInfoUndelivered: {
+    backgroundColor: '#FEDC81'
   },
   orderTitle: {
     fontSize: '26px',
