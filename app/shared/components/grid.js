@@ -4,7 +4,7 @@ import { media } from 'styles/settings'
 
 const Grid = ({ children }) => (
   <div className={ css(styles.grid) }>
-    { Children.map( children, child => <div className={ css(styles.cell) }>{ child }</div> ) }
+    { Children.map( children, child => child ? <div className={ css(styles.cell) }>{ child }</div> : null ) }
   </div>
 )
 
