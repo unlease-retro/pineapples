@@ -20,13 +20,15 @@ export class Rider extends Component {
 
   render() {
 
-    const { clusters, selectedCluster, actions } = this.props
+    const { clusters, selectedCluster, actions, undeliveredReasonOptions } = this.props
 
     const deliveryActions = {
       changeStatus: actions.changeStatus,
       changeReason: actions.changeReason,
+      submitChangedReason: actions.submitChangedReason,
       unselectCluster: actions.unselectCluster,
-      startClusterDelivery: actions.startClusterDelivery
+      startClusterDelivery: actions.startClusterDelivery,
+      changeReasonComment: actions.changeReasonComment
     }
 
     const clustersActions = { selectCluster: actions.selectCluster }
@@ -35,7 +37,8 @@ export class Rider extends Component {
       <Components.Delivery
         selectedCluster={selectedCluster}
         actions={deliveryActions}
-        viewAllButton={clusters.length > 1} />
+        viewAllButton={clusters.length > 1}
+        undeliveredReasonOptions={undeliveredReasonOptions} />
     ) : null
 
     return (
@@ -58,7 +61,8 @@ export default connect(
   createStructuredSelector({
     rider: selectors.getAll,
     clusters: selectors.getClusters,
-    selectedCluster: selectors.selectedCluster
+    selectedCluster: selectors.selectedCluster,
+    undeliveredReasonOptions: selectors.getUndeliveredReasonOptions
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

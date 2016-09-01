@@ -24,6 +24,8 @@ export default createReducer(initialState, {
 
   [actions.SELECT_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
   [actions.UNSELECT_CLUSTER]: (state, action) => state.merge({ ...action.payload }),
+  [actions.CHANGE_UNDELIVERED_REASON]: (state, action) => state.mergeIn(['clusters', state.get('selectedClusterIndex'), 'items', action.payload.pineappleIndex], { undeliveredReason: action.payload.undeliveredReason }),
+  [actions.CHANGE_REASON_COMMENT]: (state, action) => state.mergeIn(['clusters', state.get('selectedClusterIndex'), 'items', action.payload.pineappleIndex], { reasonComment: action.payload.reasonComment }),
 
   [actions.CHANGE_STATUS_REQUEST]: (state, action) => state.merge({ ...action.payload }),
   [actions.CHANGE_STATUS_SUCCESS]: (state, action) => state.mergeIn(['clusters', state.get('selectedClusterIndex'), 'items', action.payload.pineappleIndex], { ...action.payload.pineapple }),
@@ -33,9 +35,9 @@ export default createReducer(initialState, {
   [actions.START_CLUSTER_DELIVERY_SUCCESS]: (state, action) => state.merge({ ...action.payload }),
   [actions.START_CLUSTER_DELIVERY_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
-  [actions.CHANGE_UNDELIVERED_REASON_REQUEST]: (state, action) => state.merge({ ...action.payload }),
-  [actions.CHANGE_UNDELIVERED_REASON_SUCCESS]: (state, action) => state.mergeIn(['clusters', state.get('selectedClusterIndex'), 'items', action.payload.pineappleIndex], { ...action.payload.pineapple }),
-  [actions.CHANGE_UNDELIVERED_REASON_FAILURE]: (state, action) => state.merge({ ...action.payload })
+  [actions.SUBMIT_CHANGED_UNDELIVERED_REASON_REQUEST]: (state, action) => state.merge({ ...action.payload }),
+  [actions.SUBMIT_CHANGED_UNDELIVERED_REASON_SUCCESS]: (state, action) => state.mergeIn(['clusters', state.get('selectedClusterIndex'), 'items', action.payload.pineappleIndex], { ...action.payload.pineapple }),
+  [actions.SUBMIT_CHANGED_UNDELIVERED_REASON_FAILURE]: (state, action) => state.merge({ ...action.payload })
 
 
 })

@@ -6,10 +6,10 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import Status from './Status'
 import Reason from './Reason'
 
-const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus, changeReason } }) => {
+const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, actions: { changeStatus, changeReason, submitChangedReason, changeReasonComment } }) => {
 
   const statusActions = { changeStatus }
-  const reasonActions = { changeReason }
+  const reasonActions = { changeReason, submitChangedReason, changeReasonComment }
   const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
 
   return (
@@ -46,7 +46,7 @@ const Pineapples = ({ selectedCluster: { items }, actions: { changeStatus, chang
 
             <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
               <Status item={item} itemIndex={index} actions={statusActions} />
-              <Reason item={item} itemIndex={index} actions={reasonActions} />
+              <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
               {renderMapButton}
             </div>
           </div>

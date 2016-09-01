@@ -23,14 +23,26 @@ export const unselectCluster = () => ({
   payload: { selectedClusterIndex: null }
 })
 
+export const changeReason = (reason, itemIndex) => ({
+  type: actions.CHANGE_UNDELIVERED_REASON,
+  payload: { pineappleIndex: itemIndex, undeliveredReason: reason }
+})
+
+export const changeReasonComment = (comment, itemIndex) => ({
+  type: actions.CHANGE_REASON_COMMENT,
+  payload: { pineappleIndex: itemIndex, reasonComment: comment }
+})
+
 export const startClusterDelivery = (cluster) => ({
   types: [ actions.START_CLUSTER_DELIVERY_REQUEST, actions.START_CLUSTER_DELIVERY_SUCCESS, actions.START_CLUSTER_DELIVERY_FAILURE ],
   payload: { error: null },
   promise: () => new Promise( (resolve, reject) => service.startClusterDelivery(cluster, resolve, reject) )
 })
 
-export const changeReason = (itemId, reason, itemIndex) => ({
-  types: [ actions.CHANGE_UNDELIVERED_REASON_REQUEST, actions.CHANGE_UNDELIVERED_REASON_SUCCESS, actions.CHANGE_UNDELIVERED_REASON_FAILURE ],
+export const submitChangedReason = (itemId, reason, comment, itemIndex) => ({
+  types: [ actions.SUBMIT_CHANGED_UNDELIVERED_REASON_REQUEST, actions.SUBMIT_CHANGED_UNDELIVERED_REASON_SUCCESS, actions.SUBMIT_CHANGED_UNDELIVERED_REASON_FAILURE ],
   payload: { error: null },
-  promise: () => new Promise( (resolve, reject) => service.changeReason(itemId, reason, itemIndex, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.changeReason(itemId, reason, comment, itemIndex, resolve, reject) )
 })
+
+

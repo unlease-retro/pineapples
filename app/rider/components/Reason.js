@@ -2,20 +2,41 @@
  * Created by BigaMasta on 8/24/16.
  */
 import React from 'react'
-import { reasons, EMPTY_VALUE } from '../../shared/constants/index'
+import Select from 'react-select'
+import { OTHER } from '../../shared/constants/index'
+import Button from '../../shared/components/button'
 
-const Reason = ({ item, itemIndex, actions: { changeReason } }) => {
+const Reason = ({ item, itemIndex, undeliveredReasonOptions, actions: { changeReason, submitChangedReason, changeReasonComment } }) => {
 
-  const _onChangeReason = (item, option, itemIndex) => {
-
-    changeReason(item._id, option, itemIndex)
-
-  }
+  let reasonInput
+  const renderInput = item.undeliveredReason === OTHER && <input
+      type='text'
+      value={item.reasonComment || ''}
+      ref={c => reasonInput = c}
+      onChange={e => changeReasonComment(e.target.value, itemIndex)} />
 
   return (
-    <select value={item.undeliveredReason || EMPTY_VALUE} onChange={ (e) => _onChangeReason(item, e.target.value, itemIndex) }>
-      {reasons.map(reason => <option key={reason}>{reason}</option> )}
-    </select>
+    <div>
+      <Select
+        value={item.undeliveredReason}
+        options={undeliveredReasonOptions}
+        onChange={option => changeReason(option.value, itemIndex)}/>
+
+      {renderInput}
+
+      <Button
+        label='Submit'
+        onClick={() => {
+
+          if (item.undeliveredReason !== OTHER)
+            submitChangedReason(item._id, item.undeliveredReason, null, itemIndex)
+          else
+            submitChangedReason(item._id, item.undeliveredReason, reasonInput.value, itemIndex)
+
+        }}/>
+
+
+    </div>
   )
 
 }
