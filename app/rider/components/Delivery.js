@@ -4,10 +4,11 @@
 import React from 'react'
 import Pineapples from './Pineapples'
 import { StyleSheet, css } from 'aphrodite/no-important'
+import { button as Button } from '../../shared/components'
 
 const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
-  const renderViewAllButton = viewAllButton ? <a className={ css(styles.headerButton) } onClick={unselectCluster}>View Clusters</a> : null
+  const renderViewAllButton = viewAllButton ? <Button label='View Clusters' onClick={unselectCluster}/> : null
   const renderSelectedCluster = selectedCluster && selectedCluster.startedAt ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
   const renderStartButton = !selectedCluster.startedAt ? <a className={ css(styles.headerButton) } onClick={() => startClusterDelivery(selectedCluster)}>Start</a> : null
 
@@ -15,7 +16,7 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, ac
     <div className={ css(styles.greenBackground, styles.absolutePosition) }>
       <div className={ css(styles.header) }>
         <h1 className={ css(styles.h1) }>Cluster {selectedCluster.name}</h1>
-        <a className={ css(styles.headerButton) }>Print</a>
+        {/* commented out for showcase <Button label='Print' /> */}
         {renderStartButton}
         {renderViewAllButton}
       </div>

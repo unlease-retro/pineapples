@@ -10,7 +10,7 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
 
   const statusActions = { changeStatus }
   const reasonActions = { changeReason, submitChangedReason, changeReasonComment }
-  const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
+  //const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
 
   return (
     <div>
@@ -47,7 +47,7 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
             <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
               <Status item={item} itemIndex={index} actions={statusActions} />
               <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
-              {renderMapButton}
+              {/* commented out for showcase renderMapButton */}
             </div>
           </div>
         )
