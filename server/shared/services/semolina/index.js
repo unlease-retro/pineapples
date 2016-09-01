@@ -12,13 +12,14 @@ const UserService = require('../../../user/service')
 
 const clusterize = require('./semolina')
 const prioritize = require('../prioritize')
+const mapping = require('../mapping')
 
 const { MANAGER } = require('../../../shared/constants').ROLES
 
 const semolina = (dailyLimit) => {
 
   // clear existing clusters data before insert
-  return ClusterService.removeAll().then(() => {
+  return ClusterService.removeAll().then( () => {
 
     // run auto clustering
     return Promise.all([
@@ -30,35 +31,29 @@ const semolina = (dailyLimit) => {
 
   }).then(([ [{clusterLimit}], pineapples, writers, managers ]) => {
 
+    // run the Semolina clustering algorithm
     const clusters = clusterize(pineapples, clusterLimit)
 
-    const promises = []
+    // find nearest depot to cluster
+    const getDepots = clusters.map( cluster => DepotService.nearestTo(cluster) )
 
-    clusters.map(cluster => {
+    return Promise.all(getDepots).then( depots => {
 
-      promises.push(
-        DepotService.nearestTo(cluster)
-      )
-
-    })
-
-    return Promise.all(promises).then(depots => {
-
+      // init cluster name cache
       const names = []
 
-      // auto allocate to nearest depot based on cluster center
-      clusters.forEach((cluster, i)=> {
+      clusters.forEach( (cluster, i) => {
 
+        // generate random cluster name
         let name = Moniker.choose()
 
-        while (names.indexOf(name) >= 0) {
+        // prevent duplicate cluster name
+        while (names.indexOf(name) >= 0) name = Moniker.choose()
 
-          name = Moniker.choose()
-
-        }
-
+        // cache cluster name to avoid duplicates
         names.push(name)
 
+        // set cluster name, depot and writer
         cluster.name = name
         cluster.depot = depots[i]._id
         cluster.writer = writers[i % writers.length]
@@ -69,15 +64,33 @@ const semolina = (dailyLimit) => {
         // calculate cluster colour based on priority
         cluster.colour = prioritize.getClusterColour(cluster.priority)
 
-        // send email to writer and managers
-        WriterService.sendEmail(cluster, managers)
-
-        // insert cluster into separate collection/document (with unique and user friendly id)
-        ClusterService.create(cluster)
-
       })
 
-      return clusters
+      return { clusters, depots }
+
+    }).then( ({ clusters, depots }) => {
+
+      // get optimised route and directions
+      const getRoutes = clusters.map( (cluster, i) => mapping.getOptimisedRoute(cluster.items, depots[i]) )
+
+      return Promise.all(getRoutes).then( routes => {
+
+        clusters.forEach( (cluster, i) => {
+
+          // set cluster route
+          cluster.route = routes[i]
+
+          // send email to writer and managers
+          WriterService.sendEmail(cluster, managers)
+
+          // insert cluster into separate collection/document (with unique and user friendly id)
+          ClusterService.create(cluster)
+
+        })
+
+        return clusters
+
+      })
 
     })
 

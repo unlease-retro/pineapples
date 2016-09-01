@@ -29,3 +29,10 @@ exports.PRIORITY_LIMIT_UNIT = 'days'
 
 // range of colours representing cluster priority -> generated with: https://gka.github.io/palettes/#colors=#00cc00,#ffc200,#f4311a|steps=5|bez=0|coL=0
 exports.PRIORITY_COLOURS = [ '#00cc00', '#aacb00', '#ffc200', '#fc8513', '#f4311a' ]
+
+exports.MAP_ROUTE_OPTIONS = {
+  mode: 'bicycling',
+  language: 'en',
+  region: 'gb',
+  optimize: true,
+}
