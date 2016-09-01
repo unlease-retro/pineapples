@@ -8,7 +8,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
   const renderViewAllButton = viewAllButton ? <a className={ css(styles.headerButton) } onClick={unselectCluster}>View Clusters</a> : null
-  const renderSelectedCluster = selectedCluster ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
+  const renderSelectedCluster = selectedCluster && selectedCluster.startedAt ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
   const renderStartButton = !selectedCluster.startedAt ? <a className={ css(styles.headerButton) } onClick={() => startClusterDelivery(selectedCluster)}>Start</a> : null
 
   return (
