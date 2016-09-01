@@ -12,6 +12,7 @@ import progress from './progress'
 import row from './row'
 import snackbar from './snackbar'
 import splash from './splash'
+import title from './title'
 import toggle from './toggle'
 
 export {
@@ -29,5 +30,6 @@ export {
   row,
   snackbar,
   splash,
+  title,
   toggle,
 }

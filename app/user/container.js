@@ -7,6 +7,7 @@ import { dimensions } from 'styles/settings'
 
 import * as actions from './actions'
 import * as Components from './components'
+import * as SharedComponents from '../shared/components'
 import * as selectors from './selectors'
 
 
@@ -19,11 +20,13 @@ export class User extends Component {
     return (
       <div className={ css(styles.base) }>
 
+        <SharedComponents.title content='Update user' />
+
         <Components.filter role={role} fetchWriters={actions.fetchWriters} fetchUsers={actions.fetchUsers} />
         <Components.list data={users} update={actions.updateUser} remove={actions.deleteUser} />
         <Components.list data={writers} update={actions.updateWriter} remove={actions.deleteWriter} />
 
-        <h3>Create new user</h3>
+        <SharedComponents.title content='Create user' />
 
         <Components.create role={role} selectedRole={selectedRole} changeRole={actions.changeRole} createUser={actions.createUser} createWriter={actions.createWriter} />
 

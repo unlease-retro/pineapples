@@ -15,7 +15,6 @@ const Component = ({ role, fetchWriters, fetchUsers }) => {
 
   return (
     <div>
-      <h3>Get users by role</h3>
       <Role role={role} onChange={handleChange} />
     </div>
   )
