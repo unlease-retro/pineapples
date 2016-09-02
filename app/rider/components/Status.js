@@ -5,13 +5,13 @@ import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { toggle as Toggle } from '../../shared/components'
 
-const Status = ({ item, itemIndex, actions: { changeStatus } }) => {
+const Status = ({ item, actions: { changeStatus } }) => {
 
   const label = item.delivered ? 'Delivered' : 'Undelivered'
 
   return (
     <div className={ css(styles.base) }>
-      <Toggle label={label} active={item.delivered} callback={ (checked) => changeStatus(item, { delivered: checked }, itemIndex) } />
+      <Toggle label={label} active={item.delivered} callback={ (checked) => changeStatus(item, { delivered: checked }, item.originalIndex) } />
     </div>
   )
 

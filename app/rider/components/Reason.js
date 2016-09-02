@@ -7,12 +7,11 @@ import Select from 'react-select'
 import { button as Button, grid as Grid, input as Input } from '../../shared/components'
 import { OTHER } from '../../shared/constants/index'
 
-const Reason = ({ item, itemIndex, undeliveredReasonOptions, actions: { changeReason, submitChangedReason, changeReasonComment } }) => {
-
+const Reason = ({ item, undeliveredReasonOptions, actions: { changeReason, submitChangedReason, changeReasonComment } }) => {
 
   const renderInput = item.undeliveredReason === OTHER && <Input
       value={item.reasonComment || ''}
-      onChange={e => changeReasonComment(e.target.value, itemIndex)} />
+      onChange={e => changeReasonComment(e.target.value, item.originalIndex)} />
 
   return (
     <div>
@@ -21,7 +20,7 @@ const Reason = ({ item, itemIndex, undeliveredReasonOptions, actions: { changeRe
         <Select
           value={item.undeliveredReason}
           options={undeliveredReasonOptions}
-          onChange={option => changeReason(option.value, itemIndex)} />
+          onChange={option => changeReason(option.value, item.originalIndex)} />
 
         { renderInput }
       </Grid>
@@ -32,9 +31,9 @@ const Reason = ({ item, itemIndex, undeliveredReasonOptions, actions: { changeRe
           onClick={() => {
 
             if (item.undeliveredReason !== OTHER)
-              submitChangedReason(item._id, item.undeliveredReason, null, itemIndex)
+              submitChangedReason(item._id, item.undeliveredReason, null, item.originalIndex)
             else
-              submitChangedReason(item._id, item.undeliveredReason, item.reasonComment, itemIndex)
+              submitChangedReason(item._id, item.undeliveredReason, item.reasonComment, item.originalIndex)
 
           }}/>
       </div>

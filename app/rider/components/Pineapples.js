@@ -13,10 +13,10 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
 
   return (
     <div>
-      {items.map((item, index) => {
+      {items.map(item => {
 
         const renderFlatNumber = item.flatNumber ? <div>{item.flatNumber}</div> : null
-        const renderReason = !item.delivered ? <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/> : null
+        const renderReason = !item.delivered ? <Reason item={item} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/> : null
 
         return (
           <Card disabled={item.delivered} key={item._id}>
@@ -45,7 +45,7 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
               <div>{item.message}</div>
             </Grid>
 
-            <Status item={item} itemIndex={index} actions={statusActions} />
+            <Status item={item} actions={statusActions} />
 
             {renderReason}
 
