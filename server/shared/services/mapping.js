@@ -26,7 +26,19 @@ exports.getOptimisedRoute = (items, depot) => {
 
       const { routes: [ route ] } = json
 
-      return route
+      const { legs, overview_polyline, waypoint_order } = route
+
+      // remove unnecessary data from `legs` object
+      const trimmedLegs = legs.map( ({ start_location, end_location, duration, distance }) => ({ start_location, end_location, duration, distance }) )
+
+      // only return required `route` data
+      const trimmedRoute = {
+        legs: trimmedLegs,
+        overview_polyline,
+        waypoint_order
+      }
+
+      return trimmedRoute
 
     })
 
