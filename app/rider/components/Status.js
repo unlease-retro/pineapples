@@ -3,27 +3,17 @@
  */
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { button as Button } from '../../shared/components'
-
-import { DELIVERED, UNDELIVERED } from '../constants'
+import { toggle as Toggle } from '../../shared/components'
 
 const Status = ({ item, itemIndex, actions: { changeStatus } }) => {
 
-  const buttonLabel = item.delivered ? DELIVERED : UNDELIVERED
-
-  const _onClick = (item, itemIndex) => {
-
-    const query = { delivered: !item.delivered }
-    changeStatus(item, query, itemIndex)
-
-  }
+  const label = item.delivered ? 'Delivered' : 'Undelivered'
 
   return (
     <div className={ css(styles.base) }>
-      <Button label={buttonLabel} onClick={ () => _onClick(item, itemIndex) } />
+      <Toggle label={label} active={item.delivered} callback={ (checked) => changeStatus(item, { delivered: checked }, itemIndex) } />
     </div>
   )
-
 
 }
 
