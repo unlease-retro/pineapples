@@ -5,7 +5,7 @@ import { getCentroid, getPosition } from '../shared/util'
 // static
 export const getAll = state => state.get(name)
 export const getClusters = state => state.getIn([ name, 'clusters' ]).toJS()
-export const getDepots = state => state.getIn([ name, 'depots' ]).toJS()
+export const getDepots = state => state.getIn([ name, 'depots' ])
 export const getRiders = state => state.getIn([ name, 'riders' ]).toJS()
 export const getMapCenter = state => state.getIn([ name, 'mapCenter' ]).toObject()
 export const getSearchCluster = state => state.getIn([ name, 'searchCluster' ])

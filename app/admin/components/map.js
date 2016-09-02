@@ -108,7 +108,11 @@ export class Map extends Component {
 
     depots && depots.map( depot => {
 
-      const { active, location: { coordinates: [ lng, lat ] }, name } = depot
+      const active = depot.get('active')
+      const name = depot.get('name')
+      const coordinates = depot.getIn([ 'location', 'coordinates' ])
+      const lat = coordinates.get(1)
+      const lng = coordinates.get(0)
 
       // depot isn't active!? abort!
       if (!active) return
