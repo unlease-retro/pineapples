@@ -6,13 +6,12 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import * as actions from './actions'
 import * as Components from './components'
+import * as SharedComponents from '../shared/components'
 import * as selectors from './selectors'
 
 export class Rider extends Component {
 
   componentWillMount() {
-
-    // console.log('Rider :: componentWillMount')
 
     this.props.actions.fetchClusters()
 
@@ -42,15 +41,17 @@ export class Rider extends Component {
     ) : null
 
     return (
-      <div>
+      <SharedComponents.wrap>
 
         <Components.Clusters
           clusters={clusters}
           actions={clustersActions} />
+
         <ReactCSSTransitionGroup transitionName='slide-in-left' transitionEnterTimeout={300} transitionLeaveTimeout={300}>
           {renderDelivery}
         </ReactCSSTransitionGroup>
-      </div>
+
+      </SharedComponents.wrap>
     )
 
   }
