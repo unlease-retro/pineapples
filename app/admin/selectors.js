@@ -4,7 +4,7 @@ import { getCentroid, getPosition } from '../shared/util'
 
 // static
 export const getAll = state => state.get(name)
-export const getClusters = state => state.getIn([ name, 'clusters' ]).toJS()
+export const getClusters = state => state.getIn([ name, 'clusters' ])
 export const getDepots = state => state.getIn([ name, 'depots' ])
 export const getRiders = state => state.getIn([ name, 'riders' ])
 export const getMapCenter = state => state.getIn([ name, 'mapCenter' ]).toObject()
@@ -16,31 +16,32 @@ export const getTodaysOrders = state => state.getIn([ name, 'stats', 'todaysOrde
 export const getPineapplesToBeDeliveredToday = state => state.getIn([ name, 'stats', 'pineapplesToBeDeliveredToday' ])
 
 // computed
-export const getTotalClusters = createSelector( [ getClusters ], clusters => clusters.length )
-export const getSelectedCluster = createSelector( [ getClusters, getSelectedClusterIndex ], (clusters, i) => clusters[i] )
-export const getClusterId = createSelector( [ getSelectedCluster ], cluster => cluster && cluster._id )
-export const getClusterName = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.name )
-export const getClusterDepot = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.depot )
-export const getClusterDepotName = createSelector( [ getClusterDepot ], depot => depot && depot.name )
-export const getClusterDepotCoordinates = createSelector( [ getClusterDepot ], depot => depot && depot.location.coordinates )
-export const getClusterPineapples = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.items )
-export const getClusterRider = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.rider )
-export const getClusterRiderId = createSelector( [ getClusterRider ], rider => rider && rider._id )
-export const getClusterDeliverable = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.deliverable )
-export const getClusterColour = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.colour )
+export const getTotalClusters = createSelector( [ getClusters ], clusters => clusters.size )
+export const getSelectedCluster = createSelector( [ getClusters, getSelectedClusterIndex ], (clusters, i) => clusters.get(i) )
+export const getClusterId = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('_id') )
+export const getClusterName = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('name') )
+export const getClusterDepot = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('depot') )
+export const getClusterDepotName = createSelector( [ getClusterDepot ], depot => depot && depot.get('name') )
+export const getClusterDepotCoordinates = createSelector( [ getClusterDepot ], depot => depot && depot.getIn([ 'location', 'coordinates' ]) )
+export const getClusterPineapples = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('items') )
+export const getClusterRider = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('rider') )
+export const getClusterRiderId = createSelector( [ getClusterRider ], rider => rider && rider.get('_id') )
+export const getClusterDeliverable = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('deliverable') )
+export const getClusterColour = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('colour') )
 export const getIsPanelOpen = createSelector( [ getClusterName ], clusterName => Boolean(clusterName) )
-export const getClusterCentroid = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.centroid )
+export const getClusterCentroid = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('centroid') )
 export const getClusterPosition = createSelector( [ getClusterCentroid ], clusterCoordinates => clusterCoordinates && getCentroid(clusterCoordinates) )
 export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], depotCoordinates => depotCoordinates && getPosition(depotCoordinates) )
-export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.length )
-export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ) )
-export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})` }) ) )
+export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.size )
+export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ).toArray() )
+
+export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})` }) ).toArray() )
 
 export const getClusterFilterOptions = createSelector( [ getRidersOptions ], riders => {
 
   riders.push({ value: 'unassigned', label: 'Unassigned' })
 
-  return riders.toArray()
+  return riders
 
 } )
 

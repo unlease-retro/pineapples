@@ -74,7 +74,11 @@ export class Map extends Component {
 
     clusters && clusters.map( (cluster, i) => {
 
-      const { items: pineapples, centroid, colour, name, index } = cluster
+      const centroid = cluster.get('centroid')
+      const colour = cluster.get('colour')
+      const name = cluster.get('name')
+      const index = cluster.get('index')
+      const pineapples = cluster.get('items')
 
       const position = getCentroid(centroid)
       const POLYGON_OPTIONS = getPolygonOptions(colour)
@@ -141,7 +145,15 @@ export class Map extends Component {
     const MARKER_OPTIONS = getMarkerOptions(colour, google.maps.SymbolPath.CIRCLE)
 
     // extract coordinates
-    const paths = pineapples.map( ({ location: { coordinates: [ lng, lat ] } }) => ({ lat, lng }))
+    const paths = pineapples.map( pineapple => {
+
+      const coordinates = pineapple.getIn([ 'location', 'coordinates' ])
+      const lat = coordinates.get(1)
+      const lng = coordinates.get(0)
+
+      return { lat, lng }
+
+    })
 
     // create marker for each pineapple
     paths.map( position => {
@@ -153,7 +165,7 @@ export class Map extends Component {
 
     })
 
-    return paths
+    return paths.toArray()
 
   }
 
