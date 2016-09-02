@@ -6,15 +6,21 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from 'styles/settings'
 import { adjustColour } from '../util'
 
+import { icon as Icon } from './'
+
 const Button = ({ label, onClick, theme, disabled }) => {
 
   const { styles } = Button
 
   const className = css(styles.base, theme && styles[theme], disabled && styles.disabled)
 
+  const renderLabel = theme === 'icon' ? <Icon name={label} /> : <span className={ css(styles.label) }>{ label }</span>
+
   return (
     <button className={className} onClick={onClick}>
-      <span className={ css(styles.label) }>{ label }</span>
+
+      { renderLabel }
+
     </button>
   )
 

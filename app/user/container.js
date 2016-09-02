@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { StyleSheet, css } from 'aphrodite'
-import { dimensions } from 'styles/settings'
 
 import * as actions from './actions'
 import * as Components from './components'
@@ -18,7 +16,7 @@ export class User extends Component {
     const { role, selectedRole, users, writers, actions } = this.props
 
     return (
-      <div className={ css(styles.base) }>
+      <SharedComponents.wrap>
 
         <SharedComponents.title content='Update user' />
 
@@ -30,21 +28,12 @@ export class User extends Component {
 
         <Components.create role={role} selectedRole={selectedRole} changeRole={actions.changeRole} createUser={actions.createUser} createWriter={actions.createWriter} />
 
-      </div>
+      </SharedComponents.wrap>
     )
 
   }
 
 }
-
-const styles = StyleSheet.create({
-  base: {
-    width: dimensions.contentWidth,
-    maxWidth: dimensions.contentMaxWidth,
-    margin: '0 auto',
-    padding: `${dimensions.gutterVertical} ${dimensions.gutterSide}`,
-  },
-})
 
 export default connect(
   createStructuredSelector({

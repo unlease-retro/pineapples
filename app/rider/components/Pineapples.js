@@ -2,111 +2,53 @@
  * Created by BigaMasta on 8/23/16.
  */
 import React from 'react'
-import { StyleSheet, css } from 'aphrodite/no-important'
 import Status from './Status'
 import Reason from './Reason'
+import { card as Card, grid as Grid } from '../../shared/components'
 
 const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, actions: { changeStatus, changeReason, submitChangedReason, changeReasonComment } }) => {
 
   const statusActions = { changeStatus }
   const reasonActions = { changeReason, submitChangedReason, changeReasonComment }
-  //const renderMapButton = <a className={ css(styles.flexyItem, styles.mapButton, styles.statusAndMapItem) }>Map</a>
 
   return (
     <div>
-      {items.map((item, index) => {
+      {items.map((item, index) => (
+        <Card disabled={item.delivered} key={item._id}>
 
-        const overallStyles = [styles.layout, styles.orderInfo]
+          <Grid staticCells nonPaddedCells>
+            <div>From:</div>
+            <div>{item.from ? item.from : <i>Not specified</i>}</div>
+          </Grid>
 
-        if (item.delivered)
-          overallStyles.push(styles.orderInfoDelivered)
-        else
-          overallStyles.push(styles.orderInfoUndelivered)
+          <Grid staticCells nonPaddedCells>
+            <div>To:</div>
+            <div>{item.to}</div>
+          </Grid>
 
-        return (
-          <div key={item._id} className={ css(...overallStyles) }>
-            <div className={ css(styles.flexyItem) }>
-              <h2 className={ css(styles.orderTitle) }>From: </h2>
-              <p className={ css(styles.orderItem) }>{item.from ? item.from : <i>Not specified</i>}</p>
-
-              <h2 className={ css(styles.orderTitle) }>To: </h2>
-              <p className={ css(styles.orderItem) }>{item.to}</p>
+          <Grid staticCells nonPaddedCells>
+            <div>Address:</div>
+            <div>
+              <div>{`${item.flatNumber} ${item.streetAddress}`}</div>
+              <div>{item.postcode}</div>
             </div>
+          </Grid>
 
-            <div className={ css(styles.flexyItem) }>
-              <h2 className={ css(styles.orderTitle) }>Address: </h2>
-              <p className={ css(styles.orderItem) }>{`${item.flatNumber} ${item.streetAddress}`}</p>
-              <p className={ css(styles.orderItem) }>{item.postcode}</p>
-            </div>
+          <Grid staticCells nonPaddedCells>
+            <div>Message:</div>
+            <div>{item.message}</div>
+          </Grid>
 
-            <div className={ css(styles.flexyItemFull) }>
-              <h2 className={ css(styles.orderTitle) }>Message: </h2>
-              <p className={ css(styles.orderItem) }>{item.message}</p>
-            </div>
+          <Status item={item} itemIndex={index} actions={statusActions} />
 
-            <div className={ css(styles.flexyItemFull, styles.statusAndMap) }>
-              <Status item={item} itemIndex={index} actions={statusActions} />
-              <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
-              {/* commented out for showcase renderMapButton */}
-            </div>
-          </div>
-        )
+          <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
 
-      })}
+        </Card>
+      ))}
+
     </div>
   )
 
 }
-
-const styles = StyleSheet.create({
-  layout: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    justifyContent: 'space-around'
-  },
-  flexyItem: {
-    flexGrow: '1',
-    flexShrink: '0',
-    flexBasis: '250px'
-  },
-  flexyItemFull: {
-    flexGrow: '1',
-    flexShrink: '0',
-    flexBasis: '500px'
-  },
-  orderInfo: {
-    border: '5px solid black',
-    borderRadius: '10px',
-    margin: '10px',
-  },
-  orderInfoDelivered: {
-    backgroundColor: '#d3d3d3',
-    color: '#939393'
-  },
-  orderInfoUndelivered: {
-    backgroundColor: '#FEDC81'
-  },
-  orderTitle: {
-    fontSize: '26px',
-    marginLeft: '10px',
-    marginBottom: '5px'
-  },
-  orderItem: {
-    fontSize: '16px',
-    marginLeft: '30px'
-  },
-  mapButton: {
-    backgroundColor: '#6FC9BC',
-    borderRadius: '5px',
-    padding: '10px',
-    fontSize: '16px',
-    textAlign: 'center',
-  },
-  statusAndMap: {
-    textAlign: 'center',
-  }
-})
 
 export default Pineapples

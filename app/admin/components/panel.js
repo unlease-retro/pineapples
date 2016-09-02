@@ -24,7 +24,7 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
     <div className={ css(styles.base) }>
 
       <SharedComponents.position right='0px'>
-        <SharedComponents.button onClick={ () => selectCluster() } label='&times;' theme='icon' />
+        <SharedComponents.button onClick={ () => selectCluster() } label='close' theme='icon' />
       </SharedComponents.position>
 
       <div onClick={ () => setMapCenter(clusterPosition) } className={ css(styles.name) } style={style}>

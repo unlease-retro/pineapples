@@ -1,5 +1,6 @@
 import badge from './badge'
 import button from './button'
+import card from './card'
 import chip from './chip'
 import error from './error'
 import grid from './grid'
@@ -14,10 +15,12 @@ import snackbar from './snackbar'
 import splash from './splash'
 import title from './title'
 import toggle from './toggle'
+import wrap from './wrap'
 
 export {
   badge,
   button,
+  card,
   chip,
   error,
   grid,
@@ -32,4 +35,5 @@ export {
   splash,
   title,
   toggle,
+  wrap,
 }
