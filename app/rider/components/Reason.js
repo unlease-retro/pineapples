@@ -4,16 +4,14 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import Select from 'react-select'
-import { button as Button, grid as Grid } from '../../shared/components'
+import { button as Button, grid as Grid, input as Input } from '../../shared/components'
 import { OTHER } from '../../shared/constants/index'
 
 const Reason = ({ item, itemIndex, undeliveredReasonOptions, actions: { changeReason, submitChangedReason, changeReasonComment } }) => {
 
-  let reasonInput
-  const renderInput = item.undeliveredReason === OTHER && <input
-      type='text'
+
+  const renderInput = item.undeliveredReason === OTHER && <Input
       value={item.reasonComment || ''}
-      ref={c => reasonInput = c}
       onChange={e => changeReasonComment(e.target.value, itemIndex)} />
 
   return (
@@ -36,7 +34,7 @@ const Reason = ({ item, itemIndex, undeliveredReasonOptions, actions: { changeRe
             if (item.undeliveredReason !== OTHER)
               submitChangedReason(item._id, item.undeliveredReason, null, itemIndex)
             else
-              submitChangedReason(item._id, item.undeliveredReason, reasonInput.value, itemIndex)
+              submitChangedReason(item._id, item.undeliveredReason, item.reasonComment, itemIndex)
 
           }}/>
       </div>
