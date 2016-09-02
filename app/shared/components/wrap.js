@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
-import { dimensions } from 'styles/settings'
+import { colors, dimensions } from 'styles/settings'
 
-const Wrap = ({ children }) => (
-  <div className={ css(styles.wrap) }>{ children }</div>
+const Wrap = ({ children, fullscreen }) => (
+  <div className={ css(styles.wrap, fullscreen && styles.fullscreen) }>{ children }</div>
 )
 
 const styles = StyleSheet.create({
@@ -12,6 +12,13 @@ const styles = StyleSheet.create({
     maxWidth: dimensions.contentMaxWidth,
     margin: '0 auto',
     padding: `${dimensions.gutterVertical} ${dimensions.gutterSide}`,
+  },
+  fullscreen: {
+    width: '100%',
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    background: colors.light,
   },
 })
 
