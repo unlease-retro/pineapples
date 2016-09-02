@@ -11,10 +11,10 @@ export const MAP_OPTIONS = {
 /* eslint-enable */
 
 export const CIRCLE_OPTIONS = {
-  strokeColor: '#F4311A',
+  strokeColor: '#211E75',
   strokeOpacity: 0.8,
   strokeWeight: 2,
-  fillColor: '#F4311A',
+  fillColor: '#211E75',
   fillOpacity: 0.35,
   radius: 1000
 }

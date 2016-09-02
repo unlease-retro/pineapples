@@ -23,7 +23,7 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
   return (
     <div className={ css(styles.base) }>
 
-      <SharedComponents.position right='0px'>
+      <SharedComponents.position right='20px'>
         <SharedComponents.button onClick={ () => selectCluster() } label='close' theme='icon' />
       </SharedComponents.position>
 
