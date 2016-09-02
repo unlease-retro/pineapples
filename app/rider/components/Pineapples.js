@@ -11,40 +11,49 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
   const statusActions = { changeStatus }
   const reasonActions = { changeReason, submitChangedReason, changeReasonComment }
 
+
+
   return (
     <div>
-      {items.map((item, index) => (
-        <Card disabled={item.delivered} key={item._id}>
+      {items.map((item, index) => {
 
-          <Grid staticCells nonPaddedCells>
-            <div>From:</div>
-            <div>{item.from ? item.from : <i>Not specified</i>}</div>
-          </Grid>
+        const renderFlatNumber = item.flatNumber ? <div>{item.flatNumber}</div> : null
 
-          <Grid staticCells nonPaddedCells>
-            <div>To:</div>
-            <div>{item.to}</div>
-          </Grid>
+        return (
+          <Card disabled={item.delivered} key={item._id}>
 
-          <Grid staticCells nonPaddedCells>
-            <div>Address:</div>
-            <div>
-              <div>{`${item.flatNumber} ${item.streetAddress}`}</div>
-              <div>{item.postcode}</div>
-            </div>
-          </Grid>
+            <Grid staticCells nonPaddedCells>
+              <div>From:</div>
+              <div>{item.from ? item.from : <i>Not specified</i>}</div>
+            </Grid>
 
-          <Grid staticCells nonPaddedCells>
-            <div>Message:</div>
-            <div>{item.message}</div>
-          </Grid>
+            <Grid staticCells nonPaddedCells>
+              <div>To:</div>
+              <div>{item.to}</div>
+            </Grid>
 
-          <Status item={item} itemIndex={index} actions={statusActions} />
+            <Grid staticCells nonPaddedCells>
+              <div>Address:</div>
+              <div>
+                {renderFlatNumber}
+                <div>{item.streetAddress}</div>
+                <div>{item.postcode}</div>
+              </div>
+            </Grid>
 
-          <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
+            <Grid staticCells nonPaddedCells>
+              <div>Message:</div>
+              <div>{item.message}</div>
+            </Grid>
 
-        </Card>
-      ))}
+            <Status item={item} itemIndex={index} actions={statusActions} />
+
+            <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
+
+          </Card>
+        )
+
+      })}
 
     </div>
   )
