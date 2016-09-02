@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import shallowCompare from 'react-addons-shallow-compare'
 
 import { selectors } from '../../user'
 import Unauthorised from './Unauthorised'
@@ -8,6 +9,12 @@ import Unauthorised from './Unauthorised'
 export const Auth = (Component, roles) => {
 
   class Enhancer extends React.Component {
+
+    shouldComponentUpdate(nextProps, nextState) {
+
+      return shallowCompare(this, nextProps, nextState)
+
+    }
 
     render() {
 

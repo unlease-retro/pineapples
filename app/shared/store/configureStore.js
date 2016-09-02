@@ -6,8 +6,6 @@ import createLogger from 'redux-logger'
 import promise from '../middleware/promise'
 import ui from '../middleware/ui'
 import rootReducer from '../reducers'
-import * as Storage from '../services/storage'
-import { STATE_KEY } from '../constants'
 
 // environment
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -25,23 +23,11 @@ const finalCreateStore = compose(
   isDevelopment && window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
-// persist stored state
-const persistState = Storage.getItem(STATE_KEY) || {}
-const initialState = Immutable.fromJS(persistState)
+const initialState = Immutable.fromJS({})
 
 export default function configureStore() {
 
   const store = finalCreateStore(rootReducer, initialState)
-
-  // store state on change
-  store.subscribe( () => {
-
-    // remove `routing`, `user` from state before storing
-    let stateTrimmed = store.getState().delete('routing').delete('user')
-
-    Storage.setItem(STATE_KEY, stateTrimmed.toJS())
-
-  })
 
   return store
 
