@@ -6,7 +6,7 @@ import { getCentroid, getPosition } from '../shared/util'
 export const getAll = state => state.get(name)
 export const getClusters = state => state.getIn([ name, 'clusters' ]).toJS()
 export const getDepots = state => state.getIn([ name, 'depots' ])
-export const getRiders = state => state.getIn([ name, 'riders' ]).toJS()
+export const getRiders = state => state.getIn([ name, 'riders' ])
 export const getMapCenter = state => state.getIn([ name, 'mapCenter' ]).toObject()
 export const getSearchCluster = state => state.getIn([ name, 'searchCluster' ])
 export const getFilterCluster = state => state.getIn([ name, 'filterCluster' ])
@@ -34,12 +34,13 @@ export const getClusterPosition = createSelector( [ getClusterCentroid ], cluste
 export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], depotCoordinates => depotCoordinates && getPosition(depotCoordinates) )
 export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.length )
 export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ) )
-export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( ({ _id, firstname, lastname, clusters }) => ({ value: _id, label: `${firstname} ${lastname} (${clusters.length})` }) ) )
+export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})` }) ) )
+
 export const getClusterFilterOptions = createSelector( [ getRidersOptions ], riders => {
 
   riders.push({ value: 'unassigned', label: 'Unassigned' })
 
-  return riders
+  return riders.toArray()
 
 } )
 
