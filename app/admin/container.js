@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import shallowCompare from 'react-addons-shallow-compare'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
@@ -19,6 +20,12 @@ export class Admin extends Component {
     fetchDepots()
     fetchRiders()
     fetchStats()
+
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+
+    return shallowCompare(this, nextProps, nextState)
 
   }
 
