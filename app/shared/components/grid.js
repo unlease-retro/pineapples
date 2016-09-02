@@ -2,9 +2,9 @@ import React, { Children } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { media } from 'styles/settings'
 
-const Grid = ({ children }) => (
+const Grid = ({ children, staticCells, nonPaddedCells }) => (
   <div className={ css(styles.grid) }>
-    { Children.map( children, child => child ? <div className={ css(styles.cell) }>{ child }</div> : null ) }
+    { Children.map( children, child => child ? <div className={ css(styles.cell, staticCells && styles.staticCell, nonPaddedCells && styles.nonPaddedCell) }>{ child }</div> : null ) }
   </div>
 )
 
@@ -28,6 +28,12 @@ const styles = StyleSheet.create({
         paddingRight: 0,
       },
     },
+  },
+  staticCell: {
+    flex: 1,
+  },
+  nonPaddedCell: {
+    padding: 0,
   },
 })
 
