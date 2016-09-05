@@ -33,19 +33,36 @@ const addGoogleMapsLinks = (selectedCluster) => {
 
   const pineapples = selectedCluster.get('items')
 
+  const depotLocation = selectedCluster.getIn(['depot', 'location', 'coordinates'])
+  let fromLat = depotLocation.get(1)
+  let fromLng = depotLocation.get(0)
 
   let constructedLinkForCluster = ''
-  pineapples.map(pineapple => {
+  const pineapplesWithGoogleMapsLinks = pineapples.map((pineapple, index) => {
 
     const coordinates = pineapple.getIn(['location', 'coordinates'])
-    const lat = coordinates.get(1)
-    const lng = coordinates.get(0)
-    constructedLinkForCluster += `/${lat},${lng}`
-    //return pineapple.set('googleMapLink', `/${lat},${lng}`)
+    const toLat = coordinates.get(1)
+    const toLng = coordinates.get(0)
+    constructedLinkForCluster += `/${toLat},${toLng}`
+
+    let resultValue = ''
+
+    // first pineapple has have route from depot
+    if (index === 0)
+      resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}`)
+    else
+      resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}`)
+
+    fromLat = coordinates.get(1)
+    fromLng = coordinates.get(0)
+
+    return resultValue
 
   })
 
-  const selectedClusterWithGoogleMapLink = selectedCluster.set('googleMapsLink', `${prefix}${constructedLinkForCluster}${cycleRoute}`)
+  const selectedClusterWithGoogleMapLink = selectedCluster
+    .set('googleMapsLink', `${prefix}${constructedLinkForCluster}${cycleRoute}`)
+    .setIn(['items'], pineapplesWithGoogleMapsLinks)
   return selectedClusterWithGoogleMapLink
 
 }

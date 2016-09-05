@@ -36,7 +36,7 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
                 <div>{item.companyName}</div>
                 <div>{item.streetAddress}</div>
                 <div>{item.postcode}</div>
-                <div><Link href='https://www.google.sk' label='Map'/></div>
+                <div><Link href={item.googleMapsLink} label='Map'/></div>
               </div>
             </Grid>
 

@@ -4,7 +4,6 @@
 import React from 'react'
 import Pineapples from './Pineapples'
 import { button as Button, position as Position, title as Title, wrap as Wrap, link as Link } from '../../shared/components'
-import { constructGoogleMapsLinkFor } from '../../shared/util/googleMapsLinkBuilder'
 
 const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
