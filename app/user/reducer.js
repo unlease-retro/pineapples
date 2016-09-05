@@ -8,6 +8,7 @@ export const initialState = Immutable.fromJS({
   users: [],
   writers: [],
   selectedRole: null,
+  selectedRoleForUpdateUser:null,
   requesting: false,
   error: null,
 })
@@ -50,5 +51,6 @@ export default createReducer(initialState, {
   [actions.UPDATE_WRITER_SUCCESS]: (state, action) => state.mergeIn([ 'writers', action.payload.index ], { ...action.payload.writer }),
   [actions.UPDATE_WRITER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
-  [actions.CHANGE_SELECTED_ROLE]: (state, action) => state.merge({ ...action.payload })
+  [actions.CHANGE_SELECTED_ROLE]: (state, action) => state.merge({ ...action.payload }),
+  [actions.CHANGE_SELECTED_ROLE_FOR_UPDATE]: (state, action) => state.merge({ ...action.payload })
 })
