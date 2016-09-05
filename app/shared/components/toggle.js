@@ -10,9 +10,11 @@ const Toggle = ({ label, active, callback }) => {
   const { styles } = Toggle
   const className = css(styles.base, active && styles.active)
 
+  let _input
+
   return (
     <label className={className}>
-      <input ref={ r => Toggle._input = r } type='checkbox' hidden defaultChecked={active} onChange={ () => callback(Toggle._input.checked) } />
+      <input ref={ r => _input = r } type='checkbox' hidden defaultChecked={active} onChange={ () => callback(_input.checked) } />
       { label }
     </label>
   )
