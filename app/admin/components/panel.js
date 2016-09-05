@@ -5,7 +5,7 @@ import { colors, media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter, setOverview }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, clusterDistance, clusterDuration, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter, setOverview }) => {
 
   const style = {
     borderBottomColor: clusterColour,
@@ -34,6 +34,8 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
       <SharedComponents.row>
         <SharedComponents.chip label={clusterDepotName} icon='store' iconTheme='light' callback={ () => setMapCenter(clusterDepotPosition) } />
+        <SharedComponents.chip label={`${clusterDistance}km`} icon='directions' iconTheme='light' />
+        <SharedComponents.chip label={`${clusterDuration}`} icon='directions_bike' iconTheme='light' />
       </SharedComponents.row>
 
       <SharedComponents.row>

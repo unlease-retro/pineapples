@@ -11,7 +11,7 @@ const Chip = ({ label, icon, iconTheme, callback }) => {
   const renderIcon = icon ? <div className={ css(styles.icon) }><Icon name={icon} theme={iconTheme} /></div> : null
 
   return (
-    <div className={ css(styles.base) } onClick={callback}>
+    <div className={ css(styles.base, callback && styles.link) } onClick={callback}>
       { renderIcon }
       <span className={ css(styles.label) }>{ label }</span>
     </div>
@@ -24,15 +24,22 @@ Chip.styles = StyleSheet.create({
     width: '-webkit-fit-content',
     height: '32px',
     borderRadius: '16px',
-    display: 'flex',
+    marginTop: '10px',
+    marginRight: '10px',
+    display: 'inline-flex',
     color: colors.dark,
     backgroundColor: colors.ltgrey,
-    cursor: 'pointer',
     transition: '0.2s',
+    ':last-of-type': {
+      marginRight: 0,
+    },
+  },
+  link: {
+    cursor: 'pointer',
     ':hover': {
       color: colors.light,
       backgroundColor: adjustColour(colors.dkgrey, 20),
-    }
+    },
   },
   label: {
     paddingLeft: '12px',
