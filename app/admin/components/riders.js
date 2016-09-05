@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import Select from 'react-select'
 
-const Riders = ({ riders, selectedRider, selectRider }) => {
+const Riders = ({ riders, selectedRider, selectRider, disabled }) => {
 
   return (
     <div>
@@ -18,6 +18,7 @@ const Riders = ({ riders, selectedRider, selectRider }) => {
         clearable={false}
         searchable={true}
         onChange={ ({ value }) => selectRider(value) }
+        disabled={disabled}
       />
 
     </div>
