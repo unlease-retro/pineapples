@@ -9,33 +9,69 @@
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
   <link rel="manifest" href="/manifest.json" />
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5 " />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
   <meta name="apple-mobile-web-app-title" content="Unlease" />
   <meta name="application-name" content="Unlease" />
   <meta name="theme-color" content="#ffffff " />
+  <style>
+    @import "https://fonts.googleapis.com/css?family=Poppins";
+    body {
+      background-color: #f2eddf;
+    }
+    #login {
+      width: 90%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .logo {
+      width: 180px;
+      height: 180px;
+      margin: 20px auto;
+      background: url('/logo.png') no-repeat center;
+    }
+    form {
+      text-align: center;
+    }
+    input {
+      width: 300px;
+      border: 1px solid #1bd4ae;
+      border-radius: 2px;
+      margin: 20px 0;
+      padding: 8px 12px;
+      font-size: 16px;
+      font-family: 'Poppins', arial, sans-serif;
+      line-height: 24px;
+      outline: none;
+    }
+    button {
+      height: 36px;
+      display: block;
+      margin: 20px auto;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 2px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px, rgba(0, 0, 0, 0.1) 0px 1px 4px;
+      line-height: 36px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Poppins', arial, sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: #1bd4ae;
+      cursor: pointer;
+      outline: 0;
+      transition: 0.2s;
+    }
+  </style>
 </head>
 <body>
   <div id="login">
-    <section>
-      <div>
-        <div>
-          <div>
-            <p>Unlease Pineapples</p>
-            <p>Dashboard</p>
-          </div>
-        </div>
-
-        <form action="/api/auth/sendtoken" method="POST">
-          <label>Email</label>
-          <p>
-            <input name="user" type="text" placeholder="Your email please" />
-          </p>
-          <p>
-            <button type="submit">Login</button>
-          </p>
-        </form>
-      </div>
-    </section>
+    <div class="logo"></div>
+    <form action="/api/auth/sendtoken" method="POST">
+      <input name="user" type="email" placeholder="Email address" />
+      <button type="submit">Login</button>
+    </form>
   </div>
  </body>
 </html>

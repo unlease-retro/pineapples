@@ -23,6 +23,7 @@ export const colors = {
   light: '#fff',
   dkgrey: '#bdbdbd',
   ltgrey: '#f5f5f5',
+  beige: '#f2eddf',
   accent: '#1bd4ae',
   pineapple: '#fdd56f',
   error: '#f4311a',
