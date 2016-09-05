@@ -183,12 +183,12 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
   }
 
-  if (!deliverableEqual(clusterBefore, clusterAfter) && ridersEqual(clusterBefore, clusterAfter)) {
+  if (!deliverableEqual(clusterBefore, clusterAfter)) {
 
     if (clusterAfter.deliverable)
-      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, {})
+      EmailService.sendToRiderAfterAssignment(clusterBefore.rider.email, {})
     else
-      EmailService.sendToRiderAfterUnassignment(clusterAfter.rider.email, {})
+      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
 
   }
 
