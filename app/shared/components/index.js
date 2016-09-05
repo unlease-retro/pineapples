@@ -16,6 +16,7 @@ import splash from './splash'
 import title from './title'
 import toggle from './toggle'
 import wrap from './wrap'
+import link from './link'
 
 export {
   badge,
@@ -36,4 +37,5 @@ export {
   title,
   toggle,
   wrap,
+  link
 }

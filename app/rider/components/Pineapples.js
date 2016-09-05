@@ -4,7 +4,7 @@
 import React from 'react'
 import Status from './Status'
 import Reason from './Reason'
-import { card as Card, grid as Grid } from '../../shared/components'
+import { card as Card, grid as Grid, link as Link } from '../../shared/components'
 
 const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, actions: { changeStatus, changeReason, submitChangedReason, changeReasonComment } }) => {
 
@@ -36,6 +36,7 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
                 <div>{item.companyName}</div>
                 <div>{item.streetAddress}</div>
                 <div>{item.postcode}</div>
+                <div><Link href='https://www.google.sk' label='Map'/></div>
               </div>
             </Grid>
 
