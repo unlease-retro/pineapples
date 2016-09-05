@@ -2,8 +2,6 @@ const UsersService = require('../user/service')
 
 exports.create = (userEmail, delivery, callback) => {
 
-  console.log('enter')
-
   UsersService.read('any').then((users) => {
 
     for (var i = users.length - 1; i >= 0; i--) {
@@ -15,7 +13,7 @@ exports.create = (userEmail, delivery, callback) => {
       }
 
     }
-    
+
     return callback(null, null)
 
   })
@@ -34,8 +32,8 @@ exports.read = (req, res, next) => {
 
 exports.success = (req, res, next) => {
 
-  console.log('end')
   res.send('email sent!')
+
   return next()
 
 }
