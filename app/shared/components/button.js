@@ -12,7 +12,7 @@ const Button = ({ label, onClick, theme, disabled }) => {
 
   const { styles } = Button
 
-  const className = css(styles.base, theme && styles[theme], disabled && styles.disabled)
+  const className = css(styles.base, theme && styles[theme], disabled && styles.disabled, label === 'menu' && styles.menu)
 
   const renderLabel = theme === 'icon' ? <Icon name={label} /> : <span className={ css(styles.label) }>{ label }</span>
 
@@ -85,6 +85,13 @@ Button.styles = StyleSheet.create({
     lineHeight: '36px',
     textAlign: 'center',
     textTransform: 'uppercase',
+  },
+  menu: {
+    padding: '10px',
+    height: '48px',
+    ':hover': {
+      backgroundColor: colors.light,
+    },
   },
 })
 

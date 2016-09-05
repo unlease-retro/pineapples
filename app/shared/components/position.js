@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Position = ({ children, position, top, right, bottom, left }) => (
-  <div style={{ position, top, right, bottom, left }}>{ children }</div>
+const Position = ({ children, position, top, right, bottom, left, zIndex }) => (
+  <div style={{ position, top, right, bottom, left, zIndex }}>{ children }</div>
 )
 
 Position.defaultProps = {
