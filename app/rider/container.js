@@ -19,7 +19,7 @@ export class Rider extends Component {
 
   render() {
 
-    const { clusters, selectedCluster, actions, undeliveredReasonOptions } = this.props
+    const { clusters, selectedCluster, clusterDistance, clusterDuration, actions, undeliveredReasonOptions } = this.props
 
     const deliveryActions = {
       changeStatus: actions.changeStatus,
@@ -37,7 +37,10 @@ export class Rider extends Component {
         selectedCluster={selectedCluster}
         actions={deliveryActions}
         viewAllButton={clusters.size > 1}
-        undeliveredReasonOptions={undeliveredReasonOptions} />
+        undeliveredReasonOptions={undeliveredReasonOptions}
+        clusterDistance={clusterDistance}
+        clusterDuration={clusterDuration}
+      />
     ) : null
 
     return (
@@ -63,7 +66,9 @@ export default connect(
     rider: selectors.getAll,
     clusters: selectors.getClusters,
     selectedCluster: selectors.selectedCluster,
-    undeliveredReasonOptions: selectors.getUndeliveredReasonOptions
+    undeliveredReasonOptions: selectors.getUndeliveredReasonOptions,
+    clusterDistance: selectors.getClusterDistance,
+    clusterDuration: selectors.getClusterDuration
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
