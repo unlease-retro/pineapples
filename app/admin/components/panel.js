@@ -20,6 +20,15 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
   }
 
+  const onDeliverableChange = deliverable => {
+
+    if (deliverable)
+      updateCluster(clusterId, { deliverable }, clusterIndex)
+    else
+      updateCluster(clusterId, { deliverable, rider: null }, clusterIndex)
+
+  }
+
   return (
     <div className={ css(styles.base) }>
 
@@ -39,11 +48,11 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <Components.riders riders={riders} selectedRider={clusterRiderId} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+        <Components.riders riders={riders} selectedRider={clusterRiderId} disabled={!clusterDeliverable} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={ deliverable => updateCluster(clusterId, { deliverable }, clusterIndex) } />
+        <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={onDeliverableChange} />
       </SharedComponents.row>
 
       <SharedComponents.position left='20px' bottom='25px'>
