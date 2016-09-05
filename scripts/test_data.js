@@ -23,10 +23,12 @@ while (limit--) {
     to: faker.name.findName(),
     message: faker.company.bs(),
     senderEmail: faker.internet.email(),
-    company: faker.company.companyName(),
+    companyName: faker.company.companyName(),
     location,
     dispatched: false,
     delivered: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   })
 
 }
