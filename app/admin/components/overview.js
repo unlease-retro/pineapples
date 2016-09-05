@@ -20,6 +20,10 @@ const Overview = ({ stats, cutOff, setOverview }) => {
 
       <Components.stats stats={stats} />
 
+      <SharedComponents.position left='20px' bottom='25px'>
+        <SharedComponents.route to='users' label='Manage Users' />
+      </SharedComponents.position>
+
       <SharedComponents.position right='20px' bottom='25px'>
         <SharedComponents.button label='Generate New Clusters' onClick={() => _safeCutOff()} theme='alert' />
       </SharedComponents.position>
@@ -38,6 +42,7 @@ Overview.styles = StyleSheet.create({
     top: 0,
     background: colors.light,
     boxShadow: '4px 0 20px 0 rgba(0, 0, 0, 0.2)',
+    zIndex: 2,
     [media.aboveSmall]: {
       width: '35%',
     },

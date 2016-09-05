@@ -5,7 +5,7 @@ import { colors, media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, clusterDistance, clusterDuration, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter, setOverview }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, clusterDistance, clusterDuration, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
 
   const style = {
     borderBottomColor: clusterColour,
@@ -54,10 +54,6 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       <SharedComponents.row>
         <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={onDeliverableChange} />
       </SharedComponents.row>
-
-      <SharedComponents.position left='20px' bottom='25px'>
-        <SharedComponents.button onClick={ () => setOverview(true) } label='Overview' />
-      </SharedComponents.position>
 
       <SharedComponents.position right='20px' bottom='25px'>
         <SharedComponents.button onClick={onNextClick} label='Next Cluster' theme='primary' />

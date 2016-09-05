@@ -10,6 +10,7 @@ import input from './input'
 // import loader from './loader'
 import position from './position'
 import progress from './progress'
+import route from './route'
 import row from './row'
 import snackbar from './snackbar'
 import splash from './splash'
@@ -31,6 +32,7 @@ export {
   // loader,
   position,
   progress,
+  route,
   row,
   snackbar,
   splash,

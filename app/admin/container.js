@@ -8,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 
 import * as actions from './actions'
 import * as Components from './components'
+import * as SharedComponents from '../shared/components'
 import * as selectors from './selectors'
 
 export class Admin extends Component {
@@ -38,12 +39,16 @@ export class Admin extends Component {
     const showClusters = filteredClusters.size > 0 ? filteredClusters : clusters
 
     // render `panel` when cluster selected
-    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} setOverview={setOverview} /> : null
+    const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
     const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} setOverview={setOverview} /> : null
 
     return (
         <div className={ css(styles.base) }>
+
+          <SharedComponents.position left='10px' top='10px' zIndex='1'>
+            <SharedComponents.button onClick={ () => setOverview(true) } label='menu' theme='icon' />
+          </SharedComponents.position>
 
           <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} selectCluster={selectCluster} setMapCenter={setMapCenter} />
           <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
