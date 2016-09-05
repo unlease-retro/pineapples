@@ -1,7 +1,10 @@
+import Immutable from 'immutable'
+import { createSelector } from 'reselect'
+
 import { name } from './constants'
 import { reasons } from '../shared/constants/index'
-import Immutable from 'immutable'
 import { prefix, cycleRoute, routeSteps }  from '../shared/util/googleMapsLinkBuilder'
+import { getKM, getHoursMins } from '../shared/util'
 
 export const getAll = state => state.get(name)
 export const getClusters = state => state.get(name).get('clusters')
@@ -84,3 +87,7 @@ export const selectedCluster = state => {
   return selectedCluster
 
 }
+
+export const getClusterRouteLegs = createSelector( [ selectedCluster ], cluster => cluster && cluster.getIn([ 'route', 'legs' ]) )
+export const getClusterDistance = createSelector( [ getClusterRouteLegs ], legs => legs && getKM(legs.reduce( (distance, leg) => distance += leg.getIn([ 'distance', 'value' ]), 0) ))
+export const getClusterDuration = createSelector( [ getClusterRouteLegs ], legs => legs && getHoursMins(legs.reduce( (duration, leg) => duration += leg.getIn([ 'duration', 'value' ]), 0) ))
