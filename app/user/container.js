@@ -20,7 +20,7 @@ export class User extends Component {
 
         <SharedComponents.title content='Update user' />
 
-        <Components.filter role={role} fetchWriters={actions.fetchWriters} fetchUsers={actions.fetchUsers} changeRoleForUpdate={actions.changeRoleForUpdate} selectedRole={selectedRoleForUpdateUser} />
+        <Components.filter role={role} fetchWriters={actions.fetchWriters} fetchUsers={actions.fetchUsers} changeRole={actions.changeRoleForUpdate} selectedRole={selectedRoleForUpdateUser} />
         <Components.list data={users} update={actions.updateUser} remove={actions.deleteUser} />
         <Components.list data={writers} update={actions.updateWriter} remove={actions.deleteWriter} />
 
