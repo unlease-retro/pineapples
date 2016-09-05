@@ -15,7 +15,7 @@ const Component = ({ role, selectedRole, onChange }) => {
     <Select
       name='role'
       placeholder='Select role'
-      value={selectedRole || role}
+      value={selectedRole || null}
       options={renderRoles}
       autoBlur={true}
       clearable={false}
