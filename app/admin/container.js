@@ -35,7 +35,7 @@ export class Admin extends Component {
     const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, overview, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
 
     // show all clusters unless filtered by search
-    const showClusters = filteredClusters.length > 0 ? filteredClusters : clusters
+    const showClusters = filteredClusters.size > 0 ? filteredClusters : clusters
 
     // render `panel` when cluster selected
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} setOverview={setOverview} /> : null
