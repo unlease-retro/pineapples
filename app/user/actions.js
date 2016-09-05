@@ -59,3 +59,8 @@ export const changeRole = (selectedRole) => ({
   type: actions.CHANGE_SELECTED_ROLE,
   payload: { selectedRole }
 })
+
+export const changeRoleForUpdate = (selectedRoleForUpdateUser) => ({
+  type: actions.CHANGE_SELECTED_ROLE_FOR_UPDATE,
+  payload: { selectedRoleForUpdateUser }
+})

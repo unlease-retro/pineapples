@@ -2,10 +2,11 @@ import React from 'react'
 import Role from './Role'
 
 
-const Component = ({ role, fetchWriters, fetchUsers }) => {
+const Component = ({ role, fetchWriters, fetchUsers, changeRoleForUpdate, selectedRole }) => {
 
   const handleChange = value => {
 
+    changeRoleForUpdate(value)
     if (value === 'WRITER')
       fetchWriters()
     else
@@ -15,7 +16,7 @@ const Component = ({ role, fetchWriters, fetchUsers }) => {
 
   return (
     <div style={{ marginBottom: '20px' }}>
-      <Role role={role} onChange={handleChange} />
+      <Role role={role} selectedRole={selectedRole} onChange={handleChange} />
     </div>
   )
 

@@ -15,18 +15,24 @@ const Component = ({ role, createWriter, createUser, changeRole, selectedRole })
 
 
   return (
-    <Grid>
+    <div>
+      <Grid>
 
-      <Role role={role} selectedRole={selectedRole} onChange={ role => changeRole(role) } />
+        <Role role={role} selectedRole={selectedRole} onChange={ role => changeRole(role) } />
 
-      {renderFirstname}
-      {renderLastname}
-      {renderPhone}
+        {renderFirstname}
+        {renderLastname}
+      </Grid>
+      <Grid>
 
-      <Input type='email' placeholder='Email' onChange={ e => Component.email = e.target.value } />
+        {renderPhone}
 
-      <Button label='Submit' onClick={handleSubmit} theme='accent' />
-    </Grid>
+        <Input type='email' placeholder='Email' onChange={ e => Component.email = e.target.value } />
+
+        <Button label='Submit' onClick={handleSubmit} theme='accent' />
+      </Grid>
+    </div>
+
   )
 
 }
