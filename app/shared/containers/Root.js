@@ -4,11 +4,11 @@ import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import routes from '../../routes'
 import configureStore from '../store/configureStore'
+import createSelectLocationState from '../util/createSelectLocationState'
 
 const store = configureStore()
 
-const selectLocationState = state => state.get('routing')
-const history = syncHistoryWithStore(browserHistory, store, { selectLocationState })
+const history = syncHistoryWithStore(browserHistory, store, { selectLocationState: createSelectLocationState() })
 
 export default class Root extends Component {
 
