@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   fullscreen: {
     width: '100%',
     maxWidth: 'initial',
+    height: '100%',
     position: 'absolute',
     top: '0',
     left: '0',
