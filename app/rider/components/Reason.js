@@ -9,18 +9,18 @@ import { OTHER } from '../../shared/constants/index'
 
 const Reason = ({ item, undeliveredReasonOptions, actions: { changeReason, submitChangedReason, changeReasonComment } }) => {
 
-  const renderInput = item.undeliveredReason === OTHER && <Input
-      value={item.reasonComment || ''}
-      onChange={e => changeReasonComment(e.target.value, item.originalIndex)} />
+  const renderInput = item.get('undeliveredReason') === OTHER && <Input
+      value={item.get('reasonComment') || ''}
+      onChange={e => changeReasonComment(e.target.value, item.get('originalIndex'))} />
 
   return (
     <div>
 
       <Grid>
         <Select
-          value={item.undeliveredReason}
+          value={item.get('undeliveredReason')}
           options={undeliveredReasonOptions}
-          onChange={option => changeReason(option.value, item.originalIndex)} />
+          onChange={option => changeReason(option && option.value, item.get('originalIndex'))} />
 
         { renderInput }
       </Grid>
@@ -30,10 +30,10 @@ const Reason = ({ item, undeliveredReasonOptions, actions: { changeReason, submi
           label='Submit'
           onClick={() => {
 
-            if (item.undeliveredReason !== OTHER)
-              submitChangedReason(item._id, item.undeliveredReason, null, item.originalIndex)
+            if (item.get('undeliveredReason') !== OTHER)
+              submitChangedReason(item.get('_id'), item.get('undeliveredReason'), null, item.get('originalIndex'))
             else
-              submitChangedReason(item._id, item.undeliveredReason, item.reasonComment, item.originalIndex)
+              submitChangedReason(item.get('_id'), item.get('undeliveredReason'), item.get('reasonComment'), item.get('originalIndex'))
 
           }}/>
       </div>

@@ -36,7 +36,7 @@ export class Rider extends Component {
       <Components.Delivery
         selectedCluster={selectedCluster}
         actions={deliveryActions}
-        viewAllButton={clusters.length > 1}
+        viewAllButton={clusters.size > 1}
         undeliveredReasonOptions={undeliveredReasonOptions} />
     ) : null
 

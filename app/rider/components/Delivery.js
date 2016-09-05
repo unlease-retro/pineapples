@@ -4,7 +4,6 @@
 import React from 'react'
 import Pineapples from './Pineapples'
 import { button as Button, position as Position, title as Title, wrap as Wrap, link as Link } from '../../shared/components'
-import { constructGoogleMapsLinkFor } from '../../shared/util/googleMapsLinkBuilder'
 
 const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
@@ -14,19 +13,17 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, ac
     </Position>
   ) : null
 
-
-  // TODO use optimized route
-  const clusterGoogleMapsLink = constructGoogleMapsLinkFor(selectedCluster)
-  const renderSelectedCluster = selectedCluster && selectedCluster.startedAt ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
-  const renderStartButton = selectedCluster && !selectedCluster.startedAt ? <Button label='Start' onClick={ () => startClusterDelivery(selectedCluster) } theme='accent' /> : null
-  const renderMapButton = selectedCluster && selectedCluster.startedAt ? <Link label='Map' href={clusterGoogleMapsLink} /> : null
+  const clusterGoogleMapsLink = selectedCluster.get('googleMapsLink')
+  const renderSelectedCluster = selectedCluster && selectedCluster.get('startedAt') ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
+  const renderStartButton = selectedCluster && !selectedCluster.get('startedAt') ? <Button label='Start' onClick={ () => startClusterDelivery(selectedCluster.get('_id')) } theme='accent' /> : null
+  const renderMapButton = selectedCluster && selectedCluster.get('startedAt') ? <Link label='Map' href={clusterGoogleMapsLink} /> : null
 
   return (
     <Wrap fullscreen>
 
       { renderViewAllButton }
 
-      <Title content={selectedCluster.name} />
+      <Title content={selectedCluster.get('name')} />
 
       { renderStartButton }
 
