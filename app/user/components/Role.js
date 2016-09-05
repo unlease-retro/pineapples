@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import { roles } from '../constants'
+import { AVAILABLE_ROLES as roles } from '../constants'
 
 const Component = ({ role, selectedRole, onChange }) => {
 
