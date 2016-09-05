@@ -1,7 +1,7 @@
 import { name } from './constants'
 import { reasons } from '../shared/constants/index'
 import Immutable from 'immutable'
-import { prefix, cycleRoute }  from '../shared/util/googleMapsLinkBuilder'
+import { prefix, cycleRoute, routeSteps }  from '../shared/util/googleMapsLinkBuilder'
 
 export const getAll = state => state.get(name)
 export const getClusters = state => state.get(name).get('clusters')
@@ -49,9 +49,9 @@ const addGoogleMapsLinks = (selectedCluster) => {
 
     // first pineapple has route from depot
     if (index === 0)
-      resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}`)
+      resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}${routeSteps}`)
     else
-      resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}`)
+      resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}${routeSteps}`)
 
     fromLat = coordinates.get(1)
     fromLng = coordinates.get(0)
@@ -61,7 +61,7 @@ const addGoogleMapsLinks = (selectedCluster) => {
   })
 
   const selectedClusterWithGoogleMapLink = selectedCluster
-    .set('googleMapsLink', `${prefix}${constructedLinkForCluster}${cycleRoute}`)
+    .set('googleMapsLink', `${prefix}${constructedLinkForCluster}${cycleRoute}${routeSteps}`)
     .setIn(['items'], pineapplesWithGoogleMapsLinks)
   return selectedClusterWithGoogleMapLink
 
