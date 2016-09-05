@@ -15,7 +15,7 @@ const Overview = ({ stats, cutOff, setOverview }) => {
     <div className={ css(styles.base) }>
 
       <SharedComponents.position right='20px'>
-        <SharedComponents.button onClick={ () => setOverview() } label='&times;' theme='icon' />
+        <SharedComponents.button onClick={ () => setOverview() } label='close' theme='icon' />
       </SharedComponents.position>
 
       <Components.stats stats={stats} />

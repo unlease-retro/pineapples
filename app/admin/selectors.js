@@ -1,3 +1,4 @@
+import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import { name } from './constants'
 import { getCentroid, getPosition } from '../shared/util'
@@ -33,7 +34,7 @@ export const getClusterCentroid = createSelector( [ getSelectedCluster ], cluste
 export const getClusterPosition = createSelector( [ getClusterCentroid ], clusterCoordinates => clusterCoordinates && getCentroid(clusterCoordinates) )
 export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], depotCoordinates => depotCoordinates && getPosition(depotCoordinates) )
 export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.size )
-export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( ({ _id, name }) => ({ value: _id, label: name }) ).toArray() )
+export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( cluster => ({ value: cluster.get('_id'), label: cluster.get('name') }) ).toArray() )
 
 export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})` }) ).toArray() )
 
@@ -47,18 +48,20 @@ export const getClusterFilterOptions = createSelector( [ getRidersOptions ], rid
 
 export const getFilteredClusters = createSelector( [ getClusters, getFilterCluster, getSearchCluster ], (clusters, filterCluster, searchCluster) => {
 
-  return clusters && clusters.reduce( (filtered, cluster, index) => {
+  return clusters && Immutable.List(clusters.reduce( (filtered, cluster, index) => {
 
-    const isUnassigned = filterCluster === 'unassigned' && !cluster.rider
-    const hasFilter = isUnassigned || filterCluster && cluster.rider === filterCluster
-    const hasSearch = searchCluster && cluster._id === searchCluster
+    const riderId = cluster.getIn([ 'rider', '_id' ])
+
+    const isUnassigned = filterCluster === 'unassigned' && !riderId
+    const hasFilter = isUnassigned || filterCluster && riderId === filterCluster
+    const hasSearch = searchCluster && cluster.get('_id') === searchCluster
 
     // TODO - need to restrict one val based on the other val
 
-    if (hasFilter || hasSearch) filtered.push( Object.assign({}, cluster, { index }) )
+    if (hasFilter || hasSearch) filtered.push( cluster.merge({ index }) )
 
     return filtered
 
-  }, [])
+  }, []))
 
 })
