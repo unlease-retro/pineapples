@@ -7,15 +7,14 @@ import { toggle as Toggle } from '../../shared/components'
 
 const Status = ({ item, actions: { changeStatus } }) => {
 
-  const label = item.delivered ? 'Delivered' : 'Undelivered'
+  //console.log(item.toJS())
 
-  return (
-    <div className={ css(styles.base) }>
-      <Toggle label={label} active={item.delivered} callback={ (checked) => changeStatus(item, { delivered: checked }, item.originalIndex) } />
-    </div>
-  )
+  return <div className={ css(styles.base) }>
+    <Toggle label={'Delivered'} active={item.get('delivered')} callback={ (checked) => changeStatus(item.get('_id'), { delivered: checked }, item.get('originalIndex')) } />
+  </div>
 
 }
+
 
 const styles = StyleSheet.create({
   base: {

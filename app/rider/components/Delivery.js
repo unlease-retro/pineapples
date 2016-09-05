@@ -13,17 +13,17 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, ac
     </Position>
   ) : null
 
-  const clusterGoogleMapsLink = selectedCluster.googleMapsLink || ''
-  const renderSelectedCluster = selectedCluster && selectedCluster.startedAt ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
-  const renderStartButton = selectedCluster && !selectedCluster.startedAt ? <Button label='Start' onClick={ () => startClusterDelivery(selectedCluster) } theme='accent' /> : null
-  const renderMapButton = selectedCluster && selectedCluster.startedAt ? <Link label='Map' href={clusterGoogleMapsLink} /> : null
+  const clusterGoogleMapsLink = selectedCluster.get('googleMapsLink')
+  const renderSelectedCluster = selectedCluster && selectedCluster.get('startedAt') ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
+  const renderStartButton = selectedCluster && !selectedCluster.get('startedAt') ? <Button label='Start' onClick={ () => startClusterDelivery(selectedCluster.get('_id')) } theme='accent' /> : null
+  const renderMapButton = selectedCluster && selectedCluster.get('startedAt') ? <Link label='Map' href={clusterGoogleMapsLink} /> : null
 
   return (
     <Wrap fullscreen>
 
       { renderViewAllButton }
 
-      <Title content={selectedCluster.name} />
+      <Title content={selectedCluster.get('name')} />
 
       { renderStartButton }
 

@@ -9,7 +9,7 @@ const Cluster = ({ cluster, clusterIndex, actions: { selectCluster } }) => {
 
   return (
     <Card onClick={() => selectCluster(clusterIndex)}>
-      <div>{ cluster.name }</div>
+      <div>{ cluster.get('name') }</div>
     </Card>
   )
 

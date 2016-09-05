@@ -9,10 +9,10 @@ const Clusters = ({ clusters, actions: { selectCluster } }) => {
 
   const clusterActions = { selectCluster }
 
-  if (clusters.length === 0)
+  if (clusters.size === 0)
     return <Title content='No clusters assigned. Try again later.' />
 
-  const renderClusters = clusters.map( (cluster, index) => ( <Cluster key={cluster.name} cluster={cluster} actions={clusterActions} clusterIndex={index} /> ))
+  const renderClusters = clusters.map( (cluster, index) => ( <Cluster key={cluster.get('name')} cluster={cluster} actions={clusterActions} clusterIndex={index} /> ))
 
   return (
     <div>

@@ -12,10 +12,10 @@ export const selectCluster = (selectedClusterIndex) => ({
   payload: { selectedClusterIndex }
 })
 
-export const changeStatus = (pineapple, newStatus, itemIndex) => ({
+export const changeStatus = (pineappleId, newStatus, itemIndex) => ({
   types: [ actions.CHANGE_STATUS_REQUEST, actions.CHANGE_STATUS_SUCCESS, actions.CHANGE_STATUS_FAILURE ],
   payload: { error: null },
-  promise: () => new Promise( (resolve, reject) => service.changeStatus(pineapple._id, newStatus, itemIndex, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.changeStatus(pineappleId, newStatus, itemIndex, resolve, reject) )
 })
 
 export const unselectCluster = () => ({
@@ -33,10 +33,10 @@ export const changeReasonComment = (comment, itemIndex) => ({
   payload: { pineappleIndex: itemIndex, reasonComment: comment }
 })
 
-export const startClusterDelivery = (cluster) => ({
+export const startClusterDelivery = (clusterId) => ({
   types: [ actions.START_CLUSTER_DELIVERY_REQUEST, actions.START_CLUSTER_DELIVERY_SUCCESS, actions.START_CLUSTER_DELIVERY_FAILURE ],
   payload: { error: null },
-  promise: () => new Promise( (resolve, reject) => service.startClusterDelivery(cluster, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.startClusterDelivery(clusterId, resolve, reject) )
 })
 
 export const submitChangedReason = (itemId, reason, comment, itemIndex) => ({

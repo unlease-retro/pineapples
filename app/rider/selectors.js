@@ -3,8 +3,8 @@ import { reasons } from '../shared/constants/index'
 import Immutable from 'immutable'
 import { prefix, cycleRoute }  from '../shared/util/googleMapsLinkBuilder'
 
-export const getAll = state => state.get(name).toJS()
-export const getClusters = state => state.get(name).get('clusters').toJS()
+export const getAll = state => state.get(name)
+export const getClusters = state => state.get(name).get('clusters')
 export const getUndeliveredReasonOptions = () => reasons.map(reason => ({ value: reason, label: reason }))
 
 const sortClusterItems = (selectedCluster) => {
@@ -47,7 +47,7 @@ const addGoogleMapsLinks = (selectedCluster) => {
 
     let resultValue = ''
 
-    // first pineapple has have route from depot
+    // first pineapple has route from depot
     if (index === 0)
       resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}`)
     else
@@ -75,8 +75,9 @@ export const selectedCluster = state => {
   if (selectedCluster) {
 
     const clusterWithOrderedPineapplesState = state.setIn([...selectedClusterSelection, 'items'], sortClusterItems(selectedCluster))
-    const clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState = clusterWithOrderedPineapplesState.setIn([...selectedClusterSelection], addGoogleMapsLinks(selectedCluster))
-    return clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState.getIn(selectedClusterSelection).toJS()
+    const clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState = clusterWithOrderedPineapplesState.setIn([...selectedClusterSelection], addGoogleMapsLinks(clusterWithOrderedPineapplesState.getIn([...selectedClusterSelection])))
+    //console.log(clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState.getIn([name, 'clusters', state.get(name).get('selectedClusterIndex')]).toJS())
+    return clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState.getIn([...selectedClusterSelection])
 
   }
 
