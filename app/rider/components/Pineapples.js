@@ -15,7 +15,6 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
     <div>
       {items.map(item => {
 
-        const renderFlatNumber = item.flatNumber ? <div>{item.flatNumber}</div> : null
         const renderReason = !item.delivered ? <Reason item={item} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/> : null
 
         return (
@@ -34,7 +33,7 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
             <Grid staticCells nonPaddedCells>
               <div>Address:</div>
               <div>
-                {renderFlatNumber}
+                <div>{item.companyName}</div>
                 <div>{item.streetAddress}</div>
                 <div>{item.postcode}</div>
               </div>
