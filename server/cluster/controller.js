@@ -88,11 +88,9 @@ exports.generate = (req, res, next) => {
       return Semolina(limit)
 
     })
-    .then( clusters => {
+    .then( () => {
 
-      res.json({clusters})
-
-      return next()
+      exports.list(req, res, next)
 
     }, e => next(e) )
 

@@ -75,6 +75,8 @@ const semolina = (dailyLimit) => {
 
       return Promise.all(getRoutes).then( routes => {
 
+        const everyClusterCreated = []
+
         clusters.forEach( (cluster, i) => {
 
           // set cluster route
@@ -84,11 +86,11 @@ const semolina = (dailyLimit) => {
           WriterService.sendEmail(cluster, managers)
 
           // insert cluster into separate collection/document (with unique and user friendly id)
-          ClusterService.create(cluster)
+          everyClusterCreated.push(ClusterService.create(cluster))
 
         })
 
-        return clusters
+        return Promise.all(everyClusterCreated)
 
       })
 
