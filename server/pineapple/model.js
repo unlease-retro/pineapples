@@ -7,7 +7,6 @@ const Schema = mongoose.Schema
 
 const Pineapple = new Schema({
   streetAddress: { type: String, required: true },
-  flatNumber: String,
   city: String,
   country: String,
   postcode:  { type: String, required: true },
@@ -17,6 +16,7 @@ const Pineapple = new Schema({
   senderEmail: { type: String, index: true, required: true},
   companyName : { type: String, required: true },
   stripeChargeId: String,
+  discountCode: String,
   location: {
     type: { type: String, default: 'Point' },
     coordinates: { type: [Number], required: true }

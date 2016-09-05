@@ -68,6 +68,36 @@ exports.create = (req, res, next) => {
 
 }
 
+exports.createWithoutPayment = (req, res, next) => {
+
+  let pineapple = Pineapple.getPineappleFromReq(req.body)
+
+  return Pineapple.create(pineapple)
+    .then(
+      pineapple => {
+
+        if (pineapple) {
+
+          Pineapple.sendTrackingEmail(pineapple)
+          res.json({ pineapple })
+          res.sendStatus(200)
+          return next()
+
+        }
+
+
+      }, (e) => {
+
+        console.log('reject create for : ')
+        console.log(pineapple)
+        console.log(e)
+        next(new Error(ERROR.GENERAL_ORDER_FAILED))
+
+      }
+    )
+
+}
+
 exports.read = (req, res, next) => {
 
   const id = req.params.id
