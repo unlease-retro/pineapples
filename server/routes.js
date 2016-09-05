@@ -10,6 +10,7 @@ const User = require('./user')
 const Writer = require('./writer')
 const Auth = require('./auth')
 const Archive = require('./archive')
+const Discount = require('./discount')
 
 // API
 router.use(`/${Cluster.name}`, Cluster.routes)
@@ -20,5 +21,6 @@ router.use(`/${User.name}`, User.routes)
 router.use(`/${Writer.name}`, Writer.routes)
 router.use(`/${Auth.name}`, Auth.routes)
 router.use(`/${Archive.name}`, Archive.routes)
+router.use(`/${Discount.name}`, Discount.routes)
 
 module.exports = router

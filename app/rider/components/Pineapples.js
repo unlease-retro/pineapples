@@ -4,7 +4,7 @@
 import React from 'react'
 import Status from './Status'
 import Reason from './Reason'
-import { card as Card, grid as Grid } from '../../shared/components'
+import { card as Card, grid as Grid, link as Link } from '../../shared/components'
 
 const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, actions: { changeStatus, changeReason, submitChangedReason, changeReasonComment } }) => {
 
@@ -13,38 +13,46 @@ const Pineapples = ({ selectedCluster: { items }, undeliveredReasonOptions, acti
 
   return (
     <div>
-      {items.map((item, index) => (
-        <Card disabled={item.delivered} key={item._id}>
+      {items.map(item => {
 
-          <Grid staticCells nonPaddedCells>
-            <div>From:</div>
-            <div>{item.from ? item.from : <i>Not specified</i>}</div>
-          </Grid>
+        const renderReason = !item.delivered ? <Reason item={item} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/> : null
 
-          <Grid staticCells nonPaddedCells>
-            <div>To:</div>
-            <div>{item.to}</div>
-          </Grid>
+        return (
+          <Card disabled={item.delivered} key={item._id}>
 
-          <Grid staticCells nonPaddedCells>
-            <div>Address:</div>
-            <div>
-              <div>{`${item.flatNumber} ${item.streetAddress}`}</div>
-              <div>{item.postcode}</div>
-            </div>
-          </Grid>
+            <Grid staticCells nonPaddedCells>
+              <div>From:</div>
+              <div>{item.from ? item.from : <i>Not specified</i>}</div>
+            </Grid>
 
-          <Grid staticCells nonPaddedCells>
-            <div>Message:</div>
-            <div>{item.message}</div>
-          </Grid>
+            <Grid staticCells nonPaddedCells>
+              <div>To:</div>
+              <div>{item.to}</div>
+            </Grid>
 
-          <Status item={item} itemIndex={index} actions={statusActions} />
+            <Grid staticCells nonPaddedCells>
+              <div>Address:</div>
+              <div>
+                <div>{item.companyName}</div>
+                <div>{item.streetAddress}</div>
+                <div>{item.postcode}</div>
+                <div><Link href='https://www.google.sk' label='Map'/></div>
+              </div>
+            </Grid>
 
-          <Reason item={item} itemIndex={index} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/>
+            <Grid staticCells nonPaddedCells>
+              <div>Message:</div>
+              <div>{item.message}</div>
+            </Grid>
 
-        </Card>
-      ))}
+            <Status item={item} actions={statusActions} />
+
+            {renderReason}
+
+          </Card>
+        )
+
+      })}
 
     </div>
   )

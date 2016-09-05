@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import shallowCompare from 'react-addons-shallow-compare'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
@@ -22,6 +23,12 @@ export class Admin extends Component {
 
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+
+    return shallowCompare(this, nextProps, nextState)
+
+  }
+
   render() {
 
     const { fetchRiders, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, cutOff } = this.props.actions
@@ -38,7 +45,7 @@ export class Admin extends Component {
     return (
         <div className={ css(styles.base) }>
 
-          <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} isPanelOpen={isPanelOpen} selectCluster={selectCluster} setMapCenter={setMapCenter} />
+          <Components.map clusters={showClusters} depots={depots} mapCenter={mapCenter} selectCluster={selectCluster} setMapCenter={setMapCenter} />
           <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
           <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 

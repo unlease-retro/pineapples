@@ -24,6 +24,7 @@ exports.getPineappleFromReq = ( props ) => {
     geohash : geohash.encode(props.data.geocode.lat, props.data.geocode.lng),
     companyName : props.data.companyName,
     message : props.data.message,
+    discountCode : props.data.discountCode,
     location: {
 
       type: 'Point',

@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
 import { getCentroid } from '../../shared/util'
 
-import { MAP_OPTIONS, CIRCLE_OPTIONS, getMarkerOptions, getPolygonOptions } from '../constants'
+import { MAP_OPTIONS, CIRCLE_OPTIONS, getPolygonOptions } from '../constants'
 
 export class Map extends Component {
 
@@ -15,7 +15,6 @@ export class Map extends Component {
     // init cluster, depot and pineapple temp arrays
     this.clusters = []
     this.depots = []
-    this.pineapples = []
 
   }
 
@@ -69,18 +68,19 @@ export class Map extends Component {
     // clear clusters
     while (this.clusters[0]) this.clusters.pop().setMap(null)
 
-    // clear pineapples
-    while (this.pineapples[0]) this.pineapples.pop().setMap(null)
-
     clusters && clusters.map( (cluster, i) => {
 
-      const { items: pineapples, centroid, colour, name, index } = cluster
+      const centroid = cluster.get('centroid')
+      const colour = cluster.get('colour')
+      const name = cluster.get('name')
+      const index = cluster.get('index')
+      const pineapples = cluster.get('items')
 
       const position = getCentroid(centroid)
       const POLYGON_OPTIONS = getPolygonOptions(colour)
 
       // plot those pineapples!
-      const paths = this.plotPineapples(pineapples, colour)
+      const paths = this.plotPineapples(pineapples)
 
       // create cluster polygon
       const polygon = new google.maps.Polygon({ paths, map, ...POLYGON_OPTIONS })
@@ -108,7 +108,11 @@ export class Map extends Component {
 
     depots && depots.map( depot => {
 
-      const { active, location: { coordinates: [ lng, lat ] }, name } = depot
+      const active = depot.get('active')
+      const name = depot.get('name')
+      const coordinates = depot.getIn([ 'location', 'coordinates' ])
+      const lat = coordinates.get(1)
+      const lng = coordinates.get(0)
 
       // depot isn't active!? abort!
       if (!active) return
@@ -132,24 +136,20 @@ export class Map extends Component {
 
   }
 
-  plotPineapples(pineapples, colour) {
-
-    const MARKER_OPTIONS = getMarkerOptions(colour, google.maps.SymbolPath.CIRCLE)
+  plotPineapples(pineapples) {
 
     // extract coordinates
-    const paths = pineapples.map( ({ location: { coordinates: [ lng, lat ] } }) => ({ lat, lng }))
+    const paths = pineapples.map( pineapple => {
 
-    // create marker for each pineapple
-    paths.map( position => {
+      const coordinates = pineapple.getIn([ 'location', 'coordinates' ])
+      const lat = coordinates.get(1)
+      const lng = coordinates.get(0)
 
-      const marker = new google.maps.Marker({ position, map: this.map, ...MARKER_OPTIONS })
-
-      // store ref to pineapple marker
-      this.pineapples.push(marker)
+      return { lat, lng }
 
     })
 
-    return paths
+    return paths.toArray()
 
   }
 
