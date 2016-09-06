@@ -20,7 +20,7 @@ exports.create = deliveries => {
 
       ctx.fillColor('#000000').text('From:')
       ctx.moveDown(0.5)
-      ctx.fillColor('#555555').text(item.from)
+      ctx.fillColor('#555555').text(item.from || 'N/A')
 
       ctx.moveDown(1)
 

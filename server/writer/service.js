@@ -50,7 +50,7 @@ exports.sendEmail = (cluster, managers) => {
   const Cc = managers.map(manager => manager.email ).join(', ')
 
   return Attachment.create(deliveries)
-    .then( filepath => EmailService.sendCluster(cluster.writer.email, Cc, { timestamp : Date.now() }, [{ 'Content': fs.readFileSync(filepath).toString('base64'), 'Name': 'attachment.pdf', 'ContentType': 'application/pdf' }] ) )
+    .then( filepath => EmailService.sendCluster(cluster.writer.email, Cc, { timestamp : Date.now(), clusterName: cluster.name }, [{ 'Content': fs.readFileSync(filepath).toString('base64'), 'Name': `${cluster.name}.pdf`, 'ContentType': 'application/pdf' }] ) )
     .catch( error => console.log(error) )
 
 }
