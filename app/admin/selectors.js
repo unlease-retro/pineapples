@@ -39,7 +39,15 @@ export const getClustersOptions = createSelector( [ getClusters ], clusters => c
 export const getClusterDistance = createSelector( [ getClusterRouteLegs ], legs => legs && getKM(legs.reduce( (distance, leg) => distance += leg.getIn([ 'distance', 'value' ]), 0) ))
 export const getClusterDuration = createSelector( [ getClusterRouteLegs ], legs => legs && getHoursMins(legs.reduce( (duration, leg) => duration += leg.getIn([ 'duration', 'value' ]), 0) ))
 
-export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})` }) ).toArray() )
+export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})`, size: rider.get('clusters').size }) ).toArray() )
+
+export const getRidersWithUndeliveredPineapples = createSelector( getRidersOptions, riders => riders && riders.reduce( (unfinished, rider) => {
+
+  if ( rider.size > 0 ) unfinished.push(rider)
+
+  return unfinished
+
+}, []))
 
 export const getClusterFilterOptions = createSelector( [ getRidersOptions ], riders => {
 

@@ -105,7 +105,7 @@ export default connect(
       clusterDuration: selectors.getClusterDuration,
     }),
     stats: createStructuredSelector({
-      ridersWithUndeliveredPineapples: selectors.getRidersOptions,
+      ridersWithUndeliveredPineapples: selectors.getRidersWithUndeliveredPineapples,
       todaysOrders: selectors.getTodaysOrders,
       pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday
     })
