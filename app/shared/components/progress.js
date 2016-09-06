@@ -18,7 +18,7 @@ const spin = {
 const styles = StyleSheet.create({
   base: {
     width: '100%',
-    zIndex: 1,
+    zIndex: 3,
     position: 'fixed',
     top: 0,
     left: 0,

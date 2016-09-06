@@ -32,7 +32,7 @@ export class Admin extends Component {
 
   render() {
 
-    const { fetchRiders, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, cutOff } = this.props.actions
+    const { fetchRiders, fetchStats, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, cutOff } = this.props.actions
     const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, overview, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
 
     // show all clusters unless filtered by search
@@ -41,7 +41,7 @@ export class Admin extends Component {
     // render `panel` when cluster selected
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
-    const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} setOverview={setOverview} /> : null
+    const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} fetchStats={fetchStats} setOverview={setOverview} /> : null
 
     return (
         <div className={ css(styles.base) }>
@@ -105,7 +105,7 @@ export default connect(
       clusterDuration: selectors.getClusterDuration,
     }),
     stats: createStructuredSelector({
-      ridersWithUndeliveredPineapples: selectors.getRidersOptions,
+      ridersWithUndeliveredPineapples: selectors.getRidersWithUndeliveredPineapples,
       todaysOrders: selectors.getTodaysOrders,
       pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday
     })
