@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 'auto',
     padding: '20px',
-    zIndex: 1,
+    zIndex: 4,
     position: 'fixed',
     top: 0,
     color: colors.light,
