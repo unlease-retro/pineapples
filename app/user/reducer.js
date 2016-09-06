@@ -9,8 +9,6 @@ export const initialState = Immutable.fromJS({
   writers: [],
   selectedRole: null,
   selectedRoleForUpdateUser:null,
-  requesting: false,
-  error: null,
 })
 
 export default createReducer(initialState, {
