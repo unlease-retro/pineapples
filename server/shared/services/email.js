@@ -34,6 +34,5 @@ const send = ({ TemplateId, TemplateModel, From, To, Cc, Attachments = [] }) => 
 
 exports.sendCluster = (To, Cc, TemplateModel, Attachments) => send({ TemplateId: writerTagsTemplate, TemplateModel, From: EMAIL_FROM, To, Cc, Attachments })
 exports.sendToCustomerAfterOrder = (To, TemplateModel) => send({ TemplateId: customerAfterOrderTemplate, TemplateModel, From: EMAIL_FROM, To })
-// TODO replace template ids
 exports.sendToRiderAfterAssignment = (To, TemplateModel) => send({ TemplateId: assignmentToRider, TemplateModel, From: EMAIL_FROM, To })
 exports.sendToRiderAfterUnassignment = (To, TemplateModel) => send({ TemplateId: unassignmentToRider, TemplateModel, From: EMAIL_FROM, To })

@@ -3,6 +3,7 @@ const Semolina = require('../shared/services/semolina')
 const SettingsService = require('../settings/service')
 const EmailService = require('../shared/services/email')
 const { RIDER } = require('../shared/constants').ROLES
+const config = require('../shared/config')
 
 exports.create = (req, res, next) => {
 
@@ -161,23 +162,30 @@ const deliverableEqual = (clusterBefore, clusterAfter) => clusterAfter.deliverab
 // Notify rider when cluster assigned cluster is made undeliverable (email template 2)
 const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
+  const model = {
+    clusterName: clusterAfter.name,
+    riderName: clusterAfter.rider.firstName,
+    actionUrl: config.get('host'),
+    timestamp : Date.now()
+  }
+
   if (!ridersEqual(clusterBefore, clusterAfter) && clusterAfter.deliverable) {
 
     if (!clusterBefore.rider && clusterAfter.rider) {
 
-      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, {})
+      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, model)
 
     }
     else if (clusterBefore.rider && clusterAfter.rider) {
 
-      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, clusterAfter)
-      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
+      EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, model)
+      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, model)
 
     }
     else if (clusterBefore.rider && !clusterAfter.rider) {
 
       // This brach is never executed, because on the frontend side is not possible to unassign a cluster
-      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
+      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, model)
 
     }
 
@@ -185,10 +193,15 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
   if (!deliverableEqual(clusterBefore, clusterAfter)) {
 
-    if (clusterAfter.deliverable)
-      EmailService.sendToRiderAfterAssignment(clusterBefore.rider.email, {})
-    else
-      EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, {})
+    EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email,  {
+
+      clusterName: clusterBefore.name,
+      riderName: clusterBefore.rider.firstName,
+      actionUrl: config.get('host'),
+      timestamp : Date.now()
+
+
+    })
 
   }
 

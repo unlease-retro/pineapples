@@ -101,6 +101,11 @@ exports.getTotalNumPineappleInDeliveryButNotDelivered = (pineapplesInCluster) =>
 exports.sendTrackingEmail = pineapple => {
 
   let actionUrl = `${config.get('pineapplePageUrl')}?trackingId=${pineapple._id.toString()}`
-  return EmailService.sendToCustomerAfterOrder(pineapple.senderEmail, { actionUrl })
+  return EmailService.sendToCustomerAfterOrder(pineapple.senderEmail, { 
+    
+    actionUrl : actionUrl,
+    timestamp : Date.now()
+    
+  })
 
 }
