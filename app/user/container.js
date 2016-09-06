@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { browserHistory } from 'react-router'
 
 import * as actions from './actions'
 import * as Components from './components'
 import * as SharedComponents from '../shared/components'
 import * as selectors from './selectors'
-
 
 export class User extends Component {
 
@@ -17,6 +17,8 @@ export class User extends Component {
 
     return (
       <SharedComponents.wrap>
+
+        <SharedComponents.button onClick={ () => browserHistory.push('/') } label='arrow_back' theme='icon' />
 
         <SharedComponents.title content='Update user' />
 
