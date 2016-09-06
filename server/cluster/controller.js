@@ -164,7 +164,7 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
   const model = {
     clusterName: clusterAfter.name,
-    riderName: clusterAfter.rider.firstName,
+    riderName: clusterAfter.rider.firstname,
     actionUrl: config.get('host'),
     timestamp : Date.now()
   }
@@ -196,7 +196,7 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
     EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email,  {
 
       clusterName: clusterBefore.name,
-      riderName: clusterBefore.rider.firstName,
+      riderName: clusterBefore.rider.firstname,
       actionUrl: config.get('host'),
       timestamp : Date.now()
 
