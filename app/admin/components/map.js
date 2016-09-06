@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
 import { getCentroid } from '../../shared/util'
 
-import { MAP_OPTIONS, CIRCLE_OPTIONS, getPolygonOptions } from '../constants'
+import { MAP_OPTIONS, CIRCLE_OPTIONS, getPolygonOptions, selectionColour } from '../constants'
 
 export class Map extends Component {
 
@@ -40,8 +40,15 @@ export class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    const { clusters, depots } = this.props
+    const { clusters, depots, selectedClusterIndex, selectedClusterColour } = this.props
     const { clusters: nextClusters, depots: nextDepots } = nextProps
+
+    if (nextProps.selectedClusterIndex !== selectedClusterIndex) {
+
+      this._markPolygonWithColour(nextProps.selectedClusterIndex, selectionColour)
+      this._markPolygonWithColour(selectedClusterIndex, selectedClusterColour)
+
+    }
 
     // re-plot depots if updated
     if (!deepEqual(depots, nextDepots)) this.plotDepots(nextDepots)
@@ -169,6 +176,12 @@ export class Map extends Component {
 
     // open it up!
     infowindow.open(this.map)
+
+  }
+
+  _markPolygonWithColour(index, colour) {
+
+    this.clusters[index] && this.clusters[index].setOptions({strokeColor: colour, fillColor: colour})
 
   }
 
