@@ -1,30 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import { button as Button, grid as Grid, input as Input } from '../../shared/components'
 
-const Component = ({ user, index, remove, update }) => {
 
-  const handleRemove = () => remove(user._id, index)
-  const handleUpdate = () => update(user._id, { firstname: Component.firstname, lastname: Component.lastname, email: Component.email }, index)
+class User extends Component {
 
-  const renderFirstname = user.firstname ? <Input defaultValue={user.firstname} placeholder='Firstname' onChange={ e => Component.firstname = e.target.value } /> : null
-  const renderLastname = user.lastname ? <Input defaultValue={user.lastname} placeholder='Lastname' onChange={ e => Component.lastname = e.target.value } /> : null
+  render() {
 
-  return (
-    <Grid>
+    const { _id, index } = this.props.user
 
-      { renderFirstname }
-      { renderLastname }
+    const handleRemove = () => this.props.remove(_id, index)
+    const handleUpdate = () => this.props.update(_id, { firstname: this.firstname, lastname: this.lastname, email: this.email }, index)
 
-      <Input defaultValue={user.email} type='email' placeholder='Email' onChange={ e => Component.email = e.target.value } />
+    const renderFirstname = this.props.user.firstname ? <Input defaultValue={this.props.user.firstname} placeholder='Firstname' onChange={ e => this.firstname = e.target.value } /> : null
+    const renderLastname = this.props.user.lastname ? <Input defaultValue={this.props.user.lastname} placeholder='Lastname' onChange={ e => this.lastname = e.target.value } /> : null
 
-      <Button label='Update' onClick={handleUpdate} theme='primary' />
-      <Button label='Remove' onClick={handleRemove} theme='alert' />
+    return (
+      <Grid>
 
-    </Grid>
-  )
+        { renderFirstname }
+        { renderLastname }
+
+        <Input defaultValue={this.props.user.email} type='email' placeholder='Email' onChange={ e => this.email = e.target.value } />
+
+        <Button label='Update' onClick={handleUpdate} theme='primary' />
+        <Button label='Remove' onClick={handleRemove} theme='alert' />
+
+      </Grid>
+    )
+
+  }
 
 }
 
-
-export default Component
+export default User
