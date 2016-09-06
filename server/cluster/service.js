@@ -59,7 +59,7 @@ exports.complete = pineapple => {
     // complete cluster if all pineapples delivered
     if (isFinished)
       Cluster.findOneAndUpdate({ _id: cluster._id }, { finishedAt: new Date() }).exec()
-    else
+    else if (!cluster.finishedAt)
       Cluster.findOneAndUpdate({ _id: cluster._id }, { finishedAt: null }).exec()
 
   })
