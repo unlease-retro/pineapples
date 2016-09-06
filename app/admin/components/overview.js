@@ -5,11 +5,12 @@ import { colors, media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Overview = ({ stats, cutOff, setOverview }) => {
+const Overview = ({ stats, cutOff, fetchStats, setOverview }) => {
 
   const { styles } = Overview
 
-  const _safeCutOff = () => confirm('Are you sure you want to generate new clusters? There is no way back.') && cutOff()
+  // confirm cutoff action, dispatch cutoff action and then dispatch fetchStats on success
+  const _safeCutOff = () => confirm('Are you sure you want to generate new clusters? There is no way back.') && cutOff().then( () => fetchStats() )
 
   return (
     <div className={ css(styles.base) }>
