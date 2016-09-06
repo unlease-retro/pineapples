@@ -25,11 +25,12 @@ export const updateCluster = (id, data, index) => ({
   promise: () => new Promise( (resolve, reject) => service.updateCluster(resolve, reject, id, data, index) )
 })
 
-export const selectCluster = (selectedClusterIndex=null, mapCenter={}) => ({
+export const selectCluster = (selectedClusterIndex=null, mapCenter={}, overview=false) => ({
   type: actions.SET_SELECTED_CLUSTER,
   payload: {
     selectedClusterIndex,
-    mapCenter
+    mapCenter,
+    overview
   }
 })
 
