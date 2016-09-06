@@ -54,7 +54,7 @@ export class Map extends Component {
     if (!deepEqual(depots, nextDepots)) this.plotDepots(nextDepots)
 
     // re-plot clusters if updated
-    if (!deepEqual(clusters, nextClusters)) this.plotClusters(nextClusters)
+    if (!deepEqual(clusters, nextClusters)) this.plotClusters(nextClusters, selectedClusterIndex)
 
   }
 
@@ -67,7 +67,7 @@ export class Map extends Component {
 
   }
 
-  plotClusters(clusters) {
+  plotClusters(clusters, selectedClusterIndex) {
 
     const { selectCluster } = this.props
     const map = this.map
@@ -91,6 +91,10 @@ export class Map extends Component {
 
       // create cluster polygon
       const polygon = new google.maps.Polygon({ paths, map, ...POLYGON_OPTIONS })
+
+      // set mark colour of selectedCluster
+      if (i === selectedClusterIndex)
+        polygon.setOptions({strokeColor: selectionColour, fillColor: selectionColour})
 
       // open info window on hover
       polygon.addListener( 'mouseover', () => this.openInfoWindow(position, name) )
