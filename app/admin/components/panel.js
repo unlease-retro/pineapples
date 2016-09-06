@@ -26,6 +26,7 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       updateCluster(clusterId, { deliverable }, clusterIndex)
     else
       updateCluster(clusterId, { deliverable, rider: null }, clusterIndex)
+        .then( () => fetchRiders() )
 
   }
 
