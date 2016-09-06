@@ -2,27 +2,48 @@ const fs = require('fs')
 const uuid = require('node-uuid')
 const PDFKit = require('pdfkit')
 
-const doc = new PDFKit()
+exports.create = deliveries => {
 
-
-exports.create = (from, to, message) => {
-
+  let ctx  = new PDFKit()
   let filename = uuid.v4()
   let filepath = `/tmp/pineapples/${filename}.pdf`
   let writeStream = fs.createWriteStream(filepath)
 
-  return new Promise((resolve, reject) => {
+  // set font size
+  ctx.fontSize(12)
 
-    doc.pipe(writeStream)
-    doc.fontSize(25).text(`From: ${from}`, 100, 80)
-    doc.fontSize(25).text(`To: ${to}`, 100, 120)
-    doc.fontSize(25).text('Message:', 100, 160)
-    doc.fontSize(12).text(message, 100, 200)
-    doc.end()
+  return new Promise( (resolve, reject) => {
 
-    writeStream.on('finish', () => resolve(filepath) )
-    writeStream.on('error', () => reject() )
+    ctx.pipe(writeStream)
 
-  })
+    for (let item of deliveries) {
+
+      ctx.fillColor('#000000').text('From:')
+      ctx.moveDown(0.5)
+      ctx.fillColor('#555555').text(item.from)
+
+      ctx.moveDown(1)
+
+      ctx.fillColor('#000000').text('To:')
+      ctx.moveDown(0.5)
+      ctx.fillColor('#555555').text(item.to)
+
+      ctx.moveDown(1)
+
+      ctx.fillColor('#000000').text('Message:')
+      ctx.moveDown(0.5)
+      ctx.fillColor('#555555').text(item.message)
+
+      ctx.moveDown(3)
+
+    }
+
+    ctx.end()
+
+    writeStream.on( 'finish', () => resolve(filepath) )
+
+    writeStream.on( 'error', () => reject() )
+
+  } )
 
 }
