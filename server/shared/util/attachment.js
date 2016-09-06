@@ -42,7 +42,7 @@ exports.create = deliveries => {
 
     writeStream.on( 'finish', () => resolve(filepath) )
 
-    writeStream.on( 'error', () => reject() )
+    writeStream.on( 'error', (e) => reject(e) )
 
   } )
 
