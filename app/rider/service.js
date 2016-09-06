@@ -22,7 +22,7 @@ export const changeReason = (id, reason, comment, pineappleIndex, resolve, rejec
     .catch( e => reject(e) )
 
 export const startClusterDelivery = (id, resolve, reject) =>
-  API.put(`cluster/${id}`, {startedAt: new Date()})
+  API.put(`cluster/${id}`, {startedAt: new Date(), dispatched: true})
     .then( res => res.json() )
     .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve(json) )
     .catch( e => reject(e) )
