@@ -51,7 +51,9 @@ const addGoogleMapsLinks = (selectedCluster) => {
     let resultValue = ''
 
     // first pineapple has route from depot
-    if (index === 0)
+    const firstClusterInPathIndex = selectedCluster.getIn(['route', 'waypoint_order', 0])
+    const originalIndexOfCurrentPineapple = selectedCluster.getIn('items', index, 'originalIndex')
+    if (firstClusterInPathIndex === originalIndexOfCurrentPineapple)
       resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}${routeSteps}`)
     else
       resultValue = pineapple.set('googleMapsLink', `${prefix}/${fromLat},${fromLng}/${toLat},${toLng}${cycleRoute}${routeSteps}`)
