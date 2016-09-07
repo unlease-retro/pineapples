@@ -2,19 +2,20 @@ const fs = require('fs')
 const uuid = require('node-uuid')
 const PDFKit = require('pdfkit')
 
-exports.create = deliveries => {
+exports.create = (deliveries, clusterName) => {
 
   let ctx  = new PDFKit()
   let filename = uuid.v4()
   let filepath = `/tmp/pineapples/${filename}.pdf`
   let writeStream = fs.createWriteStream(filepath)
-
-  // set font size
-  ctx.fontSize(12)
-
+  
   return new Promise( (resolve, reject) => {
 
     ctx.pipe(writeStream)
+
+    ctx.fontSize(25).fillColor('red').text(`Cluster name : ${clusterName}`, 100, 100)
+    ctx.moveDown(1)
+    ctx.fontSize(12)
 
     for (let item of deliveries) {
 
