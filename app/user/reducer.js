@@ -22,7 +22,14 @@ export default createReducer(initialState, {
   [actions.FETCH_USERS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.CREATE_USER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
-  [actions.CREATE_USER_SUCCESS]: (state, action) => state.merge({ users: state.get('users').concat(action.payload) }),
+  [actions.CREATE_USER_SUCCESS]: (state, action) => {
+
+    if (state.get('selectedRole') && state.get('selectedRoleForUpdateUser') && state.get('selectedRoleForUpdateUser') === state.get('selectedRole'))
+      return state.merge({ users: state.get('users').concat(action.payload) })
+    else
+      return state
+
+  },
   [actions.CREATE_USER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.DELETE_USER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
