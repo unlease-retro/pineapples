@@ -40,13 +40,19 @@ export class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    const { clusters, depots, selectedClusterIndex, selectedClusterColour } = this.props
-    const { clusters: nextClusters, depots: nextDepots } = nextProps
+    const { clusters, depots, selectedClusterIndex, selectedClusterId, selectedClusterColour } = this.props
+    const { clusters: nextClusters, depots: nextDepots, selectedClusterIndex: nextSelectedClusterIndex, selectedClusterId: nextSelectedClusterId } = nextProps
 
-    if (nextProps.selectedClusterIndex !== selectedClusterIndex) {
+    if (nextSelectedClusterIndex !== selectedClusterIndex) {
 
-      this._setPolygonOptions(this.clusters[selectedClusterIndex], { strokeColor: selectedClusterColour, fillColor: selectedClusterColour })
-      this._setPolygonOptions(this.clusters[nextProps.selectedClusterIndex], { strokeColor: POLYGON_SELECTED_COLOUR, fillColor: POLYGON_SELECTED_COLOUR })
+      const prevSelectedClusterKey = clusters.findKey( cluster => cluster.get('_id') === selectedClusterId )
+      const nextSelectedClusterKey = nextClusters.findKey( cluster => cluster.get('_id') === nextSelectedClusterId )
+
+      // reset previously selected cluster polygon colour to original colour
+      this._setPolygonOptions(this.clusters[prevSelectedClusterKey], { strokeColor: selectedClusterColour, fillColor: selectedClusterColour })
+
+      // set newly selected cluster polygon colour to selected colour
+      this._setPolygonOptions(this.clusters[nextSelectedClusterKey], { strokeColor: POLYGON_SELECTED_COLOUR, fillColor: POLYGON_SELECTED_COLOUR })
 
     }
 
