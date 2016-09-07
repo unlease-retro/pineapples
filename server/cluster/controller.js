@@ -154,7 +154,6 @@ const ridersEqual = (clusterBefore, clusterAfter) => {
     return clusterBefore.rider._id.toString() === clusterAfter.rider._id.toString()
 
 }
-const deliverableEqual = (clusterBefore, clusterAfter) => clusterAfter.deliverable === clusterBefore.deliverable
 
 // Notify rider when assigned to cluster and cluster is deliverable (email template 1)
 // Notify rider when unassigned from cluster and cluster is deliverable (email template 2)
@@ -162,14 +161,14 @@ const deliverableEqual = (clusterBefore, clusterAfter) => clusterAfter.deliverab
 // Notify rider when cluster assigned cluster is made undeliverable (email template 2)
 const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
-  const model = {
-    clusterName: clusterAfter.name,
-    riderName: clusterAfter.rider.firstname,
-    actionUrl: config.get('host'),
-    timestamp : Date.now()
-  }
-
   if (!ridersEqual(clusterBefore, clusterAfter) && clusterAfter.deliverable) {
+
+    const model = {
+      clusterName: clusterAfter.name,
+      riderName: clusterAfter.rider.firstname,
+      actionUrl: config.get('host'),
+      timestamp : Date.now()
+    }
 
     if (!clusterBefore.rider && clusterAfter.rider) {
 
@@ -191,7 +190,7 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
   }
 
-  if (!deliverableEqual(clusterBefore, clusterAfter)) {
+  if (clusterAfter.deliverable !== clusterBefore.deliverable) {
 
     EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email,  {
 
@@ -220,8 +219,9 @@ exports.decoratedUpdate = (req, res, next) => {
         .then(() =>
           // check response
           Cluster.read(clusterId)
-          .then(cluster => sendNotificationEmailsIfNeeded(clusterBefore, cluster))
+            .then(cluster => sendNotificationEmailsIfNeeded(clusterBefore, cluster))
         )
+
     )
 
 }
