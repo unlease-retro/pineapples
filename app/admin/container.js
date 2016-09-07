@@ -41,7 +41,7 @@ export class Admin extends Component {
     // render `panel` when cluster selected
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
-    const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} fetchStats={fetchStats} setOverview={setOverview} /> : null
+    const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} fetchRiders={fetchRiders} fetchStats={fetchStats} setOverview={setOverview} /> : null
 
     return (
         <div className={ css(styles.base) }>
