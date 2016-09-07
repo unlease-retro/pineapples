@@ -19,6 +19,7 @@ export const CIRCLE_OPTIONS = {
   radius: 1000
 }
 
+export const POLYGON_SELECTED_COLOUR = '#000000'
+
 export const getMarkerOptions = (colour, path) => ({ icon: { path, fillColor: colour, fillOpacity: 0.8, scale: 4, strokeWeight: 0 } })
 export const getPolygonOptions = colour => ({ strokeColor: colour, fillColor: colour, strokeOpacity: 0.8, strokeWeight: 2, fillOpacity: 0.35 })
-export const selectionColour = '#000000'
