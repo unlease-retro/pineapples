@@ -50,7 +50,7 @@ export class Admin extends Component {
             <SharedComponents.button onClick={ () => setOverview(true) } label='menu' theme='icon' />
           </SharedComponents.position>
 
-          <Components.map selectedClusterIndex={selectedCluster.clusterIndex} selectedClusterColour={selectedCluster.clusterColour} clusters={showClusters} depots={depots} mapCenter={mapCenter} selectCluster={selectCluster} setMapCenter={setMapCenter} />
+          <Components.map selectedClusterIndex={selectedCluster.clusterIndex} selectedClusterColour={selectedCluster.clusterColour} selectedClusterId={selectedCluster.clusterId} clusters={showClusters} depots={depots} mapCenter={mapCenter} selectCluster={selectCluster} setMapCenter={setMapCenter} />
           <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
           <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 

@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import deepEqual from 'deep-equal'
 import { getCentroid } from '../../shared/util'
 
-import { MAP_OPTIONS, CIRCLE_OPTIONS, getPolygonOptions, selectionColour } from '../constants'
+import { MAP_OPTIONS, CIRCLE_OPTIONS, getPolygonOptions, POLYGON_SELECTED_COLOUR } from '../constants'
 
 export class Map extends Component {
 
@@ -20,7 +20,7 @@ export class Map extends Component {
 
   componentDidMount() {
 
-    const { clusters, depots } = this.props
+    const { clusters, depots, selectedClusterIndex } = this.props
     const closeInfoWindow = this.closeInfoWindow.bind(this)
 
     // init map
@@ -34,19 +34,25 @@ export class Map extends Component {
     this.plotDepots(depots)
 
     // plot those clusters!
-    this.plotClusters(clusters)
+    this.plotClusters(clusters, selectedClusterIndex)
 
   }
 
   componentWillReceiveProps(nextProps) {
 
-    const { clusters, depots, selectedClusterIndex, selectedClusterColour } = this.props
-    const { clusters: nextClusters, depots: nextDepots } = nextProps
+    const { clusters, depots, selectedClusterIndex, selectedClusterId, selectedClusterColour } = this.props
+    const { clusters: nextClusters, depots: nextDepots, selectedClusterIndex: nextSelectedClusterIndex, selectedClusterId: nextSelectedClusterId } = nextProps
 
-    if (nextProps.selectedClusterIndex !== selectedClusterIndex) {
+    if (nextSelectedClusterIndex !== selectedClusterIndex) {
 
-      this._markPolygonWithColour(nextProps.selectedClusterIndex, selectionColour)
-      this._markPolygonWithColour(selectedClusterIndex, selectedClusterColour)
+      const prevSelectedClusterKey = clusters.findKey( cluster => cluster.get('_id') === selectedClusterId )
+      const nextSelectedClusterKey = nextClusters.findKey( cluster => cluster.get('_id') === nextSelectedClusterId )
+
+      // reset previously selected cluster polygon colour to original colour
+      this._setPolygonOptions(this.clusters[prevSelectedClusterKey], { strokeColor: selectedClusterColour, fillColor: selectedClusterColour })
+
+      // set newly selected cluster polygon colour to selected colour
+      this._setPolygonOptions(this.clusters[nextSelectedClusterKey], { strokeColor: POLYGON_SELECTED_COLOUR, fillColor: POLYGON_SELECTED_COLOUR })
 
     }
 
@@ -83,6 +89,7 @@ export class Map extends Component {
       const index = cluster.get('index')
       const pineapples = cluster.get('items')
 
+      const clusterIndex = index || i
       const position = getCentroid(centroid)
       const POLYGON_OPTIONS = getPolygonOptions(colour)
 
@@ -92,15 +99,14 @@ export class Map extends Component {
       // create cluster polygon
       const polygon = new google.maps.Polygon({ paths, map, ...POLYGON_OPTIONS })
 
-      // set mark colour of selectedCluster
-      if (i === selectedClusterIndex)
-        polygon.setOptions({strokeColor: selectionColour, fillColor: selectionColour})
+      // set colour of selectedCluster
+      if (clusterIndex === selectedClusterIndex) polygon.setOptions({strokeColor: POLYGON_SELECTED_COLOUR, fillColor: POLYGON_SELECTED_COLOUR})
 
       // open info window on hover
       polygon.addListener( 'mouseover', () => this.openInfoWindow(position, name) )
 
       // set selected cluster and map center as cluster centroid
-      polygon.addListener( 'click', () => selectCluster(index || i, position) )
+      polygon.addListener( 'click', () => selectCluster(clusterIndex, position) )
 
       // store ref to cluster polygon
       this.clusters.push(polygon)
@@ -183,9 +189,9 @@ export class Map extends Component {
 
   }
 
-  _markPolygonWithColour(index, colour) {
+  _setPolygonOptions(polygon, options) {
 
-    this.clusters[index] && this.clusters[index].setOptions({strokeColor: colour, fillColor: colour})
+    polygon && polygon.setOptions(options)
 
   }
 
