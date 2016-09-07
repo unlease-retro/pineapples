@@ -1,4 +1,4 @@
-import Immutable, { fromJS } from 'immutable'
+import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 
 import { name } from './constants'
@@ -9,25 +9,6 @@ import { getKM, getHoursMins } from '../shared/util'
 export const getAll = state => state.get(name)
 export const getClusters = state => state.get(name).get('clusters')
 export const getUndeliveredReasonOptions = () => reasons.map(reason => ({ value: reason, label: reason }))
-
-const sortClusterItemsByWaypointOrder = (selectedCluster) => {
-
-  const waypointOrder = selectedCluster.getIn(['route', 'waypoint_order'])
-  const items = selectedCluster.get('items')
-
-  let orderedItems = Immutable.List()
-
-  waypointOrder.map(orderItemIndex => {
-
-    const itemToBeConsidered = items.get(orderItemIndex)
-    const updatedItemToBeConsidered = itemToBeConsidered.set('originalIndex', orderItemIndex)
-    orderedItems = orderedItems.push(updatedItemToBeConsidered)
-    
-  })
-
-  return selectedCluster.set('items', fromJS(orderedItems))
-
-}
 
 const sortClusterItemsByDelivered = (selectedCluster) => {
 
@@ -95,15 +76,13 @@ export const selectedCluster = state => {
 
   if (selectedCluster) {
 
-    // sort by waypoint order
-    const clusterWithOrderedPineapplesState = state.setIn([...selectedClusterSelection], sortClusterItemsByWaypointOrder(selectedCluster))
     // add google maps links
-    const clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState = clusterWithOrderedPineapplesState.setIn([...selectedClusterSelection], addGoogleMapsLinks(clusterWithOrderedPineapplesState.getIn([...selectedClusterSelection])))
+    const clusterWithConstructedGoogleMapsLinksState = state.setIn([...selectedClusterSelection], addGoogleMapsLinks(state.getIn([...selectedClusterSelection])))
     // sort by delivered
-    const clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksStateAndOrderedByDelivered = 
-      clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState
+    const clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksStateAndOrderedByDelivered =
+      clusterWithConstructedGoogleMapsLinksState
         .setIn([...selectedClusterSelection], sortClusterItemsByDelivered(
-          clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksState
+          clusterWithConstructedGoogleMapsLinksState
             .getIn([...selectedClusterSelection])
           )
         )
