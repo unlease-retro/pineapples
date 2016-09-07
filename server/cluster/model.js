@@ -38,4 +38,16 @@ Cluster.post('save', (doc, next) => {
 
 })
 
+Cluster.post('findOneAndUpdate', cluster => {
+
+  const pineapplesIds =
+    cluster
+      .items
+      .map(item => item._id)
+
+  if (cluster.startedAt)
+    Pineapple.service.updateMultiple(pineapplesIds, {delivered: true})
+
+})
+
 module.exports = mongoose.model(collection, Cluster)

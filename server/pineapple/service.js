@@ -39,8 +39,6 @@ exports.getPineappleFromReq = ( props ) => {
 exports.create = ( pineapple) => {
 
   return Pineapple.create(Object.assign({}, pineapple))
-  
-  
 
 }
 
@@ -107,5 +105,11 @@ exports.sendTrackingEmail = pineapple => {
     timestamp : Date.now()
     
   })
+
+}
+
+exports.updateMultiple = (pineapplesIds) => {
+
+  return Pineapple.update({ _id: { '$in': pineapplesIds } }, {dispatched: true}, { multi: true, new: true }).exec()
 
 }

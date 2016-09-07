@@ -6,7 +6,7 @@ const passwordless = require('passwordless')
 const controller = require('./controller')
 
 
-nestedRouter.put('/', controller.decoratedUpdate(), (req, res, next) => next() )
+nestedRouter.put('/', controller.decoratedUpdate, (req, res, next) => next() )
 nestedRouter.put('/writer/:writerId', passwordless.restricted(), controller.writer, (req, res, next) => next() )
 
 router.use( '/:id', nestedRouter )

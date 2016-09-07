@@ -207,25 +207,21 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
 
 }
 
-exports.decoratedUpdate = () => {
+exports.decoratedUpdate = (req, res, next) => {
 
-  return (req, res, next) => {
+  const clusterId = req.params.id
+  let clusterBefore = {}
 
-    const clusterId = req.params.id
-    let clusterBefore = {}
-
-    // find
-    Cluster.read(clusterId)
-      .then(cluster => clusterBefore = cluster)
-      .then(() =>
-        exports.update(req, res, next)
-          .then(() =>
-            // check response
-            Cluster.read(clusterId)
-            .then(cluster => sendNotificationEmailsIfNeeded(clusterBefore, cluster))
-          )
-      )
-
-  }
+  // find
+  Cluster.read(clusterId)
+    .then(cluster => clusterBefore = cluster)
+    .then(() =>
+      exports.update(req, res, next)
+        .then(() =>
+          // check response
+          Cluster.read(clusterId)
+          .then(cluster => sendNotificationEmailsIfNeeded(clusterBefore, cluster))
+        )
+    )
 
 }
