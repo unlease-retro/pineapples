@@ -3,9 +3,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
+import scriptLoader from '../util/scriptLoader'
+
 import * as User from '../../user'
-import { selectors as UISelectors} from '../../ui'
+import * as UI from '../../ui'
 import { error as Error, progress as Progress, snackbar as Snackbar, splash as Splash } from '../components'
+import { GOOGLE_MAPS_SCRIPT } from '../constants'
 
 export class App extends Component {
 
@@ -18,12 +21,35 @@ export class App extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+
+    const { role, actions: { updateUI } } = this.props
+    const { role: nextRole } = nextProps
+    const { id, src } = GOOGLE_MAPS_SCRIPT
+
+    // has script been appended to DOM?
+    const shouldLoadScript = Boolean(!document.getElementById(id))
+
+    if (nextRole && nextRole !== role && shouldLoadScript) {
+
+      const onload = () => updateUI({ scriptsLoaded: true })
+
+      // load Google Maps script if not rider
+      if (nextRole !== 'RIDER') return scriptLoader({ id, src, onload })
+
+      // skip Google Maps script and load app for riders
+      onload()
+
+    }
+
+  }
+
   render() {
 
-    const { children, error, requesting, snackbar, splash } = this.props
+    const { children, error, requesting, snackbar, appLoaded } = this.props
 
-    // render splash screen if user role not fetched
-    const renderApp = splash ? <Splash /> : children
+    // render splash screen if user role not fetched / Google Maps not loaded
+    const renderApp = appLoaded ? children : <Splash />
 
     // render progress if requesting from API
     const renderProgress = requesting ? <Progress /> : null
@@ -54,13 +80,13 @@ export class App extends Component {
 
 export default connect(
   createStructuredSelector({
-    error: UISelectors.getError,
-    requesting: UISelectors.getRequesting,
+    error: UI.selectors.getError,
+    requesting: UI.selectors.getRequesting,
     role: User.selectors.getRole,
-    snackbar: UISelectors.getSnackbar,
-    splash: UISelectors.getSplash,
+    snackbar: UI.selectors.getSnackbar,
+    appLoaded: UI.selectors.getAppLoaded,
   }),
   dispatch => ({
-    actions: bindActionCreators(User.actions, dispatch)
+    actions: bindActionCreators({ ...User.actions, ...UI.actions }, dispatch)
   })
 )(App)
