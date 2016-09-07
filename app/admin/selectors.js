@@ -18,6 +18,7 @@ export const getPineapplesToBeDeliveredToday = state => state.getIn([ name, 'sta
 
 // computed
 export const getTotalClusters = createSelector( [ getClusters ], clusters => clusters.size )
+export const getFinishedClusters = createSelector( [ getClusters ], clusters => clusters && clusters.filter( cluster => cluster.get('finishedAt') ).toArray() )
 export const getSelectedCluster = createSelector( [ getClusters, getSelectedClusterIndex ], (clusters, i) => clusters.get(i) )
 export const getClusterId = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('_id') )
 export const getClusterName = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('name') )

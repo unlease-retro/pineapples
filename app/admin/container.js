@@ -107,7 +107,8 @@ export default connect(
     stats: createStructuredSelector({
       ridersWithUndeliveredPineapples: selectors.getRidersWithUndeliveredPineapples,
       todaysOrders: selectors.getTodaysOrders,
-      pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday
+      pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday,
+      finishedClusters: selectors.getFinishedClusters,
     })
   }),
   dispatch => ({
