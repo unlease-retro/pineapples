@@ -16,3 +16,8 @@ export const reasons = [
   'Person was not in the office',
   OTHER
 ]
+
+export const GOOGLE_MAPS_SCRIPT = {
+  id: 'google-maps-api',
+  src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBLs5jh33x7asMZsgRwbQmxjL0IIWTRdio'
+}

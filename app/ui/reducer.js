@@ -7,6 +7,7 @@ export const initialState = Immutable.fromJS({
   error: null,
   requesting: false,
   snackbar: null,
+  scriptsLoaded: false,
 })
 
 export default createReducer(initialState, {
