@@ -31,6 +31,8 @@ export const getClusterRiderId = createSelector( [ getClusterRider ], rider => r
 export const getClusterDeliverable = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('deliverable') )
 export const getClusterColour = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('colour') )
 export const getClusterRouteLegs = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.getIn([ 'route', 'legs' ]) )
+export const getClusterStartedAt = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('startedAt') )
+export const getClusterFinishedAt = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('finishedAt') )
 export const getIsPanelOpen = createSelector( [ getClusterName ], clusterName => Boolean(clusterName) )
 export const getClusterCentroid = createSelector( [ getSelectedCluster ], cluster => cluster && cluster.get('centroid') )
 export const getClusterPosition = createSelector( [ getClusterCentroid ], clusterCoordinates => clusterCoordinates && getCentroid(clusterCoordinates) )
@@ -39,6 +41,7 @@ export const getClusterTotalPineapples = createSelector( [ getClusterPineapples 
 export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( cluster => ({ value: cluster.get('_id'), label: cluster.get('name'), position: getCentroid(cluster.get('centroid')) }) ).toArray() )
 export const getClusterDistance = createSelector( [ getClusterRouteLegs ], legs => legs && getKM(legs.reduce( (distance, leg) => distance += leg.getIn([ 'distance', 'value' ]), 0) ))
 export const getClusterDuration = createSelector( [ getClusterRouteLegs ], legs => legs && getHoursMins(legs.reduce( (duration, leg) => duration += leg.getIn([ 'duration', 'value' ]), 0) ))
+export const getClusterStatus = createSelector( [ getClusterStartedAt, getClusterFinishedAt ], (started, finished) => started ? finished ? 'Delivered' : 'In Progress' : 'Not Started')
 
 export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})`, size: rider.get('clusters').size }) ).toArray() )
 

@@ -4,14 +4,14 @@ import { colors } from 'styles/settings'
 import { icon as Icon } from './'
 import { adjustColour } from '../util'
 
-const Chip = ({ label, icon, iconTheme, callback }) => {
+const Chip = ({ label, theme, icon, iconTheme, callback }) => {
 
   const { styles } = Chip
 
-  const renderIcon = icon ? <div className={ css(styles.icon) }><Icon name={icon} theme={iconTheme} /></div> : null
+  const renderIcon = icon ? <div className={ css(styles.icon, theme && styles[`icon_${theme}`]) }><Icon name={icon} theme={iconTheme} /></div> : null
 
   return (
-    <div className={ css(styles.base, callback && styles.link) } onClick={callback}>
+    <div className={ css(styles.base, callback && styles.link, theme && styles[theme]) } onClick={callback}>
       { renderIcon }
       <span className={ css(styles.label) }>{ label }</span>
     </div>
@@ -34,6 +34,10 @@ Chip.styles = StyleSheet.create({
       marginRight: 0,
     },
   },
+  accent: {
+    color: colors.light,
+    backgroundColor: adjustColour(colors.accent, 20),
+  },
   link: {
     cursor: 'pointer',
     ':hover': {
@@ -55,6 +59,9 @@ Chip.styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.dkgrey,
+  },
+  icon_accent: {
+    backgroundColor: colors.accent,
   },
 })
 
