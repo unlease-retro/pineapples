@@ -49,13 +49,17 @@ export const getRidersWithUndeliveredPineapples = createSelector( getRidersOptio
 
 }, []))
 
-export const getClusterFilterOptions = createSelector( [ getRidersOptions ], riders => {
+export const getClusterFilterOptions = createSelector( [ getRiders ], riders => {
 
-  riders.push({ value: 'unassigned', label: 'Unassigned' })
+  return riders && riders.reduce( (options, rider) => {
 
-  return riders
+    options.push({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})` })
 
-} )
+    return options
+
+  }, [{ value: 'unassigned', label: 'Unassigned' }] )
+
+})
 
 export const getFilteredClusters = createSelector( [ getClusters, getFilterCluster, getSearchCluster ], (clusters, filterCluster, searchCluster) => {
 
