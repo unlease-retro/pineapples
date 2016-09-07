@@ -4,11 +4,13 @@ import { AVAILABLE_ROLES as roles } from '../constants'
 
 const Component = ({ role, selectedRole, onChange }) => {
 
-  const renderRoles = roles.map( (item, index) => {
+  const renderRoles = roles.reduce( (filtered, item, index) => {
 
-    if ( role === 'SUPERUSER' || index > 1 ) return { value: item, label: item }
+    if ( role === 'SUPERUSER' || index > 1 ) filtered.push({ value: item, label: item })
 
-  })
+    return filtered
+
+  }, [])
 
   return (
 
