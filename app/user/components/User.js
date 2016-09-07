@@ -7,8 +7,9 @@ class User extends Component {
 
   render() {
 
-    const { _id, index } = this.props.user
-
+    const { _id } = this.props.user
+    const { index } = this.props
+    
     const handleRemove = () => this.props.remove(_id, index)
     const handleUpdate = () => this.props.update(_id, { firstname: this.firstname, lastname: this.lastname, email: this.email }, index)
 
