@@ -16,7 +16,7 @@ const Search = ({ clusters, searchCluster, setSearchCluster }) => {
         autoBlur={true}
         clearable={true}
         searchable={true}
-        onChange={ cluster => setSearchCluster(cluster && cluster.value || cluster) }
+        onChange={ cluster => setSearchCluster(cluster && cluster.value || cluster, cluster && cluster.position || {}) }
       />
 
     </div>

@@ -35,7 +35,7 @@ export const getClusterCentroid = createSelector( [ getSelectedCluster ], cluste
 export const getClusterPosition = createSelector( [ getClusterCentroid ], clusterCoordinates => clusterCoordinates && getCentroid(clusterCoordinates) )
 export const getClusterDepotPosition = createSelector( [ getClusterDepotCoordinates ], depotCoordinates => depotCoordinates && getPosition(depotCoordinates) )
 export const getClusterTotalPineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.size )
-export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( cluster => ({ value: cluster.get('_id'), label: cluster.get('name') }) ).toArray() )
+export const getClustersOptions = createSelector( [ getClusters ], clusters => clusters && clusters.map( cluster => ({ value: cluster.get('_id'), label: cluster.get('name'), position: getCentroid(cluster.get('centroid')) }) ).toArray() )
 export const getClusterDistance = createSelector( [ getClusterRouteLegs ], legs => legs && getKM(legs.reduce( (distance, leg) => distance += leg.getIn([ 'distance', 'value' ]), 0) ))
 export const getClusterDuration = createSelector( [ getClusterRouteLegs ], legs => legs && getHoursMins(legs.reduce( (duration, leg) => duration += leg.getIn([ 'duration', 'value' ]), 0) ))
 
