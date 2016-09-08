@@ -13,7 +13,7 @@ const smtpServer = email.server.connect({
 
 module.exports = (app) => {
 
-  passwordless.init( new RedisStore(config.get('redis').port, config.get('redis').host))
+  passwordless.init( new RedisStore(config.get('redis').port, config.get('redis').host), { allowTokenReuse: true })
 
   passwordless.addDelivery(
     (token, user, recipient, callback) => {
