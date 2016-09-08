@@ -52,9 +52,10 @@ exports.complete = pineapple => {
     // have all pineapples in cluster been delivered?
     const { delivered: isFinished } = cluster.items.reduce( (previousItem, currentItem) => {
 
-      return { delivered: (previousItem.delivered && currentItem.delivered) }
+      return { delivered: (previousItem.delivered && (currentItem.delivered
+                                                   || !currentItem.delivered && currentItem.undeliveredReason)) }
 
-    } )
+    }, { delivered: true } )
 
     // complete cluster if all pineapples delivered
     if (isFinished)
