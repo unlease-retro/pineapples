@@ -17,12 +17,12 @@ const sortClusterItemsByDelivered = (selectedCluster) => {
   let deliveredOrderedItems = new Immutable.List()
   let undeliveredOrderedItems = new Immutable.List()
 
-  items.map(item => {
+  items.map((item, index) => {
 
     if (item.get('delivered'))
-      deliveredOrderedItems = deliveredOrderedItems.push(item)
+      deliveredOrderedItems = deliveredOrderedItems.push(item.set('originalIndex', index))
     else
-      undeliveredOrderedItems = undeliveredOrderedItems.push(item)
+      undeliveredOrderedItems = undeliveredOrderedItems.push(item.set('originalIndex', index))
 
   })
 
@@ -79,7 +79,7 @@ export const selectedCluster = state => {
     // add google maps links
     const clusterWithConstructedGoogleMapsLinksState = state.setIn([...selectedClusterSelection], addGoogleMapsLinks(state.getIn([...selectedClusterSelection])))
     // sort by delivered
-    const clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksStateAndOrderedByDelivered =
+    const clusterConstructedGoogleMapsLinksStateAndOrderedByDelivered =
       clusterWithConstructedGoogleMapsLinksState
         .setIn([...selectedClusterSelection], sortClusterItemsByDelivered(
           clusterWithConstructedGoogleMapsLinksState
@@ -88,7 +88,7 @@ export const selectedCluster = state => {
         )
     
 
-    return clusterWithOrderedPineapplesAndConstructedGoogleMapsLinksStateAndOrderedByDelivered.getIn([...selectedClusterSelection])
+    return clusterConstructedGoogleMapsLinksStateAndOrderedByDelivered.getIn([...selectedClusterSelection])
 
   }
 
