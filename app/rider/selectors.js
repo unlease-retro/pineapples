@@ -1,32 +1,64 @@
-import Immutable from 'immutable'
 import { createSelector } from 'reselect'
+import Immutable from 'immutable'
+import { OTHER } from '../shared/constants'
 
 import { name } from './constants'
 import { reasons } from '../shared/constants/index'
 import { prefix, cycleRoute, routeSteps }  from '../shared/util/googleMapsLinkBuilder'
 import { getKM, getHoursMins } from '../shared/util'
 
-export const getAll = state => state.get(name)
-export const getClusters = state => state.get(name).get('clusters')
-export const getUndeliveredReasonOptions = () => reasons.map(reason => ({ value: reason, label: reason }))
 
-const sortClusterItemsByDelivered = (selectedCluster) => {
+const addHasUndeliveredReasons = selectedCluster => {
 
   const items = selectedCluster.get('items')
 
-  let deliveredOrderedItems = new Immutable.List()
-  let undeliveredOrderedItems = new Immutable.List()
+  if (items.filter(item => item.get('undeliveredReason')).size > 0)
+    return selectedCluster.set('hasUndeliveredReasons', true)
+  else
+    return selectedCluster.set('hasUndeliveredReasons', false)
+
+}
+
+
+export const getAll = state => state.get(name)
+export const getClusters = state => {
+
+  const clusters = state.getIn([name, 'clusters'])
+  const clustersWithHasUndeliveredReasons = clusters.map(addHasUndeliveredReasons)
+  return clustersWithHasUndeliveredReasons
+
+}
+
+//export const getClusters = state => state.get(name).get('clusters')
+export const getUndeliveredReasonOptions = () => reasons.map(reason => ({ value: reason, label: reason }))
+
+const sortClusterItems = (selectedCluster) => {
+
+  const items = selectedCluster.get('items')
+
+  let deliveredItems = Immutable.List()
+  let undeliveredWithReasonItems = Immutable.List()
+  let otherItems = Immutable.List()
 
   items.map((item, index) => {
 
     if (item.get('delivered'))
-      deliveredOrderedItems = deliveredOrderedItems.push(item.set('originalIndex', index))
+      deliveredItems = deliveredItems.push(item.set('originalIndex', index))
+    else if (!item.get('delivered') && item.get('undeliveredReason')) {
+
+      if (item.get('undeliveredReason') === OTHER && !item.get('reasonComment'))
+        otherItems = otherItems.push(item.set('originalIndex', index))
+      else
+        undeliveredWithReasonItems = undeliveredWithReasonItems.push(item.set('originalIndex', index))
+
+    }
+
     else
-      undeliveredOrderedItems = undeliveredOrderedItems.push(item.set('originalIndex', index))
+      otherItems = otherItems.push(item.set('originalIndex', index))
 
   })
 
-  return selectedCluster.set('items', undeliveredOrderedItems.concat(deliveredOrderedItems))
+  return selectedCluster.set('items', [...otherItems, ...undeliveredWithReasonItems, ...deliveredItems])
 
 }
 
@@ -79,16 +111,15 @@ export const selectedCluster = state => {
     // add google maps links
     const clusterWithConstructedGoogleMapsLinksState = state.setIn([...selectedClusterSelection], addGoogleMapsLinks(state.getIn([...selectedClusterSelection])))
     // sort by delivered
-    const clusterConstructedGoogleMapsLinksStateAndOrderedByDelivered =
+    const clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState =
       clusterWithConstructedGoogleMapsLinksState
-        .setIn([...selectedClusterSelection], sortClusterItemsByDelivered(
+        .setIn([...selectedClusterSelection], sortClusterItems(
           clusterWithConstructedGoogleMapsLinksState
             .getIn([...selectedClusterSelection])
           )
         )
     
-
-    return clusterConstructedGoogleMapsLinksStateAndOrderedByDelivered.getIn([...selectedClusterSelection])
+    return clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState.getIn([...selectedClusterSelection])
 
   }
 
@@ -99,3 +130,4 @@ export const selectedCluster = state => {
 export const getClusterRouteLegs = createSelector( [ selectedCluster ], cluster => cluster && cluster.getIn([ 'route', 'legs' ]) )
 export const getClusterDistance = createSelector( [ getClusterRouteLegs ], legs => legs && getKM(legs.reduce( (distance, leg) => distance += leg.getIn([ 'distance', 'value' ]), 0) ))
 export const getClusterDuration = createSelector( [ getClusterRouteLegs ], legs => legs && getHoursMins(legs.reduce( (duration, leg) => duration += leg.getIn([ 'duration', 'value' ]), 0) ))
+export const getDepotName = createSelector( [selectedCluster], cluster => cluster && cluster.getIn(['depot', 'name']))

@@ -10,6 +10,7 @@ import * as actions from './actions'
 import * as Components from './components'
 import * as SharedComponents from '../shared/components'
 import * as selectors from './selectors'
+import { selectors as UserSelectors } from '../user'
 
 export class Admin extends Component {
 
@@ -32,8 +33,8 @@ export class Admin extends Component {
 
   render() {
 
-    const { fetchRiders, fetchStats, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, cutOff } = this.props.actions
-    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, overview, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
+    const { fetchRiders, fetchStats, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, setGenerateLock, cutOff } = this.props.actions
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, overview, generateUnlocked, isPanelOpen, totalClusters, selectedCluster, stats, user } = this.props
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.size > 0 ? filteredClusters : clusters
@@ -41,7 +42,7 @@ export class Admin extends Component {
     // render `panel` when cluster selected
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
-    const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} fetchRiders={fetchRiders} fetchStats={fetchStats} setOverview={setOverview} /> : null
+    const renderOverview = overview ? <Components.overview generateUnlocked={generateUnlocked} stats={stats} user={user} cutOff={cutOff} fetchRiders={fetchRiders} fetchStats={fetchStats} setOverview={setOverview} setGenerateLock={setGenerateLock} /> : null
 
     return (
         <div className={ css(styles.base) }>
@@ -51,7 +52,7 @@ export class Admin extends Component {
           </SharedComponents.position>
 
           <Components.map selectedClusterIndex={selectedCluster.clusterIndex} selectedClusterColour={selectedCluster.clusterColour} selectedClusterId={selectedCluster.clusterId} clusters={showClusters} depots={depots} mapCenter={mapCenter} selectCluster={selectCluster} setMapCenter={setMapCenter} />
-          <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
+          <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} selectCluster={selectCluster} />
           <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 
           <ReactCSSTransitionGroup transitionName='slide-right' transitionEnterTimeout={500} transitionLeaveTimeout={300} >
@@ -88,6 +89,7 @@ export default connect(
     clusterFilterOptions: selectors.getClusterFilterOptions,
     filteredClusters: selectors.getFilteredClusters,
     overview: selectors.getOverview,
+    generateUnlocked: selectors.getGenerateUnlocked,
     isPanelOpen: selectors.getIsPanelOpen,
     totalClusters: selectors.getTotalClusters,
     selectedCluster: createStructuredSelector({
@@ -103,6 +105,7 @@ export default connect(
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
       clusterDistance: selectors.getClusterDistance,
       clusterDuration: selectors.getClusterDuration,
+      clusterDelivered: selectors.getClusterFinishedAt,
       clusterStatus: selectors.getClusterStatus,
     }),
     stats: createStructuredSelector({
@@ -110,7 +113,10 @@ export default connect(
       todaysOrders: selectors.getTodaysOrders,
       pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday,
       finishedClusters: selectors.getFinishedClusters,
-    })
+    }),
+    user: createStructuredSelector({
+      email: UserSelectors.getEmail,
+    }),
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

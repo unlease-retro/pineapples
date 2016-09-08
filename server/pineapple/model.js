@@ -26,6 +26,8 @@ const Pineapple = new Schema({
   delivered: { type: Boolean, index: true, default: false },
   deliveredAt: Date,
   deliveredTs: Date,
+  deliverable: { type: Boolean, index: true, default: true },
+  attempts: { type: Number, index: true, default: 0 },
   undeliveredReason: String,
   reasonComment: String,
   createdAt: { type: Date, index: true }

@@ -2,8 +2,9 @@ const Pineapple = require('./model')
 const geohash = require('ngeohash')
 const EmailService = require('../shared/services/email')
 const config = require('../shared/config/index')
+
 exports.validate = ( pineapple ) => {
-  
+
   let doc = Pineapple( pineapple )
 
   return doc.validate()
@@ -11,7 +12,7 @@ exports.validate = ( pineapple ) => {
 }
 
 exports.getPineappleFromReq = ( props ) => {
-  
+
   return {
 
     streetAddress : props.data.streetAddress,
@@ -31,9 +32,9 @@ exports.getPineappleFromReq = ( props ) => {
       coordinates: [props.data.geocode.lng, props.data.geocode.lat]
 
     }
-    
+
   }
-  
+
 }
 
 exports.create = ( pineapple) => {
@@ -68,31 +69,14 @@ exports.track = trackingId => {
 
 exports.getTotalNumPineappleNotInDelivery = (pineapplesInCluster) => {
 
-  return Pineapple.count( {
+  // not in delivery = not in a cluster, not already delivered and possible to deliver
+  return Pineapple.count( { _id: { '$nin': pineapplesInCluster }, delivered: false, deliverable: true } )
 
-    _id : {
-
-      '$nin' : pineapplesInCluster
-
-    },
-    delivered : false
-
-  } )
-  
 }
 
 exports.getTotalNumPineappleInDeliveryButNotDelivered = (pineapplesInCluster) => {
 
-  return Pineapple.count( {
-
-    _id : {
-
-      '$in' : pineapplesInCluster
-
-    },
-    delivered : false
-
-  } )
+  return Pineapple.count( { _id: { '$in': pineapplesInCluster }, delivered: false } )
 
 }
 
@@ -109,17 +93,17 @@ exports.getTotalNumPineappleUsingDiscountCode = (code) => {
 exports.sendTrackingEmail = pineapple => {
 
   let actionUrl = `${config.get('pineapplePageUrl')}?trackingId=${pineapple._id.toString()}`
-  return EmailService.sendToCustomerAfterOrder(pineapple.senderEmail, { 
-    
+  return EmailService.sendToCustomerAfterOrder(pineapple.senderEmail, {
+
     actionUrl : actionUrl,
     timestamp : Date.now()
-    
+
   })
 
 }
 
-exports.updateMultiple = (pineapplesIds) => {
+exports.updateMultiple = (pineapplesIds, props) => {
 
-  return Pineapple.update({ _id: { '$in': pineapplesIds } }, {dispatched: true}, { multi: true, new: true }).exec()
+  return Pineapple.update({ _id: { '$in': pineapplesIds } }, props, { multi: true }).exec()
 
 }

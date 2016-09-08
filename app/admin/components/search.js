@@ -3,7 +3,30 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import Select from 'react-select'
 import { media } from 'styles/settings'
 
-const Search = ({ clusters, searchCluster, setSearchCluster }) => {
+const Search = ({ clusters, searchCluster, setSearchCluster, selectCluster }) => {
+
+  const handleChange = cluster => {
+
+    // filter clusters by search result
+    setSearchCluster(cluster && cluster.value || cluster)
+
+    // also set the cluster as selected -> open's panel and centers map
+    if (cluster) {
+
+      // get index of selected cluster in clusters array
+      const selectedClusterIndex = clusters.reduce( (selected, c, i) => {
+
+        if ( c.value === cluster.value ) selected = i
+
+        return selected
+
+      }, null)
+
+      selectCluster(selectedClusterIndex, cluster.position)
+
+    }
+
+  }
 
   return (
     <div className={ css(styles.base) }>
@@ -16,7 +39,7 @@ const Search = ({ clusters, searchCluster, setSearchCluster }) => {
         autoBlur={true}
         clearable={true}
         searchable={true}
-        onChange={ cluster => setSearchCluster(cluster && cluster.value || cluster, cluster && cluster.position || {}) }
+        onChange={handleChange}
       />
 
     </div>

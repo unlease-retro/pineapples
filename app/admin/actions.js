@@ -41,11 +41,10 @@ export const setMapCenter = (mapCenter={}) => ({
   }
 })
 
-export const setSearchCluster = (searchCluster, mapCenter={}) => ({
+export const setSearchCluster = (searchCluster) => ({
   type: actions.SET_SEARCH_CLUSTER,
   payload: {
-    searchCluster,
-    mapCenter
+    searchCluster
   }
 })
 
@@ -60,6 +59,13 @@ export const setOverview = (overview=false) => ({
   type: actions.SET_OVERVIEW,
   payload: {
     overview
+  }
+})
+
+export const setGenerateLock = (generateUnlocked=true) => ({
+  type: actions.SET_GENERATE_LOCK,
+  payload: {
+    generateUnlocked
   }
 })
 

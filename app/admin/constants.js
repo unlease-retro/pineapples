@@ -16,7 +16,7 @@ export const CIRCLE_OPTIONS = {
   strokeWeight: 2,
   fillColor: '#211E75',
   fillOpacity: 0.35,
-  radius: 1000
+  radius: 500
 }
 
 export const POLYGON_SELECTED_COLOUR = '#000000'
