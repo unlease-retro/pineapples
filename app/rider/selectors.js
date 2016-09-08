@@ -37,7 +37,7 @@ const sortClusterItems = (selectedCluster) => {
 
   })
 
-  return selectedCluster.set('items', [...otherItems, ...deliveredItems, ...undeliveredWithReasonItems])
+  return selectedCluster.set('items', [...otherItems, ...undeliveredWithReasonItems, ...deliveredItems])
 
 }
 
