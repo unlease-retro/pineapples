@@ -51,7 +51,7 @@ export class Admin extends Component {
           </SharedComponents.position>
 
           <Components.map selectedClusterIndex={selectedCluster.clusterIndex} selectedClusterColour={selectedCluster.clusterColour} selectedClusterId={selectedCluster.clusterId} clusters={showClusters} depots={depots} mapCenter={mapCenter} selectCluster={selectCluster} setMapCenter={setMapCenter} />
-          <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} />
+          <Components.search clusters={clustersOptions} searchCluster={searchCluster} setSearchCluster={setSearchCluster} selectCluster={selectCluster} />
           <Components.filter options={clusterFilterOptions} filterCluster={filterCluster} setFilterCluster={setFilterCluster} />
 
           <ReactCSSTransitionGroup transitionName='slide-right' transitionEnterTimeout={500} transitionLeaveTimeout={300} >
