@@ -58,6 +58,7 @@ Overview.styles = StyleSheet.create({
     background: colors.light,
     boxShadow: '4px 0 20px 0 rgba(0, 0, 0, 0.2)',
     zIndex: 2,
+    overflowY: 'scroll',
     [media.aboveSmall]: {
       width: '35%',
       height: '100%',
