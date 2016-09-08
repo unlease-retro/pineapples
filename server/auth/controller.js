@@ -6,11 +6,9 @@ exports.create = (userEmail, delivery, callback) => {
 
     for (var i = users.length - 1; i >= 0; i--) {
 
-      if (users[i].email.toLowerCase() === userEmail.toLowerCase()) {
+      const { _id, email, role } = users[i]
 
-        return callback(null, JSON.stringify({ _id: users[i]._id, role: users[i].role}))
-
-      }
+      if (email.toLowerCase() === userEmail.toLowerCase()) return callback(null, JSON.stringify({ _id, role, email }))
 
     }
 
