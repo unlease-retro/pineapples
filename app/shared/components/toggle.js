@@ -24,6 +24,7 @@ const Toggle = ({ label, active, callback }) => {
 Toggle.styles = StyleSheet.create({
   base: {
     width: '100%',
+    marginBottom: '20px',
     lineHeight: 1,
     display: 'block',
     position: 'relative',
