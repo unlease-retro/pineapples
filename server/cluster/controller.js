@@ -155,6 +155,13 @@ const ridersEqual = (clusterBefore, clusterAfter) => {
 
 }
 
+const resetStartedAtIfNeeded = (clusterBefore, clusterAfter) => {
+
+  if (!ridersEqual(clusterBefore, clusterAfter))
+    Cluster.update(clusterBefore._id, {startedAt: null}).then(console.log)
+
+}
+
 // Notify rider when assigned to cluster and cluster is deliverable (email template 1)
 // Notify rider when unassigned from cluster and cluster is deliverable (email template 2)
 // Notify rider when cluster assigned to is made deliverable (email template 1)
@@ -219,7 +226,13 @@ exports.decoratedUpdate = (req, res, next) => {
         .then(() =>
           // check response
           Cluster.read(clusterId)
-            .then(cluster => sendNotificationEmailsIfNeeded(clusterBefore, cluster))
+            .then(cluster => {
+
+              sendNotificationEmailsIfNeeded(clusterBefore, cluster)
+              return cluster
+
+            })
+            .then((cluster) => resetStartedAtIfNeeded(clusterBefore, cluster))
         )
 
     )
