@@ -25,7 +25,7 @@ export const createUser = (data, resolve, reject) =>
 export const updateUser = (id, data, index, resolve, reject) =>
   API.put(`user/${id}`, data)
     .then( res => res.json() )
-    .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve({ index, user: json.user }) )
+    .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve({ index, user: json.user, snackbar: 'User updated, no problemo 😁'  }) )
     .catch( e => reject(e) )
 
 export const deleteUser = (id, index, resolve, reject) =>
