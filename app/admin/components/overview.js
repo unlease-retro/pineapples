@@ -5,7 +5,7 @@ import { colors, media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Overview = ({ stats, cutOff, fetchRiders, fetchStats, setOverview }) => {
+const Overview = ({ generateUnlocked, stats, cutOff, fetchRiders, fetchStats, setOverview, setGenerateLock }) => {
 
   const { styles } = Overview
 
@@ -31,7 +31,8 @@ const Overview = ({ stats, cutOff, fetchRiders, fetchStats, setOverview }) => {
       </SharedComponents.position>
 
       <SharedComponents.position right='20px' bottom='25px'>
-        <SharedComponents.button label='Generate New Clusters' onClick={() => _safeCutOff()} theme='alert' />
+        <SharedComponents.toggle label={'PROBLEMO!'} active={generateUnlocked} callback={setGenerateLock} />
+        <SharedComponents.button label='Generate New Clusters' onClick={ () => _safeCutOff() } theme='alert' disabled={!generateUnlocked} />
       </SharedComponents.position>
 
     </div>

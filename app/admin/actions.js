@@ -63,6 +63,13 @@ export const setOverview = (overview=false) => ({
   }
 })
 
+export const setGenerateLock = (generateUnlocked=true) => ({
+  type: actions.SET_GENERATE_LOCK,
+  payload: {
+    generateUnlocked
+  }
+})
+
 export const cutOff = () => ({
   types: [ actions.CUT_OFF_REQUEST, actions.CUT_OFF_SUCCESS, actions.CUT_OFF_FAILURE ],
   payload: {},

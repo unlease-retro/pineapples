@@ -28,6 +28,7 @@ Toggle.styles = StyleSheet.create({
     display: 'block',
     position: 'relative',
     cursor: 'pointer',
+    userSelect: 'none',
     ':before': {
       content: '""',
       width: '36px',
