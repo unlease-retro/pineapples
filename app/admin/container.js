@@ -105,6 +105,7 @@ export default connect(
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
       clusterDistance: selectors.getClusterDistance,
       clusterDuration: selectors.getClusterDuration,
+      clusterDelivered: selectors.getClusterFinishedAt,
       clusterStatus: selectors.getClusterStatus,
     }),
     stats: createStructuredSelector({

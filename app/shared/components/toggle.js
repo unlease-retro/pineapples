@@ -5,10 +5,10 @@ import { vAlign } from 'styles/mixins'
 
 const TOGGLE_SIZE = '20px'
 
-const Toggle = ({ label, active, callback }) => {
+const Toggle = ({ label, active, disabled, callback }) => {
 
   const { styles } = Toggle
-  const className = css(styles.base, active && styles.active)
+  const className = css(styles.base, active && styles.active, disabled && styles.disabled)
 
   let _input
 
@@ -62,7 +62,17 @@ Toggle.styles = StyleSheet.create({
       background: colors.accent,
       transform: `translate3d(${TOGGLE_SIZE}, -50%, 0)`,
     },
-  }
+  },
+  disabled: {
+    color: colors.dkgrey,
+    pointerEvents: 'none',
+    ':before': {
+      background: colors.dkgrey,
+    },
+    ':after': {
+      background: colors.dkgrey,
+    },
+  },
 })
 
 Toggle.propTypes = {

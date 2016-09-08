@@ -5,7 +5,7 @@ import { colors, media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, clusterDistance, clusterDuration, clusterStatus, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, clusterDistance, clusterDuration, clusterDelivered, clusterStatus, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
 
   const style = {
     borderBottomColor: clusterColour,
@@ -49,11 +49,11 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <Components.riders riders={riders} selectedRider={clusterRiderId} disabled={!clusterDeliverable} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+        <Components.riders riders={riders} selectedRider={clusterRiderId} disabled={!clusterDeliverable || clusterDelivered} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={onDeliverableChange} />
+        <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={onDeliverableChange} disabled={clusterDelivered} />
       </SharedComponents.row>
 
       <SharedComponents.position right='20px' bottom='25px'>
