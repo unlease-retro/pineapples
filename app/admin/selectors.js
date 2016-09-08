@@ -13,6 +13,7 @@ export const getSearchCluster = state => state.getIn([ name, 'searchCluster' ])
 export const getFilterCluster = state => state.getIn([ name, 'filterCluster' ])
 export const getSelectedClusterIndex = state => state.getIn([ name, 'selectedClusterIndex' ])
 export const getOverview = state => state.getIn([ name, 'overview' ])
+export const getGenerateUnlocked = state => state.getIn([ name, 'generateUnlocked' ])
 export const getTodaysOrders = state => state.getIn([ name, 'stats', 'todaysOrders' ])
 export const getPineapplesToBeDeliveredToday = state => state.getIn([ name, 'stats', 'pineapplesToBeDeliveredToday' ])
 

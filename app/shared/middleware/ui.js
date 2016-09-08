@@ -14,9 +14,18 @@ const UIMiddleware = store => next => action => {
 
   const actionType = getActionType(type)
 
-  if (actionType === REQUEST) dispatch( UI.updateUI({ requesting: true, error: null, snackbar: null }) )
-  if (actionType === SUCCESS) dispatch( UI.updateUI({ requesting: false, error: null, snackbar: snackbar ? snackbar : null  }) )
+  // dispatch UI actions according to action type
+  if (actionType === REQUEST) dispatch( UI.updateUI({ requesting: true, error: null }) )
   if (actionType === FAILURE) dispatch( UI.updateUI({ requesting: false, error: payload }) )
+  if (actionType === SUCCESS) {
+
+    // only pass snackbar if defined to avoid premature closure
+    const props = { requesting: false, error: null }
+    if (snackbar) props.snackbar = snackbar
+
+    dispatch( UI.updateUI(props) )
+
+  }
 
   // auto hide snackbar
   if (snackbar && actionType !== UI_ACTION) setTimeout( () => dispatch( UI.updateUI({ snackbar: null }) ), SNACKBAR_DURATION)

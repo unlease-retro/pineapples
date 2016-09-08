@@ -32,8 +32,8 @@ export class Admin extends Component {
 
   render() {
 
-    const { fetchRiders, fetchStats, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, cutOff } = this.props.actions
-    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, overview, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
+    const { fetchRiders, fetchStats, selectCluster, updateCluster, setMapCenter, setSearchCluster, setFilterCluster, setOverview, setGenerateLock, cutOff } = this.props.actions
+    const { clusters, clustersOptions, depots, ridersOptions, mapCenter, searchCluster, filterCluster, clusterFilterOptions, filteredClusters, overview, generateUnlocked, isPanelOpen, totalClusters, selectedCluster, stats } = this.props
 
     // show all clusters unless filtered by search
     const showClusters = filteredClusters.size > 0 ? filteredClusters : clusters
@@ -41,7 +41,7 @@ export class Admin extends Component {
     // render `panel` when cluster selected
     const renderPanel = isPanelOpen ? <Components.panel {...selectedCluster} riders={ridersOptions} totalClusters={totalClusters} fetchRiders={fetchRiders} selectCluster={selectCluster} updateCluster={updateCluster} setMapCenter={setMapCenter} /> : null
 
-    const renderOverview = overview ? <Components.overview stats={stats} cutOff={cutOff} fetchRiders={fetchRiders} fetchStats={fetchStats} setOverview={setOverview} /> : null
+    const renderOverview = overview ? <Components.overview generateUnlocked={generateUnlocked} stats={stats} cutOff={cutOff} fetchRiders={fetchRiders} fetchStats={fetchStats} setOverview={setOverview} setGenerateLock={setGenerateLock} /> : null
 
     return (
         <div className={ css(styles.base) }>
@@ -88,6 +88,7 @@ export default connect(
     clusterFilterOptions: selectors.getClusterFilterOptions,
     filteredClusters: selectors.getFilteredClusters,
     overview: selectors.getOverview,
+    generateUnlocked: selectors.getGenerateUnlocked,
     isPanelOpen: selectors.getIsPanelOpen,
     totalClusters: selectors.getTotalClusters,
     selectedCluster: createStructuredSelector({

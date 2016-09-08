@@ -3,11 +3,11 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 import { dimensions } from 'styles/settings'
 
 const Row = ({ children }) => (
-  <div className={ css(styles.base) }>{ children }</div>
+  <div className={ css(styles.row) }>{ children }</div>
 )
 
 const styles = StyleSheet.create({
-  base: {
+  row: {
     width: '100%',
     marginBottom: `${dimensions.gutterVertical}`,
   },

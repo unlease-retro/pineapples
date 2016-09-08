@@ -1,11 +1,12 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors, media } from 'styles/settings'
 
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Overview = ({ stats, cutOff, fetchRiders, fetchStats, setOverview }) => {
+const Overview = ({ generateUnlocked, stats, cutOff, fetchRiders, fetchStats, setOverview, setGenerateLock }) => {
 
   const { styles } = Overview
 
@@ -26,13 +27,16 @@ const Overview = ({ stats, cutOff, fetchRiders, fetchStats, setOverview }) => {
 
       <Components.stats stats={stats} />
 
-      <SharedComponents.position left='20px' bottom='25px'>
-        <SharedComponents.route to='users' label='Manage Users' />
-      </SharedComponents.position>
+      <SharedComponents.divider />
 
-      <SharedComponents.position right='20px' bottom='25px'>
-        <SharedComponents.button label='Generate New Clusters' onClick={() => _safeCutOff()} theme='alert' />
-      </SharedComponents.position>
+      <SharedComponents.row>
+        <SharedComponents.button label='Manage Users' onClick={ () => browserHistory.push('users') } />
+      </SharedComponents.row>
+
+      <SharedComponents.row>
+        <SharedComponents.toggle label={'I am ready to CLEAR ALL current clusters'} active={generateUnlocked} callback={setGenerateLock} />
+        <SharedComponents.button label='Generate New Clusters' onClick={ () => _safeCutOff() } theme='alert' disabled={!generateUnlocked} />
+      </SharedComponents.row>
 
     </div>
   )
@@ -42,15 +46,18 @@ const Overview = ({ stats, cutOff, fetchRiders, fetchStats, setOverview }) => {
 Overview.styles = StyleSheet.create({
   base: {
     width: '100%',
-    height: '100%',
+    height: 'auto',
+    minHeight: '100%',
+    position: 'absolute',
     padding: '20px',
-    position: 'fixed',
     top: 0,
     background: colors.light,
     boxShadow: '4px 0 20px 0 rgba(0, 0, 0, 0.2)',
     zIndex: 2,
     [media.aboveSmall]: {
       width: '35%',
+      height: '100%',
+      position: 'fixed',
     },
   },
 })
