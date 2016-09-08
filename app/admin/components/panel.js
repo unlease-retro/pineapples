@@ -5,7 +5,7 @@ import { colors, media } from 'styles/settings'
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
 
-const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterTotalPineapples, clusterDistance, clusterDuration, clusterDelivered, clusterStatus, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
+const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterUndeliverablePineapples, clusterTotalPineapples, clusterDistance, clusterDuration, clusterDelivered, clusterStatus, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
 
   const style = {
     borderBottomColor: clusterColour,
@@ -29,6 +29,13 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
 
   }
 
+  const renderUndeliverablePineapples = clusterUndeliverablePineapples.length > 0 ? (
+    <SharedComponents.row>
+      <div className={ css(styles.label) }>{clusterUndeliverablePineapples.length} undeliverable pineapples:</div>
+      { clusterUndeliverablePineapples.map( pineapple => <div className={ css(styles.list) } key={ pineapple.get('_id') }>{ pineapple.get('_id') } ({ pineapple.get('undeliveredReason') })</div> ) }
+    </SharedComponents.row>
+  ) : null
+
   return (
     <div className={ css(styles.base) }>
 
@@ -49,12 +56,14 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       </SharedComponents.row>
 
       <SharedComponents.row>
-        <Components.riders riders={riders} selectedRider={clusterRiderId} disabled={!clusterDeliverable || clusterDelivered} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
+        <Components.riders riders={riders} selectedRider={clusterRiderId} disabled={!clusterDeliverable || Boolean(clusterDelivered)} selectRider={ rider => updateCluster(clusterId, { rider }, clusterIndex).then( () => fetchRiders() ) } />
       </SharedComponents.row>
 
       <SharedComponents.row>
         <SharedComponents.toggle label={'Deliverable'} active={clusterDeliverable} callback={onDeliverableChange} disabled={clusterDelivered} />
       </SharedComponents.row>
+
+      { renderUndeliverablePineapples }
 
       <SharedComponents.position right='20px' bottom='25px'>
         <SharedComponents.button onClick={onNextClick} label='Next Cluster' theme='primary' />
@@ -84,6 +93,18 @@ const styles = StyleSheet.create({
     marginBottom: '20px',
     paddingBottom: '10px',
     borderBottom: '4px solid',
+  },
+  label: {
+    color: colors.error,
+  },
+  list: {
+    marginTop: '10px',
+    paddingLeft: '5px',
+    fontSize: '14px',
+    color: colors.dkgrey,
+    ':before': {
+      content: '"- "',
+    },
   },
 })
 

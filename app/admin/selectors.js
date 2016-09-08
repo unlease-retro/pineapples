@@ -44,6 +44,14 @@ export const getClusterDistance = createSelector( [ getClusterRouteLegs ], legs 
 export const getClusterDuration = createSelector( [ getClusterRouteLegs ], legs => legs && getHoursMins(legs.reduce( (duration, leg) => duration += leg.getIn([ 'duration', 'value' ]), 0) ))
 export const getClusterStatus = createSelector( [ getClusterStartedAt, getClusterFinishedAt ], (started, finished) => started ? finished ? 'Delivered' : 'In Progress' : 'Not Started')
 
+export const getClusterUndeliverablePineapples = createSelector( [ getClusterPineapples ], pineapples => pineapples && pineapples.reduce( (undeliverable, pineapple) => {
+
+  if (pineapple.get('undeliveredReason')) undeliverable.push(pineapple)
+
+  return undeliverable
+
+}, [] ))
+
 export const getRidersOptions = createSelector( [ getRiders ], riders => riders && riders.map( rider => ({ value: rider.get('_id'), label: `${rider.get('firstname')} ${rider.get('lastname')} (${rider.get('clusters').size})`, size: rider.get('clusters').size }) ).toArray() )
 
 export const getRidersWithUndeliveredPineapples = createSelector( getRidersOptions, riders => riders && riders.reduce( (unfinished, rider) => {

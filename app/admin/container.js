@@ -102,6 +102,7 @@ export default connect(
       clusterRiderId: selectors.getClusterRiderId,
       clusterDeliverable: selectors.getClusterDeliverable,
       clusterColour: selectors.getClusterColour,
+      clusterUndeliverablePineapples: selectors.getClusterUndeliverablePineapples,
       clusterTotalPineapples: selectors.getClusterTotalPineapples,
       clusterDistance: selectors.getClusterDistance,
       clusterDuration: selectors.getClusterDuration,
