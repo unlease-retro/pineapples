@@ -7,7 +7,8 @@ const Schema = mongoose.Schema
 const Discount = new Schema({
   code: { type: String, required: true, unique: true },
   active: { type: Boolean, required: true, default: true },
-  amountInPence: { type: Number, required: true }
+  amountInPence: { type: Number, required: true },
+  maxUsage: { type: Number, required: true }
  
 }, {
   timestamps: true

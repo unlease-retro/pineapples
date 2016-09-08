@@ -16,7 +16,7 @@ const Pineapple = new Schema({
   senderEmail: { type: String, index: true, required: true},
   companyName : { type: String, required: true },
   stripeChargeId: String,
-  discountCode: String,
+  discountCode: { type: String, index: true },
   location: {
     type: { type: String, default: 'Point' },
     coordinates: { type: [Number], required: true }

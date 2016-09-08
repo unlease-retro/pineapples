@@ -96,6 +96,16 @@ exports.getTotalNumPineappleInDeliveryButNotDelivered = (pineapplesInCluster) =>
 
 }
 
+exports.getTotalNumPineappleUsingDiscountCode = (code) => {
+
+  return Pineapple.count( {
+
+    discountCode : code
+
+  } )
+
+}
+
 exports.sendTrackingEmail = pineapple => {
 
   let actionUrl = `${config.get('pineapplePageUrl')}?trackingId=${pineapple._id.toString()}`

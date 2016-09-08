@@ -1,19 +1,27 @@
 const discountService = require('./service')
-
+const pineappleSercive = require('../pineapple/service')
 
 
 exports.read = (req, res, next) => {
 
   const code = req.params.code.toUpperCase()
 
-  return discountService.read(code)
-    .then( discount => {
+  return pineappleSercive.getTotalNumPineappleUsingDiscountCode(code)
+    .then(count => {
 
-      res.json({ discount })
+      discountService.read(code).then( discount => {
 
-      return next()
+        if (discount.active)
+          discount.active = count < discount.maxUsage
+        
+        res.json({ discount })
 
-    }, e => next(e) )
+        return next()
+
+      }, e => next(e) )
+
+    }
+  )
 
 }
 
