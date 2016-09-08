@@ -7,8 +7,29 @@ import { reasons } from '../shared/constants/index'
 import { prefix, cycleRoute, routeSteps }  from '../shared/util/googleMapsLinkBuilder'
 import { getKM, getHoursMins } from '../shared/util'
 
+
+const addHasUndeliveredReasons = selectedCluster => {
+
+  const items = selectedCluster.get('items')
+
+  if (items.filter(item => item.get('undeliveredReason')).size > 0)
+    return selectedCluster.set('hasUndeliveredReasons', true)
+  else
+    return selectedCluster.set('hasUndeliveredReasons', false)
+
+}
+
+
 export const getAll = state => state.get(name)
-export const getClusters = state => state.get(name).get('clusters')
+export const getClusters = state => {
+
+  const clusters = state.getIn([name, 'clusters'])
+  const clustersWithHasUndeliveredReasons = clusters.map(addHasUndeliveredReasons)
+  return clustersWithHasUndeliveredReasons
+
+}
+
+//export const getClusters = state => state.get(name).get('clusters')
 export const getUndeliveredReasonOptions = () => reasons.map(reason => ({ value: reason, label: reason }))
 
 const sortClusterItems = (selectedCluster) => {
@@ -37,7 +58,7 @@ const sortClusterItems = (selectedCluster) => {
 
   })
 
-  return selectedCluster.set('items', [...otherItems, ...deliveredItems, ...undeliveredWithReasonItems])
+  return selectedCluster.set('items', [...otherItems, ...undeliveredWithReasonItems, ...deliveredItems])
 
 }
 
@@ -90,7 +111,7 @@ export const selectedCluster = state => {
     // add google maps links
     const clusterWithConstructedGoogleMapsLinksState = state.setIn([...selectedClusterSelection], addGoogleMapsLinks(state.getIn([...selectedClusterSelection])))
     // sort by delivered
-    const clusterConstructedGoogleMapsLinksStateAndOrderedByDelivered =
+    const clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState =
       clusterWithConstructedGoogleMapsLinksState
         .setIn([...selectedClusterSelection], sortClusterItems(
           clusterWithConstructedGoogleMapsLinksState
@@ -98,8 +119,7 @@ export const selectedCluster = state => {
           )
         )
     
-
-    return clusterConstructedGoogleMapsLinksStateAndOrderedByDelivered.getIn([...selectedClusterSelection])
+    return clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState.getIn([...selectedClusterSelection])
 
   }
 

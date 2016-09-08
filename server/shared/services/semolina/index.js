@@ -26,7 +26,7 @@ const semolina = (dailyLimit) => {
     // run auto clustering
     return Promise.all([
       SettingsService.read(),
-      PineappleService.list({delivered: false}, dailyLimit),
+      PineappleService.list({delivered: false, deliverable: true}, dailyLimit),
       WriterService.list(),
       UserService.read(MANAGER)
     ])
