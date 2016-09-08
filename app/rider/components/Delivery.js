@@ -5,7 +5,7 @@ import React from 'react'
 import Pineapples from './Pineapples'
 import { button as Button, position as Position, title as Title, wrap as Wrap, link as Link, chip as Chip, row as Row } from '../../shared/components'
 
-const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, clusterDistance, clusterDuration, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
+const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, clusterDistance, clusterDuration, clusterDepotName, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
   const renderViewAllButton = viewAllButton ? (
     <Position right='20px'>
@@ -28,6 +28,7 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, cl
       <Row>
         <Chip label={`${clusterDistance}km`} icon='directions' iconTheme='light' />
         <Chip label={`${clusterDuration}`} icon='directions_bike' iconTheme='light' />
+        <Chip label={clusterDepotName} icon='store' iconTheme='light' />
       </Row>
       { renderStartButton }
 
