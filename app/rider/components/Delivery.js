@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import Pineapples from './Pineapples'
-import { button as Button, position as Position, title as Title, wrap as Wrap, link as Link, chip as Chip } from '../../shared/components'
+import { button as Button, position as Position, title as Title, wrap as Wrap, link as Link, chip as Chip, row as Row } from '../../shared/components'
 
 const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, clusterDistance, clusterDuration, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
@@ -25,10 +25,11 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, cl
 
       <Title content={selectedCluster.get('name')} />
 
+      <Row>
+        <Chip label={`${clusterDistance}km`} icon='directions' iconTheme='light' />
+        <Chip label={`${clusterDuration}`} icon='directions_bike' iconTheme='light' />
+      </Row>
       { renderStartButton }
-
-      <Chip label={`${clusterDistance}km`} icon='directions' iconTheme='light' />
-      <Chip label={`${clusterDuration}`} icon='directions_bike' iconTheme='light' />
 
       { renderMapButton }
 
