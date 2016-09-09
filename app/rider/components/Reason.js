@@ -14,7 +14,10 @@ const Reason = ({ item, undeliveredReasonOptions, actions: { submitChangedReason
         <Select
           value={item.get('undeliveredReason')}
           options={undeliveredReasonOptions}
-          onChange={option => submitChangedReason(item.get('_id'), option && option.value, null, item.get('originalIndex'))} />
+          onChange={option => submitChangedReason(item.get('_id'), option && option.value, null, item.get('originalIndex'))}
+          autoBlur={true}
+          placeholder='Select undeliverable reason ...'
+        />
       </Grid>
 
     </div>
