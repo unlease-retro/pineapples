@@ -16,6 +16,7 @@ export const getOverview = state => state.getIn([ name, 'overview' ])
 export const getGenerateUnlocked = state => state.getIn([ name, 'generateUnlocked' ])
 export const getTodaysOrders = state => state.getIn([ name, 'stats', 'todaysOrders' ])
 export const getPineapplesToBeDeliveredToday = state => state.getIn([ name, 'stats', 'pineapplesToBeDeliveredToday' ])
+export const getPineapplesDeliveredToday = state => state.getIn([ name, 'stats', 'pineapplesDeliveredToday' ])
 
 // computed
 export const getTotalClusters = createSelector( [ getClusters ], clusters => clusters.size )

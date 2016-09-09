@@ -4,7 +4,7 @@ const ClusterService = require('../cluster/service')
 const SettingsService = require('../settings/service')
 const {ERROR} = require('../shared/constants')
 exports.create = (req, res, next) => {
-  
+
   let pineapple = Pineapple.getPineappleFromReq(req.body)
 
   return Pineapple.validate(pineapple)
@@ -191,19 +191,21 @@ exports.ordersNotInClustersAndNotDelivered = (req, res, next) => {
   let clusteredPineapples = null
 
   return ClusterService.findAllPineapplesInClusters()
-    .then((pineapplesInClusters) => {
+    .then( pineapplesInClusters => {
 
       clusteredPineapples = pineapplesInClusters
       return Pineapple.getTotalNumPineappleNotInDelivery(pineapplesInClusters)
 
-    }).then(todaysOrdersCount => {
+    }).then( todaysOrdersCount => {
 
       todaysOrders = todaysOrdersCount
       return Pineapple.getTotalNumPineappleInDeliveryButNotDelivered(clusteredPineapples)
 
-    }).then(pineapplesToBeDeliveredTodayCount => {
+    }).then( pineapplesToBeDeliveredToday => {
 
-      res.json({stats: {todaysOrders, pineapplesToBeDeliveredToday: pineapplesToBeDeliveredTodayCount}})
+      const pineapplesDeliveredToday = clusteredPineapples.length - pineapplesToBeDeliveredToday
+
+      res.json({stats: { todaysOrders, pineapplesToBeDeliveredToday, pineapplesDeliveredToday }})
       return next()
 
     })

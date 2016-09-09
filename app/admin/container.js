@@ -113,6 +113,7 @@ export default connect(
       ridersWithUndeliveredPineapples: selectors.getRidersWithUndeliveredPineapples,
       todaysOrders: selectors.getTodaysOrders,
       pineapplesToBeDeliveredToday: selectors.getPineapplesToBeDeliveredToday,
+      pineapplesDeliveredToday: selectors.getPineapplesDeliveredToday,
       finishedClusters: selectors.getFinishedClusters,
     }),
     user: createStructuredSelector({
