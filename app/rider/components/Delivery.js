@@ -2,8 +2,10 @@
  * Created by BigaMasta on 8/23/16.
  */
 import React from 'react'
+import { StyleSheet, css } from 'aphrodite/no-important'
 import Pineapples from './Pineapples'
-import { button as Button, position as Position, title as Title, wrap as Wrap, link as Link, chip as Chip, row as Row } from '../../shared/components'
+import { button as Button, position as Position, wrap as Wrap, link as Link, chip as Chip, row as Row } from '../../shared/components'
+import { colors } from 'styles/settings'
 
 const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, clusterDistance, clusterDepotName, actions: { unselectCluster, changeStatus, changeReason, submitChangedReason, startClusterDelivery, changeReasonComment } }) => {
 
@@ -23,7 +25,7 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, cl
 
       { renderViewAllButton }
 
-      <Title content={selectedCluster.get('name')} />
+      <div className={ css(styles.name) }>{ selectedCluster.get('name') }</div>
 
       <Row>
         <Chip label={`${clusterDistance}km`} icon='directions' iconTheme='light' />
@@ -39,5 +41,14 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, cl
   )
 
 }
+
+const styles = StyleSheet.create({
+  name: {
+    fontSize: '20px',
+    marginBottom: '20px',
+    paddingBottom: '10px',
+    borderBottom: `4px solid ${colors.pineapple}`,
+  },
+})
 
 export default Delivery
