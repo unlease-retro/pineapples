@@ -20,7 +20,8 @@ const Reason = ({ item, undeliveredReasonOptions, actions: { changeReason, submi
         <Select
           value={item.get('undeliveredReason')}
           options={undeliveredReasonOptions}
-          onChange={option => changeReason(option && option.value, item.get('originalIndex'))} />
+          onChange={option => changeReason(option && option.value, item.get('originalIndex'))}
+          autoBlur={true} />
 
         { renderInput }
       </Grid>
