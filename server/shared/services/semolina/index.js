@@ -10,7 +10,7 @@ const DepotService = require('../../../depot/service')
 const WriterService = require('../../../writer/service')
 const UserService = require('../../../user/service')
 
-const { reorderClustersByWaypointOrder } = require('../../util/cluster')
+const { reorderClusterByWaypointOrder } = require('../../util/cluster')
 
 const clusterize = require('./semolina')
 const prioritize = require('../prioritize')
@@ -24,12 +24,12 @@ const semolina = (dailyLimit) => {
   return ClusterService.removeAll().then( () => {
 
     // run auto clustering
-    return Promise.all([
+    return Promise.all(
       SettingsService.read(),
       PineappleService.list({delivered: false, deliverable: true}, dailyLimit),
       WriterService.list(),
       UserService.read(MANAGER)
-    ])
+    )
 
   }).then(([ [{clusterLimit}], pineapples, writers, managers ]) => {
 
@@ -84,14 +84,13 @@ const semolina = (dailyLimit) => {
           // set cluster route
           cluster.route = routes[i]
 
+          // reorder the cluster's pineapples based on route (for writer, and rider)
+          reorderClusterByWaypointOrder(cluster)
 
           // insert cluster into separate collection/document (with unique and user friendly id)
           everyClusterCreated.push(ClusterService.create(cluster))
 
         })
-
-        // reorder the cluster's pineapples based on route (for writer, and rider)
-        reorderClustersByWaypointOrder(clusters)
 
         // send email to writer and managers
         clusters.forEach(cluster => WriterService.sendEmail(cluster, managers))
