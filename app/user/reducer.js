@@ -45,7 +45,7 @@ export default createReducer(initialState, {
   [actions.FETCH_WRITERS_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.CREATE_WRITER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
-  [actions.CREATE_WRITER_SUCCESS]: (state, action) => state.merge({ writers: state.get('writers').concat(action.payload) }),
+  [actions.CREATE_WRITER_SUCCESS]: (state, action) => state.merge({ writers: state.get('writers').concat(action.payload.writer) }),
   [actions.CREATE_WRITER_FAILURE]: (state, action) => state.merge({ ...action.payload }),
 
   [actions.DELETE_WRITER_REQUEST]: (state, action) => state.merge({ ...action.payload }),
