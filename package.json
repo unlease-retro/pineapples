@@ -64,6 +64,7 @@
     "express": "^4.14.0",
     "express-history-api-fallback": "^2.0.0",
     "express-session": "^1.14.0",
+    "goo.gl": "^0.1.4",
     "immutable": "^3.8.1",
     "moment": "^2.14.1",
     "mongoose": "^4.5.8",

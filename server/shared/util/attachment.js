@@ -6,7 +6,7 @@ exports.create = (deliveries, clusterName) => {
 
   let ctx  = new PDFKit()
   let filename = uuid.v4()
-  let filepath = `/tmp/pineapples/${filename}.pdf`
+  let filepath = `/tmp/unlease/image/upload/${filename}.pdf`
   let writeStream = fs.createWriteStream(filepath)
   
   return new Promise( (resolve, reject) => {

@@ -2,6 +2,9 @@ const passwordless = require('passwordless')
 const email = require('emailjs')
 const RedisStore = require('passwordless-redisstore')
 const config = require('../config')
+const googl = require('goo.gl')
+const key = config.get('google.api')
+googl.setKey(key)
 
 const smtpServer = email.server.connect({
   user: config.get('mailer').user,
@@ -20,19 +23,30 @@ module.exports = (app) => {
 
       const host = config.get('host')
 
+      googl.shorten(`${host}?token=${token}&uid=${encodeURIComponent(user)}`)
+        .then(function (shortUrl) {
+
+          smtpServer.send({
+            text: `Hello!\nYou can now access your account here: ${shortUrl}`,
+            from: config.get('mailer').user,
+            to: recipient,
+            subject: `Token for ${host}`
+          }, (err) => {
+
+            if (err) console.error(err)
+
+            callback(err)
+
+          })
+
+        })
+        .catch(function (err) {
+
+          console.error(err.message)
+
+        })
       // send token
-      smtpServer.send({
-        text: `Hello!\nYou can now access your account here: ${host}?token=${token}&uid=${encodeURIComponent(user)}`,
-        from: config.get('mailer').user,
-        to: recipient,
-        subject: `Token for ${host}`
-      }, (err) => {
 
-        if (err) console.error(err)
-
-        callback(err)
-
-      })
 
     },
     { ttl: 1000*60*60*24*7 }
