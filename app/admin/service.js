@@ -31,7 +31,7 @@ export const updateCluster = (resolve, reject, id, data, index) =>
 export const cutOff = (resolve, reject) =>
   API.post('cluster/generate')
     .then( res => res.json() )
-    .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve(json) )
+    .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve({ ...json, generateUnlocked: false }) )
     .catch( e => reject(e) )
 
 export const fetchStats = (resolve, reject) =>

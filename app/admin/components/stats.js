@@ -36,7 +36,7 @@ const Stats = ({ stats }) => {
         <SharedComponents.grid>
           <div>
             <div className={ css(styles.figure) }>{stats.ridersWithUndeliveredPineapples.length}</div>
-            <div className={ css(styles.label) }>Riders with unfinished clusters:</div>
+            <div className={ css(styles.label) }>Riders with unfinished clusters</div>
             { stats.ridersWithUndeliveredPineapples.map( rider => <div className={ css(styles.list) } key={ rider.value }>{ rider.label }</div> ) }
           </div>
           <div>
