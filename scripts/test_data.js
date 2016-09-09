@@ -1,3 +1,8 @@
+/**
+  * @desc Generate [limit] test pineapples
+  * @usage `node scripts/test_data.js`
+*/
+
 const jsonfile = require('jsonfile')
 const faker = require('faker')
 const geojson = require('@turf/random')
@@ -27,6 +32,8 @@ while (limit--) {
     location,
     dispatched: false,
     delivered: false,
+    deliverable: true,
+    attempts: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
   })
