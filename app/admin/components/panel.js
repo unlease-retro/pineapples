@@ -12,6 +12,14 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
     position: 'relative',
   }
 
+  const onPrevClick = () => {
+
+    const prevIndex = clusterIndex <= 0 ? totalClusters - 1 : clusterIndex - 1
+
+    selectCluster(prevIndex)
+
+  }
+
   const onNextClick = () => {
 
     const nextIndex = clusterIndex >= totalClusters - 1 ? 0 : clusterIndex + 1
@@ -64,6 +72,10 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
       </SharedComponents.row>
 
       { renderUndeliverablePineapples }
+
+      <SharedComponents.position left='20px' bottom='25px'>
+        <SharedComponents.button onClick={onPrevClick} label='Prev Cluster' theme='primary' />
+      </SharedComponents.position>
 
       <SharedComponents.position right='20px' bottom='25px'>
         <SharedComponents.button onClick={onNextClick} label='Next Cluster' theme='primary' />
