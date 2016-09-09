@@ -130,8 +130,6 @@ exports.update = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  console.log(req.query)
-
   return Pineapple.list()
     .then( pineapples => {
 
