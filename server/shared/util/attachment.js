@@ -18,13 +18,7 @@ exports.create = (deliveries, clusterName) => {
     ctx.fontSize(12)
 
     for (let item of deliveries) {
-
-      ctx.fillColor('#000000').text('From:')
-      ctx.moveDown(0.5)
-      ctx.fillColor('#555555').text(item.from || 'N/A')
-
-      ctx.moveDown(1)
-
+      
       ctx.fillColor('#000000').text('To:')
       ctx.moveDown(0.5)
       ctx.fillColor('#555555').text(item.to)
@@ -34,6 +28,13 @@ exports.create = (deliveries, clusterName) => {
       ctx.fillColor('#000000').text('Message:')
       ctx.moveDown(0.5)
       ctx.fillColor('#555555').text(item.message)
+
+      ctx.moveDown(1)
+
+      ctx.fillColor('#000000').text('From:')
+      ctx.moveDown(0.5)
+      ctx.fillColor('#555555').text(item.from || 'N/A')
+
 
       ctx.moveDown(3)
 
