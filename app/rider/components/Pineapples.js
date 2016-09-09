@@ -14,9 +14,9 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
 
   return (
     <div>
-      {items.map(item => {
+      {items.map((item, index) => {
 
-        const renderReason = !item.get('delivered') ? <Reason item={item} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions}/> : null
+        const renderReason = !item.get('delivered') ? <Reason item={item} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions} index={index}/> : null
 
         return (
           <Card disabled={item.get('delivered')} key={item.get('_id')}>
@@ -46,7 +46,7 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
               <div>{item.get('message')}</div>
             </Grid>
 
-            <Status item={item} actions={statusActions} />
+            <Status item={item} actions={statusActions} index={index} />
 
             {renderReason}
 

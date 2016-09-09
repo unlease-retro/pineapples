@@ -5,14 +5,14 @@ import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { toggle as Toggle } from '../../shared/components'
 
-const Status = ({ item, actions: { changeStatus } }) => {
+const Status = ({ item, index, actions: { changeStatus } }) => {
 
   const handleCheck = (delivered) => {
 
     if (delivered)
-      changeStatus(item.get('_id'), { delivered, deliveredAt: new Date(), undeliveredReason: null, reasonComment: null }, item.get('originalIndex'))
+      changeStatus(item.get('_id'), { delivered, deliveredAt: new Date(), undeliveredReason: null, reasonComment: null }, index)
     else
-      changeStatus(item.get('_id'), { delivered, deliveredAt: null }, item.get('originalIndex'))
+      changeStatus(item.get('_id'), { delivered, deliveredAt: null }, index)
 
   }
 

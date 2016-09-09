@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import Immutable from 'immutable'
-import { OTHER } from '../shared/constants'
+//import Immutable from 'immutable'
+//import { OTHER } from '../shared/constants'
 
 import { name } from './constants'
 import { reasons } from '../shared/constants/index'
@@ -43,35 +43,35 @@ export const getClusters = state => {
 //export const getClusters = state => state.get(name).get('clusters')
 export const getUndeliveredReasonOptions = () => reasons.map(reason => ({ value: reason, label: reason }))
 
-const sortClusterItems = (selectedCluster) => {
-
-  const items = selectedCluster.get('items')
-
-  let deliveredItems = Immutable.List()
-  let undeliveredWithReasonItems = Immutable.List()
-  let otherItems = Immutable.List()
-
-  items.map((item, index) => {
-
-    if (item.get('delivered'))
-      deliveredItems = deliveredItems.push(item.set('originalIndex', index))
-    else if (!item.get('delivered') && item.get('undeliveredReason')) {
-
-      if (item.get('undeliveredReason') === OTHER && !item.get('reasonComment'))
-        otherItems = otherItems.push(item.set('originalIndex', index))
-      else
-        undeliveredWithReasonItems = undeliveredWithReasonItems.push(item.set('originalIndex', index))
-
-    }
-
-    else
-      otherItems = otherItems.push(item.set('originalIndex', index))
-
-  })
-
-  return selectedCluster.set('items', [...otherItems, ...undeliveredWithReasonItems, ...deliveredItems])
-
-}
+//const sortClusterItems = (selectedCluster) => {
+//
+//  const items = selectedCluster.get('items')
+//
+//  let deliveredItems = Immutable.List()
+//  let undeliveredWithReasonItems = Immutable.List()
+//  let otherItems = Immutable.List()
+//
+//  items.map((item, index) => {
+//
+//    if (item.get('delivered'))
+//      deliveredItems = deliveredItems.push(item.set('originalIndex', index))
+//    else if (!item.get('delivered') && item.get('undeliveredReason')) {
+//
+//      if (item.get('undeliveredReason') === OTHER && !item.get('reasonComment'))
+//        otherItems = otherItems.push(item.set('originalIndex', index))
+//      else
+//        undeliveredWithReasonItems = undeliveredWithReasonItems.push(item.set('originalIndex', index))
+//
+//    }
+//
+//    else
+//      otherItems = otherItems.push(item.set('originalIndex', index))
+//
+//  })
+//
+//  return selectedCluster.set('items', [...otherItems, ...undeliveredWithReasonItems, ...deliveredItems])
+//
+//}
 
 const addGoogleMapsLinks = (selectedCluster) => {
 
@@ -122,15 +122,15 @@ export const selectedCluster = state => {
     // add google maps links
     const clusterWithConstructedGoogleMapsLinksState = state.setIn([...selectedClusterSelection], addGoogleMapsLinks(state.getIn([...selectedClusterSelection])))
     // sort by delivered
-    const clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState =
-      clusterWithConstructedGoogleMapsLinksState
-        .setIn([...selectedClusterSelection], sortClusterItems(
-          clusterWithConstructedGoogleMapsLinksState
-            .getIn([...selectedClusterSelection])
-          )
-        )
-    
-    return clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState.getIn([...selectedClusterSelection])
+    //const clusterConstructedGoogleMapsLinksStateAndOrderedByDeliveredState =
+    //  clusterWithConstructedGoogleMapsLinksState
+    //    .setIn([...selectedClusterSelection], sortClusterItems(
+    //      clusterWithConstructedGoogleMapsLinksState
+    //        .getIn([...selectedClusterSelection])
+    //      )
+    //    )
+
+    return clusterWithConstructedGoogleMapsLinksState.getIn([...selectedClusterSelection])
 
   }
 

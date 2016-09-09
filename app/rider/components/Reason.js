@@ -5,7 +5,7 @@ import React from 'react'
 import Select from 'react-select'
 import { grid as Grid } from '../../shared/components'
 
-const Reason = ({ item, undeliveredReasonOptions, actions: { submitChangedReason } }) => {
+const Reason = ({ item, undeliveredReasonOptions, index, actions: { submitChangedReason } }) => {
 
   return (
     <div>
@@ -14,7 +14,7 @@ const Reason = ({ item, undeliveredReasonOptions, actions: { submitChangedReason
         <Select
           value={item.get('undeliveredReason')}
           options={undeliveredReasonOptions}
-          onChange={option => submitChangedReason(item.get('_id'), option && option.value, null, item.get('originalIndex'))}
+          onChange={option => submitChangedReason(item.get('_id'), option && option.value, null, index)}
           autoBlur={true}
           placeholder='Select undeliverable reason ...'
         />
