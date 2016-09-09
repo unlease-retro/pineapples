@@ -11,7 +11,7 @@ exports.read = (req, res, next) => {
 
       discountService.read(code).then( discount => {
 
-        if (discount.active)
+        if (discount && discount.active)
           discount.active = count < discount.maxUsage
         
         res.json({ discount })
