@@ -31,6 +31,7 @@ const Overview = ({ generateUnlocked, stats, cutOff, user: { email }, fetchRider
 
       <SharedComponents.row>
         <SharedComponents.button label='Manage Users' onClick={ () => browserHistory.push('users') } />
+        <SharedComponents.button label='View Report' onClick={ () => browserHistory.push('report') } style={{ marginLeft: '20px' }} />
       </SharedComponents.row>
 
       <SharedComponents.row>
