@@ -158,7 +158,7 @@ const ridersEqual = (clusterBefore, clusterAfter) => {
 const resetStartedAtIfNeeded = (clusterBefore, clusterAfter) => {
 
   if (!ridersEqual(clusterBefore, clusterAfter))
-    Cluster.update(clusterBefore._id, {startedAt: null}).then(console.log)
+    Cluster.update(clusterBefore._id, {startedAt: null})
 
 }
 
