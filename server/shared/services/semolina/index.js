@@ -24,12 +24,12 @@ const semolina = (dailyLimit) => {
   return ClusterService.removeAll().then( () => {
 
     // run auto clustering
-    return Promise.all(
+    return Promise.all([
       SettingsService.read(),
       PineappleService.list({delivered: false, deliverable: true}, dailyLimit),
       WriterService.list(),
       UserService.read(MANAGER)
-    )
+    ])
 
   }).then(([ [{clusterLimit}], pineapples, writers, managers ]) => {
 
