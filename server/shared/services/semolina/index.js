@@ -10,7 +10,7 @@ const DepotService = require('../../../depot/service')
 const WriterService = require('../../../writer/service')
 const UserService = require('../../../user/service')
 
-const { reorderClustersByWaypointOrder } = require('../../util/cluster')
+//const { reorderClustersByWaypointOrder } = require('../../util/cluster')
 
 const clusterize = require('./semolina')
 const prioritize = require('../prioritize')
@@ -91,7 +91,7 @@ const semolina = (dailyLimit) => {
         })
 
         // reorder the cluster's pineapples based on route (for writer, and rider)
-        reorderClustersByWaypointOrder(clusters)
+        //reorderClustersByWaypointOrder(clusters)
 
         // send email to writer and managers
         clusters.forEach(cluster => WriterService.sendEmail(cluster, managers))
