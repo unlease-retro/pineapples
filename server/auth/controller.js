@@ -30,7 +30,7 @@ exports.read = (req, res, next) => {
 
 exports.success = (req, res, next) => {
 
-  res.send('email sent!')
+  res.send('<h1 style="text-align: center;margin-top: 20%">Magic link sent! Please check your inbox 😁</h1>')
 
   return next()
 
