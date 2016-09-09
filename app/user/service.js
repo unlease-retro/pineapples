@@ -51,7 +51,7 @@ export const updateWriter = (id, data, index, resolve, reject) =>
     .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve({ index, writer: json.writer }) )
     .catch( e => reject(e) )
 
-export const deleteWriter = (id, index, resolve, reject) =>
+export const deleteWriter = (id, data, index, resolve, reject) =>
   API.remove(`writer/${id}`)
     .then( res => res.ok ? resolve({ index, res }) : reject(Error('Error deleting writer')) )
     .catch( e => reject(e) )

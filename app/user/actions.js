@@ -49,10 +49,10 @@ export const updateWriter = (id, data, index) => ({
   promise: () => new Promise( (resolve, reject) => service.updateWriter(id, data, index, resolve, reject) )
 })
 
-export const deleteWriter = (id, index) => ({
+export const deleteWriter = (id, data, index) => ({
   types: [ actions.DELETE_WRITER_REQUEST, actions.DELETE_WRITER_SUCCESS, actions.DELETE_WRITER_FAILURE ],
   payload: {},
-  promise: () => new Promise( (resolve, reject) => service.deleteWriter(id, index, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.deleteWriter(id, data, index, resolve, reject) )
 })
 
 export const changeRole = (selectedRole) => ({
