@@ -80,7 +80,7 @@ const addGoogleMapsLinks = (selectedCluster) => {
   let fromLat = depotLocation.get(1)
   let fromLng = depotLocation.get(0)
 
-  let constructedLinkForCluster = ''
+  let constructedLinkForCluster = `/${fromLat},${fromLng}`
 
   const pineapplesWithGoogleMapsLinks = pineapples.map((pineapple, index) => {
 
