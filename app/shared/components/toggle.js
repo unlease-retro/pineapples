@@ -30,6 +30,7 @@ Toggle.styles = StyleSheet.create({
     position: 'relative',
     cursor: 'pointer',
     userSelect: 'none',
+    '-webkitTapHighlightColor': 'transparent',
     ':before': {
       content: '""',
       width: '36px',

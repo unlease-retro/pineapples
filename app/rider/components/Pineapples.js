@@ -4,7 +4,7 @@
 import React from 'react'
 import Status from './Status'
 import Reason from './Reason'
-import { card as Card, grid as Grid, link as Link } from '../../shared/components'
+import { card as Card, divider as Divider, grid as Grid, link as Link } from '../../shared/components'
 
 const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { changeStatus, changeReason, submitChangedReason, changeReasonComment } }) => {
 
@@ -21,30 +21,32 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
         return (
           <Card disabled={item.get('delivered')} key={item.get('_id')}>
 
-            <Grid staticCells nonPaddedCells>
+            <Grid staticCells nonPaddedCells leftAlign>
               <div>From:</div>
               <div>{item.get('from')? item.get('from'): <i>Not specified</i>}</div>
             </Grid>
 
-            <Grid staticCells nonPaddedCells>
+            <Grid staticCells nonPaddedCells leftAlign>
               <div>To:</div>
               <div>{item.get('to')}</div>
             </Grid>
 
-            <Grid staticCells nonPaddedCells>
+            <Grid staticCells nonPaddedCells leftAlign>
               <div>Address:</div>
               <div>
                 <div>{item.get('companyName')}</div>
                 <div>{item.get('streetAddress')}</div>
                 <div>{item.get('postcode')}</div>
-                <div><Link href={item.get('googleMapsLink')} label='Map'/></div>
+                <div><Link href={item.get('googleMapsLink')} label='Map' theme='primary' /></div>
               </div>
             </Grid>
 
-            <Grid staticCells nonPaddedCells>
+            <Grid staticCells nonPaddedCells leftAlign>
               <div>Message:</div>
               <div>{item.get('message')}</div>
             </Grid>
+
+            <Divider />
 
             <Status item={item} actions={statusActions} />
 
