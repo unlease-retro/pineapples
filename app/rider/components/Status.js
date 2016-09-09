@@ -17,7 +17,7 @@ const Status = ({ item, actions: { changeStatus } }) => {
   }
 
   return <div className={ css(styles.base) }>
-    <Toggle label={'Delivered'} active={item.get('delivered')} callback={handleCheck} />
+    <Toggle label={item.get('delivered') ? 'Delivered' : 'Undelivered'} active={item.get('delivered')} callback={handleCheck} />
   </div>
 
 }
