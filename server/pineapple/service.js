@@ -102,8 +102,14 @@ exports.sendTrackingEmail = pineapple => {
 
 }
 
-exports.updateMultiple = (pineapplesIds, props) => {
+exports.updateManyByIds = (pineapplesIds, props) => {
 
   return Pineapple.update({ _id: { '$in': pineapplesIds } }, props, { multi: true }).exec()
+
+}
+
+exports.updateMany = (filter, props) => {
+
+  return Pineapple.update(filter, props, { multi: true }).exec()
 
 }

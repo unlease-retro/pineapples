@@ -46,7 +46,7 @@ Cluster.post('findOneAndUpdate', cluster => {
       .map(item => item._id)
 
   if (cluster.startedAt)
-    Pineapple.service.updateMultiple(pineapplesIds,
+    Pineapple.service.updateManyByIds(pineapplesIds,
       {dispatched: true, undeliveredReason: null, reasonComment: null, $inc: {attempts:1}}
     )
 
