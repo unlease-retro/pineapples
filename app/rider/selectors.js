@@ -19,13 +19,24 @@ const addHasUndeliveredReasons = selectedCluster => {
 
 }
 
+const addFinished = selectedCluster => {
+
+  const items = selectedCluster.get('items')
+
+  if (items.filter(item => !item.get('delivered') && !item.get('undeliveredReason')).size > 0)
+    return selectedCluster.set('finished', false)
+  else
+    return selectedCluster.set('finished', true)
+
+}
+
 
 export const getAll = state => state.get(name)
 export const getClusters = state => {
 
   const clusters = state.getIn([name, 'clusters'])
-  const clustersWithHasUndeliveredReasons = clusters.map(addHasUndeliveredReasons)
-  return clustersWithHasUndeliveredReasons
+  const clustersWithHasUndeliveredReasonsAndFinished = clusters.map(addHasUndeliveredReasons).map(addFinished)
+  return clustersWithHasUndeliveredReasonsAndFinished
 
 }
 

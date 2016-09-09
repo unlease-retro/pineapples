@@ -7,8 +7,8 @@ import { card as Card, icon as Icon } from '../../shared/components'
 
 const Cluster = ({ cluster, clusterIndex, actions: { selectCluster } }) => {
 
-  const renderDoneTick = cluster.get('finishedAt') ? <Icon name='check_circle' theme='accent'/> : null
-  const renderWarningTick = cluster.get('finishedAt') && cluster.get('hasUndeliveredReasons') ? <Icon name='warning' theme='pineapple'/> : null
+  const renderDoneTick = cluster.get('finished') ? <Icon name='check_circle' theme='accent'/> : null
+  const renderWarningTick = cluster.get('finished') && cluster.get('hasUndeliveredReasons') ? <Icon name='warning' theme='pineapple'/> : null
 
   return (
     <Card onClick={() => selectCluster(clusterIndex)}>
