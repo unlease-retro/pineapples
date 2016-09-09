@@ -18,7 +18,7 @@ const Delivery = ({ selectedCluster, viewAllButton, undeliveredReasonOptions, cl
   const clusterGoogleMapsLink = selectedCluster.get('googleMapsLink')
   const renderSelectedCluster = selectedCluster && selectedCluster.get('startedAt') ? <Pineapples selectedCluster={selectedCluster} undeliveredReasonOptions={undeliveredReasonOptions} actions={{ changeStatus, changeReason, submitChangedReason, changeReasonComment }} /> : null
   const renderStartButton = selectedCluster && !selectedCluster.get('startedAt') ? <Button label='Start' onClick={ () => startClusterDelivery(selectedCluster.get('_id')) } theme='accent' /> : null
-  const renderMapButton = selectedCluster && selectedCluster.get('startedAt') ? <Link label='Map' href={clusterGoogleMapsLink} /> : null
+  const renderMapButton = selectedCluster && selectedCluster.get('startedAt') ? <Link label='View Full Map' href={clusterGoogleMapsLink} /> : null
 
   return (
     <Wrap fullscreen>
