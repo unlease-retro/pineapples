@@ -28,8 +28,8 @@ export const updateUser = (id, data, index, resolve, reject) =>
     .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve({ index, user: json.user, snackbar: 'User updated, no problemo 😁'  }) )
     .catch( e => reject(e) )
 
-export const deleteUser = (id, index, resolve, reject) =>
-  API.remove(`user/${id}`)
+export const deleteUser = (id, data, index, resolve, reject) =>
+  API.remove(`user/${id}`, data)
     .then( res => res.ok ? resolve({ index, res }) : reject(Error('Error deleting writer')) )
     .catch( e => reject(e) )
 

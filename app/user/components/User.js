@@ -7,11 +7,11 @@ class User extends Component {
 
   render() {
 
-    const { _id } = this.props.user
+    const { _id, role } = this.props.user
     const { index } = this.props
-    
-    const handleRemove = () => this.props.remove(_id, index)
-    const handleUpdate = () => this.props.update(_id, { firstname: this.firstname, lastname: this.lastname, email: this.email }, index)
+
+    const handleRemove = () => this.props.remove(_id, { role }, index)
+    const handleUpdate = () => this.props.update(_id, { firstname: this.firstname, lastname: this.lastname, email: this.email, role }, index)
 
     const renderFirstname = this.props.user.firstname ? <Input defaultValue={this.props.user.firstname} placeholder='Firstname' onChange={ e => this.firstname = e.target.value } /> : null
     const renderLastname = this.props.user.lastname ? <Input defaultValue={this.props.user.lastname} placeholder='Lastname' onChange={ e => this.lastname = e.target.value } /> : null

@@ -25,10 +25,10 @@ export const updateUser = (id, data, index) => ({
   promise: () => new Promise( (resolve, reject) => service.updateUser(id, data, index, resolve, reject) )
 })
 
-export const deleteUser = (id, index) => ({
+export const deleteUser = (id, data, index) => ({
   types: [ actions.DELETE_USER_REQUEST, actions.DELETE_USER_SUCCESS, actions.DELETE_USER_FAILURE ],
   payload: {},
-  promise: () => new Promise( (resolve, reject) => service.deleteUser(id, index, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.deleteUser(id, data, index, resolve, reject) )
 })
 
 export const fetchWriters = () => ({
