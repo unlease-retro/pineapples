@@ -185,6 +185,7 @@ const sendNotificationEmailsIfNeeded = (clusterBefore, clusterAfter) => {
     else if (clusterBefore.rider && clusterAfter.rider) {
 
       EmailService.sendToRiderAfterAssignment(clusterAfter.rider.email, model)
+      model.riderName = clusterBefore.rider.firstname
       EmailService.sendToRiderAfterUnassignment(clusterBefore.rider.email, model)
 
     }
