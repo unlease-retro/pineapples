@@ -20,11 +20,6 @@ const { MANAGER } = require('../../../shared/constants').ROLES
 
 const semolina = (dailyLimit) => {
 
-  PineappleService.updateMany(
-    { $or: [{undeliveredReason: { $ne: null}}, {reasonComment: { $ne: null}}] },
-    { $set: {reasonComment: null, undeliveredReason: null} }
-  )
-
   // clear existing clusters data before insert
   return ClusterService.removeAll().then( () => {
 
