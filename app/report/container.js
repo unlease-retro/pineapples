@@ -5,8 +5,10 @@ import { createStructuredSelector } from 'reselect'
 
 import * as actions from './actions'
 import * as Components from './components'
+import { position as Position } from '../shared/components'
 // import * as SharedComponents from '../shared/components'
 import selectors from './selectors'
+import { perPage } from './constants'
 
 export class Report extends Component {
 
@@ -20,12 +22,15 @@ export class Report extends Component {
 
   render() {
 
-    const { fields, options, pineapples, actions } = this.props
+    const { fields, options, pineapples, actions, location: { query: { page } }, pineapplesCount } = this.props
     const { setSort } = actions
 
     return (
       <div>
         <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} />
+        <Position top='600px'>
+          <Components.pagination page={parseInt(page)} perPage={perPage} pineapplesCount={pineapplesCount}/>
+        </Position>
       </div>
     )
 

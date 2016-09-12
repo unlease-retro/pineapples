@@ -57,7 +57,21 @@ exports.update = (_id, props) => {
 
 exports.list = (filter = {}, limit = 0, skip = 0) => {
 
+  const list = {}
+
   return Pineapple.find(filter).skip(skip).limit(limit).sort({createdAt: 'asc'})
+  .then((pineapples) => {
+
+    list.pineapples = pineapples
+    return Pineapple.count(filter)
+
+  })
+  .then((count) => {
+
+    list.count = count
+    return list
+
+  })
 
 }
 
