@@ -226,3 +226,18 @@ exports.getDailyLimitStatus = (req, res, next) => {
   )
 
 }
+
+exports.getDailyLPineappleLeft = (req, res, next) => {
+
+  return ClusterService.findAllPineapplesInClusters().then(Pineapple.getTotalNumPineappleNotInDelivery).then(SettingsService.numPineappleLeftToday).then(
+
+    (numLeft) => {
+
+      res.json({ numLeft })
+      res.sendStatus(200)
+      return next()
+
+    }, e => next(e)
+  )
+
+}

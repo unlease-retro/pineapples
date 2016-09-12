@@ -24,3 +24,15 @@ exports.isDailyLimitReached = (count) => {
   })
 
 }
+
+exports.numPineappleLeftToday = (count) => {
+
+  return Settings.findOne({}).then((setting) => {
+    
+    let numLeft = setting.dailyLimit - count
+    
+    return Promise.resolve(numLeft < 0 ? 0 : numLeft)
+
+  })
+
+}

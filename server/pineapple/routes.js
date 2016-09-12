@@ -9,6 +9,7 @@ const { RIDER } = require('../shared/constants').ROLES
 const { restrictFor } = require('../auth/middleware')
 
 router.get( '/getDailyLimitStatus', controller.getDailyLimitStatus, (req, res, next) => next() )
+router.get( '/getDailyPineappleLeft', controller.getDailyLPineappleLeft, (req, res, next) => next() )
 router.post( '/', controller.checkDailyLimit, controller.create, (req, res, next) => next() )
 router.post( '/withoutPayment', controller.checkDailyLimit, controller.createWithoutPayment, (req, res, next) => next() )
 router.get( '/list/stats', passwordless.restricted(), restrictFor(RIDER), controller.ordersNotInClustersAndNotDelivered, (req, res, next) => next() )
