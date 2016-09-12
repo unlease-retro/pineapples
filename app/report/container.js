@@ -29,7 +29,11 @@ export class Report extends Component {
       <div>
         <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} />
         <Position top='600px'>
-          <Components.pagination page={parseInt(page)} perPage={perPage} pineapplesCount={pineapplesCount || 0} goToPage={this.goToPage.bind(this)}/>
+          <Components.pagination
+            page={parseInt(page)}
+            perPage={perPage}
+            pineapplesCount={pineapplesCount || 0}
+            goToPage={this.goToPage.bind(this)}/>
         </Position>
       </div>
     )
@@ -38,7 +42,8 @@ export class Report extends Component {
 
   goToPage(pageNumber) {
 
-    window.location = `/report?page=${pageNumber}`
+    const { actions: { fetchPineapples } } = this.props
+    fetchPineapples(pageNumber)
 
   }
 
