@@ -8,7 +8,7 @@ import { getSortedList } from '../../shared/util/virtualized'
 import { getCapitalised } from '../../shared/util'
 import { DISPLAY_FIELDS } from '../constants'
 
-const Table = ({ fields, list, options, setSort }) => {
+const Table = ({ fields, list, options, setSort, onSortClick }) => {
 
   const { styles } = Table
 
@@ -27,7 +27,12 @@ const Table = ({ fields, list, options, setSort }) => {
   const renderColumns = fields && fields.map( field => DISPLAY_FIELDS.indexOf(field) > -1 && ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(field)} dataKey={field} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
 
   // handle sort -> dispatch action
-  const onSort = ({ sortBy, sortDirection }) => setSort({ sortBy, sortDirection })
+  const onSort = ({ sortBy, sortDirection }) => {
+
+    setSort({ sortBy, sortDirection })
+    onSortClick({ sortBy, sortDirection })
+
+  }
 
   // custom renderer if no data
   const noRowsRenderer = () => ( <div className={css(styles.noRows)}>No rows</div> )

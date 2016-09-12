@@ -131,10 +131,10 @@ exports.update = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  const page = req.query.page || 0
-  const { skip, limit } = mapPageToSkipAndLimit(parseInt(page))
+  const { page, sortBy, sortDirection } = req.query
+  const { skip, limit } = mapPageToSkipAndLimit(parseInt(page || 0))
 
-  return Pineapple.list({}, limit, skip)
+  return Pineapple.list({}, limit, skip, sortBy, sortDirection.toLowerCase())
     .then( ({ pineapples, count: pineapplesCount }) => {
 
       res.json({ pineapples, pineapplesCount })

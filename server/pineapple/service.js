@@ -55,11 +55,11 @@ exports.update = (_id, props) => {
 
 }
 
-exports.list = (filter = {}, limit = 0, skip = 0) => {
+exports.list = (filter = {}, limit = 0, skip = 0, sortBy = 'createdAt', sortDirection = 'asc') => {
 
   const list = {}
 
-  return Pineapple.find(filter).skip(skip).limit(limit).sort({createdAt: 'asc'})
+  return Pineapple.find(filter).skip(skip).limit(limit).sort({[sortBy]: sortDirection})
   .then((pineapples) => {
 
     list.pineapples = pineapples

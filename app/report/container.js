@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { push } from 'react-router-redux'
 
 import * as actions from './actions'
 import * as Components from './components'
@@ -9,14 +10,15 @@ import { position as Position } from '../shared/components'
 // import * as SharedComponents from '../shared/components'
 import selectors from './selectors'
 import { perPage } from './constants'
+import { buildLocationForReport } from '../shared/util/location'
 
 export class Report extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchPineapples }, location: { query: { page } } } = this.props
+    const { actions: { fetchPineapples }, location: { query: { page, sortBy, sortDirection } } } = this.props
 
-    fetchPineapples(page)
+    fetchPineapples(page, sortBy, sortDirection)
 
   }
 
@@ -27,7 +29,7 @@ export class Report extends Component {
 
     return (
       <div>
-        <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} />
+        <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)}/>
         <Position top='600px'>
           <Components.pagination
             page={parseInt(page)}
@@ -40,10 +42,19 @@ export class Report extends Component {
 
   }
 
-  goToPage(pageNumber) {
+  goToPage(page) {
 
-    const { actions: { fetchPineapples } } = this.props
-    fetchPineapples(pageNumber)
+    const { actions: { fetchPineapples }, location: { query: { sortBy, sortDirection } }, dispatch } = this.props
+    fetchPineapples(page, sortBy, sortDirection)
+    dispatch(push(buildLocationForReport(page, sortBy, sortDirection)))
+
+  }
+
+  onSortClick({ sortBy, sortDirection }) {
+
+    const { actions: { fetchPineapples }, location: { query: { page } }, dispatch } = this.props
+    fetchPineapples(page, sortBy, sortDirection)
+    dispatch(push(buildLocationForReport(page, sortBy, sortDirection)))
 
   }
 
