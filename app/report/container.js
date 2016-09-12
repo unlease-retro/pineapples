@@ -12,9 +12,9 @@ export class Report extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchPineapples } } = this.props
+    const { actions: { fetchPineapples }, location: { query: { page } } } = this.props
 
-    fetchPineapples()
+    fetchPineapples(page)
 
   }
 

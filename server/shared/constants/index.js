@@ -36,3 +36,5 @@ exports.MAP_ROUTE_OPTIONS = {
   region: 'gb',
   optimize: true,
 }
+
+exports.pageLimit = 20

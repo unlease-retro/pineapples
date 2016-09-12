@@ -3,6 +3,7 @@ const Payment = require('../shared/services/payment/payment')
 const ClusterService = require('../cluster/service')
 const SettingsService = require('../settings/service')
 const {ERROR} = require('../shared/constants')
+const { getQueryForPage } = require('../shared/util/pagination')
 exports.create = (req, res, next) => {
 
   let pineapple = Pineapple.getPineappleFromReq(req.body)
@@ -130,7 +131,10 @@ exports.update = (req, res, next) => {
 
 exports.list = (req, res, next) => {
 
-  return Pineapple.list()
+  const page = req.query.page || 0
+  const { skip, limit } = getQueryForPage(parseInt(page))
+
+  return Pineapple.list({}, limit, skip)
     .then( pineapples => {
 
       res.json({ pineapples })
