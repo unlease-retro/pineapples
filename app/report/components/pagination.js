@@ -1,10 +1,10 @@
 /**
  * Created by BigaMasta on 9/12/16.
  */
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Paginate from 'react-js-pagination'
 
-class pagination extends React.Component {
+class Pagination extends React.Component {
 
   render() {
 
@@ -18,8 +18,7 @@ class pagination extends React.Component {
           itemsCountPerPage={perPage}
           totalItemsCount={pineapplesCount || 0}
           pageRangeDisplayed={5}
-          onChange={goToPage}
-        />
+          onChange={goToPage} />
 
       </div>
     )
@@ -28,4 +27,11 @@ class pagination extends React.Component {
 
 }
 
-export default pagination
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  perPage: PropTypes.number.isRequired,
+  pineapplesCount: PropTypes.number.isRequired,
+  goToPage: PropTypes.func.isRequired
+}
+
+export default Pagination
