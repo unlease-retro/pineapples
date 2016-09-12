@@ -8,8 +8,7 @@ class pagination extends React.Component {
 
   render() {
 
-    const { page, perPage, pineapplesCount } = this.props
-    console.log(pineapplesCount)
+    const { page, perPage, pineapplesCount, goToPage } = this.props
 
     return (
       <div>
@@ -19,17 +18,11 @@ class pagination extends React.Component {
           itemsCountPerPage={perPage}
           totalItemsCount={pineapplesCount || 0}
           pageRangeDisplayed={5}
-          onChange={this._handlePageClick}
+          onChange={goToPage}
         />
 
       </div>
     )
-
-  }
-
-  _handlePageClick(pageNumber) {
-
-    console.log(`active page is ${pageNumber}`)
 
   }
 
