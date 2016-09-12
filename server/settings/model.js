@@ -10,6 +10,7 @@ const Settings = new Schema({
   active: { type: Boolean, required: true, default: true },
   postcodes: [String],
   unitPriceInPence : { type: Number, required: true },
+  resetAfterCutOff: { type: Boolean, required: true, default: false },
   currency : { type: String, required: true },
 }, {
   timestamps: true

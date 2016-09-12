@@ -36,3 +36,14 @@ exports.numPineappleLeftToday = (count) => {
   })
 
 }
+
+exports.resetIfNeeded = () => {
+
+  Settings.findOne({}).then((setting) => {
+
+    if (setting.resetAfterCutOff)
+      Settings.update({}, {dailyLimit: 0}).exec()
+
+  })
+
+}

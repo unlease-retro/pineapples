@@ -94,6 +94,11 @@ exports.generate = (req, res, next) => {
       exports.list(req, res, next)
 
     }, e => next(e) )
+    .then( ()=> {
+      
+      SettingsService.resetIfNeeded()
+      
+    }, e => next(e) )
 
 }
 
