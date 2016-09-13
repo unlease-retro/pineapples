@@ -10,7 +10,7 @@ import { position as Position } from '../shared/components'
 // import * as SharedComponents from '../shared/components'
 import selectors from './selectors'
 import { perPage } from './constants'
-import { buildLocationForReport } from '../shared/util/location'
+import { buildLocationForReport, buildLocationForOrderInfo } from '../shared/util/location'
 
 export class Report extends Component {
 
@@ -29,7 +29,7 @@ export class Report extends Component {
 
     return (
       <div>
-        <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)}/>
+        <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} onRowItemClick={this.goToOrder.bind(this)}/>
         <Position top='600px' left='100px'>
           <Components.pagination
             page={parseInt(page)}
@@ -39,6 +39,14 @@ export class Report extends Component {
         </Position>
       </div>
     )
+
+  }
+
+  goToOrder(row) {
+
+    const id = row.get('_id')
+    const { dispatch } = this.props
+    dispatch(push(buildLocationForOrderInfo(id)))
 
   }
 

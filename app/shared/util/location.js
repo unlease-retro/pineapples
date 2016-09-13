@@ -5,3 +5,5 @@
 export const buildLocationForReport = (page = '', sortBy = '', sortDirection = '') =>
   `/report?${page && `page=${page}`}${sortBy && `&sortBy=${sortBy}`}${sortDirection && `&sortDirection=${sortDirection}`}`
 
+export const buildLocationForOrderInfo = id =>
+  `/report/pineapples/${id}`

@@ -8,7 +8,7 @@ import { getSortedList } from '../../shared/util/virtualized'
 import { getCapitalised } from '../../shared/util'
 import { DISPLAY_FIELDS } from '../constants'
 
-const Table = ({ fields, list, options, setSort, onSortClick }) => {
+const Table = ({ fields, list, options, setSort, onSortClick, onRowItemClick }) => {
 
   const { styles } = Table
 
@@ -33,6 +33,8 @@ const Table = ({ fields, list, options, setSort, onSortClick }) => {
     onSortClick({ sortBy, sortDirection })
 
   }
+
+  const onRowClick = ({ index }) => onRowItemClick(rowGetter({ index }))
 
   // custom renderer if no data
   const noRowsRenderer = () => ( <div className={css(styles.noRows)}>No rows</div> )
@@ -62,6 +64,7 @@ const Table = ({ fields, list, options, setSort, onSortClick }) => {
             sortDirection={sortDirection}
             useDynamicRowHeight={useDynamicRowHeight}
             noRowsRenderer={noRowsRenderer}
+            onRowClick={onRowClick}
           >
             { renderColumns }
           </FlexTable>
