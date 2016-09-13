@@ -12,10 +12,10 @@ export const initialState = Immutable.fromJS({
   options: {
     disableHeader: false,
     headerHeight: 30,
-    height: 500,
+    height: 1000,
     overscanRowCount: 10,
     rowHeight: 40,
-    rowCount: 1000,
+    rowCount: 840,
     sortEnabled: true,
     sortBy: 'createdAt',
     sortDirection: SortDirection.ASC,
