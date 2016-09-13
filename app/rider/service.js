@@ -16,7 +16,7 @@ export const changeStatus = (id, status, pineappleIndex, resolve, reject) =>
     .catch( e => reject(e) )
 
 export const changeReason = (id, reason, comment, pineappleIndex, resolve, reject) =>
-  API.put(`pineapple/${id}`, { undeliveredReason: reason, reasonComment: comment })
+  API.put(`pineapple/${id}`, { undeliveredReason: reason, reasonComment: comment, deliverable: false })
     .then( res => res.json() )
     .then( json => json.errMsg ? reject(Error(json.errMsg)) : resolve({ ...json, pineappleIndex, snackbar: 'Pineapple undelivered reason updated! 👍' }) )
     .catch( e => reject(e) )
