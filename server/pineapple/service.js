@@ -26,6 +26,7 @@ exports.getPineappleFromReq = ( props ) => {
     companyName : props.data.companyName,
     message : props.data.message,
     discountCode : props.data.discountCode,
+    phoneNumber : props.data.phoneNumber,
     location: {
 
       type: 'Point',

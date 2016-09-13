@@ -11,6 +11,7 @@ const Pineapple = new Schema({
   country: String,
   postcode:  { type: String, required: true },
   from: String,
+  phoneNumber: { type: String, required: true },
   to: { type: String, required: true },
   message: { type: String, required: true },
   senderEmail: { type: String, index: true, required: true},
