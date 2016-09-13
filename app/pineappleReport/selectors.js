@@ -18,8 +18,10 @@ const getDispatched = createSelector( [ getPineapple ], pineapple => pineapple &
 const getCreatedAt = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('createdAt') )
 const getTo = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('to') )
 const getDeliverable = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('deliverable') )
+const getId = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('_id') )
 
 export default {
+  id: getId,
   delivered: getDelivered,
   attempts: getAttempts,
   message: getMessage,

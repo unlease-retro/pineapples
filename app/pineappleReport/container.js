@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { css, StyleSheet } from 'aphrodite/no-important'
+import { grid as Grid, divider as Divider } from '../shared/components'
 
 import * as actions from './actions'
 //import * as Components from './components'
 import selectors from './selectors'
 
-export class Report extends Component {
+export class PineappleReport extends Component {
 
   componentWillMount() {
 
@@ -19,7 +21,10 @@ export class Report extends Component {
 
   render() {
 
+    const { styles } = PineappleReport
+
     const {
+      id,
       delivered,
       attempts,
       message,
@@ -35,29 +40,96 @@ export class Report extends Component {
     } = this.props
 
     return (
-      <div>
-        <div>DELIVERED {delivered ? 'yes' : 'no'}</div>
-        <div>ATTEMPTS {attempts}</div>
-        <div>MESSAGE {message}</div>
-        <div>SENDEREMAIL {senderEmail}</div>
-        <div>COMPANYNAME {companyName}</div>
-        <div>FROM {from || 'Not specified'}</div>
-        <div>POSTCODE {postcode}</div>
-        <div>STREETADDRESS {streetAddress}</div>
-        <div>DISPATCHED {dispatched ? 'yes' : 'no'}</div>
-        <div>CREATEDAT {createdAt}</div>
-        <div>TO {to}</div>
-        <div>DELIVERABLE {deliverable ? 'yes' : 'no'}</div>
+      <div className={ css(styles.overallBackground) }>
+        <div className={ css(styles.overall) }>
+          <h1 className={ css(styles.h1) }>Order Info</h1>
+          <div className={ css(styles.overallTable) }>
+
+            <Grid>
+              <label>ID</label>
+              <div>{id}</div>
+            </Grid>
+            <Grid>
+              <label>SENDER NAME</label>
+              <div>{from || 'Not specified'}</div>
+            </Grid>
+            <Grid>
+              <label>SENDER EMAIL</label>
+              <div>{senderEmail}</div>
+            </Grid>
+            <Divider theme='dark'/>
+            <Grid>
+              <label>COMPANY NAME</label>
+              <div>{companyName}</div>
+            </Grid>
+            <Grid>
+              <label>RECEIVER NAME</label>
+              <div>{to}</div>
+            </Grid>
+            <Grid>
+              <label>STREET ADDRESS</label>
+              <div>{streetAddress}</div>
+            </Grid>
+            <Grid>
+              <label>POSTCODE</label>
+              <div>{postcode}</div>
+            </Grid>
+            <Grid>
+              <label>MESSAGE</label>
+              <div>{message}</div>
+            </Grid>
+            <Divider theme='dark'/>
+            <Grid>
+              <label>ATTEMPTS</label>
+              <div>{attempts}</div>
+            </Grid>
+            <Grid>
+              <label>CREATED AT</label>
+              <div>{new Date(createdAt).toLocaleDateString('en-GB')}</div>
+            </Grid>
+            <Grid>
+              <label>STATUS</label>
+              <div>
+                {deliverable ? 'deliverable, ' : 'not deliverable, '}
+                <br/>
+                {dispatched ? 'dispatched, ' : 'not dispatched, '}
+                <br/>
+                {delivered ? 'delivered' : 'not delivered'}
+              </div>
+            </Grid>
+          </div>
+        </div>
       </div>
+
     )
 
   }
 
 }
 
+PineappleReport.styles = StyleSheet.create({
+  overallTable: {
+    width: '400px',
+    margin: '20px auto',
+    border: '2px solid black',
+    padding: '20px',
+    borderRadius: '10px'
+  },
+  overall: {
+    padding: '40px',
+  },
+  overallBackground: {
+    backgroundColor: '#fdd56f',
+    height: '100%'
+  },
+  h1: {
+    textAlign: 'center'
+  },
+})
+
 export default connect(
   createStructuredSelector({ ...selectors }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
   })
-)(Report)
+)(PineappleReport)
