@@ -120,7 +120,7 @@ PineappleReport.styles = StyleSheet.create({
   },
   overallBackground: {
     backgroundColor: '#fdd56f',
-    height: '100%'
+    height: 'auto !important'
   },
   h1: {
     textAlign: 'center'
