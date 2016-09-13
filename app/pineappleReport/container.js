@@ -40,7 +40,7 @@ export class PineappleReport extends Component {
     } = this.props
 
     return (
-      <div className={ css(styles.overallBackground) }>
+      <div>
         <div className={ css(styles.overall) }>
           <h1 className={ css(styles.h1) }>Order Info</h1>
           <div className={ css(styles.overallTable) }>
@@ -117,10 +117,6 @@ PineappleReport.styles = StyleSheet.create({
   },
   overall: {
     padding: '40px',
-  },
-  overallBackground: {
-    backgroundColor: '#fdd56f',
-    height: 'auto !important'
   },
   h1: {
     textAlign: 'center'
