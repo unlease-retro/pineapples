@@ -37,7 +37,8 @@ export class PineappleReport extends Component {
       createdAt,
       to,
       deliverable,
-      reason
+      reason,
+      phoneNumber
     } = this.props
 
     return (
@@ -66,6 +67,10 @@ export class PineappleReport extends Component {
             <Grid>
               <label>RECEIVER NAME</label>
               <div>{to}</div>
+            </Grid>
+            <Grid>
+              <label>RECEIVER PHONE NUMBER</label>
+              <div>{phoneNumber || 'Not specified'}</div>
             </Grid>
             <Grid>
               <label>STREET ADDRESS</label>

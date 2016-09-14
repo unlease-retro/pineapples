@@ -20,6 +20,7 @@ const getTo = createSelector( [ getPineapple ], pineapple => pineapple && pineap
 const getDeliverable = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('deliverable') )
 const getId = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('_id') )
 const getReason = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('undeliveredReason') )
+const getPhoneNumber = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('phoneNumber') )
 
 export default {
   id: getId,
@@ -35,5 +36,6 @@ export default {
   createdAt: getCreatedAt,
   to: getTo,
   deliverable: getDeliverable,
-  reason: getReason
+  reason: getReason,
+  phoneNumber: getPhoneNumber
 }

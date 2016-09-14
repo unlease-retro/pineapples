@@ -55,7 +55,13 @@ exports.update = (_id, props) => {
 
 }
 
-exports.list = (filter = {}, limit = 0, skip = 0, sortBy = 'createdAt', sortDirection = 'asc') => {
+exports.list = (filter = {}, limit = 0) => {
+
+  return Pineapple.find(filter).limit(limit).sort({createdAt: 'asc'})
+
+}
+
+exports.filteredList = (filter = {}, limit = 0, skip = 0, sortBy = 'createdAt', sortDirection = 'asc') => {
 
   const list = {}
 

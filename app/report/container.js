@@ -7,7 +7,6 @@ import { push } from 'react-router-redux'
 import * as actions from './actions'
 import * as Components from './components'
 import { position as Position } from '../shared/components'
-// import * as SharedComponents from '../shared/components'
 import selectors from './selectors'
 import { perPage } from './constants'
 import { buildLocationForReport, buildLocationForOrderInfo } from '../shared/util/location'
@@ -24,12 +23,12 @@ export class Report extends Component {
 
   render() {
 
-    const { fields, options, pineapples, actions, location: { query: { page } }, pineapplesCount } = this.props
+    const { options, pineapples, actions, location: { query: { page } }, pineapplesCount } = this.props
     const { setSort } = actions
 
     return (
       <div>
-        <Components.table fields={fields} list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} onRowItemClick={this.goToOrder.bind(this)}/>
+        <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} onRowItemClick={this.goToOrder.bind(this)}/>
         <Position top='840px' left='calc(50% - 116px)'>
           <Components.pagination
             page={parseInt(page) || 0}

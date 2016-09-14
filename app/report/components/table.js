@@ -8,7 +8,7 @@ import { getSortedList } from '../../shared/util/virtualized'
 import { getCapitalised } from '../../shared/util'
 import { DISPLAY_FIELDS } from '../constants'
 
-const Table = ({ fields, list, options, setSort, onSortClick, onRowItemClick }) => {
+const Table = ({ list, options, setSort, onSortClick, onRowItemClick }) => {
 
   const { styles } = Table
 
@@ -24,7 +24,7 @@ const Table = ({ fields, list, options, setSort, onSortClick, onRowItemClick }) 
   const headerRenderer = ({ dataKey, label, sortBy, sortDirection }) => ( <div>{ label } { sortBy === dataKey && <SortIndicator sortDirection={sortDirection} /> } </div> )
 
   // TODO - may need to do this manually if want to order fields in table
-  const renderColumns = fields && fields.map( field => DISPLAY_FIELDS.indexOf(field) > -1 && ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(field)} dataKey={field} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
+  const renderColumns = DISPLAY_FIELDS.map( field => ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(field)} dataKey={field} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
 
   // handle sort -> dispatch action
   const onSort = ({ sortBy, sortDirection }) => {
