@@ -3,6 +3,7 @@
  */
 import React from 'react'
 
+import FilterBuilder from './FilterBuilder'
 import { button as Button } from '../../shared/components'
 
 class filter extends React.Component {
@@ -17,9 +18,12 @@ class filter extends React.Component {
       theme='accent'
     /> : null
 
+    const renderFilterBuilder = filterShown ? <FilterBuilder /> : null
+
     return (
       <div>
         {renderAddFilterButton}
+        {renderFilterBuilder}
       </div>
     )
 
