@@ -10,7 +10,7 @@ import { position as Position } from '../shared/components'
 import selectors from './selectors'
 import { perPage } from './constants'
 import { buildLocationForReport, buildLocationForOrderInfo } from '../shared/util/location'
-import { toQueryString } from '../../server/shared/util/misc'
+import { toQueryString, objectWithStrippedProps } from '../../server/shared/util/misc'
 
 export class Report extends Component {
 
@@ -29,7 +29,7 @@ export class Report extends Component {
 
     return (
       <div>
-        <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} onRowItemClick={this.goToOrder.bind(this)}/>
+        <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='940px' left='calc(50% - 116px)'>
           <Components.pagination
             page={parseInt(page) || 0}
@@ -62,7 +62,7 @@ export class Report extends Component {
   onSortClick({ sortBy, sortDirection }) {
 
     const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
-    const queryString = toQueryString({ ...query, sortBy, sortDirection })
+    const queryString = toQueryString(objectWithStrippedProps({ ...query, sortBy, sortDirection }, 'page'))
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
 
