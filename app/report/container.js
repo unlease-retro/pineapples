@@ -30,7 +30,7 @@ export class Report extends Component {
     return (
       <div>
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} onRowItemClick={this.goToOrder.bind(this)}/>
-        <Position top='840px' left='calc(50% - 116px)'>
+        <Position top='940px' left='calc(50% - 116px)'>
           <Components.pagination
             page={parseInt(page) || 0}
             perPage={perPage}
