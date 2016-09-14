@@ -15,3 +15,12 @@ export const setSort = props => ({
     }
   }
 })
+
+export const setFilterShown = filterShown => ({
+  type: actions.SET_FILTER_SHOWN,
+  payload: {
+    filterOptions: {
+      filterShown
+    }
+  }
+})

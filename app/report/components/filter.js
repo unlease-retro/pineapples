@@ -9,11 +9,11 @@ class filter extends React.Component {
 
   render() {
 
-    const { filterShown } = this.props
+    const { setFilterShown, filterShown } = this.props
 
-    const renderAddFilterButton = !filterShown ?  <Button
+    const renderAddFilterButton = !filterShown ? <Button
       label='Add filter'
-      onClick={() => console.log('update store')}
+      onClick={() => setFilterShown(!filterShown)}
       theme='accent'
     /> : null
 

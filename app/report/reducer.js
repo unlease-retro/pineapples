@@ -30,6 +30,7 @@ export const initialState = Immutable.fromJS({
 export default createReducer(initialState, {
 
   [actions.SET_SORT]: mergeDeepToState,
+  [actions.SET_FILTER_SHOWN]: mergeDeepToState,
 
   [actions.FETCH_PINEAPPLES_REQUEST]: mergeToState,
   [actions.FETCH_PINEAPPLES_SUCCESS]: mergeToState,
