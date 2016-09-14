@@ -23,7 +23,6 @@ const Table = ({ list, options, setSort, onSortClick, onRowItemClick }) => {
   // make headers sortable
   const headerRenderer = ({ dataKey, label, sortBy, sortDirection }) => ( <div>{ label } { sortBy === dataKey && <SortIndicator sortDirection={sortDirection} /> } </div> )
 
-  // TODO - may need to do this manually if want to order fields in table
   const renderColumns = DISPLAY_FIELDS.map( field => ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(field)} dataKey={field} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
 
   // handle sort -> dispatch action
