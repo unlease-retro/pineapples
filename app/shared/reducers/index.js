@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux-immutablejs'
+import { reducer as formReducer } from 'redux-form'
 import routerReducer from './router'
 import * as Admin from '../../admin'
 import * as PineappleReport from '../../pineappleReport'
@@ -15,4 +16,5 @@ export default combineReducers({
   [Rider.name]: Rider.reducer,
   [UI.name]: UI.reducer,
   [User.name]: User.reducer,
+  form: formReducer
 })

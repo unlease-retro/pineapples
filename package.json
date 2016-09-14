@@ -88,6 +88,7 @@
     "react-select": "^1.0.0-beta14",
     "react-virtualized": "^7.23.0",
     "redux": "^3.5.2",
+    "redux-form": "^6.0.2",
     "redux-immutablejs": "0.0.8",
     "redux-logger": "^2.6.1",
     "remove": "^0.1.5",
