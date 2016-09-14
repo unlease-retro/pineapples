@@ -8,7 +8,7 @@ import { adjustColour } from '../util'
 
 import { icon as Icon } from './'
 
-const Button = ({ label, onClick, theme, disabled }) => {
+const Button = ({ label, onClick, theme, disabled, style }) => {
 
   const { styles } = Button
 
@@ -17,7 +17,7 @@ const Button = ({ label, onClick, theme, disabled }) => {
   const renderLabel = theme === 'icon' ? <Icon name={label} /> : <span className={ css(styles.label) }>{ label }</span>
 
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className} onClick={onClick} style={style}>
 
       { renderLabel }
 

@@ -3,6 +3,7 @@ const Payment = require('../shared/services/payment/payment')
 const ClusterService = require('../cluster/service')
 const SettingsService = require('../settings/service')
 const {ERROR} = require('../shared/constants')
+const { mapPageToSkipAndLimit } = require('../shared/util/pagination')
 exports.create = (req, res, next) => {
 
   let pineapple = Pineapple.getPineappleFromReq(req.body)
@@ -127,15 +128,26 @@ exports.update = (req, res, next) => {
     }, e => next(e) )
 
 }
-
 exports.list = (req, res, next) => {
-
-  console.log(req.query)
 
   return Pineapple.list()
     .then( pineapples => {
 
-      res.json({ pineapples })
+      res.json({pineapples})
+      return next()
+    
+    })
+    
+}
+exports.filteredList = (req, res, next) => {
+
+  const { page, sortBy, sortDirection } = req.query
+  const { skip, limit } = mapPageToSkipAndLimit(parseInt(page || 0))
+
+  return Pineapple.filteredList({}, limit, skip, sortBy, sortDirection.toLowerCase())
+    .then( ({ pineapples, count: pineapplesCount }) => {
+
+      res.json({ pineapples, pineapplesCount })
 
       return next()
 

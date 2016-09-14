@@ -62,6 +62,26 @@ exports.list = (filter = {}, limit = 0) => {
 
 }
 
+exports.filteredList = (filter = {}, limit = 0, skip = 0, sortBy = 'createdAt', sortDirection = 'asc') => {
+
+  const list = {}
+
+  return Pineapple.find(filter).skip(skip).limit(limit).sort({[sortBy]: sortDirection})
+  .then((pineapples) => {
+
+    list.pineapples = pineapples
+    return Pineapple.count(filter)
+
+  })
+  .then((count) => {
+
+    list.count = count
+    return list
+
+  })
+
+}
+
 exports.track = trackingId => {
 
   return Pineapple.findOne({ _id: trackingId })

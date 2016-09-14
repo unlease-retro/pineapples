@@ -21,6 +21,8 @@ export const getHoursMins = d => {
 
 }
 
+export const getCapitalised = string => string.replace( /\b\w/g, l => l.toUpperCase() )
+
 export const getActionType = type => type.indexOf(REQUEST) >= 0 && REQUEST || type.indexOf(SUCCESS) >= 0 && SUCCESS || type.indexOf(FAILURE) >= 0 && FAILURE || type.indexOf(UI_ACTION) >= 0 && UI_ACTION
 
 export const adjustColour = (colour, amount) => {

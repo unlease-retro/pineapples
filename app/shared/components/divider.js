@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from 'styles/settings'
 
-const Divider = () => (
-  <hr className={ css(styles.divider) } />
+const Divider = ({ theme }) => (
+  <hr className={ css(styles.divider, theme && styles[theme]) } />
 )
 
 const styles = StyleSheet.create({
@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     padding: '0',
     backgroundColor: colors.ltgrey,
   },
+  dark: {
+    backgroundColor: colors.dark
+  }
 })
 
 export default Divider

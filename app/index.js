@@ -6,6 +6,7 @@ import Root from './shared/containers/Root'
 // library and global styles
 import 'normalize.css'
 import 'react-select/dist/react-select.css'
+import 'react-virtualized/styles.css'
 import 'styles/app.css'
 
 // react perf tool
