@@ -4,6 +4,8 @@ const ClusterService = require('../cluster/service')
 const SettingsService = require('../settings/service')
 const {ERROR} = require('../shared/constants')
 const { mapPageToSkipAndLimit } = require('../shared/util/pagination')
+const { objectWithStrippedProps } = require('../shared/util/misc')
+
 exports.create = (req, res, next) => {
 
   let pineapple = Pineapple.getPineappleFromReq(req.body)
@@ -142,9 +144,13 @@ exports.list = (req, res, next) => {
 exports.filteredList = (req, res, next) => {
 
   const { page, sortBy, sortDirection } = req.query
-  const { skip, limit } = mapPageToSkipAndLimit(parseInt(page || 0))
 
-  return Pineapple.filteredList({}, limit, skip, sortBy, sortDirection.toLowerCase())
+  // strip out every expected prop, and treat others as filter
+  const filter = objectWithStrippedProps(req.query, 'page', 'sortBy', 'sortDirection')
+
+  const { skip, limit } = mapPageToSkipAndLimit(parseInt(page || 1))
+
+  return Pineapple.filteredList(filter, limit, skip, sortBy, sortDirection && sortDirection.toLowerCase())
     .then( ({ pineapples, count: pineapplesCount }) => {
 
       res.json({ pineapples, pineapplesCount })

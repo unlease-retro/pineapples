@@ -10,14 +10,15 @@ import { position as Position } from '../shared/components'
 import selectors from './selectors'
 import { perPage } from './constants'
 import { buildLocationForReport, buildLocationForOrderInfo } from '../shared/util/location'
+import { toQueryString } from '../../server/shared/util/misc'
 
 export class Report extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchPineapples }, location: { query: { page, sortBy, sortDirection } } } = this.props
+    const { actions: { fetchPineapples }, location: { query } } = this.props
 
-    fetchPineapples(page, sortBy, sortDirection)
+    fetchPineapples(toQueryString(query))
 
   }
 
@@ -51,17 +52,19 @@ export class Report extends Component {
 
   goToPage(page) {
 
-    const { actions: { fetchPineapples }, location: { query: { sortBy, sortDirection } }, dispatch } = this.props
-    fetchPineapples(page, sortBy, sortDirection)
-    dispatch(push(buildLocationForReport(page, sortBy, sortDirection)))
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString({ ...query, page })
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
 
   }
 
   onSortClick({ sortBy, sortDirection }) {
 
-    const { actions: { fetchPineapples }, location: { query: { page } }, dispatch } = this.props
-    fetchPineapples(page, sortBy, sortDirection)
-    dispatch(push(buildLocationForReport(page, sortBy, sortDirection)))
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString({ ...query, sortBy, sortDirection })
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
 
   }
 
