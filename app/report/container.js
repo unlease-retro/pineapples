@@ -24,11 +24,14 @@ export class Report extends Component {
 
   render() {
 
-    const { options, pineapples, actions, location: { query: { page } }, pineapplesCount } = this.props
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query: { page } }, pineapplesCount } = this.props
     const { setSort } = actions
 
     return (
       <div>
+        <Position top='20px' left='20px'>
+          <Components.filter filterShown={filterShown} filters={filters} />
+        </Position>
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='940px' left='calc(50% - 116px)'>
           <Components.pagination

@@ -20,6 +20,10 @@ export const initialState = Immutable.fromJS({
     sortBy: 'createdAt',
     sortDirection: SortDirection.ASC,
     useDynamicRowHeight: false,
+  },
+  filterOptions: {
+    filterShown: false,
+    filters: {}
   }
 })
 
