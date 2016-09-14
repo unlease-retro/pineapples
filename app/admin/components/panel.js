@@ -4,7 +4,7 @@ import { colors, media } from 'styles/settings'
 
 import * as Components from './'
 import * as SharedComponents from '../../shared/components'
-
+import {buildLocationForOrderInfo} from '../../shared/util/location'
 const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterDepotName, clusterDepotPosition, clusterRiderId, clusterDeliverable, clusterColour, clusterUndeliverablePineapples, clusterTotalPineapples, clusterDistance, clusterDuration, clusterDelivered, clusterStatus, riders, totalClusters, fetchRiders, selectCluster, updateCluster, setMapCenter }) => {
 
   const style = {
@@ -40,7 +40,10 @@ const Panel = ({ clusterIndex, clusterId, clusterName, clusterPosition, clusterD
   const renderUndeliverablePineapples = clusterUndeliverablePineapples.length > 0 ? (
     <SharedComponents.row>
       <div className={ css(styles.label) }>{clusterUndeliverablePineapples.length} undeliverable pineapples:</div>
-      { clusterUndeliverablePineapples.map( pineapple => <div className={ css(styles.list) } key={ pineapple.get('_id') }>{ pineapple.get('_id') } ({ pineapple.get('undeliveredReason') })</div> ) }
+      { clusterUndeliverablePineapples.map( pineapple => <div className={ css(styles.list) } key={ pineapple.get('_id') }>
+        <a href={buildLocationForOrderInfo(pineapple.get('_id'))} target='_blank'>{ pineapple.get('_id') } ({ pineapple.get('undeliveredReason') })
+        </a>
+      </div> ) }
     </SharedComponents.row>
   ) : null
 
