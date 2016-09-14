@@ -36,7 +36,8 @@ export class PineappleReport extends Component {
       dispatched,
       createdAt,
       to,
-      deliverable
+      deliverable,
+      reason
     } = this.props
 
     return (
@@ -96,6 +97,10 @@ export class PineappleReport extends Component {
                 <br/>
                 {delivered ? 'delivered' : 'not delivered'}
               </div>
+            </Grid>
+            <Grid>
+              <label>REASON FOR UNDELIVERY</label>
+              <div>{reason || 'Not specified'}</div>
             </Grid>
           </div>
         </div>

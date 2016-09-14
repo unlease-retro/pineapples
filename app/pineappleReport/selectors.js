@@ -19,6 +19,7 @@ const getCreatedAt = createSelector( [ getPineapple ], pineapple => pineapple &&
 const getTo = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('to') )
 const getDeliverable = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('deliverable') )
 const getId = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('_id') )
+const getReason = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('undeliveredReason') )
 
 export default {
   id: getId,
@@ -34,4 +35,5 @@ export default {
   createdAt: getCreatedAt,
   to: getTo,
   deliverable: getDeliverable,
+  reason: getReason
 }
