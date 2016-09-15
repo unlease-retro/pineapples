@@ -20,11 +20,18 @@ const getSelectedFilter = state =>
     && state.getIn(['form']).filterBuilder.values.selectedFilter
     && state.getIn(['form']).filterBuilder.values.selectedFilter.value
 
+const getPicker = state =>
+  state.getIn(['form'])
+    && state.getIn(['form']).filterBuilder
+    && state.getIn(['form']).filterBuilder.values
+    && state.getIn(['form']).filterBuilder.values.picker
+
 export default {
   all: getAll,
   filterableOptions: getFilterableOptions,
   filterOptions: getFilterOptions,
   options: getOptions,
+  picker: getPicker,
   pineapples: getPineapples,
   pineapplesCount: getPineapplesCount,
   selectedFilter: getSelectedFilter,
