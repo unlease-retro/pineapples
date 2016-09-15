@@ -2,29 +2,20 @@
  * Created by BigaMasta on 9/14/16.
  */
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, change } from 'redux-form'
 import { ReactSelectWrapper } from './ReactSelectWrapper'
 
 class FilterBuilder extends React.Component {
 
   render() {
 
-    const { filterableOptions } = this.props
-    const renderReactSelectWrapper = props => (<ReactSelectWrapper {...props}/>)
+    const { filterableOptions, dispatch, selectedFilter } = this.props
 
     return (
       <form onSubmit={() => console.log('handling submit')}>
         <div>
           <label htmlFor='firstName'>First Name</label>
-          <Field name='field' component={renderReactSelectWrapper} options={filterableOptions}/>
-        </div>
-        <div>
-          <label htmlFor='lastName'>Last Name</label>
-          <Field name='lastName' component='input' type='text'/>
-        </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <Field name='email' component='input' type='email'/>
+          <Field name='selectedFilter' component={ReactSelectWrapper} options={filterableOptions} componentValue={selectedFilter} onChange={(value) => dispatch(change('filterBuilder', 'selectedFilter', value))}/>
         </div>
         <button type='submit'>Submit</button>
       </form>

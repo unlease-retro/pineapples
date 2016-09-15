@@ -10,7 +10,7 @@ class filter extends React.Component {
 
   render() {
 
-    const { setFilterShown, filterShown, filterableOptions } = this.props
+    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter } = this.props
 
     const renderAddFilterButton = !filterShown ? <Button
       label='Add filter'
@@ -18,7 +18,7 @@ class filter extends React.Component {
       theme='accent'
     /> : null
 
-    const renderFilterBuilder = filterShown ? <FilterBuilder filterableOptions={filterableOptions}/> : null
+    const renderFilterBuilder = filterShown ? <FilterBuilder filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter} /> : null
 
     return (
       <div>

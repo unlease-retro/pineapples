@@ -24,13 +24,13 @@ export class Report extends Component {
 
   render() {
 
-    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query: { page } }, pineapplesCount, filterableOptions } = this.props
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query: { page } }, pineapplesCount, filterableOptions, dispatch, selectedFilter } = this.props
     const { setSort, setFilterShown } = actions
 
     return (
       <div>
         <Position top='20px' left='20px'>
-          <Components.filter setFilterShown={setFilterShown} filterShown={filterShown} filters={filters} filterableOptions={filterableOptions}/>
+          <Components.filter setFilterShown={setFilterShown} filterShown={filterShown} filters={filters} filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter}/>
         </Position>
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='940px' left='calc(50% - 116px)'>

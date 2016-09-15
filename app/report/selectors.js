@@ -12,7 +12,13 @@ const getPineapplesCount = state => state.getIn([ name, 'pineapplesCount' ])
 const getFilterableOptions = () =>
   DISPLAY_FIELDS.map(field => ({value: field, label: field}))
 
-
+// form
+const getSelectedFilter = state =>
+  state.getIn(['form'])
+    && state.getIn(['form']).filterBuilder
+    && state.getIn(['form']).filterBuilder.values
+    && state.getIn(['form']).filterBuilder.values.selectedFilter
+    && state.getIn(['form']).filterBuilder.values.selectedFilter.value
 
 export default {
   all: getAll,
@@ -20,5 +26,6 @@ export default {
   filterOptions: getFilterOptions,
   options: getOptions,
   pineapples: getPineapples,
-  pineapplesCount: getPineapplesCount
+  pineapplesCount: getPineapplesCount,
+  selectedFilter: getSelectedFilter,
 }

@@ -17,6 +17,7 @@ export class ReactSelectWrapper extends React.Component {
     return (
       <Select
         {...this.props}
+        value={this.props.componentValue}
       />
     )
 
