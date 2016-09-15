@@ -19,9 +19,11 @@ class FiltersApplied extends React.Component {
 
     }
 
+    const renderTitle = renderFiltersApplied.length > 0 ? <span>Filters Applied</span> : null
+
     return (
       <div>
-        Filters Applied:&nbsp;
+        {renderTitle}
         {renderFiltersApplied}
       </div>
     )
