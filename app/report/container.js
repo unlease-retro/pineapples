@@ -30,10 +30,10 @@ export class Report extends Component {
     return (
       <div>
         <Position top='20px' left='20px'>
-          <Components.filter setFilterShown={setFilterShown} filterShown={filterShown} filters={filters} filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter} picker={picker}/>
+          <Components.filter setFilterShown={setFilterShown} filterShown={filterShown} filters={filters} filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter} picker={picker} onFilterApplied={this.onFilterApplied.bind(this)}/>
         </Position>
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
-        <Position top='940px' left='calc(50% - 116px)'>
+        <Position top='1040px' left='calc(50% - 116px)'>
           <Components.pagination
             page={parseInt(page) || 0}
             perPage={perPage}
@@ -66,6 +66,15 @@ export class Report extends Component {
 
     const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
     const queryString = toQueryString(objectWithStrippedProps({ ...query, sortBy, sortDirection }, 'page'))
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
+
+  }
+
+  onFilterApplied(selectedFilter, filterValue) {
+
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || '') }, 'page', 'sortBy', 'sortDirection'))
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
 
