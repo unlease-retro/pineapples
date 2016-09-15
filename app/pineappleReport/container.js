@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { css, StyleSheet } from 'aphrodite/no-important'
 import { grid as Grid, divider as Divider } from '../shared/components'
+import { colors } from '../shared/styles/settings'
 
 import * as actions from './actions'
 //import * as Components from './components'
@@ -38,7 +39,8 @@ export class PineappleReport extends Component {
       to,
       deliverable,
       reason,
-      phoneNumber
+      phoneNumber,
+      stripeChargeId
     } = this.props
 
     return (
@@ -49,53 +51,53 @@ export class PineappleReport extends Component {
 
             <Grid>
               <label>ID</label>
-              <div>{id}</div>
+              <div className={ css(styles.valueFontColor) }>{id}</div>
             </Grid>
             <Grid>
               <label>SENDER NAME</label>
-              <div>{from || 'Not specified'}</div>
+              <div className={ css(styles.valueFontColor) }>{from || 'Not specified'}</div>
             </Grid>
             <Grid>
               <label>SENDER EMAIL</label>
-              <div>{senderEmail}</div>
+              <div className={ css(styles.valueFontColor) }>{senderEmail}</div>
             </Grid>
             <Divider theme='dark'/>
             <Grid>
               <label>COMPANY NAME</label>
-              <div>{companyName}</div>
+              <div className={ css(styles.valueFontColor) }>{companyName}</div>
             </Grid>
             <Grid>
               <label>RECEIVER NAME</label>
-              <div>{to}</div>
+              <div className={ css(styles.valueFontColor) }>{to}</div>
             </Grid>
             <Grid>
               <label>RECEIVER PHONE NUMBER</label>
-              <div>{phoneNumber || 'Not specified'}</div>
+              <div className={ css(styles.valueFontColor) }>{phoneNumber || 'Not specified'}</div>
             </Grid>
             <Grid>
               <label>STREET ADDRESS</label>
-              <div>{streetAddress}</div>
+              <div className={ css(styles.valueFontColor) }>{streetAddress}</div>
             </Grid>
             <Grid>
               <label>POSTCODE</label>
-              <div>{postcode}</div>
+              <div className={ css(styles.valueFontColor) }>{postcode}</div>
             </Grid>
             <Grid>
               <label>MESSAGE</label>
-              <div>{message}</div>
+              <div className={ css(styles.valueFontColor) }>{message}</div>
             </Grid>
             <Divider theme='dark'/>
             <Grid>
               <label>ATTEMPTS</label>
-              <div>{attempts}</div>
+              <div className={ css(styles.valueFontColor) }>{attempts}</div>
             </Grid>
             <Grid>
               <label>CREATED AT</label>
-              <div>{new Date(createdAt).toLocaleDateString('en-GB')}</div>
+              <div className={ css(styles.valueFontColor) }>{new Date(createdAt).toLocaleDateString('en-GB')}</div>
             </Grid>
             <Grid>
               <label>STATUS</label>
-              <div>
+              <div className={ css(styles.valueFontColor) }>
                 {deliverable ? 'deliverable, ' : 'not deliverable, '}
                 <br/>
                 {dispatched ? 'dispatched, ' : 'not dispatched, '}
@@ -105,7 +107,11 @@ export class PineappleReport extends Component {
             </Grid>
             <Grid>
               <label>REASON FOR UNDELIVERY</label>
-              <div>{reason || 'Not specified'}</div>
+              <div className={ css(styles.valueFontColor) }>{reason || 'Not specified'}</div>
+            </Grid>
+            <Grid>
+              <label>STRIPE CHARGE ID</label>
+              <div className={ css(styles.valueFontColor) }>{stripeChargeId || 'FREE ORDER'}</div>
             </Grid>
           </div>
         </div>
@@ -119,11 +125,11 @@ export class PineappleReport extends Component {
 
 PineappleReport.styles = StyleSheet.create({
   overallTable: {
-    width: '400px',
+    maxWidth: '700px',
     margin: '20px auto',
     border: '2px solid black',
     padding: '20px',
-    borderRadius: '10px'
+    borderRadius: '10px',
   },
   overall: {
     padding: '40px',
@@ -131,6 +137,9 @@ PineappleReport.styles = StyleSheet.create({
   h1: {
     textAlign: 'center'
   },
+  valueFontColor: {
+    color: colors.primary
+  }
 })
 
 export default connect(
