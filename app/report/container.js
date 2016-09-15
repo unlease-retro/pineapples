@@ -83,10 +83,11 @@ export class Report extends Component {
 
   onFilterApplied(selectedFilter, filterValue) {
 
-    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
     const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || '') }, 'page', 'sortBy', 'sortDirection'))
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
+    setFilterShown(false)
 
   }
 

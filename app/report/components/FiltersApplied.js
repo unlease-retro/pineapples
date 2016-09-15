@@ -14,7 +14,7 @@ class FiltersApplied extends React.Component {
     for (let filter in filtersApplied) {
 
       renderFiltersApplied.push(
-        <Chip label={`${filter}: ${filtersApplied[filter]}`}/>
+        <Chip key={filter} label={`${filter}: ${filtersApplied[filter]}`}/>
       )
 
     }
