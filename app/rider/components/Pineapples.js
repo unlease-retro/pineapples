@@ -28,7 +28,14 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
 
             <Grid staticCells nonPaddedCells leftAlign>
               <div>To:</div>
-              <div>{`${item.get('to')} (${item.get('phoneNumber') ? item.get('phoneNumber') : 'No Phone provided'})`}</div>
+              <div>
+                {`${item.get('to')}`}
+                (
+                  <a href={`tel:${item.get('phoneNumber')}`}>
+                    {`${item.get('phoneNumber') ? item.get('phoneNumber') : 'No Phone provided'}`}
+                  </a>
+                )
+            </div>
             </Grid>
 
             <Grid staticCells nonPaddedCells leftAlign>
