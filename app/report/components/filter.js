@@ -11,7 +11,7 @@ class filter extends React.Component {
 
   render() {
 
-    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter, picker, onFilterApplied, filtersApplied } = this.props
+    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter, picker, onFilterApplied, filtersApplied, onFilterRemove } = this.props
 
     const renderAddFilterButton = !filterShown ? <Button
       label='Add filter'
@@ -23,7 +23,7 @@ class filter extends React.Component {
 
     return (
       <div>
-        <FiltersApplied filtersApplied={filtersApplied}/>
+        <FiltersApplied filtersApplied={filtersApplied} onFilterRemove={onFilterRemove} />
         {renderAddFilterButton}
         {renderFilterBuilder}
       </div>

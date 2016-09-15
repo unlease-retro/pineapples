@@ -2,14 +2,14 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite/no-important'
 import { colors } from 'styles/settings'
 
-const Icon = ({ name, theme }) => {
+const Icon = ({ name, theme, onClick }) => {
 
   const { styles } = Icon
 
   const className = css(styles.base, theme && styles[theme])
 
   return (
-    <i className={`material-icons ${className}`}>
+    <i className={`material-icons ${className}`} onClick={onClick}>
       { name }
     </i>
   )
@@ -37,6 +37,7 @@ Icon.styles = StyleSheet.create({
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
   theme: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 export default Icon

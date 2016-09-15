@@ -40,7 +40,8 @@ export class Report extends Component {
             selectedFilter={selectedFilter}
             picker={picker}
             onFilterApplied={this.onFilterApplied.bind(this)}
-            filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')} />
+            filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')}
+            onFilterRemove={this.onFilterRemove.bind(this)} />
         </Position>
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='1040px' left='calc(50% - 116px)'>
@@ -88,6 +89,15 @@ export class Report extends Component {
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
     setFilterShown(false)
+
+  }
+
+  onFilterRemove(filterToRemove) {
+
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString(objectWithStrippedProps(query, filterToRemove))
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
 
   }
 
