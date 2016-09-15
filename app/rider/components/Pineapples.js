@@ -39,9 +39,9 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
               <div>To:</div>
               <div>
                 {`${item.get('to')}`}
-                &nbsp;&nbsp;
+                <br />
                 {phoneNumber}
-            </div>
+              </div>
             </Grid>
 
             <Grid staticCells nonPaddedCells leftAlign>
