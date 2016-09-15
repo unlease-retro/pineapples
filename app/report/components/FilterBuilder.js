@@ -13,21 +13,21 @@ class FilterBuilder extends React.Component {
 
   getSelectedValuePicker(selectedFilter) {
 
-    const { dispatch, picker } = this.props
+    const { dispatch, pickedValue } = this.props
 
     if (fields[selectedFilter] instanceof Boolean)
-      return <Field name='picker' component={ToggleWrapper} callback={(value) => dispatch(change('filterBuilder', 'picker', value))} active={picker} label={selectedFilter} />
+      return <Field name='pickedValue' component={ToggleWrapper} callback={(value) => dispatch(change('filterBuilder', 'pickedValue', value))} active={pickedValue} label={selectedFilter} />
     else
-      return <Field name='picker' component={InputWrapper} type='text' value={picker || ''} onChange={(e) => dispatch(change('filterBuilder', 'picker', e.target.value))} placeholder='Type here...' />
+      return <Field name='pickedValue' component={InputWrapper} type='text' value={pickedValue || ''} onChange={(e) => dispatch(change('filterBuilder', 'pickedValue', e.target.value))} placeholder='Type here...' />
 
   }
 
   render() {
 
     const { styles } = FilterBuilder
-    const { filterableOptions, dispatch, selectedFilter, picker, onFilterApplied } = this.props
+    const { filterableOptions, dispatch, selectedFilter, pickedValue, onFilterApplied } = this.props
     const renderSelectedFilterValuePicker = selectedFilter ? <div className={ css(styles.formComponentMargin, styles.formComponentMaxWidth) }>{this.getSelectedValuePicker(selectedFilter)}</div> : null
-    const renderApplyButton = selectedFilter ? <Button label='Apply' theme='primary' onClick={() => selectedFilter && onFilterApplied(selectedFilter, picker)} /> : null
+    const renderApplyButton = selectedFilter ? <Button label='Apply' theme='primary' onClick={() => selectedFilter && onFilterApplied(selectedFilter, pickedValue)} /> : null
 
     return (
       <div>

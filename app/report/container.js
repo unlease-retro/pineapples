@@ -24,7 +24,7 @@ export class Report extends Component {
 
   render() {
 
-    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, picker } = this.props
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, pickedValue } = this.props
     const { page } = query
     const { setSort, setFilterShown } = actions
 
@@ -37,7 +37,7 @@ export class Report extends Component {
           filterableOptions={filterableOptions}
           dispatch={dispatch}
           selectedFilter={selectedFilter}
-          picker={picker}
+          pickedValue={pickedValue}
           onFilterApplied={this.onFilterApplied.bind(this)}
           filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')}
           onFilterRemove={this.onFilterRemove.bind(this)} />

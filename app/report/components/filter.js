@@ -14,7 +14,7 @@ class filter extends React.Component {
 
     const { styles } = filter
 
-    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter, picker, onFilterApplied, filtersApplied, onFilterRemove } = this.props
+    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter, pickedValue, onFilterApplied, filtersApplied, onFilterRemove } = this.props
 
     const renderAddFilterButton = !filterShown ? <Button
       label='Add filter'
@@ -22,7 +22,7 @@ class filter extends React.Component {
       theme='accent'
     /> : null
 
-    const renderFilterBuilder = filterShown ? <FilterBuilder filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter} picker={picker} onFilterApplied={onFilterApplied} /> : null
+    const renderFilterBuilder = filterShown ? <FilterBuilder filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter} pickedValue={pickedValue} onFilterApplied={onFilterApplied} /> : null
 
     return (
       <div className={ css(styles.overall) }>
