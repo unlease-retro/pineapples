@@ -4,13 +4,14 @@
 import React from 'react'
 
 import FilterBuilder from './FilterBuilder'
+import FiltersApplied from './FiltersApplied'
 import { button as Button } from '../../shared/components'
 
 class filter extends React.Component {
 
   render() {
 
-    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter, picker, onFilterApplied } = this.props
+    const { setFilterShown, filterShown, filterableOptions, dispatch, selectedFilter, picker, onFilterApplied, filtersApplied } = this.props
 
     const renderAddFilterButton = !filterShown ? <Button
       label='Add filter'
@@ -22,6 +23,7 @@ class filter extends React.Component {
 
     return (
       <div>
+        <FiltersApplied filtersApplied={filtersApplied}/>
         {renderAddFilterButton}
         {renderFilterBuilder}
       </div>

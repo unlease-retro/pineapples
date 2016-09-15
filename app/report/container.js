@@ -24,13 +24,23 @@ export class Report extends Component {
 
   render() {
 
-    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query: { page } }, pineapplesCount, filterableOptions, dispatch, selectedFilter, picker } = this.props
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, picker } = this.props
+    const { page } = query
     const { setSort, setFilterShown } = actions
 
     return (
       <div>
         <Position top='20px' left='20px'>
-          <Components.filter setFilterShown={setFilterShown} filterShown={filterShown} filters={filters} filterableOptions={filterableOptions} dispatch={dispatch} selectedFilter={selectedFilter} picker={picker} onFilterApplied={this.onFilterApplied.bind(this)}/>
+          <Components.filter
+            setFilterShown={setFilterShown}
+            filterShown={filterShown}
+            filters={filters}
+            filterableOptions={filterableOptions}
+            dispatch={dispatch}
+            selectedFilter={selectedFilter}
+            picker={picker}
+            onFilterApplied={this.onFilterApplied.bind(this)}
+            filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')} />
         </Position>
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='1040px' left='calc(50% - 116px)'>
