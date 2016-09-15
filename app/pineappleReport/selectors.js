@@ -21,6 +21,7 @@ const getDeliverable = createSelector( [ getPineapple ], pineapple => pineapple 
 const getId = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('_id') )
 const getReason = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('undeliveredReason') )
 const getPhoneNumber = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('phoneNumber') )
+const getStripeChargeId = createSelector( [ getPineapple ], pineapple => pineapple && pineapple.get('stripeChargeId') )
 
 export default {
   id: getId,
@@ -37,5 +38,6 @@ export default {
   to: getTo,
   deliverable: getDeliverable,
   reason: getReason,
-  phoneNumber: getPhoneNumber
+  phoneNumber: getPhoneNumber,
+  stripeChargeId: getStripeChargeId,
 }

@@ -39,7 +39,8 @@ export class PineappleReport extends Component {
       to,
       deliverable,
       reason,
-      phoneNumber
+      phoneNumber,
+      stripeChargeId
     } = this.props
 
     return (
@@ -107,6 +108,10 @@ export class PineappleReport extends Component {
             <Grid>
               <label>REASON FOR UNDELIVERY</label>
               <div className={ css(styles.valueFontColor) }>{reason || 'Not specified'}</div>
+            </Grid>
+            <Grid>
+              <label>STRIPE CHARGE ID</label>
+              <div className={ css(styles.valueFontColor) }>{stripeChargeId || 'FREE ORDER'}</div>
             </Grid>
           </div>
         </div>
