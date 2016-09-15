@@ -24,25 +24,22 @@ class FilterBuilder extends React.Component {
 
     const { filterableOptions, dispatch, selectedFilter, picker, onFilterApplied } = this.props
     const renderSelectedFilterValuePicker = selectedFilter ? this.getSelectedValuePicker(selectedFilter) : null
+    const renderApplyButton = selectedFilter ? <Button label='Apply' onClick={() => selectedFilter && onFilterApplied(selectedFilter, picker)} /> : null
 
     return (
       <div>
-        <div>
-          <Field
-            name='selectedFilter'
-            component={ReactSelectWrapper}
-            options={filterableOptions}
-            componentValue={selectedFilter}
-            onChange={(value) => dispatch(change('filterBuilder', 'selectedFilter', value))}
-            placeholder='Choose a Filter' />
-        </div>
+
+        <Field
+          name='selectedFilter'
+          component={ReactSelectWrapper}
+          options={filterableOptions}
+          componentValue={selectedFilter}
+          onChange={(value) => dispatch(change('filterBuilder', 'selectedFilter', value))}
+          placeholder='Choose a Filter' />
+
         {renderSelectedFilterValuePicker}
-        <Button label='Apply' onClick={() => {
+        {renderApplyButton}
 
-          if (selectedFilter)
-            onFilterApplied(selectedFilter, picker)
-
-        }}/>
       </div>
     )
 
