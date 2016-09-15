@@ -9,8 +9,16 @@ const getPineapples = state => state.getIn([ name, 'pineapples' ])
 const getPineapplesCount = state => state.getIn([ name, 'pineapplesCount' ])
 
 // stateless
-const getFilterableOptions = () =>
-  DISPLAY_FIELDS.map(field => ({value: field, label: field}))
+const getFilterableOptions = () => {
+
+  const array = []
+
+  DISPLAY_FIELDS.forEach(field => field !== 'createdAt' && array.push({value: field, label: field}))
+
+  return array
+
+}
+  //field === 'createdAt' && {value: field, label: field})
 
 // form
 const getSelectedFilter = state =>
