@@ -17,7 +17,16 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
       {items.map((item, index) => {
 
         const renderReason = !item.get('delivered') ? <Reason item={item} actions={reasonActions} undeliveredReasonOptions={undeliveredReasonOptions} index={index}/> : null
+        let phoneNumber
+        if (item.get('phoneNumber')) {
 
+          phoneNumber = (
+            <a href={`tel:${item.get('phoneNumber')}`}>
+             {item.get('phoneNumber')}
+            </a>
+          )
+
+        }
         return (
           <Card disabled={item.get('delivered')} key={item.get('_id')}>
 
@@ -30,11 +39,8 @@ const Pineapples = ({ selectedCluster, undeliveredReasonOptions, actions: { chan
               <div>To:</div>
               <div>
                 {`${item.get('to')}`}
-                (
-                  <a href={`tel:${item.get('phoneNumber')}`}>
-                    {`${item.get('phoneNumber') ? item.get('phoneNumber') : 'No Phone provided'}`}
-                  </a>
-                )
+                &nbsp;&nbsp;
+                {phoneNumber}
             </div>
             </Grid>
 
