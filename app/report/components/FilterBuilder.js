@@ -3,7 +3,6 @@
  */
 import React from 'react'
 import { Field, reduxForm, change } from 'redux-form'
-import { colors } from 'styles/settings'
 import { StyleSheet, css } from 'aphrodite/no-important'
 
 import { ReactSelectWrapper, ToggleWrapper, InputWrapper } from './wrappers'

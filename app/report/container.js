@@ -87,6 +87,7 @@ export class Report extends Component {
 
     const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
     const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || emptyValue) }, 'page', 'sortBy', 'sortDirection'))
+    console.log(queryString)
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
     setFilterShown(false)
@@ -96,7 +97,7 @@ export class Report extends Component {
   onFilterRemove(filterToRemove) {
 
     const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
-    const queryString = toQueryString(objectWithStrippedProps(query, filterToRemove))
+    const queryString = toQueryString(objectWithStrippedProps(query, filterToRemove, 'page', 'sortBy', 'sortDirection'))
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
 
