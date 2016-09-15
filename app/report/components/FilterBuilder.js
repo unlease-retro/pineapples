@@ -28,8 +28,13 @@ class FilterBuilder extends React.Component {
     return (
       <div>
         <div>
-          <label>Select Filter</label>
-          <Field name='selectedFilter' component={ReactSelectWrapper} options={filterableOptions} componentValue={selectedFilter} onChange={(value) => dispatch(change('filterBuilder', 'selectedFilter', value))}/>
+          <Field
+            name='selectedFilter'
+            component={ReactSelectWrapper}
+            options={filterableOptions}
+            componentValue={selectedFilter}
+            onChange={(value) => dispatch(change('filterBuilder', 'selectedFilter', value))}
+            placeholder='Choose a Filter' />
         </div>
         {renderSelectedFilterValuePicker}
         <Button label='Apply' onClick={() => {
