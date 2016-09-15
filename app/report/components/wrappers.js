@@ -57,13 +57,14 @@ export class InputWrapper extends React.Component {
   render() {
 
     // cannot do {...props} because redux-form inserts some other props which cause error
-    const { value, type, onChange } = this.props
+    const { value, type, onChange, placeholder } = this.props
 
     return (
       <Input
         value={value}
         type={type}
         onChange={onChange}
+        placeholder={placeholder}
       />
     )
 

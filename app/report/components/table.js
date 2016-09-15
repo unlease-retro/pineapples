@@ -80,7 +80,6 @@ const Table = ({ list, options, setSort, onSortClick, showItem }) => {
 Table.styles = StyleSheet.create({
   table: {
     fontSize: '12px',
-    marginTop: '200px',
   },
   headerRow: {
     color: colors.light,
