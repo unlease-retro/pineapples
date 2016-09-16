@@ -13,10 +13,17 @@ class FilterBuilder extends React.Component {
 
   getSelectedValuePicker(selectedFilter) {
 
-    const { dispatch, pickedValue } = this.props
+    const { dispatch, pickedValue, pickedStartValue, pickedEndValue } = this.props
 
     if (FIELDS[selectedFilter].type instanceof Boolean)
       return <Field name='pickedValue' component={ToggleWrapper} callback={(value) => dispatch(change('filterBuilder', 'pickedValue', value))} active={pickedValue} label={selectedFilter} />
+    else if (FIELDS[selectedFilter].type instanceof Date)
+      return (
+        <div>
+          Start: <Field name='pickedValueStart' component={InputWrapper} type='date' value={pickedStartValue}/>
+          End: <Field name='pickedValueEnd' component={InputWrapper} type='date' value={pickedEndValue}/>
+        </div>
+      )
     else
       return <Field name='pickedValue' component={InputWrapper} type='text' value={pickedValue || ''} onChange={(e) => dispatch(change('filterBuilder', 'pickedValue', e.target.value))} placeholder='Type here...' />
 

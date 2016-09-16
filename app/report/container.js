@@ -24,7 +24,7 @@ export class Report extends Component {
 
   render() {
 
-    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, pickedValue } = this.props
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, pickedValue, pickedStartValue, pickedEndValue } = this.props
     const { page } = query
     const { setSort, setFilterShown } = actions
 
@@ -40,7 +40,10 @@ export class Report extends Component {
           pickedValue={pickedValue}
           onFilterApplied={this.onFilterApplied.bind(this)}
           filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')}
-          onFilterRemove={this.onFilterRemove.bind(this)} />
+          onFilterRemove={this.onFilterRemove.bind(this)}
+          pickedStartValue={pickedStartValue}
+          pickedEndValue={pickedEndValue}
+        />
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='1040px' left='calc(50% - 116px)'>
           <Components.pagination
