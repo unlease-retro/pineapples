@@ -20,8 +20,8 @@ class FilterBuilder extends React.Component {
     else if (FIELDS[selectedFilter].type instanceof Date)
       return (
         <div>
-          Start: <Field name='pickedValueStart' component={InputWrapper} type='date' value={pickedStartValue}/>
-          End: <Field name='pickedValueEnd' component={InputWrapper} type='date' value={pickedEndValue}/>
+          Start: <Field name='pickedValueStart' component={InputWrapper} type='date' value={pickedStartValue} onChange={(e) => dispatch(change('filterBuilder', 'pickedStartValue', e.target.value))}/>
+          End: <Field name='pickedValueEnd' component={InputWrapper} type='date' value={pickedEndValue} onChange={(e) => dispatch(change('filterBuilder', 'pickedEndValue', e.target.value))}/>
         </div>
       )
     else
@@ -32,9 +32,9 @@ class FilterBuilder extends React.Component {
   render() {
 
     const { styles } = FilterBuilder
-    const { filterableOptions, dispatch, selectedFilter, pickedValue, onFilterApplied } = this.props
+    const { filterableOptions, dispatch, selectedFilter, pickedValue, pickedStartValue, pickedEndValue, onFilterApplied } = this.props
     const renderSelectedFilterValuePicker = selectedFilter ? <div className={ css(styles.formComponentMargin, styles.formComponentMaxWidth) }>{this.getSelectedValuePicker(selectedFilter)}</div> : null
-    const renderApplyButton = selectedFilter ? <Button label='Apply' theme='primary' onClick={() => selectedFilter && onFilterApplied(selectedFilter, pickedValue)} /> : null
+    const renderApplyButton = selectedFilter ? <Button label='Apply' theme='primary' onClick={() => selectedFilter && onFilterApplied(selectedFilter, pickedValue, pickedStartValue, pickedEndValue)} /> : null
 
     return (
       <div>

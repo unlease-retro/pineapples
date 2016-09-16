@@ -83,14 +83,39 @@ export class Report extends Component {
 
   }
 
-  onFilterApplied(selectedFilter, filterValue) {
+  onFilterApplied(selectedFilter, filterValue, dateStartValue, dateEndValue) {
 
-    // first time the boolean is undefined
+    console.log(dateStartValue, dateEndValue)
+    const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
     const emptyValue = (!filterValue && FIELDS[selectedFilter].type instanceof Boolean) ? 'false' : ''
 
-    const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
-    const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || emptyValue) }, 'page', 'sortBy', 'sortDirection'))
-    console.log(queryString)
+    let queryStringObject = {}
+
+    if (FIELDS[selectedFilter].type instanceof Date) {
+
+      if (dateStartValue) {
+
+        let filterName = selectedFilter + 'Start'
+        queryStringObject[filterName] = dateStartValue
+
+
+      }
+      if (dateEndValue) {
+
+        let filterName = selectedFilter + 'End'
+        queryStringObject[filterName] = dateEndValue
+
+      }
+
+    }
+    else {
+
+      queryStringObject[selectedFilter] = (filterValue || emptyValue)
+
+    }
+
+    const queryString = toQueryString(objectWithStrippedProps({ ...query, ...queryStringObject }, 'page', 'sortBy', 'sortDirection'))
+
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
     setFilterShown(false)
