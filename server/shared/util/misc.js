@@ -24,17 +24,21 @@ exports.toQueryString = obj => {
 /*eslint-disable */
 function getQueryForDate(key, value, result) {
 
-  switch (key) {
+  switch (true) {
 
-    case 'createdAtStart':
-      result.createdAt = result.createdAt || {}
-      result.createdAt.$gte = new Date(value)
+    case /.*AtStart$/.test(key): {
+      const dbDateField = key.split(/Start$/)[0]
+      result[dbDateField] = result[dbDateField] || {}
+      result[dbDateField].$gte = new Date(value)
       break
+    }
 
-    case 'createdAtEnd':
-      result.createdAt = result.createdAt || {}
-      result.createdAt.$lte = new Date(value)
+    case /.*AtEnd$/.test(key): {
+      const dbDateField = key.split(/End$/)[0]
+      result[dbDateField] = result[dbDateField] || {}
+      result[dbDateField].$lte = new Date(value)
       break
+    }
 
     default:
       result[key] = value

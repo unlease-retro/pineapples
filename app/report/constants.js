@@ -75,6 +75,12 @@ export const FIELDS = {
     type: new Date(),
     displayable: true,
   },
+  updatedAt: {
+    caption: 'Updated At',
+    key : 'updatedAt',
+    type: new Date(),
+    displayable: true,
+  },
   stripeChargeId: {
     caption: 'stripe',
     key : 'stripeChargeId',
