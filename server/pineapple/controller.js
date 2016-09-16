@@ -4,7 +4,7 @@ const ClusterService = require('../cluster/service')
 const SettingsService = require('../settings/service')
 const {ERROR} = require('../shared/constants')
 const { mapPageToSkipAndLimit } = require('../shared/util/pagination')
-const { objectWithStrippedProps } = require('../shared/util/misc')
+const { objectWithStrippedProps, constructFilterWithDateRange } = require('../shared/util/misc')
 
 exports.create = (req, res, next) => {
 
@@ -146,7 +146,8 @@ exports.filteredList = (req, res, next) => {
   const { page, sortBy, sortDirection } = req.query
 
   // strip out every expected prop, and treat others as filter
-  const filter = objectWithStrippedProps(req.query, 'page', 'sortBy', 'sortDirection')
+  const preFilter = objectWithStrippedProps(req.query, 'page', 'sortBy', 'sortDirection')
+  const filter = constructFilterWithDateRange(preFilter)
 
   const { skip, limit } = mapPageToSkipAndLimit(parseInt(page || 1))
 
