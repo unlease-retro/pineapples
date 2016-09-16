@@ -86,7 +86,6 @@ export class Report extends Component {
 
   onFilterApplied(selectedFilter, filterValue, dateStartValue, dateEndValue) {
 
-    console.log(dateStartValue, dateEndValue)
     const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
     const emptyValue = (!filterValue && FIELDS[selectedFilter].type instanceof Boolean) ? 'false' : ''
 
