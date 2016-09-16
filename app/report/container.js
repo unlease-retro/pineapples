@@ -8,7 +8,7 @@ import * as actions from './actions'
 import * as Components from './components'
 import { position as Position } from '../shared/components'
 import selectors from './selectors'
-import { perPage, fields } from './constants'
+import { perPage, FIELDS } from './constants'
 import { buildLocationForReport, buildLocationForOrderInfo } from '../shared/util/location'
 import { toQueryString, objectWithStrippedProps } from '../../server/shared/util/misc'
 
@@ -83,7 +83,7 @@ export class Report extends Component {
   onFilterApplied(selectedFilter, filterValue) {
 
     // first time the boolean is undefined
-    const emptyValue = (!filterValue && fields[selectedFilter] instanceof Boolean) ? 'false' : ''
+    const emptyValue = (!filterValue && FIELDS[selectedFilter].type instanceof Boolean) ? 'false' : ''
 
     const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
     const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || emptyValue) }, 'page', 'sortBy', 'sortDirection'))

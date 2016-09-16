@@ -1,5 +1,5 @@
 import { name } from './constants'
-import { DISPLAY_FIELDS } from './constants'
+import { FIELDS } from './constants'
 
 // static
 const getAll = state => state.get(name)
@@ -9,16 +9,8 @@ const getPineapples = state => state.getIn([ name, 'pineapples' ])
 const getPineapplesCount = state => state.getIn([ name, 'pineapplesCount' ])
 
 // stateless
-const getFilterableOptions = () => {
-
-  const array = []
-
-  DISPLAY_FIELDS.forEach(field => field !== 'createdAt' && array.push({value: field, label: field}))
-
-  return array
-
-}
-  //field === 'createdAt' && {value: field, label: field})
+const getFilterableOptions = () =>
+  Object.keys(FIELDS).map(fieldName => ({value: fieldName, label: fieldName}))
 
 // form
 const getSelectedFilter = state =>

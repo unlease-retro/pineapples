@@ -6,7 +6,7 @@ import { colors } from 'styles/settings'
 import { AutoSizer, FlexTable, FlexColumn, SortIndicator } from 'react-virtualized'
 import { getSortedList } from '../../shared/util/virtualized'
 import { getCapitalised } from '../../shared/util'
-import { DISPLAY_FIELDS } from '../constants'
+import { FIELDS } from '../constants'
 
 const Table = ({ list, options, setSort, onSortClick, showItem }) => {
 
@@ -23,7 +23,7 @@ const Table = ({ list, options, setSort, onSortClick, showItem }) => {
   // make headers sortable
   const headerRenderer = ({ dataKey, label, sortBy, sortDirection }) => ( <div>{ label } { sortBy === dataKey && <SortIndicator sortDirection={sortDirection} /> } </div> )
 
-  const renderColumns = DISPLAY_FIELDS.map( field => ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(field)} dataKey={field} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
+  const renderColumns = Object.keys(FIELDS).map(key => FIELDS[key]).filter(field => field.displayable).map(field => field.caption).map( caption => ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(caption)} dataKey={caption} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
 
   // handle sort -> dispatch action
   const onSort = ({ sortBy, sortDirection }) => {

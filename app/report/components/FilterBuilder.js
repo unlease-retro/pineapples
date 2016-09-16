@@ -7,7 +7,7 @@ import { StyleSheet, css } from 'aphrodite/no-important'
 
 import { ReactSelectWrapper, ToggleWrapper, InputWrapper } from './wrappers'
 import { button as Button } from '../../shared/components'
-import { fields } from '../constants'
+import { FIELDS } from '../constants'
 
 class FilterBuilder extends React.Component {
 
@@ -15,7 +15,7 @@ class FilterBuilder extends React.Component {
 
     const { dispatch, pickedValue } = this.props
 
-    if (fields[selectedFilter] instanceof Boolean)
+    if (FIELDS[selectedFilter].type instanceof Boolean)
       return <Field name='pickedValue' component={ToggleWrapper} callback={(value) => dispatch(change('filterBuilder', 'pickedValue', value))} active={pickedValue} label={selectedFilter} />
     else
       return <Field name='pickedValue' component={InputWrapper} type='text' value={pickedValue || ''} onChange={(e) => dispatch(change('filterBuilder', 'pickedValue', e.target.value))} placeholder='Type here...' />
