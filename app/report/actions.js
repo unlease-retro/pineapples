@@ -1,10 +1,10 @@
 import * as actions from './actionTypes'
 import * as service from './service'
 
-export const fetchPineapples = (page = 1, sortBy = 'createdAt', sortDirection = 'ASC') => ({
+export const fetchPineapples = (queryString) => ({
   types: [ actions.FETCH_PINEAPPLES_REQUEST, actions.FETCH_PINEAPPLES_SUCCESS, actions.FETCH_PINEAPPLES_FAILURE ],
   payload: {},
-  promise: () => new Promise( (resolve, reject) => service.fetchPineapples(page, sortBy, sortDirection, resolve, reject) )
+  promise: () => new Promise( (resolve, reject) => service.fetchPineapples(queryString, resolve, reject) )
 })
 
 export const setSort = props => ({
@@ -12,6 +12,15 @@ export const setSort = props => ({
   payload: {
     options: {
       ...props
+    }
+  }
+})
+
+export const setFilterShown = filterShown => ({
+  type: actions.SET_FILTER_SHOWN,
+  payload: {
+    filterOptions: {
+      filterShown
     }
   }
 })

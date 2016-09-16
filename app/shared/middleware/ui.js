@@ -10,7 +10,6 @@ const UIMiddleware = store => next => action => {
 
   const { dispatch } = store
   const { type, payload } = action
-  const { snackbar } = payload
 
   const actionType = getActionType(type)
 
@@ -21,14 +20,14 @@ const UIMiddleware = store => next => action => {
 
     // only pass snackbar if defined to avoid premature closure
     const props = { requesting: false, error: null }
-    if (snackbar) props.snackbar = snackbar
+    if (payload && payload.snackbar) props.snackbar = payload.snackbar
 
     dispatch( UI.updateUI(props) )
 
   }
 
   // auto hide snackbar
-  if (snackbar && actionType !== UI_ACTION) setTimeout( () => dispatch( UI.updateUI({ snackbar: null }) ), SNACKBAR_DURATION)
+  if (payload && payload.snackbar && actionType !== UI_ACTION) setTimeout( () => dispatch( UI.updateUI({ snackbar: null }) ), SNACKBAR_DURATION)
 
   return next(action)
 

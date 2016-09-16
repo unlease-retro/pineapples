@@ -8,28 +8,41 @@ import * as actions from './actions'
 import * as Components from './components'
 import { position as Position } from '../shared/components'
 import selectors from './selectors'
-import { perPage } from './constants'
+import { perPage, FIELDS } from './constants'
 import { buildLocationForReport, buildLocationForOrderInfo } from '../shared/util/location'
+import { toQueryString, objectWithStrippedProps } from '../../server/shared/util/misc'
 
 export class Report extends Component {
 
   componentWillMount() {
 
-    const { actions: { fetchPineapples }, location: { query: { page, sortBy, sortDirection } } } = this.props
+    const { actions: { fetchPineapples }, location: { query } } = this.props
 
-    fetchPineapples(page, sortBy, sortDirection)
+    fetchPineapples(toQueryString(query))
 
   }
 
   render() {
 
-    const { options, pineapples, actions, location: { query: { page } }, pineapplesCount } = this.props
-    const { setSort } = actions
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, pickedValue } = this.props
+    const { page } = query
+    const { setSort, setFilterShown } = actions
 
     return (
       <div>
-        <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} onRowItemClick={this.goToOrder.bind(this)}/>
-        <Position top='840px' left='calc(50% - 116px)'>
+        <Components.filter
+          setFilterShown={setFilterShown}
+          filterShown={filterShown}
+          filters={filters}
+          filterableOptions={filterableOptions}
+          dispatch={dispatch}
+          selectedFilter={selectedFilter}
+          pickedValue={pickedValue}
+          onFilterApplied={this.onFilterApplied.bind(this)}
+          filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')}
+          onFilterRemove={this.onFilterRemove.bind(this)} />
+        <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
+        <Position top='1040px' left='calc(50% - 116px)'>
           <Components.pagination
             page={parseInt(page) || 0}
             perPage={perPage}
@@ -51,17 +64,42 @@ export class Report extends Component {
 
   goToPage(page) {
 
-    const { actions: { fetchPineapples }, location: { query: { sortBy, sortDirection } }, dispatch } = this.props
-    fetchPineapples(page, sortBy, sortDirection)
-    dispatch(push(buildLocationForReport(page, sortBy, sortDirection)))
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString({ ...query, page })
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
 
   }
 
   onSortClick({ sortBy, sortDirection }) {
 
-    const { actions: { fetchPineapples }, location: { query: { page } }, dispatch } = this.props
-    fetchPineapples(page, sortBy, sortDirection)
-    dispatch(push(buildLocationForReport(page, sortBy, sortDirection)))
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString(objectWithStrippedProps({ ...query, sortBy, sortDirection }, 'page'))
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
+
+  }
+
+  onFilterApplied(selectedFilter, filterValue) {
+
+    // first time the boolean is undefined
+    const emptyValue = (!filterValue && FIELDS[selectedFilter].type instanceof Boolean) ? 'false' : ''
+
+    const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || emptyValue) }, 'page', 'sortBy', 'sortDirection'))
+    console.log(queryString)
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
+    setFilterShown(false)
+
+  }
+
+  onFilterRemove(filterToRemove) {
+
+    const { actions: { fetchPineapples }, location: { query }, dispatch } = this.props
+    const queryString = toQueryString(objectWithStrippedProps(query, filterToRemove, 'page', 'sortBy', 'sortDirection'))
+    fetchPineapples(queryString)
+    dispatch(push(buildLocationForReport(queryString)))
 
   }
 

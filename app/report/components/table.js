@@ -6,9 +6,9 @@ import { colors } from 'styles/settings'
 import { AutoSizer, FlexTable, FlexColumn, SortIndicator } from 'react-virtualized'
 import { getSortedList } from '../../shared/util/virtualized'
 import { getCapitalised } from '../../shared/util'
-import { DISPLAY_FIELDS } from '../constants'
+import { FIELDS } from '../constants'
 
-const Table = ({ list, options, setSort, onSortClick, onRowItemClick }) => {
+const Table = ({ list, options, setSort, onSortClick, showItem }) => {
 
   const { styles } = Table
 
@@ -23,7 +23,7 @@ const Table = ({ list, options, setSort, onSortClick, onRowItemClick }) => {
   // make headers sortable
   const headerRenderer = ({ dataKey, label, sortBy, sortDirection }) => ( <div>{ label } { sortBy === dataKey && <SortIndicator sortDirection={sortDirection} /> } </div> )
 
-  const renderColumns = DISPLAY_FIELDS.map( field => ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(field)} dataKey={field} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
+  const renderColumns = Object.keys(FIELDS).map(key => FIELDS[key]).filter(field => field.displayable).map(field => field.caption).map( caption => ( <FlexColumn key={uuid.v4()} headerRenderer={headerRenderer} label={getCapitalised(caption)} dataKey={caption} disableSort={!sortEnabled} width={1} flexGrow={1} flexShrink={0} /> ) )
 
   // handle sort -> dispatch action
   const onSort = ({ sortBy, sortDirection }) => {
@@ -33,7 +33,7 @@ const Table = ({ list, options, setSort, onSortClick, onRowItemClick }) => {
 
   }
 
-  const onRowClick = ({ index }) => onRowItemClick(rowGetter({ index }))
+  const onRowDoubleClick = ({ index }) => showItem(rowGetter({ index }))
 
   // custom renderer if no data
   const noRowsRenderer = () => ( <div className={css(styles.noRows)}>No rows</div> )
@@ -63,7 +63,7 @@ const Table = ({ list, options, setSort, onSortClick, onRowItemClick }) => {
             sortDirection={sortDirection}
             useDynamicRowHeight={useDynamicRowHeight}
             noRowsRenderer={noRowsRenderer}
-            onRowClick={onRowClick}
+            onRowDoubleClick={onRowDoubleClick}
           >
             { renderColumns }
           </FlexTable>

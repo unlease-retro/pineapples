@@ -2,6 +2,7 @@ import badge from './badge'
 import button from './button'
 import card from './card'
 import chip from './chip'
+import closableChip from './closableChip'
 import divider from './divider'
 import error from './error'
 import grid from './grid'
@@ -25,6 +26,7 @@ export {
   button,
   card,
   chip,
+  closableChip,
   divider,
   error,
   grid,

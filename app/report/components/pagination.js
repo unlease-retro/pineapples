@@ -14,7 +14,7 @@ class Pagination extends React.Component {
       <div>
 
         <Paginate
-          activePage={page}
+          activePage={page || 1}
           itemsCountPerPage={perPage}
           totalItemsCount={pineapplesCount}
           pageRangeDisplayed={5}
