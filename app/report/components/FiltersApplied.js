@@ -35,7 +35,7 @@ class FiltersApplied extends React.Component {
 
 FiltersApplied.styles = StyleSheet.create({
   isFormComponent: {
-    marginBottom: '20px'
+    marginBottom: '10px'
   }
 })
 

@@ -43,6 +43,7 @@ export class Report extends Component {
           onFilterRemove={this.onFilterRemove.bind(this)}
           pickedStartValue={pickedStartValue}
           pickedEndValue={pickedEndValue}
+          pineapplesCount={pineapplesCount}
         />
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='1040px' left='calc(50% - 116px)'>
