@@ -24,7 +24,7 @@ export class Report extends Component {
 
   render() {
 
-    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, pickedValue } = this.props
+    const { filterOptions: { filterShown, filters }, options, pineapples, actions, location: { query }, pineapplesCount, filterableOptions, dispatch, selectedFilter, pickedValue, pickedStartValue, pickedEndValue } = this.props
     const { page } = query
     const { setSort, setFilterShown } = actions
 
@@ -40,7 +40,11 @@ export class Report extends Component {
           pickedValue={pickedValue}
           onFilterApplied={this.onFilterApplied.bind(this)}
           filtersApplied={objectWithStrippedProps(query, 'page', 'sortBy', 'sortDirection')}
-          onFilterRemove={this.onFilterRemove.bind(this)} />
+          onFilterRemove={this.onFilterRemove.bind(this)}
+          pickedStartValue={pickedStartValue}
+          pickedEndValue={pickedEndValue}
+          pineapplesCount={pineapplesCount}
+        />
         <Components.table list={pineapples} options={options} setSort={setSort} onSortClick={this.onSortClick.bind(this)} showItem={this.goToOrder.bind(this)}/>
         <Position top='1040px' left='calc(50% - 116px)'>
           <Components.pagination
@@ -80,14 +84,38 @@ export class Report extends Component {
 
   }
 
-  onFilterApplied(selectedFilter, filterValue) {
-
-    // first time the boolean is undefined
-    const emptyValue = (!filterValue && FIELDS[selectedFilter].type instanceof Boolean) ? 'false' : ''
+  onFilterApplied(selectedFilter, filterValue, dateStartValue, dateEndValue) {
 
     const { actions: { fetchPineapples, setFilterShown }, location: { query }, dispatch } = this.props
-    const queryString = toQueryString(objectWithStrippedProps({ ...query, [selectedFilter]: (filterValue || emptyValue) }, 'page', 'sortBy', 'sortDirection'))
-    console.log(queryString)
+    const emptyValue = (!filterValue && FIELDS[selectedFilter].type instanceof Boolean) ? 'false' : ''
+
+    let queryStringObject = {}
+
+    if (FIELDS[selectedFilter].type instanceof Date) {
+
+      if (dateStartValue) {
+
+        let filterName = selectedFilter + 'Start'
+        queryStringObject[filterName] = dateStartValue
+
+
+      }
+      if (dateEndValue) {
+
+        let filterName = selectedFilter + 'End'
+        queryStringObject[filterName] = dateEndValue
+
+      }
+
+    }
+    else {
+
+      queryStringObject[selectedFilter] = (filterValue || emptyValue)
+
+    }
+
+    const queryString = toQueryString(objectWithStrippedProps({ ...query, ...queryStringObject }, 'page', 'sortBy', 'sortDirection'))
+
     fetchPineapples(queryString)
     dispatch(push(buildLocationForReport(queryString)))
     setFilterShown(false)

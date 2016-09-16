@@ -4,7 +4,7 @@ export const roles = [ 'SUPERUSER', 'MANAGER' ]
 
 export const FIELDS = {
   streetAddress: {
-    caption: 'streetAddress',
+    caption: 'street Address',
     key : 'streetAddress',
     type: new String(),
     displayable: true,
@@ -34,13 +34,13 @@ export const FIELDS = {
     displayable: true,
   },
   senderEmail: {
-    caption: 'senderEmail',
+    caption: 'sender Email',
     key : 'senderEmail',
     type: new String(),
     displayable: true,
   },
   companyName: {
-    caption: 'companyName',
+    caption: 'company Name',
     key : 'companyName',
     type: new String(),
     displayable: true,
@@ -64,14 +64,20 @@ export const FIELDS = {
     displayable: true,
   },
   phoneNumber: {
-    caption: 'phoneNumber',
+    caption: 'phone Number',
     key : 'phoneNumber',
     type: new String(),
     displayable: true,
   },
   createdAt: {
-    caption: 'createdAt',
+    caption: 'created At',
     key : 'createdAt',
+    type: new Date(),
+    displayable: true,
+  },
+  updatedAt: {
+    caption: 'Updated At',
+    key : 'updatedAt',
     type: new Date(),
     displayable: true,
   },

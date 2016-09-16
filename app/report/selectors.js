@@ -26,11 +26,25 @@ const getPickedValue = state =>
     && state.getIn(['form']).filterBuilder.values
     && state.getIn(['form']).filterBuilder.values.pickedValue
 
+const getPickedStartValue = state =>
+  state.getIn(['form'])
+    && state.getIn(['form']).filterBuilder
+    && state.getIn(['form']).filterBuilder.values
+    && state.getIn(['form']).filterBuilder.values.pickedStartValue
+
+const getPickedEndValue = state =>
+  state.getIn(['form'])
+    && state.getIn(['form']).filterBuilder
+    && state.getIn(['form']).filterBuilder.values
+    && state.getIn(['form']).filterBuilder.values.pickedEndValue
+
 export default {
   all: getAll,
   filterableOptions: getFilterableOptions,
   filterOptions: getFilterOptions,
   options: getOptions,
+  pickedEndValue: getPickedEndValue,
+  pickedStartValue: getPickedStartValue,
   pickedValue: getPickedValue,
   pineapples: getPineapples,
   pineapplesCount: getPineapplesCount,

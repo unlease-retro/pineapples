@@ -21,3 +21,44 @@ exports.toQueryString = obj => {
   return queryString ? `?${queryString}` : queryString
 
 }
+/*eslint-disable */
+function getQueryForDate(key, value, result) {
+
+  switch (true) {
+
+    case /.*AtStart$/.test(key): {
+      const dbDateField = key.split(/Start$/)[0]
+      result[dbDateField] = result[dbDateField] || {}
+      result[dbDateField].$gte = new Date(value)
+      break
+    }
+
+    case /.*AtEnd$/.test(key): {
+      const dbDateField = key.split(/End$/)[0]
+      result[dbDateField] = result[dbDateField] || {}
+      result[dbDateField].$lte = new Date(value)
+      break
+    }
+
+    default:
+      result[key] = value
+
+  }
+
+}
+/*eslint-enable */
+exports.constructFilterWithDateRange = (obj) => {
+
+  const result = {}
+
+  for (let prop in obj) {
+
+    const value = obj[prop]
+
+    getQueryForDate(prop, value, result)
+
+  }
+
+  return result
+
+}
