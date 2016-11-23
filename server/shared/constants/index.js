@@ -11,7 +11,7 @@ exports.POSTMARK_KEY = '4304dbb3-74a7-49e9-b417-6ca38b4bdefc'
 exports.EMAIL_FROM = 'noreply@unlease.io'
 exports.EMAIL_TEMPLATES = {
   writerTagsTemplate: 858128,
-  customerAfterOrderTemplate: 855381,
+  customerAfterOrderTemplate: 1100101,
   assignmentToRider: 892102,
   unassignmentToRider: 892121
 }
